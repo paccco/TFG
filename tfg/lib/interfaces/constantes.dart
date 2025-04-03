@@ -24,4 +24,5 @@ class Tamanios{
   static double get fuenteAniadir => 22.sp;
   static double get fuenteTitulo => 30.sp;
   static double get fuentePopUp => 16.sp;
+  static double get fuenteCajas => 20.sp;
 }
