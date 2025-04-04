@@ -11,9 +11,10 @@ class BarraNavegacion extends StatelessWidget{
   @override
   Widget build(BuildContext context){
 
-    final double tamBotones=15.w;
+    final double tamBotones=20.w;
 
     return Container(
+      height: tamBotones,
       color: Colores.grisClaro,
       child: Row(
         mainAxisSize: MainAxisSize.max,

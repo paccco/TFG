@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraNavegacion.dart';
-import 'package:tfg/interfaces/widgetsPersonalizados/CajaEjercicios.dart';
+import 'package:tfg/interfaces/widgetsPersonalizados/BotonEjercicios.dart';
 import '../widgetsPersonalizados/BarraTexto.dart';
 import '../widgetsPersonalizados/BotonBool.dart';
+import '../widgetsPersonalizados/TituloConSalida.dart';
 import '../constantes.dart';
 
 //AHORA MISMO LO PONGO COMO GLOBAL PARA QUE VAYA MAS RAPIDO
-
-List<Widget> ejercicios=[
-  CajaEjercicios(texto: "Ejercicio 1"),
-  CajaEjercicios(texto: "Ejercicio 2"),
-  CajaEjercicios(texto: "Ejercicio 3"),
-  CajaEjercicios(texto: "Ejercicio 4"),
-  CajaEjercicios(texto: "Ejercicio 5"),
-  CajaEjercicios(texto: "Ejercicio 6"),
-  CajaEjercicios(texto: "Ejercicio 7")
-];
 
 class ListaAniadir extends StatefulWidget {
   const ListaAniadir({super.key});
@@ -28,23 +19,67 @@ class ListaAniadir extends StatefulWidget {
 class ListaAniadirState extends State<ListaAniadir>{
 
   final int elementosVisibles=4;
+  List<Widget> ejercicios=[];
+  List<Widget> visible=[];
   int index=0;
 
-  void navegar(bool value){
-    if(value){
-      if(index+elementosVisibles > ejercicios.length)
-        index+=elementosVisibles;
-      else
-        index+=elementosVisibles;
-    }
+  Future<void> borrar() async{
 
-    if(!value && 0<(index-elementosVisibles)) {
+  }
+
+  Future<void> fetchContenido() async{
+    await Future.delayed(Duration(seconds: 2));
+
+    List<String> fetchedNombres = [
+      "Ejercicio 1",
+      "Ejercicio 2",
+      "Ejercicio 3",
+      "Ejercicio 4",
+      "Ejercicio 5",
+      "Ejercicio 6"
+    ];
+
+    setState(() {
+      for (var elemento in fetchedNombres) {
+        ejercicios.add(Botonejercicios(texto: elemento));
+      }
+
+      if(ejercicios.length>elementosVisibles) {
+        visible=ejercicios.sublist(0,elementosVisibles);
+      } else {
+        visible=ejercicios;
+      }
+
+      index=0;
+    });
+  }
+
+  void navegar(bool value){
+    int cont=0;
+    visible.clear();
+
+    if(value && (index+elementosVisibles)<ejercicios.length){
+      index+=elementosVisibles;
+    }else if(!value && (index-elementosVisibles)>=0){
       index-=elementosVisibles;
     }
+
+    while(cont<elementosVisibles && (index+cont)<ejercicios.length){
+      visible.add(ejercicios.elementAt(index+cont));
+      cont++;
+    }
+
+    setState(() {});
   }
 
   final TextEditingController contBarraBusqueda = TextEditingController();
   final TextEditingController contNomEjercicio = TextEditingController();
+
+  @override
+  void initState() {
+    fetchContenido();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext build){
@@ -65,18 +100,7 @@ class ListaAniadirState extends State<ListaAniadir>{
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(Tamanios.appBarH),
-          child: AppBar(
-              backgroundColor: Colores.azulOscuro,
-              title: Text("Mis ejercicios", style: TextStyle(color: Colores.blanco, fontSize: Tamanios.fuenteTitulo)),
-              leading: Container(
-                        width: Tamanios.appBarExitW,
-                        height: Tamanios.appBarH,
-                        decoration: BoxDecoration(
-                            color: Colores.naranja
-                        ),
-                        child: IconButton(onPressed: (){}, icon: Image.asset('assets/images/exit.png')),
-                    ),
-          ),
+          child: TituloConSalida(titulo: "Mis ejercicios")
       ),
         body: Container(
           color: Colores.grisClaro,
@@ -145,7 +169,7 @@ class ListaAniadirState extends State<ListaAniadir>{
                   * */
                   Column(
                     spacing: 5.0,
-                    children: visibe
+                    children: visible
                   )
                 ],
               )
