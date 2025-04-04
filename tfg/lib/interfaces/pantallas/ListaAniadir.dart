@@ -6,6 +6,7 @@ import '../widgetsPersonalizados/BarraTexto.dart';
 import '../widgetsPersonalizados/BotonBool.dart';
 import '../widgetsPersonalizados/TituloConSalida.dart';
 import '../constantes.dart';
+import '../../ConexionBDLocal.dart';
 
 //AHORA MISMO LO PONGO COMO GLOBAL PARA QUE VAYA MAS RAPIDO
 
@@ -28,20 +29,11 @@ class ListaAniadirState extends State<ListaAniadir>{
   }
 
   Future<void> fetchContenido() async{
-    await Future.delayed(Duration(seconds: 2));
-
-    List<String> fetchedNombres = [
-      "Ejercicio 1",
-      "Ejercicio 2",
-      "Ejercicio 3",
-      "Ejercicio 4",
-      "Ejercicio 5",
-      "Ejercicio 6"
-    ];
+    final elementosFetched = await BDLocal.instance.getNombreEjercicios();
 
     setState(() {
-      for (var elemento in fetchedNombres) {
-        ejercicios.add(Botonejercicios(texto: elemento));
+      for (var elemento in elementosFetched) {
+        ejercicios.add(Botonejercicios(texto: elemento.values.first));
       }
 
       if(ejercicios.length>elementosVisibles) {
@@ -69,11 +61,14 @@ class ListaAniadirState extends State<ListaAniadir>{
       cont++;
     }
 
+    print(ejercicios.length);
+
     setState(() {});
   }
 
   final TextEditingController contBarraBusqueda = TextEditingController();
   final TextEditingController contNomEjercicio = TextEditingController();
+  final TextEditingController descEjercicio = TextEditingController();
 
   @override
   void initState() {
@@ -86,6 +81,7 @@ class ListaAniadirState extends State<ListaAniadir>{
 
     final BarraTexto barraBusqueda=BarraTexto(controller: contBarraBusqueda,textoHint: "Buscar");
     final BarraTexto barraNombreEjer=BarraTexto(controller: contNomEjercicio, textoHint: "Nombre");
+    final BarraTexto barraDesc=BarraTexto(controller: descEjercicio, textoHint: "Descripcion");
 
     final BarraNavegacion barraNav=BarraNavegacion(navegar: navegar);
 
@@ -124,7 +120,7 @@ class ListaAniadirState extends State<ListaAniadir>{
                                       ),
                                       content: Container(
                                         color: Colores.grisClaro,
-                                        height: 45.h,
+                                        height: 52.h,
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -139,12 +135,45 @@ class ListaAniadirState extends State<ListaAniadir>{
                                                 repBot,pesoBot,tiemBot,distBot
                                               ],
                                             )),
+                                            Padding(padding: EdgeInsets.all(5),child: barraDesc),
                                             FilledButton(
                                               style: ButtonStyle(
                                                 backgroundColor: WidgetStateProperty.all(Colores.naranja)
                                               ),
                                                 onPressed: (){
-                                                  Navigator.of(context).pop();
+                                                  int codTipo;
+                                                  String desc, nombre;
+
+                                                  if(!contNomEjercicio.value.text.isEmpty){
+                                                    nombre=contNomEjercicio.value.text;
+                                                    if(!descEjercicio.value.text.isEmpty){
+                                                      desc=descEjercicio.value.text;
+                                                      if(repeticiones || tiempo){
+                                                        String byte="";
+
+                                                        byte += (repeticiones ? '1' : '0');
+                                                        byte += (tiempo ? '1' : '0');
+                                                        byte += (peso ? '1' : '0');
+                                                        byte += (distancia ? '1' : '0');
+                                                        byte += '0000';
+
+                                                        codTipo=int.parse(byte,radix: 2);
+
+                                                        Map<String,dynamic> datos={
+                                                          BDLocal.instance.camposEjercicios[0] :  nombre,
+                                                          BDLocal.instance.camposEjercicios[1] :  codTipo,
+                                                          BDLocal.instance.camposEjercicios[2] :  desc
+                                                        };
+
+                                                        BDLocal.instance.insertEjercicios(datos);
+                                                        setState(() {
+
+                                                        });
+                                                      }
+                                                    }
+                                                  }
+
+                                                  Navigator.pop(context);
                                                 },
                                                 child: Text("Guardar")
                                             )
