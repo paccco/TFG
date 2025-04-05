@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../PopUps/Confirmacion.dart';
 import '../constantes.dart';
+import '../../ConexionBDLocal.dart';
 
 class TituloConSalidaBorrar extends StatelessWidget{
 
@@ -9,7 +10,8 @@ class TituloConSalidaBorrar extends StatelessWidget{
   const TituloConSalidaBorrar({super.key, required this.titulo});
 
   void borrar(bool value, BuildContext context){
-    Navigator.pop(context);
+    BDLocal.instance.borrarEjer(this.titulo);
+    Navigator.pop(context,'SI');
   }
 
   @override

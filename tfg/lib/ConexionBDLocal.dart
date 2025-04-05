@@ -55,4 +55,9 @@ class BDLocal{
 
     return out;
   }
+  
+  Future<void> borrarEjer(String nombre) async{
+    final db = await instance.database;
+    await db.delete(ejercicios,where: '${camposEjercicios[0]} = ?', whereArgs: [nombre]);
+  }
 }

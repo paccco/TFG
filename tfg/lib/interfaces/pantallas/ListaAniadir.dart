@@ -24,30 +24,32 @@ class ListaAniadirState extends State<ListaAniadir>{
   List<Widget> visible=[];
   int index=0;
 
-  Future<void> borrar() async{
 
-  }
-
-  Future<void> fetchContenido() async{
+  void fetchContenido() async{
     final elementosFetched = await BDLocal.instance.getNombreEjercicios();
 
-    setState(() {
-      for (var elemento in elementosFetched) {
-        ejercicios.add(Botonejercicios(texto: elemento.values.first));
-      }
+    print(elementosFetched);
 
-      if(ejercicios.length>elementosVisibles) {
-        visible=ejercicios.sublist(0,elementosVisibles);
-      } else {
-        visible=ejercicios;
-      }
+    ejercicios.clear();
 
-      index=0;
-    });
+    for (var elemento in elementosFetched) {
+      ejercicios.add(Botonejercicios(texto: elemento.values.first,actualizar: fetchContenido));
+    }
+
+    if(ejercicios.length>elementosVisibles) {
+      visible=List.from(ejercicios.sublist(0,elementosVisibles));
+    } else {
+      visible=List.from(ejercicios);
+    }
+
+    index=0;
+
+    setState(() {});
   }
 
   void navegar(bool value){
     int cont=0;
+
     visible.clear();
 
     if(value && (index+elementosVisibles)<ejercicios.length){
@@ -64,6 +66,10 @@ class ListaAniadirState extends State<ListaAniadir>{
     print(ejercicios.length);
 
     setState(() {});
+  }
+
+  Future<void> borrarEjer(String nombre) async{
+
   }
 
   final TextEditingController contBarraBusqueda = TextEditingController();
@@ -166,14 +172,13 @@ class ListaAniadirState extends State<ListaAniadir>{
                                                         };
 
                                                         BDLocal.instance.insertEjercicios(datos);
-                                                        setState(() {
-
-                                                        });
+                                                        setState(() {});
                                                       }
                                                     }
                                                   }
 
                                                   Navigator.pop(context);
+                                                  fetchContenido();
                                                 },
                                                 child: Text("Guardar")
                                             )
