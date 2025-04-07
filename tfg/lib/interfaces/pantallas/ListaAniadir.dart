@@ -28,12 +28,10 @@ class ListaAniadirState extends State<ListaAniadir>{
   void fetchContenido() async{
     final elementosFetched = await BDLocal.instance.getNombreEjercicios();
 
-    print(elementosFetched);
-
     ejercicios.clear();
 
     for (var elemento in elementosFetched) {
-      ejercicios.add(Botonejercicios(texto: elemento.values.first,actualizar: fetchContenido));
+      ejercicios.add(Botonejercicios(texto: elemento));
     }
 
     if(ejercicios.length>elementosVisibles) {
@@ -154,7 +152,7 @@ class ListaAniadirState extends State<ListaAniadir>{
                                                     nombre=contNomEjercicio.value.text;
                                                     if(!descEjercicio.value.text.isEmpty){
                                                       desc=descEjercicio.value.text;
-                                                      if(repeticiones || tiempo){
+                                                      if(repeticiones || tiempo || distancia || peso){
                                                         String byte="";
 
                                                         byte += (repeticiones ? '1' : '0');
@@ -172,13 +170,17 @@ class ListaAniadirState extends State<ListaAniadir>{
                                                         };
 
                                                         BDLocal.instance.insertEjercicios(datos);
-                                                        setState(() {});
+                                                        Navigator.pop(context);
+                                                        fetchContenido();
+                                                      }else{
+                                                        showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellene el campo tipo "));});
                                                       }
+                                                    }else{
+                                                      showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellena la descripcion"));});
                                                     }
+                                                  }else{
+                                                    showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellene el nombre"));});
                                                   }
-
-                                                  Navigator.pop(context);
-                                                  fetchContenido();
                                                 },
                                                 child: Text("Guardar")
                                             )

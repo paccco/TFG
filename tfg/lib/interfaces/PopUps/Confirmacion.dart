@@ -18,8 +18,8 @@ class Confirmacion extends AlertDialog{
       alignment: Alignment.center,
       child: TextButton(
           onPressed: (){
-            decision("SI"==texto);
-            Navigator.pop(context);
+            decision('SI'==texto);
+            Navigator.pop(context,texto);
           },
           child: Text(texto,style: estilo)
       ),

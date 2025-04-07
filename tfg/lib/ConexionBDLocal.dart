@@ -49,9 +49,14 @@ class BDLocal{
     return out;
   }
 
-  Future<List<Map<String,dynamic>>> getNombreEjercicios() async{
+  Future<List<String>> getNombreEjercicios() async{
     final db= await instance.database;
-    final List<Map<String,dynamic>> out = await db.query(ejercicios,columns: [camposEjercicios[0]]);
+    final List<Map<String,dynamic>> aux = await db.query(ejercicios,columns: [camposEjercicios[0]]);
+
+    List<String> out=[];
+    for (var elemento in aux) {
+      out.add(elemento.values.first);
+    }
 
     return out;
   }
@@ -59,5 +64,24 @@ class BDLocal{
   Future<void> borrarEjer(String nombre) async{
     final db = await instance.database;
     await db.delete(ejercicios,where: '${camposEjercicios[0]} = ?', whereArgs: [nombre]);
+  }
+
+  Future<String> getDescripcionEjer(String nombre) async{
+    final db = await instance.database;
+    final List<Map<String,dynamic>> aux = await db.query(ejercicios,where: '${camposEjercicios[0]} = ?', whereArgs: [nombre],columns: [camposEjercicios[2]]);
+
+    return aux.first.values.first;
+  }
+
+  Future<bool> modDescripcionEjer(String desc, String nombre) async{
+    final db = await instance.database;
+    final res = await db.update(
+          ejercicios,
+          {camposEjercicios[2] : desc},
+          where: '${camposEjercicios[0]} = ?',
+          whereArgs: [nombre]
+        );
+
+    return res!=0;
   }
 }
