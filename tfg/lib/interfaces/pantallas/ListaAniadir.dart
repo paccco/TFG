@@ -29,7 +29,7 @@ class ListaAniadirState extends State<ListaAniadir>{
     visible.clear();
     int cont=0;
     while(cont<elementosVisibles && (index+cont)<ejerciciosFiltrados.length){
-      visible.add(Botonejercicios(texto: ejerciciosFiltrados[cont]));
+      visible.add(Botonejercicios(texto: ejerciciosFiltrados[index+cont]));
       cont++;
     }
   }
@@ -42,8 +42,13 @@ class ListaAniadirState extends State<ListaAniadir>{
     ejerciciosFiltrados=List.from(ejercicios);
     index=0;
 
-    setVisble();
+    int cont=0;
+    while(cont<elementosVisibles && (index+cont)<ejercicios.length){
+      visible.add(Botonejercicios(texto: ejercicios[cont]));
+      cont++;
+    }
 
+    setVisble();
     setState(() {});
   }
 
@@ -52,13 +57,13 @@ class ListaAniadirState extends State<ListaAniadir>{
       return ejercicio.toLowerCase().contains(query.toLowerCase());
     }).toList();
 
+    index=0;
     setVisble();
-
     setState(() {});
   }
 
   void navegar(bool value){
-    if(value && (index+elementosVisibles)<ejercicios.length){
+    if(value && (index+elementosVisibles)<ejerciciosFiltrados.length){
       index+=elementosVisibles;
       setVisble();
       setState(() {});
@@ -81,7 +86,6 @@ class ListaAniadirState extends State<ListaAniadir>{
 
   @override
   Widget build(BuildContext build){
-
     final BarraTexto barraBusqueda=BarraTexto(controller: contBarraBusqueda, textoHint: "Buscar",);
     final BarraTexto barraNombreEjer=BarraTexto(controller: contNomEjercicio, textoHint: "Nombre");
     final BarraTexto barraDesc=BarraTexto(controller: descEjercicio, textoHint: "Descripcion");
@@ -167,9 +171,9 @@ class ListaAniadirState extends State<ListaAniadir>{
                                                   int codTipo;
                                                   String desc, nombre;
 
-                                                  if(!contNomEjercicio.value.text.isEmpty){
+                                                  if(contNomEjercicio.value.text.isNotEmpty){
                                                     nombre=contNomEjercicio.value.text;
-                                                    if(!descEjercicio.value.text.isEmpty){
+                                                    if(descEjercicio.value.text.isNotEmpty){
                                                       desc=descEjercicio.value.text;
                                                       if(repeticiones || tiempo || distancia || peso){
                                                         String byte="";
@@ -188,7 +192,18 @@ class ListaAniadirState extends State<ListaAniadir>{
                                                           BDLocal.instance.camposEjercicios[2] :  desc
                                                         };
 
-                                                        BDLocal.instance.insertEjercicios(datos);
+                                                        BDLocal.instance.insertEjercicios(datos).then((value){
+                                                          if(value<0){
+                                                            showDialog(
+                                                                context: context,
+                                                                builder: (BuildContext context){
+                                                                  return AlertDialog(
+                                                                    title: Text("Fallo al guardar ejercicio"),
+                                                                  );
+                                                                }
+                                                            );
+                                                          }
+                                                        });
                                                         Navigator.pop(context);
                                                         fetchContenido();
                                                       }else{

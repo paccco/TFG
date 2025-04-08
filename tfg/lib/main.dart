@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/interfaces/pantallas/ListaAniadir.dart';
-import 'interfaces/pantallas/DatosEjercicios.dart';
 
 void main() {
   runApp(

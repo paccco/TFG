@@ -1,3 +1,4 @@
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -15,7 +16,7 @@ class BDLocal{
 
   final String marca='marca';
   final List<String> camposMarca=[
-    'fecha','id','repeticiones','tiempo','peso','distancia','unidades','nombreEjercicio'
+    'fecha','id','repeticiones','peso','tiempo','distancia','unidades','nombreEjercicio'
   ];
 
   Future<Database> get database async {
@@ -33,18 +34,63 @@ class BDLocal{
   }
 
   Future _onCreateDB(Database db, int version) async {
-    db.execute('''
+    await db.execute('PRAGMA foreign_keys = ON');
+    await db.execute('''
     CREATE TABLE $ejercicios(
     ${camposEjercicios[0]} STRING PRIMARY KEY,
-    ${camposEjercicios[1]} INT NOT NULL,
+    ${camposEjercicios[1]} TINYINT NOT NULL,
     ${camposEjercicios[2]} STRING[255]
+    )
+    ''');
+    await db.execute('''
+    CREATE TABLE $marca(
+    ${camposMarca[0]} DATE,
+    ${camposMarca[1]} INTEGER PRIMARY KEY,
+    ${camposMarca[2]} TINYINT,
+    ${camposMarca[3]} TIME,
+    ${camposMarca[4]} INT,
+    ${camposMarca[5]} INT,
+    ${camposMarca[6]} TINYINT,
+    ${camposMarca[7]} STRING,
+    FOREIGN KEY (${camposMarca[7]}) REFERENCES $ejercicios(${camposEjercicios[0]}) ON DELETE CASCADE
     )
     ''');
   }
 
-  Future<void> insertEjercicios(Map<String,dynamic> datos) async{
+  Future<void> deleteBD() async{
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, 'local.db');
+    deleteDatabase(path);
+  }
+
+  Future<int> insertEjercicios(Map<String,dynamic> datos) async{
     final db = await instance.database;
-    await db.insert(ejercicios, datos, conflictAlgorithm: ConflictAlgorithm.fail);
+    try{
+      await db.insert(ejercicios, datos, conflictAlgorithm: ConflictAlgorithm.fail);
+      await db.insert(marca, {
+        camposMarca[0] : '0000-00-00',
+        camposMarca[2] : 10,
+        camposMarca[3] : '12:34:56',
+        camposMarca[4] : 1280,
+        camposMarca[5] : 1280,
+        camposMarca[6] : 1,
+        camposMarca[7] : datos.values.first
+      });
+      await db.insert(marca, {
+        camposMarca[0] : '2025-01-01',
+        camposMarca[2] : 0,
+        camposMarca[3] : '00:00:00',
+        camposMarca[4] : 0,
+        camposMarca[5] : 0,
+        camposMarca[6] : 0,
+        camposMarca[7] : datos.values.first
+      });
+
+      return 0;
+    }catch(error){
+      print("\n $error \n");
+      return -1;
+    }
   }
 
   Future<List<Map<String,dynamic>>> getEjercicios() async{
@@ -88,5 +134,55 @@ class BDLocal{
         );
 
     return res!=0;
+  }
+
+  Future<void> insertMarca(Map<String,dynamic> datos) async{
+    final db = await instance.database;
+    await db.insert(ejercicios, datos, conflictAlgorithm: ConflictAlgorithm.fail);
+  }
+
+  Future<Map<String,dynamic>> getMetaActual(String ejercicio) async{
+    final db = await instance.database;
+    final out = await db.query(marca,where: '${camposMarca[0]} = ? AND ${camposMarca[7]} = ?', whereArgs: ['0000-00-00',ejercicio], columns: camposMarca.sublist(2,6));
+    return out.first;
+  }
+
+  Future<Map<String,dynamic>> getMarcaActual(String ejercicio) async{
+    final db = await instance.database;
+    final out = await db.query(marca,where: '${camposMarca[7]} = ?', whereArgs: [ejercicio], orderBy: '${camposMarca[0]} DESC', columns: camposMarca.sublist(2,6));
+    return out.first;
+  }
+
+  Future<void> modMeta(String ejercicio,{int repeticiones=-1, double peso=-1, String tiempo='', double distancia=-1, bool unidades=false}) async{
+    final db = await instance.database;
+
+    Map<String,dynamic> datos={};
+
+    if(repeticiones>0){
+      datos[camposMarca[2]]=repeticiones;
+    }
+    if(peso>0){
+      int aux=(peso*100).round();
+      datos[camposMarca[3]]=aux;
+    }
+    if(tiempo!=''){
+      datos[camposMarca[4]]=tiempo;
+    }
+    if(distancia>0){
+      int aux=(distancia*100).round();
+      datos[camposMarca[5]]=aux;
+      if(unidades==false){
+        datos[camposMarca[6]]=0;
+      }else{
+        datos[camposMarca[6]]=1;
+      }
+    }
+
+    await db.update(
+        marca,
+        where: '${camposMarca[7]} = ? AND ${camposMarca[0]} = ?',
+        whereArgs:[ejercicio,'0000-00-00'] ,
+        datos
+    );
   }
 }
