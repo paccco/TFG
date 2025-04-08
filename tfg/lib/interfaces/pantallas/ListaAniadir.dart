@@ -20,54 +20,53 @@ class ListaAniadir extends StatefulWidget {
 class ListaAniadirState extends State<ListaAniadir>{
 
   final int elementosVisibles=4;
-  List<Widget> ejercicios=[];
+  List<String> ejercicios=[];
+  List<String> ejerciciosFiltrados=[];
   List<Widget> visible=[];
   int index=0;
 
+  void setVisble(){
+    visible.clear();
+    int cont=0;
+    while(cont<elementosVisibles && (index+cont)<ejerciciosFiltrados.length){
+      visible.add(Botonejercicios(texto: ejerciciosFiltrados[cont]));
+      cont++;
+    }
+  }
 
   void fetchContenido() async{
     final elementosFetched = await BDLocal.instance.getNombreEjercicios();
 
-    ejercicios.clear();
+    ejercicios=List.from(elementosFetched);
 
-    for (var elemento in elementosFetched) {
-      ejercicios.add(Botonejercicios(texto: elemento));
-    }
-
-    if(ejercicios.length>elementosVisibles) {
-      visible=List.from(ejercicios.sublist(0,elementosVisibles));
-    } else {
-      visible=List.from(ejercicios);
-    }
-
+    ejerciciosFiltrados=List.from(ejercicios);
     index=0;
+
+    setVisble();
+
+    setState(() {});
+  }
+
+  void filtrar(String query){
+    ejerciciosFiltrados = ejercicios.where((ejercicio) {
+      return ejercicio.toLowerCase().contains(query.toLowerCase());
+    }).toList();
+
+    setVisble();
 
     setState(() {});
   }
 
   void navegar(bool value){
-    int cont=0;
-
-    visible.clear();
-
     if(value && (index+elementosVisibles)<ejercicios.length){
       index+=elementosVisibles;
+      setVisble();
+      setState(() {});
     }else if(!value && (index-elementosVisibles)>=0){
       index-=elementosVisibles;
+      setVisble();
+      setState(() {});
     }
-
-    while(cont<elementosVisibles && (index+cont)<ejercicios.length){
-      visible.add(ejercicios.elementAt(index+cont));
-      cont++;
-    }
-
-    print(ejercicios.length);
-
-    setState(() {});
-  }
-
-  Future<void> borrarEjer(String nombre) async{
-
   }
 
   final TextEditingController contBarraBusqueda = TextEditingController();
@@ -83,7 +82,7 @@ class ListaAniadirState extends State<ListaAniadir>{
   @override
   Widget build(BuildContext build){
 
-    final BarraTexto barraBusqueda=BarraTexto(controller: contBarraBusqueda,textoHint: "Buscar");
+    final BarraTexto barraBusqueda=BarraTexto(controller: contBarraBusqueda, textoHint: "Buscar",);
     final BarraTexto barraNombreEjer=BarraTexto(controller: contNomEjercicio, textoHint: "Nombre");
     final BarraTexto barraDesc=BarraTexto(controller: descEjercicio, textoHint: "Descripcion");
 
@@ -108,7 +107,27 @@ class ListaAniadirState extends State<ListaAniadir>{
           padding: EdgeInsets.all(20),
               child: Column(
                 children: [
-                  barraBusqueda,
+                  SizedBox(
+                    height: 8.h,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 74.w,
+                          child: barraBusqueda,
+                        ),
+                        Container(
+                          color: Colores.naranja,
+                          child: IconButton(
+                              onPressed: (){
+                                filtrar(contBarraBusqueda.text);
+
+                                },
+                              icon: Image.asset('assets/images/lupa.png')
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [

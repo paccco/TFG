@@ -70,6 +70,7 @@ flutter:
     - assets/images/flechaDer.png
     - assets/images/flechaIzq.png
     - assets/images/papelera.png
+    - assets/images/lupa.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

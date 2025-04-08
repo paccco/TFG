@@ -72,7 +72,7 @@ class DatosEjercicios extends StatelessWidget{
     Widget descripcion=descripcionMod(controladorDesc,context);
     TextStyle estiloTexto=TextStyle(color: Colores.negro, fontSize: 18.sp);
 
-    BDLocal.instance.get(titulo).then((value){
+    BDLocal.instance.getDescripcionEjer(titulo).then((value){
       controladorDesc.text=value;
     });
 

@@ -13,6 +13,11 @@ class BDLocal{
     'nombre', 'tipo', 'descripcion'
   ];
 
+  final String marca='marca';
+  final List<String> camposMarca=[
+    'fecha','id','repeticiones','tiempo','peso','distancia','unidades','nombreEjercicio'
+  ];
+
   Future<Database> get database async {
     if (_database != null) return _database!;
 
