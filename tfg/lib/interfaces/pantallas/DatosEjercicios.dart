@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSalidaBorrar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../ConexionBDLocal.dart';
@@ -10,12 +11,13 @@ class DatosEjercicios extends StatelessWidget{
 
   const DatosEjercicios ({super.key, required this.titulo});
 
-  Future<Widget> _fetchInfo() async{
+  Future<Widget> _fetchInfo(context) async{
     final datosEjercicio = await BDLocal.instance.getEjercicio(titulo);
 
     int tipoInt = datosEjercicio['tipo'];
     String tipo = tipoInt.toRadixString(2).padLeft(8,'0');
-    
+    TextEditingController controller=TextEditingController();
+    controller.text=datosEjercicio['descripcion'];
     
     final datosMarca = await BDLocal.instance.getMarcaActual(titulo);
     final datosMeta = await BDLocal.instance.getMetaActual(titulo);
@@ -40,15 +42,42 @@ class DatosEjercicios extends StatelessWidget{
       bottomNavigationBar: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 20,
         children: [
           _hacerBoton("Hacer grafica", (){}),
-          _hacerBoton("Descripcion", (){}),
+          Spacer(),
+          _hacerBoton("Descripcion", (){
+            showDialog(
+                context: context,
+                builder: (BuildContext context){
+                  return AlertDialog(
+                    backgroundColor: Colores.azulOscuro,
+                    content: BarraTexto(controller: controller,maxLineas: 5,),
+                    actions: [_hacerBoton("Guardar", () async{
+                        await BDLocal.instance.modDescripcionEjer(controller.value.text, titulo);
+                    })],
+                  );
+                });
+          }),
+          Spacer(),
           _hacerBoton("Nueva meta", (){})
         ],
       ),
     );
 
+  }
+
+  Widget _hacerBoton(String texto,void Function() onPres){
+
+    final TextStyle estiloBotones=TextStyle(color: Colores.blanco,fontSize: 21.sp);
+
+    return Container(
+        width: 30.w,
+        color: Colores.naranja,
+        child: TextButton(
+            onPressed: onPres,
+            child: Text(texto,style: estiloBotones)
+        )
+    );
   }
 
   List<DataRow> _construyeTabla(String tipo, Map<String,dynamic> meta,Map<String,dynamic> marca){
@@ -147,24 +176,10 @@ class DatosEjercicios extends StatelessWidget{
     return out;
   }
 
-  Widget _hacerBoton(String texto,void Function() onPres){
-
-    final TextStyle estiloBotones=TextStyle(color: Colores.blanco,fontSize: 21.sp);
-
-    return Container(
-        width: 28.w,
-        color: Colores.naranja,
-        child: TextButton(
-            onPressed: onPres,
-            child: Text(texto,style: estiloBotones)
-        )
-    );
-  }
-
   @override
   Widget build(BuildContext context){
     return FutureBuilder(
-        future: _fetchInfo(),
+        future: _fetchInfo(context),
         builder: (context,snapshot){
           if(snapshot.hasError){
             return Scaffold(
