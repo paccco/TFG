@@ -179,8 +179,8 @@ class ListaAniadirState extends State<ListaAniadir>{
                                                         String byte="";
 
                                                         byte += (repeticiones ? '1' : '0');
-                                                        byte += (tiempo ? '1' : '0');
                                                         byte += (peso ? '1' : '0');
+                                                        byte += (tiempo ? '1' : '0');
                                                         byte += (distancia ? '1' : '0');
                                                         byte += '0000';
 

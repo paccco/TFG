@@ -47,8 +47,8 @@ class BDLocal{
     ${camposMarca[0]} DATE,
     ${camposMarca[1]} INTEGER PRIMARY KEY,
     ${camposMarca[2]} TINYINT,
-    ${camposMarca[3]} TIME,
-    ${camposMarca[4]} INT,
+    ${camposMarca[3]} INT,
+    ${camposMarca[4]} TIME,
     ${camposMarca[5]} INT,
     ${camposMarca[6]} TINYINT,
     ${camposMarca[7]} STRING,
@@ -70,8 +70,8 @@ class BDLocal{
       await db.insert(marca, {
         camposMarca[0] : '0000-00-00',
         camposMarca[2] : 10,
-        camposMarca[3] : '12:34:56',
-        camposMarca[4] : 1280,
+        camposMarca[3] : 1280,
+        camposMarca[4] : '12:34:56',
         camposMarca[5] : 1280,
         camposMarca[6] : 1,
         camposMarca[7] : datos.values.first
@@ -79,8 +79,8 @@ class BDLocal{
       await db.insert(marca, {
         camposMarca[0] : '2025-01-01',
         camposMarca[2] : 0,
-        camposMarca[3] : '00:00:00',
-        camposMarca[4] : 0,
+        camposMarca[3] : 0,
+        camposMarca[4] : '00:00:00',
         camposMarca[5] : 0,
         camposMarca[6] : 0,
         camposMarca[7] : datos.values.first
@@ -98,6 +98,13 @@ class BDLocal{
     final List<Map<String,dynamic>> out = await db.query(ejercicios);
 
     return out;
+  }
+
+  Future<Map<String,dynamic>> getEjercicio(String nombre) async{
+    final db = await instance.database;
+    final List<Map<String,dynamic>> out = await db.query(ejercicios,where: '${camposEjercicios[0]} = ?',whereArgs: [nombre]);
+
+    return out.first;
   }
 
   Future<List<String>> getNombreEjercicios() async{

@@ -10,94 +10,149 @@ class DatosEjercicios extends StatelessWidget{
 
   const DatosEjercicios ({super.key, required this.titulo});
 
-  Widget descripcionMod(TextEditingController controller, BuildContext context){
-    return FutureBuilder(
-        future: BDLocal.instance.getDescripcionEjer(titulo),
-        builder: (context,snapshot){
-          if(snapshot.hasData){
-            controller.text=snapshot.data ?? '';
-            return Container(
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colores.azul,
-                        border: OutlineInputBorder()
-                    ),
-                    maxLines: 5,
-                    controller: controller,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Container(
-                      margin: EdgeInsets.all(5),
-                      child: hacerBoton("Guardar",() async{
+  Future<Widget> _fetchInfo() async{
+    final datosEjercicio = await BDLocal.instance.getEjercicio(titulo);
 
-                        String mensaje="";
-                        bool aux = await BDLocal.instance.modDescripcionEjer(controller.value.text, titulo);
+    int tipoInt = datosEjercicio['tipo'];
+    String tipo = tipoInt.toRadixString(2).padLeft(8,'0');
+    
+    
+    final datosMarca = await BDLocal.instance.getMarcaActual(titulo);
+    final datosMeta = await BDLocal.instance.getMetaActual(titulo);
 
-                        if(!aux){
-                          mensaje="Fallo al modificar descripcion";
-                        }else{
-                          mensaje="Descripcion modificada con exito";
-                        }
-
-                        showDialog(context: context, builder: (BuildContext context){
-                          return AlertDialog(title: Text(mensaje));
-                        });
-                      })
-                  )
-                ],
-              ),
-            );
-          }else if(snapshot.hasError){
-            return Center(child: Text("ERROR",style: TextStyle(fontSize: 40.sp),));
-          }
-
-          return CircularProgressIndicator();
-        }
+    return Scaffold(
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(Tamanios.appBarH),
+          child: TituloConSalidaBorrar(titulo: titulo)
+      ),
+      body: DataTable(
+        columnSpacing: 6.w,
+        dataRowMinHeight: 10.h,
+        dataRowMaxHeight: 15.h,
+        columns: [
+          DataColumn(label: Text(''), columnWidth: FixedColumnWidth(28.w)),
+          DataColumn(label: Text('Marca actual')),
+          DataColumn(label: Text('Meta')),
+          DataColumn(label: Text('')),
+        ],
+        rows: _construyeTabla(tipo,datosMeta,datosMarca),
+      ),
+      bottomNavigationBar: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 20,
+        children: [
+          _hacerBoton("Hacer grafica", (){}),
+          _hacerBoton("Descripcion", (){}),
+          _hacerBoton("Nueva meta", (){})
+        ],
+      ),
     );
+
   }
 
-  Future<String> construyeMarcaMeta(bool modo) async{
+  List<DataRow> _construyeTabla(String tipo, Map<String,dynamic> meta,Map<String,dynamic> marca){
 
-    String out="";
-    Map<String,dynamic> datos={};
+    List<DataRow> out=List.empty(growable: true);
 
-    if(modo){
-      out="Marca actual: ";
-      datos = await BDLocal.instance.getMarcaActual(titulo);
-    }else{
-      out="Meta actual: ";
-      datos = await BDLocal.instance.getMetaActual(titulo);
+    if(tipo[0]=='1'){
+      out.add(
+        DataRow(cells: _construyeFila('REPETICIONES',marca['repeticiones'], meta['repeticiones'])),
+      );
     }
+    if(tipo[1]=='1'){
 
-    datos.forEach((key,valor){
-      if(key!='unidades'){
-        out+="$key $valor ";
+      String marcaT=marca['tiempo'],metaT=meta['tiempo'];
+      String tiempos="$marcaT|$metaT";
+
+      out.add(
+        DataRow(cells: _construyeFila('TIEMPO',time2Int(marcaT),time2Int(metaT),esTiempo: tiempos))
+      );
+    }
+    if(tipo[2]=='1'){
+      out.add(
+        DataRow(cells: _construyeFila('PESO',marca['peso'], meta['peso'],esDouble: true))
+      );
+    }if(tipo[3]=='1'){
+      String aux="";
+
+      if(tipo[4]=='1'){
+        aux="KM";
       }else{
-        if(valor){
-          out+=" km";
-        }else{
-          out+=" m";
-        }
+        aux="M";
       }
-    });
 
-    if(modo){
-      out+="\nValoracion: 4.5 / 5";
-    }else{
-      out+="\nSin cumplir";
+      out.add(
+        DataRow(cells: _construyeFila('DISTANCIA',marca['distancia'], meta['distancia'],unidades: aux,esDouble: true)),
+      );
     }
+
 
     return out;
   }
 
-  Widget hacerBoton(String texto,void Function() onPres){
+  int time2Int(String value){
+    final List<String> aux = value.split(':');
+    int res=0;
+
+    res+=int.parse(aux[0])*24;
+    res+=int.parse(aux[1])*60;
+    res+=int.parse(aux[2])*60;
+
+    return res;
+  }
+
+  List<DataCell> _construyeFila(String nombre, int marca, int meta,{bool esDouble=false, String esTiempo = '', String unidades=''}){
+    List<DataCell> out=List.empty(growable: true);
+
+    if(esDouble){
+      double auxMarca=marca/100,
+              auxMeta=meta/100;
+
+      out.addAll([
+        DataCell(Text(nombre)),
+        DataCell(Text("$auxMarca")),
+        DataCell(Text("$auxMeta"))
+      ]);
+    }else if(esTiempo.isNotEmpty){
+      List<String> aux=esTiempo.split('|');
+
+      out.addAll([
+        DataCell(Text(nombre)),
+        DataCell(Text(aux[0])),
+        DataCell(Text(aux[1]))
+      ]);
+    } else if(unidades.isNotEmpty){
+      out.addAll([
+        DataCell(Text(nombre)),
+        DataCell(Text("$marca $unidades")),
+        DataCell(Text("$meta $unidades"))
+      ]);
+    } else{
+      out.addAll([
+        DataCell(Text(nombre)),
+        DataCell(Text("$marca")),
+        DataCell(Text("$meta"))
+      ]);
+    }
+
+    double tamIconos=7.w;
+
+    if(marca>=meta){
+      out.add(DataCell(Image.asset('assets/images/check.png',width: tamIconos,height: tamIconos)));
+    } else {
+      out.add(DataCell(Image.asset('assets/images/forbidden.png',width: tamIconos,height: tamIconos)));
+    }
+    
+    return out;
+  }
+
+  Widget _hacerBoton(String texto,void Function() onPres){
 
     final TextStyle estiloBotones=TextStyle(color: Colores.blanco,fontSize: 21.sp);
 
     return Container(
+        width: 28.w,
         color: Colores.naranja,
         child: TextButton(
             onPressed: onPres,
@@ -106,69 +161,32 @@ class DatosEjercicios extends StatelessWidget{
     );
   }
 
-  Widget containerWrap(Widget content){
-    return Container(width: 37.w,margin: EdgeInsets.all(10),child: content);
-  }
-
   @override
   Widget build(BuildContext context){
+    return FutureBuilder(
+        future: _fetchInfo(),
+        builder: (context,snapshot){
+          if(snapshot.hasError){
+            return Scaffold(
+              appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(Tamanios.appBarH),
+                  child: TituloConSalidaBorrar(titulo: titulo)
+              ),
+              body: Center(child: Text("ERROR : ${snapshot.error}")),
+            );
+          }else if(snapshot.hasData){
+            return snapshot.data!;
+          }else {
+            return Scaffold(
+              appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(Tamanios.appBarH),
+                  child: TituloConSalidaBorrar(titulo: titulo)
+              ),
+              body: Center(child: Text("No hay datos disponibles")),
+            );
+          }
 
-    TextEditingController controladorDesc=TextEditingController();
-    Widget descripcion=descripcionMod(controladorDesc,context);
-
-    return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(Tamanios.appBarH),
-          child: TituloConSalidaBorrar(titulo: titulo)
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        color: Colores.grisClaro,
-        child: Padding(
-          padding: EdgeInsets.all(15),
-            child: Column(
-              spacing: 20,
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                descripcion,
-                Wrap(
-                  spacing: 12,
-                  children: [
-                    FutureBuilder<String>(
-                      future: construyeMarcaMeta(true),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return containerWrap(CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return containerWrap(Text("Error: ${snapshot.error}"));
-                        } else if (snapshot.hasData) {
-                          return containerWrap(Text(snapshot.data ?? ''));
-                        }
-                        return containerWrap(Text('No hay datos'));
-                      }
-                    ),
-                    containerWrap(hacerBoton("Graficar según tiempo",(){})),
-                    FutureBuilder<String>(
-                        future: construyeMarcaMeta(false),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return containerWrap(CircularProgressIndicator());
-                          } else if (snapshot.hasError) {
-                            return containerWrap(Text("Error: ${snapshot.error}"));
-                          } else if (snapshot.hasData) {
-                            return containerWrap(Text(snapshot.data ?? ''));
-                          }
-                          return containerWrap(Text('No hay datos'));
-                        }
-                    ),
-                    containerWrap(hacerBoton("Establecer meta",(){}))
-                  ],
-                )
-              ],
-            ),
-        ),
-      ),
-    );
+          return CircularProgressIndicator();
+        });
   }
 }
