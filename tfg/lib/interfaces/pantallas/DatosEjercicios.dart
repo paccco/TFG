@@ -59,11 +59,137 @@ class DatosEjercicios extends StatelessWidget{
                 });
           }),
           Spacer(),
-          _hacerBoton("Nueva meta", (){})
+          _hacerBoton("Nueva meta", () {
+
+            TextEditingController rpc,tc,psc,dtc;
+            List<Widget> miWrap=List.empty(growable: true);
+
+            rpc=TextEditingController();
+            tc=TextEditingController();
+            psc=TextEditingController();
+            dtc=TextEditingController();
+
+            if(tipo[0]=='1'){
+              miWrap.add(
+                _nuevaMetaNum(rpc, "REPETICIONES")
+              );
+            }
+            if(tipo[1]=='1'){
+              miWrap.add(
+                  _nuevaMetaNum(tc, "TIEMPO",tiempo: true)
+              );
+            }
+            if(tipo[2]=='1'){
+              miWrap.add(
+                  _nuevaMetaNum(psc, "PESO", decimal: true)
+              );
+            }if(tipo[3]=='1'){
+              miWrap.add(
+                  _nuevaMetaNum(dtc, "DISTANCIA", decimal: true)
+              );
+            }
+
+            showDialog(
+                context: context,
+                builder: (BuildContext context){
+                  return AlertDialog(
+                    title: Text("Nueva meta",style: TextStyle(fontSize: Tamanios.fuenteTitulo,color: Colores.blanco),),
+                    backgroundColor: Colores.azulOscuro,
+                    content: Column(
+                        spacing: 5,
+                        mainAxisSize: MainAxisSize.min,
+                        children: miWrap
+                      ),
+                    actions: [
+                      _hacerBoton("Guardar", () async {
+                        Map<String,dynamic> aux={};
+
+                        if(tipo[0]=='1' && rpc.value.text.isNotEmpty){
+                          try{
+                            aux['repeticiones']=int.parse(rpc.value.text);
+                          }catch(exception){
+                            mensajeError(context, "Repeticiones: Usa un numero positivo sin comas");
+                          }
+                        }
+                        if(tipo[1]=='1' && tc.value.text.isNotEmpty){
+                          final horaVal = tc.value.text;
+                          if(validarFormatoHora(horaVal)) {
+                            aux['tiempo'] = horaVal;
+                          }else{
+                            aux['tiempo'] = false;
+                          }
+                        }
+                        if(tipo[2]=='1' && psc.value.text.isNotEmpty){
+                          try{
+                            aux['peso']=double.parse(psc.value.text);
+                          }catch(exception){
+                            mensajeError(context, "Peso: Usa un numero con punto");
+                          }
+                        }
+                        if(tipo[3]=='1' && dtc.value.text.isNotEmpty){
+                         try{
+                           aux['distancia']=double.parse(dtc.value.text);
+                         }catch(execption){
+                           mensajeError(context, "Distancia: Usa un numero con punto");
+                         }
+                        }
+
+                        if(aux.values.contains(false)){
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context){
+                                return AlertDialog(title: Text("Formato de hora incorrecto: hh:mm:ss"),);
+                              }
+                          );
+                        } else if(aux.isNotEmpty){
+                          await BDLocal.instance.modMeta(titulo,aux);
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        }else{
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context){
+                                return AlertDialog(title: Text("Rellena los campos"),);
+                              }
+                          );
+                        }
+                      })
+                    ],
+                  );
+                }
+            );
+          })
         ],
       ),
     );
 
+  }
+
+  void mensajeError(BuildContext context, String correccion){
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: Text("Error de formato: $correccion"),
+          );
+        }
+    );
+  }
+
+  bool validarFormatoHora(String hora) {
+    final regexHora = RegExp(r'^\d{2}:\d{2}:\d{2}$');
+    if (!regexHora.hasMatch(hora)) {
+      return false;
+    }
+
+    final partes = hora.split(':');
+    final horas = int.parse(partes[0]);
+    final minutos = int.parse(partes[1]);
+    final segundos = int.parse(partes[2]);
+
+    return horas >= 0 && horas <= 23 &&
+        minutos >= 0 && minutos <= 59 &&
+        segundos >= 0 && segundos <= 59;
   }
 
   Widget _hacerBoton(String texto,void Function() onPres){
@@ -79,6 +205,28 @@ class DatosEjercicios extends StatelessWidget{
         )
     );
   }
+
+  Widget _nuevaMetaNum(TextEditingController controller, String label,{bool decimal=false, bool tiempo=false}){
+    TextInputType aux;
+
+    if(tiempo){
+      aux=TextInputType.datetime;
+    }else{
+      aux=TextInputType.numberWithOptions(decimal: decimal);
+    }
+
+    return TextFormField(
+      keyboardType: aux,
+      decoration: InputDecoration(
+        filled: true, 
+          fillColor: Colores.azul,
+        labelText: label
+      ),
+      controller: controller,
+    );
+  }
+
+
 
   List<DataRow> _construyeTabla(String tipo, Map<String,dynamic> meta,Map<String,dynamic> marca){
 

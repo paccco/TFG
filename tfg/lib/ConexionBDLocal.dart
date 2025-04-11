@@ -160,29 +160,18 @@ class BDLocal{
     return out.first;
   }
 
-  Future<void> modMeta(String ejercicio,{int repeticiones=-1, double peso=-1, String tiempo='', double distancia=-1, bool unidades=false}) async{
+  Future<void> modMeta(String ejercicio,Map<String,dynamic> datos) async{
     final db = await instance.database;
 
-    Map<String,dynamic> datos={};
+    Map<String,dynamic> datosAu=Map.of(datos);
 
-    if(repeticiones>0){
-      datos[camposMarca[2]]=repeticiones;
-    }
-    if(peso>0){
-      int aux=(peso*100).round();
+    if(datosAu.containsKey(camposMarca[3])){
+      int aux=(datosAu[camposMarca[3]]*100).round();
       datos[camposMarca[3]]=aux;
     }
-    if(tiempo!=''){
-      datos[camposMarca[4]]=tiempo;
-    }
-    if(distancia>0){
-      int aux=(distancia*100).round();
+    if(datosAu.containsKey(camposMarca[5])){
+      int aux=(datosAu[camposMarca[5]]*100).round();
       datos[camposMarca[5]]=aux;
-      if(unidades==false){
-        datos[camposMarca[6]]=0;
-      }else{
-        datos[camposMarca[6]]=1;
-      }
     }
 
     await db.update(
