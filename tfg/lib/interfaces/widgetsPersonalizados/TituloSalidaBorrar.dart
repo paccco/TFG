@@ -9,7 +9,7 @@ class TituloConSalidaBorrar extends StatelessWidget{
 
   const TituloConSalidaBorrar({super.key, required this.titulo});
 
-  void borrar(bool value, BuildContext context){
+  void _borrar(bool value, BuildContext context){
     BDLocal.instance.borrarEjer(titulo);
     Navigator.pop(context);
   }
@@ -40,7 +40,7 @@ class TituloConSalidaBorrar extends StatelessWidget{
                   showDialog(
                       context: context,
                       builder: (BuildContext context){
-                        return Confirmacion(decision: (value)=>borrar(value, context));
+                        return Confirmacion(decision: (value)=>_borrar(value, context));
                       }
                   );
                 },

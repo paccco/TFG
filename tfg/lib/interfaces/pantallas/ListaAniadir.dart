@@ -25,7 +25,7 @@ class ListaAniadirState extends State<ListaAniadir>{
   List<Widget> visible=[];
   int index=0;
 
-  void setVisble(){
+  void _setVisble(){
     visible.clear();
     int cont=0;
     while(cont<elementosVisibles && (index+cont)<ejerciciosFiltrados.length){
@@ -34,7 +34,7 @@ class ListaAniadirState extends State<ListaAniadir>{
     }
   }
 
-  void fetchContenido() async{
+  void _fetchContenido() async{
     final elementosFetched = await BDLocal.instance.getNombreEjercicios();
 
     ejercicios=List.from(elementosFetched);
@@ -48,28 +48,28 @@ class ListaAniadirState extends State<ListaAniadir>{
       cont++;
     }
 
-    setVisble();
+    _setVisble();
     setState(() {});
   }
 
-  void filtrar(String query){
+  void _filtrar(String query){
     ejerciciosFiltrados = ejercicios.where((ejercicio) {
       return ejercicio.toLowerCase().contains(query.toLowerCase());
     }).toList();
 
     index=0;
-    setVisble();
+    _setVisble();
     setState(() {});
   }
 
-  void navegar(bool value){
+  void _navegar(bool value){
     if(value && (index+elementosVisibles)<ejerciciosFiltrados.length){
       index+=elementosVisibles;
-      setVisble();
+      _setVisble();
       setState(() {});
     }else if(!value && (index-elementosVisibles)>=0){
       index-=elementosVisibles;
-      setVisble();
+      _setVisble();
       setState(() {});
     }
   }
@@ -80,7 +80,7 @@ class ListaAniadirState extends State<ListaAniadir>{
 
   @override
   void initState() {
-    fetchContenido();
+    _fetchContenido();
     super.initState();
   }
 
@@ -90,7 +90,7 @@ class ListaAniadirState extends State<ListaAniadir>{
     final BarraTexto barraNombreEjer=BarraTexto(controller: contNomEjercicio, textoHint: "Nombre");
     final BarraTexto barraDesc=BarraTexto(controller: descEjercicio, textoHint: "Descripcion");
 
-    final BarraNavegacion barraNav=BarraNavegacion(navegar: navegar);
+    final BarraNavegacion barraNav=BarraNavegacion(navegar: _navegar);
 
     bool repeticiones, peso, tiempo, distancia;
     repeticiones=peso=tiempo=distancia=false;
@@ -123,8 +123,7 @@ class ListaAniadirState extends State<ListaAniadir>{
                           color: Colores.naranja,
                           child: IconButton(
                               onPressed: (){
-                                filtrar(contBarraBusqueda.text);
-
+                                _filtrar(contBarraBusqueda.text);
                                 },
                               icon: Image.asset('assets/images/lupa.png')
                           ),
@@ -205,7 +204,7 @@ class ListaAniadirState extends State<ListaAniadir>{
                                                           }
                                                         });
                                                         Navigator.pop(context);
-                                                        fetchContenido();
+                                                        _fetchContenido();
                                                       }else{
                                                         showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellene el campo tipo "));});
                                                       }

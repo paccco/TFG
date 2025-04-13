@@ -8,7 +8,7 @@ class Confirmacion extends AlertDialog{
 
   const Confirmacion({super.key, required this.decision});
 
-  Widget construyeBoton(String texto, Color color, BuildContext context){
+  Widget _construyeBoton(String texto, Color color, BuildContext context){
 
     final TextStyle estilo=TextStyle(color: Colores.blanco, fontSize: 29.sp);
 
@@ -39,9 +39,9 @@ class Confirmacion extends AlertDialog{
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            construyeBoton("SI",Colores.azul,context),
+            _construyeBoton("SI",Colores.azul,context),
             Spacer(),
-            construyeBoton("NO",Colores.naranja,context)
+            _construyeBoton("NO",Colores.naranja,context)
           ],
         ),
       )

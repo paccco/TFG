@@ -4,6 +4,7 @@ import 'package:tfg/interfaces/widgetsPersonalizados/TituloSalidaBorrar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../ConexionBDLocal.dart';
 import '../constantes.dart';
+import '../PopUps/DialogosError.dart';
 
 class DatosEjercicios extends StatelessWidget{
 
@@ -113,7 +114,7 @@ class DatosEjercicios extends StatelessWidget{
                         }
                         if(tipo[1]=='1' && tc.value.text.isNotEmpty){
                           final horaVal = tc.value.text;
-                          if(validarFormatoHora(horaVal)) {
+                          if(_validarFormatoHora(horaVal)) {
                             aux['tiempo'] = horaVal;
                           }else{
                             aux['tiempo'] = false;
@@ -165,18 +166,7 @@ class DatosEjercicios extends StatelessWidget{
 
   }
 
-  void mensajeError(BuildContext context, String correccion){
-    showDialog(
-        context: context,
-        builder: (BuildContext context){
-          return AlertDialog(
-            title: Text("Error de formato: $correccion"),
-          );
-        }
-    );
-  }
-
-  bool validarFormatoHora(String hora) {
+  bool _validarFormatoHora(String hora) {
     final regexHora = RegExp(r'^\d{2}:\d{2}:\d{2}$');
     if (!regexHora.hasMatch(hora)) {
       return false;
@@ -243,7 +233,7 @@ class DatosEjercicios extends StatelessWidget{
       String tiempos="$marcaT|$metaT";
 
       out.add(
-        DataRow(cells: _construyeFila('TIEMPO',time2Int(marcaT),time2Int(metaT),esTiempo: tiempos))
+        DataRow(cells: _construyeFila('TIEMPO',_time2Int(marcaT),_time2Int(metaT),esTiempo: tiempos))
       );
     }
     if(tipo[2]=='1'){
@@ -268,7 +258,7 @@ class DatosEjercicios extends StatelessWidget{
     return out;
   }
 
-  int time2Int(String value){
+  int _time2Int(String value){
     final List<String> aux = value.split(':');
     int res=0;
 

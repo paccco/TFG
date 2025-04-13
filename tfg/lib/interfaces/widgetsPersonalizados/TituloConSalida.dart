@@ -11,7 +11,7 @@ class TituloConSalida extends StatelessWidget{
   Widget build(BuildContext context){
     return AppBar(
         backgroundColor: Colores.azulOscuro,
-        title: Text("Mis ejercicios", style: TextStyle(color: Colores.blanco, fontSize: Tamanios.fuenteTitulo)),
+        title: Text(titulo, style: TextStyle(color: Colores.blanco, fontSize: Tamanios.fuenteTitulo)),
         leading: Container(
           width: Tamanios.appBarExitW,
           height: Tamanios.appBarH,

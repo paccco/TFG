@@ -69,11 +69,11 @@ class BDLocal{
       await db.insert(ejercicios, datos, conflictAlgorithm: ConflictAlgorithm.fail);
       await db.insert(marca, {
         camposMarca[0] : '0000-00-00',
-        camposMarca[2] : 10,
-        camposMarca[3] : 1280,
-        camposMarca[4] : '12:34:56',
-        camposMarca[5] : 1280,
-        camposMarca[6] : 1,
+        camposMarca[2] : 0,
+        camposMarca[3] : 0,
+        camposMarca[4] : '00:00:00',
+        camposMarca[5] : 0,
+        camposMarca[6] : 0,
         camposMarca[7] : datos.values.first
       });
       await db.insert(marca, {

@@ -17,7 +17,7 @@ class Colores {
 }
 
 class Tamanios{
-  static double get appBarH => 8.4.h;
+  static double get appBarH => 8.5.h;
   static double get appBarExitW => 15.5.w;
   static double get appBarTextW => 75.w;
   static double get botonAniadir => 8.h;

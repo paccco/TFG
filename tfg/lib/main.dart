@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/ConexionBDLocal.dart';
 import 'package:tfg/interfaces/pantallas/ListaAniadir.dart';
+import 'package:tfg/interfaces/pantallas/LogSignIn.dart';
 
 void main(){
   runApp(
@@ -13,7 +14,7 @@ void main(){
               // Puedes personalizar más el tema aquí
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
-            home:  ListaAniadir(),
+            home:  LogSignIn(),
           );
         },
       )

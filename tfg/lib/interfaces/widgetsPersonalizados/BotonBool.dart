@@ -21,10 +21,10 @@ class BotonBoolState extends State<BotonBool>{
   void initState() {
     super.initState();
     miBoolLocal=widget.miBool;
-    setColor();
+    _setColor();
   }
 
-  void setColor(){
+  void _setColor(){
     if(miBoolLocal) {
       colorBoton=Colores.azul;
     } else {
@@ -40,7 +40,7 @@ class BotonBoolState extends State<BotonBool>{
             onPressed: (){
               miBoolLocal=!miBoolLocal;
               widget.cambio(miBoolLocal);
-              setColor();
+              _setColor();
               setState(() {});
             },
             child: Text(widget.texto, style: TextStyle(color: Colores.blanco))
