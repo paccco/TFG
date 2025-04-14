@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:tfg/ConexionBDRemota.dart';
 import 'package:tfg/interfaces/PopUps/DialogosError.dart';
+import 'package:tfg/interfaces/pantallas/LogSignIn.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloConSalida.dart';
-import '../constantes.dart';
+import '../../constantes.dart';
 
-class Singin1 extends StatelessWidget{
+class Singin1 extends StatefulWidget {
   const Singin1({super.key});
+
+  @override
+  Singin1State createState() => Singin1State();
+}
+
+class Singin1State extends State<Singin1>{
+  final TextEditingController _userC= TextEditingController(),
+      _passC=TextEditingController(),
+      _passC2=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
 
     TextStyle estiloTexto=TextStyle(color: Colores.negro,fontSize: 22.sp);
-    TextEditingController userC= TextEditingController(),
-        passC=TextEditingController(),
-        passC2=TextEditingController();
 
     return Scaffold(
       backgroundColor: Colores.grisClaro,
@@ -27,29 +35,37 @@ class Singin1 extends StatelessWidget{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          spacing: 20,
+          spacing: 10,
           children: [
             Text("Nombre usuario",style: estiloTexto),
-            BarraTexto(controller: userC),
+            BarraTexto(controller: _userC),
             Text("Contraseña",style: estiloTexto),
-            BarraTexto(controller: passC),
+            BarraTexto(controller: _passC),
             Text("Repite Contraseña",style: estiloTexto),
-            BarraTexto(controller: passC2)
+            BarraTexto(controller: _passC2)
           ],
         ),
       ),
       bottomNavigationBar: Container(
         color: Colores.azul,
         child: TextButton(
-            onPressed: (){
-              final usuario = userC.value.text;
-              final passwd = passC.value.text;
-              final passwd2 = passC2.value.text;
+            onPressed: () async{
+              final usuario = _userC.value.text;
+              final passwd = _passC.value.text;
+              final passwd2 = _passC2.value.text;
 
                 if(usuario.isNotEmpty && passwd.isNotEmpty && passwd2.isNotEmpty){
-                  //Añadir comprobacion de si existe el usuario
                   if(passwd.compareTo(passwd2)==0){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Singin2()));
+
+                    final aux=await existeUser(usuario);
+
+                    if(aux==1){
+                      mensaje(context, "Ya existe es usuario");
+                    }else if(aux==-1){
+                      mensaje(context, "Error en el servidor");
+                    }else{
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Singin2(usuario: usuario,passwd: passwd)));
+                    }
                   }else{
                     mensajeError(context, "Las contraseñas no coinciden");
                   }
@@ -65,24 +81,29 @@ class Singin1 extends StatelessWidget{
 }
 
 class Singin2 extends StatefulWidget {
-  const Singin2({super.key});
+
+  final String passwd, usuario;
+
+  const Singin2({super.key, required this.passwd, required this.usuario});
 
   @override
   Singin2State createState() => Singin2State();
 }
 
 class Singin2State extends State<Singin2>{
-
   String? generoSeleccionado = 'Prefiero no decirlo';
   final List<String> generos = ['Hombre', 'Mujer', 'Prefiero no decirlo'];
+  final TextEditingController peC=TextEditingController(),
+      alC=TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
 
     TextStyle estiloTexto=TextStyle(color: Colores.negro,fontSize: 20.sp);
-    TextEditingController feC= TextEditingController(),
-        peC=TextEditingController(),
-        alC=TextEditingController();
+
+    DateTime fechaN=DateTime.now();
+    String fechaFormato="";
 
     return Scaffold(
       backgroundColor: Colores.grisClaro,
@@ -98,7 +119,22 @@ class Singin2State extends State<Singin2>{
           spacing: 10,
           children: [
             Text("Fecha Nacimiento",style: estiloTexto),
-            BarraTexto(controller: feC),
+            Container(
+              color: Colores.azul,
+              child: TextButton(
+                  onPressed: () async {
+                    fechaN = await showDatePicker(
+                        context: context,
+                        firstDate: DateTime(1940,1,1),
+                        lastDate: DateTime.now()
+                    ) ?? fechaN;
+
+                    final aux=fechaN.toString();
+                    fechaFormato=aux.split(' ').first;
+                  },
+                  child: Text("Seleccionar",style: TextStyle(color: Colores.blanco),)
+              ),
+            ),
             Text("Género",style: estiloTexto),
             DropdownButton<String>(
               value: generoSeleccionado,
@@ -124,13 +160,34 @@ class Singin2State extends State<Singin2>{
       bottomNavigationBar: Container(
         color: Colores.azul,
         child: TextButton(
-            onPressed: (){
-              final fecha = feC.value.text;
+            onPressed: () async{
               final peso = peC.value.text;
               final altura = alC.value.text;
 
-              if(fecha.isNotEmpty && peso.isNotEmpty && altura.isNotEmpty){
-                //Cargar menu principal y comprobaciones
+              if(fechaN!=DateTime.now() && peso.isNotEmpty && altura.isNotEmpty){
+                final regexPeso = RegExp(r'^\d{1,3}\.\d$'); // ej. 72.5, 100.0
+                final regexAlt = RegExp(r'^[1-9][0-9]{1,2}$'); // desde 10 hasta 999 cm
+
+                if(regexAlt.hasMatch(altura)&&regexPeso.hasMatch(peso)){
+                  storage.write(key: 'peso', value: peso);
+                  storage.write(key: 'altura', value: altura);
+                  storage.write(key: 'fechaN', value: fechaFormato);
+
+                  final aux = await singin(widget.usuario, widget.passwd);
+                  if(aux){
+                    mensaje(context, "Error al insertar usuario");
+                  }else{
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => LogSignIn()),
+                          (route) => false,
+                    );
+                    mensaje(context, "Cuenta creada correctamente");
+                  }
+                }else{
+                  mensajeError(context, "Altura en cm sin decimales, peso solo con un decimal");
+                }
+
               }else{
                 mensajeError(context, "Rellena los campos");
               }

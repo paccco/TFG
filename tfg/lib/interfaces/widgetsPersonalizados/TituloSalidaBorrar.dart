@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../PopUps/Confirmacion.dart';
-import '../constantes.dart';
+import '../../constantes.dart';
 import '../../ConexionBDLocal.dart';
 
 class TituloConSalidaBorrar extends StatelessWidget{

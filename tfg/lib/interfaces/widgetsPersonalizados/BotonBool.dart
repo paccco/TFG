@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../constantes.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+import '../../constantes.dart';
 
 class BotonBool extends StatefulWidget{
   final bool miBool;
@@ -36,6 +37,7 @@ class BotonBoolState extends State<BotonBool>{
   Widget build(BuildContext context){
     return Container(
         color: colorBoton,
+        margin: EdgeInsets.all(1.w),
         child: TextButton(
             onPressed: (){
               miBoolLocal=!miBoolLocal;

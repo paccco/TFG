@@ -5,10 +5,9 @@ import 'package:tfg/interfaces/widgetsPersonalizados/BotonEjercicios.dart';
 import '../widgetsPersonalizados/BarraTexto.dart';
 import '../widgetsPersonalizados/BotonBool.dart';
 import '../widgetsPersonalizados/TituloConSalida.dart';
-import '../constantes.dart';
+import '../../constantes.dart';
 import '../../ConexionBDLocal.dart';
 
-//AHORA MISMO LO PONGO COMO GLOBAL PARA QUE VAYA MAS RAPIDO
 
 class ListaAniadir extends StatefulWidget {
   const ListaAniadir({super.key});
@@ -92,6 +91,8 @@ class ListaAniadirState extends State<ListaAniadir>{
 
     final BarraNavegacion barraNav=BarraNavegacion(navegar: _navegar);
 
+    final tamLupa=5.h;
+
     bool repeticiones, peso, tiempo, distancia;
     repeticiones=peso=tiempo=distancia=false;
 
@@ -125,7 +126,7 @@ class ListaAniadirState extends State<ListaAniadir>{
                               onPressed: (){
                                 _filtrar(contBarraBusqueda.text);
                                 },
-                              icon: Image.asset('assets/images/lupa.png')
+                              icon: Image.asset('assets/images/lupa.png',height: tamLupa, width: tamLupa,)
                           ),
                         )
                       ],
@@ -145,10 +146,10 @@ class ListaAniadirState extends State<ListaAniadir>{
                                           child: Text("Añadir ejercicios",style: TextStyle(color: Colores.blanco)),
                                       ),
                                       content: Container(
+                                        height: 45.h,
                                         color: Colores.grisClaro,
-                                        height: 52.h,
                                         child: Column(
-                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisSize: MainAxisSize.min,
                                           crossAxisAlignment: CrossAxisAlignment.stretch,
                                           children: [
                                             Container(padding: EdgeInsets.all(5),child: Text("Nombre",style: TextStyle(fontSize: Tamanios.fuentePopUp))),
@@ -156,7 +157,6 @@ class ListaAniadirState extends State<ListaAniadir>{
                                             Container(padding: EdgeInsets.all(5), child: Text("Parámetros", style: TextStyle(fontSize: Tamanios.fuentePopUp))),
                                             Expanded(child: Wrap(
                                               alignment: WrapAlignment.center,
-                                              spacing: 10.0,
                                               children: [
                                                 repBot,pesoBot,tiemBot,distBot
                                               ],

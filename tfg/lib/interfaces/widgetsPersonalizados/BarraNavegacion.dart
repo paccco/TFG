@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:tfg/interfaces/constantes.dart';
+import 'package:tfg/constantes.dart';
 
 class BarraNavegacion extends StatelessWidget{
 

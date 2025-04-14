@@ -3,7 +3,7 @@ import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSalidaBorrar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../ConexionBDLocal.dart';
-import '../constantes.dart';
+import '../../constantes.dart';
 import '../PopUps/DialogosError.dart';
 
 class DatosEjercicios extends StatelessWidget{
@@ -54,7 +54,12 @@ class DatosEjercicios extends StatelessWidget{
                     backgroundColor: Colores.azulOscuro,
                     content: BarraTexto(controller: controller,maxLineas: 5,),
                     actions: [_hacerBoton("Guardar", () async{
-                        await BDLocal.instance.modDescripcionEjer(controller.value.text, titulo);
+                        final aux=await BDLocal.instance.modDescripcionEjer(controller.value.text, titulo);
+                        if(aux){
+                          mensaje(context, "Se ha modificado correctamente");
+                        }else{
+                          mensajeError(context, "Fallo al modificar");
+                        }
                     })],
                   );
                 });
@@ -94,7 +99,7 @@ class DatosEjercicios extends StatelessWidget{
                 context: context,
                 builder: (BuildContext context){
                   return AlertDialog(
-                    title: Text("Nueva meta",style: TextStyle(fontSize: Tamanios.fuenteTitulo,color: Colores.blanco),),
+                    title: Text("Nueva meta",style: TextStyle(fontSize: 27.sp ,color: Colores.blanco),),
                     backgroundColor: Colores.azulOscuro,
                     content: Column(
                         spacing: 5,

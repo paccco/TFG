@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/interfaces/pantallas/DatosEjercicios.dart';
 import 'package:tfg/interfaces/pantallas/ListaAniadir.dart';
-import '../constantes.dart';
+import '../../constantes.dart';
 
 class Botonejercicios extends StatelessWidget{
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tfg/interfaces/pantallas/LogIn.dart';
 import 'package:tfg/interfaces/pantallas/Signin.dart';
 import '../widgetsPersonalizados/TituloSimple.dart';
-import '../constantes.dart';
+import '../../constantes.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class LogSignIn extends StatelessWidget{

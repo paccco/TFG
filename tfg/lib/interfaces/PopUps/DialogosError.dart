@@ -10,3 +10,13 @@ void mensajeError(BuildContext context, String correccion){
       }
   );
 }
+void mensaje(BuildContext context, String correccion){
+  showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text(correccion),
+        );
+      }
+  );
+}

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../constantes.dart';
+import '../../constantes.dart';
 
 class Confirmacion extends AlertDialog{
 

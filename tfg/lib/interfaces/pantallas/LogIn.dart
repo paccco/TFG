@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:tfg/interfaces/PopUps/DialogosError.dart';
-import 'package:tfg/interfaces/constantes.dart';
+import 'package:tfg/constantes.dart';
+import 'package:tfg/interfaces/pantallas/MenuPrinciapal.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloConSalida.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../../ConexionBDRemota.dart';
 
-class Login extends StatelessWidget{
+class Login extends StatefulWidget {
   const Login({super.key});
 
   @override
-  Widget build(BuildContext context){
+  LoginState createState() => LoginState();
+}
 
-    TextEditingController nomC=TextEditingController(), passC=TextEditingController();
+class LoginState extends State<Login>{
+
+  final TextEditingController nomC=TextEditingController(), passC=TextEditingController();
+
+  @override
+  Widget build(BuildContext context){
     final TextStyle estiloTexto=TextStyle(color: Colores.negro,fontSize: 25.sp);
 
     return Scaffold(
@@ -36,12 +44,22 @@ class Login extends StatelessWidget{
       bottomNavigationBar: Container(
         color: Colores.azul,
         child: TextButton(
-            onPressed: (){
+            onPressed: () async {
               final nombre = nomC.value.text;
               final passwd = passC.value.text;
 
               if(nombre.isNotEmpty && passwd.isNotEmpty){
-                //comprobar
+                final res = await login(nombre, passwd);
+                if(res){
+                  storage.write(key: 'usuario', value: nombre);
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => MenuPrincipal()),
+                        (route) => false,
+                  );
+                }else{
+                  mensajeError(context, "Credenciales incorrectos");
+                }
               }else{
                 mensajeError(context, "Rellena los campos");
               }
