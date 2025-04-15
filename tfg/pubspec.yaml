@@ -79,6 +79,7 @@ flutter:
     - assets/images/forbidden.png
     - assets/images/user.png
     - assets/images/ejercicio.png
+    - assets/images/rutina.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

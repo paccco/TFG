@@ -19,6 +19,11 @@ class BDLocal{
     'fecha','id','repeticiones','peso','tiempo','distancia','unidades','nombreEjercicio'
   ];
 
+  final String rutinas='rutinas';
+  final List<String> camposRutinas=[
+    'nombre','descripcion','ejercicios'
+  ];
+
   Future<Database> get database async {
     if (_database != null) return _database!;
 
@@ -53,6 +58,14 @@ class BDLocal{
     ${camposMarca[6]} TINYINT,
     ${camposMarca[7]} STRING,
     FOREIGN KEY (${camposMarca[7]}) REFERENCES $ejercicios(${camposEjercicios[0]}) ON DELETE CASCADE
+    )
+    ''');
+
+    await db.execute('''
+    CREATE TABLE $rutinas(
+    ${camposRutinas[0]} STRING PRIMARY KEY,
+    ${camposRutinas[1]} STRING[255],
+    ${camposRutinas[2]} STRING NOT NULL
     )
     ''');
   }
@@ -180,5 +193,26 @@ class BDLocal{
         whereArgs:[ejercicio,'0000-00-00'] ,
         datos
     );
+  }
+
+  Future<bool> insertRutina(String nombre, String descripcion, String ejercicios) async{
+    final db = await instance.database;
+
+    Map<String,dynamic> datos={
+      camposRutinas[0] : nombre,
+      camposRutinas[1] : descripcion,
+      camposRutinas[2] : ejercicios
+    };
+
+    final res = await db.insert(rutinas, datos, conflictAlgorithm: ConflictAlgorithm.fail);
+    return res!=0;
+  }
+
+  Future<List<String>> getNombresRutinas() async{
+    final db = await instance.database;
+    final mapa = await db.query(rutinas,columns: [camposRutinas[0]]);
+    final List<String> out = mapa.map((e) => e.values.first as String).toList();
+
+    return out;
   }
 }

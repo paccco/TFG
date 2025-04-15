@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:tfg/interfaces/pantallas/DatosEjercicios.dart';
-import 'package:tfg/interfaces/pantallas/ListaAniadir.dart';
 import '../../constantes.dart';
 
 class Botonejercicios extends StatelessWidget{
 
   final String texto;
+  final Function() func;
 
-  const Botonejercicios({super.key,required this.texto});
+  const Botonejercicios({super.key,required this.texto, required this.func});
 
   @override
   Widget build(BuildContext context){
@@ -18,14 +17,7 @@ class Botonejercicios extends StatelessWidget{
       padding: EdgeInsets.all(20),
       alignment: Alignment.centerLeft,
       child: TextButton(
-          onPressed: () async{
-            final res = await Navigator.push(context, MaterialPageRoute(builder: (constext)=>DatosEjercicios(titulo: texto)));
-
-            if(res=='SI'){
-              Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (constext)=>ListaAniadir()));
-            }
-          }, 
+          onPressed: func,
           child: Text(texto,style: TextStyle(color: Colores.blanco, fontSize: 20.sp))
       ),
     );

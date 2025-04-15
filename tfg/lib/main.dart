@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/interfaces/pantallas/LogSignIn.dart';
-import 'package:tfg/interfaces/pantallas/MenuPrinciapal.dart';
+import 'package:tfg/interfaces/pantallas/MenuPrincipal.dart';
 import 'constantes.dart';
 import 'ConexionBDRemota.dart';
 

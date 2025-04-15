@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './DatosEjercicios.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraNavegacion.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BotonEjercicios.dart';
@@ -9,14 +10,14 @@ import '../../constantes.dart';
 import '../../ConexionBDLocal.dart';
 
 
-class ListaAniadir extends StatefulWidget {
-  const ListaAniadir({super.key});
+class ListaEjercicios extends StatefulWidget {
+  const ListaEjercicios({super.key});
 
   @override
-  ListaAniadirState createState() => ListaAniadirState();
+  ListaEjerciciosState createState() => ListaEjerciciosState();
 }
 
-class ListaAniadirState extends State<ListaAniadir>{
+class ListaEjerciciosState extends State<ListaEjercicios>{
 
   final int elementosVisibles=4;
   List<String> ejercicios=[];
@@ -28,8 +29,18 @@ class ListaAniadirState extends State<ListaAniadir>{
     visible.clear();
     int cont=0;
     while(cont<elementosVisibles && (index+cont)<ejerciciosFiltrados.length){
-      visible.add(Botonejercicios(texto: ejerciciosFiltrados[index+cont]));
+      final aux=ejerciciosFiltrados[index+cont];
+      visible.add(Botonejercicios(texto: aux, func: ()=>_cargarDatosEjercicio(aux)));
       cont++;
+    }
+  }
+
+  Future<void> _cargarDatosEjercicio(String texto) async{
+    final res = await Navigator.push(context, MaterialPageRoute(builder: (constext)=>DatosEjercicios(titulo: texto)));
+
+    if(res=='SI'){
+      Navigator.pop(context);
+      Navigator.push(context, MaterialPageRoute(builder: (constext)=>ListaEjercicios()));
     }
   }
 
@@ -43,7 +54,8 @@ class ListaAniadirState extends State<ListaAniadir>{
 
     int cont=0;
     while(cont<elementosVisibles && (index+cont)<ejercicios.length){
-      visible.add(Botonejercicios(texto: ejercicios[cont]));
+      final aux=ejercicios[cont];
+      visible.add(Botonejercicios(texto: aux,func: () => _cargarDatosEjercicio(aux)));
       cont++;
     }
 
@@ -91,8 +103,6 @@ class ListaAniadirState extends State<ListaAniadir>{
 
     final BarraNavegacion barraNav=BarraNavegacion(navegar: _navegar);
 
-    final tamLupa=5.h;
-
     bool repeticiones, peso, tiempo, distancia;
     repeticiones=peso=tiempo=distancia=false;
 
@@ -126,7 +136,7 @@ class ListaAniadirState extends State<ListaAniadir>{
                               onPressed: (){
                                 _filtrar(contBarraBusqueda.text);
                                 },
-                              icon: Image.asset('assets/images/lupa.png',height: tamLupa, width: tamLupa,)
+                              icon: Image.asset('assets/images/lupa.png',height: Tamanios.lupa, width: Tamanios.lupa,)
                           ),
                         )
                       ],
@@ -246,5 +256,12 @@ class ListaAniadirState extends State<ListaAniadir>{
         ),
       bottomNavigationBar: barraNav
     );
+  }
+
+  @override void dispose() {
+    contBarraBusqueda.dispose();
+    contNomEjercicio.dispose();
+    descEjercicio.dispose();
+    super.dispose();
   }
 }

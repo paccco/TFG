@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:tfg/interfaces/pantallas/ListaAniadir.dart';
+import 'package:tfg/interfaces/pantallas/ListaEjercicios.dart';
+import 'package:tfg/interfaces/pantallas/ListaRutinas.dart';
 import 'package:tfg/interfaces/pantallas/MiPerfil.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSimple.dart';
 import '../../constantes.dart';
@@ -50,22 +51,24 @@ class MneuPrincipalState extends State<MenuPrincipal>{
         spacing: 5,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             height: tamSecciones,
             child: Placeholder(),
           ),
-          Container(
+          SizedBox(
             height: tamSecciones,
             child: Wrap(
               children: [
                 _cajaElemento("Mis Ejercicios", Colores.azul, 'assets/images/ejercicio.png' ,(){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ListaAniadir()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ListaEjercicios()));
                 }),
                 _cajaElemento("Mi perfil", Colores.azul, 'assets/images/user.png', () async {
                   final String aux=await storage.read(key: 'usuario') ?? '';
                   Navigator.push(context, MaterialPageRoute(builder: (context) => MiPerfil(usuario: aux)));
                 }),
-                _cajaElemento("Mis Ejercicios", Colores.azul, 'assets/images/user.png',(){}),
+                _cajaElemento("Mis Rutinas", Colores.azul, 'assets/images/rutina.png',(){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ListaRutinas()));
+                }),
                 _cajaElemento("Mis Ejercicios", Colores.azul, 'assets/images/user.png',(){})
               ],
             )
