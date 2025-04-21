@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'constantes.dart';
 
-final ipPuerto="192.168.1.202:3000";
+final ipPuerto="192.168.0.20:3000";
 
 Future<bool> login(String user, String passwd) async {
   final url = Uri.parse('http://$ipPuerto/login');

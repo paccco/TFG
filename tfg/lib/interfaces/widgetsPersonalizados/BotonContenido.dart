@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../constantes.dart';
 
-class Botonejercicios extends StatelessWidget{
+class BotonContenido extends StatelessWidget{
 
   final String texto;
   final Function() func;
 
-  const Botonejercicios({super.key,required this.texto, required this.func});
+  const BotonContenido({super.key,required this.texto, required this.func});
 
   @override
   Widget build(BuildContext context){

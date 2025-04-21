@@ -1,62 +1,56 @@
 import 'package:flutter/material.dart';
-import './DatosEjercicios.dart';
+import '../../../constantes.dart';
+import '../../widgetsPersonalizados/BotonContenido.dart';
+import '../../widgetsPersonalizados/BarraTexto.dart';
+import '../../widgetsPersonalizados/TituloConSalida.dart';
+import '../../widgetsPersonalizados/BarraNavegacion.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:tfg/interfaces/widgetsPersonalizados/BarraNavegacion.dart';
-import 'package:tfg/interfaces/widgetsPersonalizados/BotonEjercicios.dart';
-import '../widgetsPersonalizados/BarraTexto.dart';
-import '../widgetsPersonalizados/BotonBool.dart';
-import '../widgetsPersonalizados/TituloConSalida.dart';
-import '../../constantes.dart';
-import '../../ConexionBDLocal.dart';
 
+class ListaBusqueda extends StatefulWidget{
+  final String titulo;
+  final Future<List<String>> Function() cargarContenido;
+  final void Function(BuildContext context,String nombre) cargarElemento;
 
-class AniadirEjerRutina extends StatefulWidget {
-  const AniadirEjerRutina({super.key});
+  const ListaBusqueda({super.key, required this.titulo, required this.cargarContenido, required this.cargarElemento});
 
   @override
-  AniadirEjerRutinaState createState() => AniadirEjerRutinaState();
+  _ListaBusquedaState createState() => _ListaBusquedaState();
 }
 
-class AniadirEjerRutinaState extends State<AniadirEjerRutina>{
-
+class _ListaBusquedaState extends State<ListaBusqueda>{
   final int elementosVisibles=4;
-  List<String> ejercicios=[];
-  List<String> ejerciciosFiltrados=[];
+  List<String> contenido=[];
+  List<String> filtrados=[];
   List<Widget> visible=[];
   int index=0;
 
   void _setVisble(){
     visible.clear();
     int cont=0;
-    while(cont<elementosVisibles && (index+cont)<ejerciciosFiltrados.length){
-      final aux=ejerciciosFiltrados[index+cont];
-      visible.add(Botonejercicios(texto: aux, func: ()=>Navigator.pop(context,aux)));
+    while(cont<elementosVisibles && (index+cont)<filtrados.length){
+      final aux=filtrados[index+cont];
+      visible.add(BotonContenido(texto: aux, func: ()=> widget.cargarElemento(context,aux)));
       cont++;
     }
   }
 
   void _fetchContenido() async{
-    final elementosFetched = await BDLocal.instance.getNombreEjercicios();
 
-    ejercicios=List.from(elementosFetched);
+    final elementosFetched = await widget.cargarContenido();
 
-    ejerciciosFiltrados=List.from(ejercicios);
+    contenido=List.from(elementosFetched);
+
+    filtrados=List.from(contenido);
     index=0;
 
-    int cont=0;
-    while(cont<elementosVisibles && (index+cont)<ejercicios.length){
-      final aux=ejercicios[cont];
-      visible.add(Botonejercicios(texto: aux,func: () => Navigator.pop(context,aux)));
-      cont++;
-    }
-
     _setVisble();
+
     setState(() {});
   }
 
   void _filtrar(String query){
-    ejerciciosFiltrados = ejercicios.where((ejercicio) {
-      return ejercicio.toLowerCase().contains(query.toLowerCase());
+    filtrados = contenido.where((elemento) {
+      return elemento.toLowerCase().contains(query.toLowerCase());
     }).toList();
 
     index=0;
@@ -65,7 +59,7 @@ class AniadirEjerRutinaState extends State<AniadirEjerRutina>{
   }
 
   void _navegar(bool value){
-    if(value && (index+elementosVisibles)<ejerciciosFiltrados.length){
+    if(value && (index+elementosVisibles)<filtrados.length){
       index+=elementosVisibles;
       _setVisble();
       setState(() {});
@@ -77,8 +71,6 @@ class AniadirEjerRutinaState extends State<AniadirEjerRutina>{
   }
 
   final TextEditingController contBarraBusqueda = TextEditingController();
-  final TextEditingController contNomEjercicio = TextEditingController();
-  final TextEditingController descEjercicio = TextEditingController();
 
   @override
   void initState() {
@@ -89,13 +81,13 @@ class AniadirEjerRutinaState extends State<AniadirEjerRutina>{
   @override
   Widget build(BuildContext build){
     final BarraTexto barraBusqueda=BarraTexto(controller: contBarraBusqueda, textoHint: "Buscar",);
-
     final BarraNavegacion barraNav=BarraNavegacion(navegar: _navegar);
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(Tamanios.appBarH),
-            child: TituloConSalida(titulo: "Mis ejercicios")
+            child: TituloConSalida(titulo: widget.titulo)
         ),
         body: Container(
           color: Colores.grisClaro,
@@ -123,9 +115,6 @@ class AniadirEjerRutinaState extends State<AniadirEjerRutina>{
                       ],
                     ),
                   ),
-                  /*
-                  * Los elementos irian aqui
-                  * */
                   Column(
                       spacing: 5.0,
                       children: visible
@@ -140,8 +129,6 @@ class AniadirEjerRutinaState extends State<AniadirEjerRutina>{
 
   @override void dispose() {
     contBarraBusqueda.dispose();
-    contNomEjercicio.dispose();
-    descEjercicio.dispose();
     super.dispose();
   }
 }

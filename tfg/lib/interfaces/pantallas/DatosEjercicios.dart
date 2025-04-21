@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../ConexionBDLocal.dart';
 import '../../constantes.dart';
 import '../PopUps/DialogosError.dart';
+import '../../funcionesAux.dart';
 
 class DatosEjercicios extends StatelessWidget{
 
@@ -119,7 +120,7 @@ class DatosEjercicios extends StatelessWidget{
                         }
                         if(tipo[1]=='1' && tc.value.text.isNotEmpty){
                           final horaVal = tc.value.text;
-                          if(_validarFormatoHora(horaVal)) {
+                          if(validarFormatoHora(horaVal)) {
                             aux['tiempo'] = horaVal;
                           }else{
                             aux['tiempo'] = false;
@@ -169,22 +170,6 @@ class DatosEjercicios extends StatelessWidget{
       ),
     );
 
-  }
-
-  bool _validarFormatoHora(String hora) {
-    final regexHora = RegExp(r'^\d{2}:\d{2}:\d{2}$');
-    if (!regexHora.hasMatch(hora)) {
-      return false;
-    }
-
-    final partes = hora.split(':');
-    final horas = int.parse(partes[0]);
-    final minutos = int.parse(partes[1]);
-    final segundos = int.parse(partes[2]);
-
-    return horas >= 0 && horas <= 23 &&
-        minutos >= 0 && minutos <= 59 &&
-        segundos >= 0 && segundos <= 59;
   }
 
   Widget _hacerBoton(String texto,void Function() onPres){

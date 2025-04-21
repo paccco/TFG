@@ -21,7 +21,7 @@ class BDLocal{
 
   final String rutinas='rutinas';
   final List<String> camposRutinas=[
-    'nombre','descripcion','ejercicios'
+    'nombre','descripcion','ejercicios', 'descansos'
   ];
 
   Future<Database> get database async {
@@ -65,7 +65,8 @@ class BDLocal{
     CREATE TABLE $rutinas(
     ${camposRutinas[0]} STRING PRIMARY KEY,
     ${camposRutinas[1]} STRING[255],
-    ${camposRutinas[2]} STRING NOT NULL
+    ${camposRutinas[2]} STRING,
+    ${camposRutinas[3]} TIME NOT NULL
     )
     ''');
   }
@@ -195,13 +196,13 @@ class BDLocal{
     );
   }
 
-  Future<bool> insertRutina(String nombre, String descripcion, String ejercicios) async{
+  Future<bool> insertRutina(String nombre, String descripcion, String descansos) async{
     final db = await instance.database;
 
     Map<String,dynamic> datos={
       camposRutinas[0] : nombre,
       camposRutinas[1] : descripcion,
-      camposRutinas[2] : ejercicios
+      camposRutinas[3] : descansos
     };
 
     final res = await db.insert(rutinas, datos, conflictAlgorithm: ConflictAlgorithm.fail);
@@ -215,4 +216,76 @@ class BDLocal{
 
     return out;
   }
+
+  Future<Map<String,dynamic>> getRutina(String nombre) async{
+    final db = await instance.database;
+    final mapa = await db.query(rutinas,where: '${camposRutinas[0]} = ?', whereArgs: [nombre]);
+
+    if(mapa.isNotEmpty){
+      return mapa.first;
+    }else{
+      return {};
+    }
+  }
+
+  Future<Map<String,dynamic>> getDescansoDescripcionRutina(String nombre) async{
+    final db = await instance.database;
+    final mapa = await db.query(rutinas,where: '${camposRutinas[0]} = ?', whereArgs: [nombre] ,columns:[camposRutinas[1],camposRutinas[3]] );
+
+    if(mapa.isNotEmpty){
+      return mapa.first;
+    }else{
+      return {};
+    }
+  }
+
+  Future<List<String>> getEjerciciosRutina(String nombre) async{
+    final db = await instance.database;
+    final mapa = await db.query(rutinas,where: '${camposRutinas[0]} = ?', whereArgs: [nombre],columns: [camposRutinas[2]]);
+
+    final aux = mapa.first.values.first;
+
+    if(mapa.isNotEmpty && aux!=""){
+      final String out = mapa.first.values.first as String;
+      return out.split(',');
+    }else{
+      return [];
+    }
+  }
+
+  Future<bool> aniadirEjerRutina(String nombreRutina, String nombreEjercicio) async{
+    final db = await instance.database;
+    final consulta = await db.query(rutinas,where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina],columns: [camposRutinas[2]]);
+    final aux=consulta.first.values.first;
+
+    String ejercicios;
+
+    if(aux==""){
+      ejercicios=nombreEjercicio;
+    }else{
+      ejercicios=aux as String;
+      ejercicios+=',$nombreEjercicio';
+    }
+
+    final res = await db.update(rutinas,{camposRutinas[2] : ejercicios},where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina]);
+    return res!=0;
+  }
+
+  Future<void> modEjerRutina(String nombreRutina, List<String> ejercicios) async{
+    final db = await instance.database;
+    String ejerciciosStr = ejercicios.join(',');
+    await db.update(rutinas,{camposRutinas[2] : ejerciciosStr},where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina]);
+  }
+
+  Future<void> modDescripcionDescansoRutina(String nombreRutina,String desripcion,String descanso) async{
+    final db = await instance.database;
+
+    await db.update(rutinas,{camposRutinas[1] : desripcion,camposRutinas[3] : descanso},where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina]);
+  }
+
+  Future<void> borrarRutina(String nombre) async{
+    final db = await instance.database;
+    await db.delete(rutinas,where: '${camposRutinas[0]} = ?', whereArgs: [nombre]);
+  }
+
 }
