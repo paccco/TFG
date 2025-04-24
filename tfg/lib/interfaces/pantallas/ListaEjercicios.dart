@@ -31,6 +31,8 @@ class ListaEjerciciosState extends State<ListaEjercicios>{
     BotonBool tiemBot=BotonBool(miBool: tiempo, texto: "Tiempo", cambio: (value){tiempo=value;});
     BotonBool distBot=BotonBool(miBool: distancia, texto: "Distancia", cambio: (value){distancia=value;});
 
+    final EdgeInsets padding=EdgeInsets.all(5);
+
     await showDialog(
         context: context,
         builder: (BuildContext context){
@@ -40,75 +42,78 @@ class ListaEjerciciosState extends State<ListaEjercicios>{
               child: Text("Añadir ejercicios",style: TextStyle(color: Colores.blanco)),
             ),
             content: Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colores.grisClaro),
               height: 45.h,
-              color: Colores.grisClaro,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Container(padding: EdgeInsets.all(5),child: Text("Nombre",style: TextStyle(fontSize: Tamanios.fuentePopUp))),
-                  Container(padding: EdgeInsets.all(5),child: barraNombreEjer),
-                  Container(padding: EdgeInsets.all(5), child: Text("Parámetros", style: TextStyle(fontSize: Tamanios.fuentePopUp))),
+                  Container(padding: padding,child: Text("Nombre",style: TextStyle(fontSize: Tamanios.fuentePopUp))),
+                  Container(padding: padding,child: barraNombreEjer),
+                  Container(padding: padding, child: Text("Parámetros", style: TextStyle(fontSize: Tamanios.fuentePopUp))),
                   Expanded(child: Wrap(
                     alignment: WrapAlignment.center,
                     children: [
                       repBot,pesoBot,tiemBot,distBot
                     ],
                   )),
-                  Padding(padding: EdgeInsets.all(5),child: barraDesc),
-                  FilledButton(
-                      style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(Colores.naranja)
-                      ),
-                      onPressed: (){
-                        int codTipo;
-                        String desc, nombre;
+                  Padding(padding: padding,child: barraDesc),
+                  Padding(
+                      padding: padding,
+                      child: FilledButton(
+                          style: ButtonStyle(
+                              backgroundColor: WidgetStateProperty.all(Colores.naranja)
+                          ),
+                          onPressed: (){
+                            int codTipo;
+                            String desc, nombre;
 
-                        if(contNomEjercicio.value.text.isNotEmpty){
-                          nombre=contNomEjercicio.value.text;
-                          if(descEjercicio.value.text.isNotEmpty){
-                            desc=descEjercicio.value.text;
-                            if(repeticiones || tiempo || distancia || peso){
-                              String byte="";
+                            if(contNomEjercicio.value.text.isNotEmpty){
+                              nombre=contNomEjercicio.value.text;
+                              if(descEjercicio.value.text.isNotEmpty){
+                                desc=descEjercicio.value.text;
+                                if(repeticiones || tiempo || distancia || peso){
+                                  String byte="";
 
-                              byte += (repeticiones ? '1' : '0');
-                              byte += (peso ? '1' : '0');
-                              byte += (tiempo ? '1' : '0');
-                              byte += (distancia ? '1' : '0');
-                              byte += '0000';
+                                  byte += (repeticiones ? '1' : '0');
+                                  byte += (peso ? '1' : '0');
+                                  byte += (tiempo ? '1' : '0');
+                                  byte += (distancia ? '1' : '0');
+                                  byte += '0000';
 
-                              codTipo=int.parse(byte,radix: 2);
+                                  codTipo=int.parse(byte,radix: 2);
 
-                              Map<String,dynamic> datos={
-                                BDLocal.instance.camposEjercicios[0] :  nombre,
-                                BDLocal.instance.camposEjercicios[1] :  codTipo,
-                                BDLocal.instance.camposEjercicios[2] :  desc
-                              };
+                                  Map<String,dynamic> datos={
+                                    BDLocal.instance.camposEjercicios[0] :  nombre,
+                                    BDLocal.instance.camposEjercicios[1] :  codTipo,
+                                    BDLocal.instance.camposEjercicios[2] :  desc
+                                  };
 
-                              BDLocal.instance.insertEjercicios(datos).then((value){
-                                if(value<0){
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context){
-                                        return AlertDialog(
-                                          title: Text("Fallo al guardar ejercicio"),
-                                        );
-                                      }
-                                  );
+                                  BDLocal.instance.insertEjercicios(datos).then((value){
+                                    if(value<0){
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context){
+                                            return AlertDialog(
+                                              title: Text("Fallo al guardar ejercicio"),
+                                            );
+                                          }
+                                      );
+                                    }
+                                  });
+                                  Navigator.pop(context);
+                                }else{
+                                  showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellene el campo tipo "));});
                                 }
-                              });
-                              Navigator.pop(context);
+                              }else{
+                                showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellena la descripcion"));});
+                              }
                             }else{
-                              showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellene el campo tipo "));});
+                              showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellene el nombre"));});
                             }
-                          }else{
-                            showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellena la descripcion"));});
-                          }
-                        }else{
-                          showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellene el nombre"));});
-                        }
-                      },
-                      child: Text("Guardar")
+                          },
+                          child: Text("Guardar")
+                      )
                   )
                 ],
               ),

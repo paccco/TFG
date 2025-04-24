@@ -54,7 +54,9 @@ class MneuPrincipalState extends State<MenuPrincipal>{
         children: [
           SizedBox(
             height: tamSecciones,
-            child: Placeholder(),
+            child: Placeholder(
+
+            ),
           ),
           SizedBox(
             height: tamSecciones,

@@ -245,7 +245,7 @@ class BDLocal{
 
     final aux = mapa.first.values.first;
 
-    if(mapa.isNotEmpty && aux!=""){
+    if(mapa.isNotEmpty && aux!="" && aux!=null){
       final String out = mapa.first.values.first as String;
       return out.split(',');
     }else{

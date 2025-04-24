@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:tfg/ConexionBDRemota.dart';
+import 'package:tfg/API.dart';
 import 'package:tfg/interfaces/PopUps/DialogosError.dart';
 import 'package:tfg/interfaces/pantallas/LogSignIn.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';

@@ -11,15 +11,15 @@ class BotonContenido extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return Container(
-      height: 12.h,
-      color: Colores.naranja,
-      padding: EdgeInsets.all(20),
-      alignment: Alignment.centerLeft,
-      child: TextButton(
-          onPressed: func,
-          child: Text(texto,style: TextStyle(color: Colores.blanco, fontSize: 20.sp))
-      ),
+    return InkWell(
+          onTap: func,
+          child: Container(
+            height: 12.h,
+            color: Colores.naranja,
+            padding: EdgeInsets.all(20),
+            alignment: Alignment.centerLeft,
+            child: Text(texto,style: TextStyle(color: Colores.blanco, fontSize: 20.sp))
+          )
     );
   }
 

@@ -108,19 +108,24 @@ class _ListaRutinasState extends State<ListaRutinas>{
               ),
             ),
             actions: [
-              botonPopUp("Compartir", (){}),
+              botonPopUp("Compartir", (){}, 'assets/images/subir.png'),
               botonPopUp("Modificar", () async {
                 showDialog(
                     context: context,
                     builder: (BuildContext context){
+                      TextStyle estilo=TextStyle(color: Colores.negro,fontSize: 17.5.sp);
+
                       return AlertDialog(
-                        content: Container(
-                          height: 20.h,
-                          color: Colores.grisClaro,
+                        backgroundColor: Colores.grisClaro,
+                        content: SizedBox(
+                          height: 28.h,
                           child: Column(
+                            mainAxisSize: MainAxisSize.max,
                             spacing: 5,
                             children: [
-                              BarraTexto(controller: contDescanso,textoHint: "Descanso",),
+                              Text("Descanso",style: estilo),
+                              BarraTexto(controller: contDescanso),
+                              Text("Descripcion",style: estilo),
                               BarraTexto(controller: contDescripcion,textoHint: "Descripcion",maxLineas: 3)
                             ],
                           ),
@@ -135,13 +140,19 @@ class _ListaRutinasState extends State<ListaRutinas>{
                             }else{
                               mensajeError(context, "Descanso hh:mm:ss");
                             }
-                          })
+                          },
+                              'assets/images/save.png'
+                          )
                         ],
                       );
                     }
                 );
-              }),
-              botonPopUp("Ejercicios", (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ListaEjerRutina(titulo: nombre)));}),
+              },'assets/images/mod.png'),
+              botonPopUp(
+                  "Ejercicios",
+                      (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ListaEjerRutina(titulo: nombre)));},
+                  'assets/images/ejercicio.png'
+              ),
               botonPopUp("Eliminar", () async {
 
                 bool decision=false;
@@ -155,21 +166,31 @@ class _ListaRutinasState extends State<ListaRutinas>{
                   Navigator.pop(context);
                   setState(() {});
                 }
-              })
+              },'assets/images/papelera.png')
             ]
           );
         }
     );
   }
 
-  Widget botonPopUp(String texto, Function() func){
-    return Container(
-      margin: EdgeInsets.all(5),
-      alignment: Alignment.center,
-      color: Colores.naranja,
-      child: TextButton(
-          onPressed: func,
-          child: Text(texto,style: TextStyle(color: Colores.blanco,fontSize: 17.5.sp),)
+  Widget botonPopUp(String texto, Function() func, String asset){
+    final double alturaBoton=6.h;
+
+    return InkWell(
+      onTap: func,
+      child: Container(
+        padding: EdgeInsets.all(2),
+        height: alturaBoton,
+        margin: EdgeInsets.all(5),
+        alignment: Alignment.center,
+        color: Colores.naranja,
+        child: Row(
+          children: [
+            Text(texto,style: TextStyle(color: Colores.blanco,fontSize: 17.5.sp),),
+            Spacer(),
+            Image.asset(asset, height: alturaBoton,width: alturaBoton,)
+          ],
+        )
       ),
     );
   }

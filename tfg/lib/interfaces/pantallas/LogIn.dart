@@ -5,7 +5,7 @@ import 'package:tfg/interfaces/pantallas/MenuPrincipal.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloConSalida.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../ConexionBDRemota.dart';
+import '../../API.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

@@ -18,6 +18,7 @@ La iteración 0 la voy a usar para diseño de pantallas y repasar las funcionali
 	\item Smartwatch
 \end{itemize}
 
+\clearpage
 \section{Seguimiento del desarrollo}
 \subsection{Iteracion 0}
 En esta primera iteración me centré en terminar todos los diseños de la app, sobretodo busqué que fueran lo más accesibles posible. Támbién concreté mi product backlog, quedándome con 24 historias de usuario, algunas de estas tienen tareas segundarias dentro de ellas:
@@ -48,6 +49,8 @@ En esta primera iteración me centré en terminar todos los diseños de la app, 
     \item SCRUM-24: Medir SpO2
     \item SCRUM-25: Interpretar constantes
 \end{itemize}
+
+\clearpage
 \subsubsection{Sprint review}
 En este sprint review arreglamos cosas acerca del diseño, como por ejemlo añadir iconos a todos los botones, para garantizar de más accesibilidad a la app, los títulos de las ventanas en la parte superior no eran claros en algunos casos y decidimos cambiar los nombres.\\
 
@@ -69,30 +72,110 @@ Al principio de esta iteración me di cuenta de que no añadí las historias de 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.7\textwidth]{fotos/PreSrprint1.png}
+  \caption{Planificacion Sprint 1}
+  \label{fig:imagen}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
   \includegraphics[width=0.7\textwidth]{fotos/SubListPre1.png}
   \caption{Planificacion Sprint 1}
   \label{fig:imagen}
 \end{figure}
 
+\clearpage
+
+\\
+En esta iteración me he estado acomodando a flutter y las herramientas que me ofrece, por ejemplo, a usar la herramienta de almacenamiento local permanente que me ofrece, SQlite.
+
+\subsubsection{SQlite}
+Es una BD ligera, autocontenida y de código abierto, usa el mismo lenguaje de consultas que SQL. Todo esto lo hace ideal para mi app. Además, permite transportar toda la BD en un archivo, lo cual puede ser util para implementar una funcionalidad en el futuro para hacer copias de seguridad y descargarlas desde la nube.
+
 \subsection{Sprint Review 1}
-Estas primeras iteraciones son más lentas porque es el comienzo del desarrollo. No he podido completar la totalidad del sprint, me faltó la subtaread de modifciar ejercicio en la BD. Aun así son buenas las espectativas del desarrollo, dado que la velocidad de desarrollo va a aumentar.
+Estas primeras iteraciones son más lentas porque es el comienzo del desarrollo. No he podido completar la totalidad del sprint, me faltó la subtarea de modifciar ejercicio en la BD. Aun así son buenas las espectativas del desarrollo, dado que la velocidad de desarrollo va a aumentar.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.7\textwidth]{fotos/PostSprint1.png}
+  \caption{Fin Sprint 1}
+  \label{fig:imagen}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
   \includegraphics[width=0.7\textwidth]{fotos/SubListPost1.png}
   \caption{Fin Sprint 1}
   \label{fig:imagen}
 \end{figure}
 
+\clearpage
+
 En este Sprint review hemos decidido corregir el diseño de la pantalla a uno más intuitivo y cómodo para la vista:
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.4\textwidth]{fotos/ejerciciosNueva.png}
-  \caption{Pantalla nueva}
-  \includegraphics[width=0.4\textwidth]{fotos/ejerciciosVieja.png}
-  \caption{Pantalla vieja}
+  \begin{minipage}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{fotos/ejerciciosNueva.png}
+    \caption{Pantalla nueva}
+    \label{fig:imagen1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{fotos/ejerciciosVieja.png}
+    \caption{Pantalla vieja}
+    \label{fig:imagen2}
+  \end{minipage}
+  \caption{Comparación entre la pantalla nueva y la vieja}
   \label{fig:imagen}
 \end{figure}
 
+
+\clearpage
+
+\subsection{Iteracion 2}
+Esta iteración se centró en el desarrollo del sistema sesiones, la API de aplicación, la parte básica del backend del servidor y de la sección de rutinas.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\textwidth]{fotos/PreSprint2.png}
+  \caption{Fin Sprint 1}
+  \label{fig:imagen}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\textwidth]{fotos/SubListPre2.png}
+  \caption{Fin Sprint 1}
+  \label{fig:imagen}
+\end{figure}
+
+\clearpage
+
+\subsubsection{Sistema de sesiones}
+Decidí implementar un sistema de sesiones basados en tokens, es decir, un usuario verifica su identidad y se le devuelve un token si es el usuario que dice ser, ese token se guarda en el dispositivo y se le pide al usuario siempre que entra a la app. Esto se hace para verificar que el usuario es quien dice ser y no pueda subir rutinas haciendose pasar por otro.\\
+La parte del servidor esta hecha sobre nodejs y usa una BD en SQL para manejar las contraseñas de los usuarios. Sobre este mismo backend se implementaran el resto de funcionalidades de las proximas iteraciones.
+
+\subsubsection{API de la app}
+La API funciona mediante peticiones http, en un futuro para dar de mayor seguridad a operaciones sensibles se podrían pasar las peticiones a https, pero de momento las dejo así para debugar comodamente.
+
+\subsubsection{Cambios importantes}
+En esta iteración decidí cambiar la implementación de las pantallas con formato de lista, decidí implementarlas para que puedan ser usadas al estilo de una plantilla, me explico, tengo una clase para cada tipo de lista.\\
+
+Una pregunta que puede surgir es, ¿porque hago varias clases en lugar de hacer una unica lista con condiciones para la visibilidad de algunos elementos? Pues porque el código queda más limpio y es más escalable, ya que si tengo que corregir algún error en las listas para añadir elementos, el resto de tipos de listas de la app no se ven afectadas, en cambio en la otra implementación si. En resumen, la app queda más modularizada y aislo los fallos.
+
+\subsection{Sprint Review 2}
+Fueron sugeridos algunos cambios menores en los botones, añadirles iconos y ajustar tamaños en la sección de crear rutinas.\\
+
+También se decidió cambiar la funcionalidad de compartir la rutina. Ahora las rutinas todas son modificables, antes se distinguía entre rutinas descargadas (no modificables) y creadas por el propio usuario (modificables). Se decidió así ya que si el usuario quiere volver a la rutina original, pues la vuelve a buscar y realiza otra vez la descarga. En resumen, podría llegar a ser una funcionalidad que no agrega valor a la app.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\textwidth]{fotos/PostSprint2.png}
+  \includegraphics[width=0.7\textwidth]{fotos/SubListPost2.png}
+  \caption{Fin Sprint 1}
+  \label{fig:imagen}
+\end{figure}
+
+\clearpage
