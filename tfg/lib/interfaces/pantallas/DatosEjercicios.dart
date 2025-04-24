@@ -320,15 +320,8 @@ class DatosEjercicios extends StatelessWidget{
           }else if(snapshot.hasData){
             return snapshot.data!;
           }else {
-            return Scaffold(
-              appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(Tamanios.appBarH),
-                  child: TituloConSalidaBorrar(titulo: titulo)
-              ),
-              body: Center(child: Text("No hay datos disponibles")),
-            );
+            return CircularProgressIndicator();
           }
-
           return CircularProgressIndicator();
         });
   }

@@ -29,3 +29,5 @@ class Tamanios{
   static double get fuentePopUp => 16.sp;
   static double get lupa => 5.h;
 }
+
+final regexPeso = RegExp(r'^\d{1,3}([.,]\d)?$');

@@ -96,6 +96,7 @@ class Singin2State extends State<Singin2>{
   final TextEditingController peC=TextEditingController(),
       alC=TextEditingController();
 
+  String fechaFormato="";
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +104,6 @@ class Singin2State extends State<Singin2>{
     TextStyle estiloTexto=TextStyle(color: Colores.negro,fontSize: 20.sp);
 
     DateTime fechaN=DateTime.now();
-    String fechaFormato="";
 
     return Scaffold(
       backgroundColor: Colores.grisClaro,
@@ -119,21 +119,29 @@ class Singin2State extends State<Singin2>{
           spacing: 10,
           children: [
             Text("Fecha Nacimiento",style: estiloTexto),
-            Container(
-              color: Colores.azul,
-              child: TextButton(
-                  onPressed: () async {
-                    fechaN = await showDatePicker(
-                        context: context,
-                        firstDate: DateTime(1940,1,1),
-                        lastDate: DateTime.now()
-                    ) ?? fechaN;
+            Row(
+              children: [
+                Container(
+                  color: Colores.azul,
+                  child: TextButton(
+                      onPressed: () async {
+                        fechaN = await showDatePicker(
+                            context: context,
+                            firstDate: DateTime(1940,1,1),
+                            lastDate: DateTime.now()
+                        ) ?? fechaN;
 
-                    final aux=fechaN.toString();
-                    fechaFormato=aux.split(' ').first;
-                  },
-                  child: Text("Seleccionar",style: TextStyle(color: Colores.blanco),)
-              ),
+                        final aux=fechaN.toString();
+                        fechaFormato=aux.split(' ').first;
+
+                        setState(() {});
+                      },
+                      child: Text("Seleccionar",style: TextStyle(color: Colores.blanco),)
+                  ),
+                ),
+                Spacer(),
+                Text(fechaFormato.isNotEmpty ? fechaFormato : "No seleccionada", style: estiloTexto,)
+              ],
             ),
             Text("Género",style: estiloTexto),
             DropdownButton<String>(
@@ -165,18 +173,20 @@ class Singin2State extends State<Singin2>{
               final altura = alC.value.text;
 
               if(fechaN!=DateTime.now() && peso.isNotEmpty && altura.isNotEmpty){
-                final regexPeso = RegExp(r'^\d{1,3}\.\d$'); // ej. 72.5, 100.0
-                final regexAlt = RegExp(r'^[1-9][0-9]{1,2}$'); // desde 10 hasta 999 cm
+                final regexAlt = RegExp(r'^[1-9][0-9]{1,2}$');
 
                 if(regexAlt.hasMatch(altura)&&regexPeso.hasMatch(peso)){
-                  storage.write(key: 'peso', value: peso);
-                  storage.write(key: 'altura', value: altura);
-                  storage.write(key: 'fechaN', value: fechaFormato);
-
                   final aux = await singin(widget.usuario, widget.passwd);
                   if(aux){
                     mensaje(context, "Error al insertar usuario");
                   }else{
+                    await Future.wait([
+                      storage.write(key: 'peso', value: peso.replaceAll(',','.')),
+                      storage.write(key: 'altura', value: altura),
+                      storage.write(key: 'fechaN', value: fechaFormato),
+                      storage.write(key: 'genero', value: generoSeleccionado)
+                    ]);
+
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => LogSignIn()),
