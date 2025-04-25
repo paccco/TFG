@@ -30,7 +30,10 @@ function verificarToken(req, res, next) {
 app.post('/login', (req, res) => {
     const { username, passwd } = req.body;
 
-    db.query('SELECT * FROM usuarios WHERE username = ? AND passwd = ?', [username, passwd], (err, results) => {
+    const query = 'SELECT * FROM usuarios WHERE username = ? AND passwd = ?';
+    const valores = [username, passwd];
+
+    db.query(query, valores, (err, results) => {
         if (err) {
             console.error('Error al ejecutar la consulta:', err);
             return res.status(500).send('Error en el servidor');
@@ -78,7 +81,10 @@ app.get('/verificar', verificarToken, (req, res) => {
 app.post('/existeUser', (req, res) => {
     const { username } = req.body;
 
-    db.query('SELECT * FROM usuarios WHERE username = ?', [username], (err, results) => {
+    const query = 'SELECT * FROM usuarios WHERE username = ?';
+    const valores = [username];
+
+    db.query(query, valores, (err, results) => {
         if (err) {
             console.error('Error al ejecutar la consulta:', err);
             return res.status(500).send('Error en el servidor');
@@ -95,7 +101,10 @@ app.post('/existeUser', (req, res) => {
 app.get('/delete', (req, res) => {
     const { username } = req.query;
 
-    db.query('DELETE FROM usuarios WHERE username = ?', [username], (err, result) => {
+    const query = 'DELETE FROM usuarios WHERE username = ?';
+    const valores = [username];
+
+    db.query(query, valores, (err, result) => {
         if (err) {
             console.error('Error al ejecutar la consulta:', err);
             return res.status(500).send('Error en el servidor');
@@ -105,6 +114,94 @@ app.get('/delete', (req, res) => {
             res.status(200).json({ mensaje: 'Usuario eliminado correctamente' });
         } else {
             res.status(404).json({ mensaje: 'Usuario no encontrado' });
+        }
+    });
+});
+
+app.post('/subirEjercicio', (req, res) => {
+    const { nombre,tipo,descripcion } = req.body;
+
+    const query = 'INSERT INTO ejercicios (nombre, tipo, descripcion) VALUES (?, ?, ?)';
+    const valores = [nombre,tipo,descripcion];
+
+    db.query(query, valores, (err, result) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (result.affectedRows > 0) {
+            res.status(200).json({ mensaje: 'Ejercicio subido correctamente' , id: result.insertId});
+        } else {
+            res.status(404).json({ mensaje: 'Ejercicio no encontrado' });
+        }
+    });
+});
+
+app.post('/subirRutina', (req, res) => {
+    const { nombre, descripcion, idEjercicios, usuario, descansos } = req.body;
+
+    const query = 'INSERT INTO rutinas (nombre, descripcion, idEjercicios, usuario, descansos) VALUES (?, ?, ?, ?, ?)';
+    const valores = [nombre, descripcion, idEjercicios, usuario, descansos]
+
+    db.query(query, valores, (err, result) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (result.affectedRows > 0) {
+            res.status(200).json({ mensaje: 'Rutina subida correctamente' , id: result.insertId});
+        } else {
+            res.status(404).json({ mensaje: 'Rutina no encontrada' });
+        }
+    });
+});
+
+app.post('/aniadirIdsAEjercicios', (req, res) => {
+    const { idsEjercicios, idRutina } = req.body;
+
+    query = 'UPDATE ejercicios SET idRutina = CASE ';
+
+    idsEjercicios.forEach(element => {
+        query += `WHEN id = ${element} THEN ${idRutina} `;
+    });
+
+    query += 'ELSE idRutina';
+    query += ` END WHERE id IN (${idsEjercicios.join(', ')})`;
+
+    db.query(query, (err, result) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (result.affectedRows > 0) {
+            res.status(200).json({ mensaje: 'Ejercicio actualizado correctamente' });
+        } else {
+            res.status(404).json({ mensaje: 'Ejercicio no encontrado' });
+        }
+    });
+});
+
+app.post('/aniadirEjerciciosARutina', (req, res) => {
+    const { idsEjercicios, idRutina } = req.body;
+
+    const query = 'UPDATE rutinas SET idEjercicios = ? WHERE id = ?';
+    const valores = [idsEjercicios , idRutina];
+
+    console.log(valores);
+
+    db.query(query, valores, (err, result) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (result.affectedRows > 0) {
+            res.status(200).json({ mensaje: 'Ejercicio actualizado correctamente' });
+        } else {
+            res.status(404).json({ mensaje: 'Ejercicio no encontrado' });
         }
     });
 });

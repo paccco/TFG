@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:tfg/ConexionBDLocal.dart';
 import 'dart:convert';
 import 'constantes.dart';
 
@@ -84,6 +85,94 @@ Future<int> existeUser(String user) async{
 
   } else {
     print('Error: ${response.statusCode} - ${response.body}');
+    return -1;
+  }
+}
+
+Future<int> subirRutina(String nombre) async{
+  final bd=BDLocal.instance;
+
+  //Obtengo los datos de la rutina
+  final rutina = await bd.getRutina(nombre);
+
+  if(rutina['ejercicios']==null){
+    return -2;
+  }
+
+  String aux = rutina['ejercicios'];
+  final List<String> listaEjercicios = aux.split(',');
+
+  //Subo los ejercicios, lo hago así para obtener los ids
+  List<Future<int>> futures = List.empty(growable: true);
+  listaEjercicios.forEach((value) => futures.add(_subirEjercicio(value,bd)));
+
+  //Espero a que se suban
+  List<int> res = await Future.wait(futures);
+
+  if(res.contains(-1)){
+    return -1;
+  }
+
+  final String usuario=await storage.read(key: 'usuario') ?? '';
+
+  //Subo los datos de la rutina
+  final url = Uri.parse('http://$ipPuerto/subirRutina');
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode({'nombre': nombre, 'descripcion': rutina['descripcion'], 'ejercicios': res,'usuario':usuario , 'descansos': rutina['descansos']}),
+  );
+
+  if(response.statusCode!=200){
+    return -1;
+  }
+  //Añado a los ejercicios el id de la rutina a la que pertenecen
+  final idRutina=jsonDecode(response.body)['id'];
+  final url2 = Uri.parse('http://$ipPuerto/aniadirIdsAEjercicios');
+
+  final response2 = await http.post(
+    url2,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode({'idsEjercicios': res, 'idRutina': idRutina})
+  );
+
+  if(response2.statusCode!=200){
+    return -1;
+  }
+
+  final idsEjercicios=res.join(',');
+
+  print(idsEjercicios);
+  print(idRutina);
+
+  final url3 = Uri.parse('http://$ipPuerto/aniadirEjerciciosARutina');
+  final response3 = await http.post(
+      url3,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'idsEjercicios': idsEjercicios, 'idRutina': idRutina})
+  );
+
+  if(response3.statusCode!=200){
+    return -1;
+  }
+
+  return 0;
+}
+
+Future<int> _subirEjercicio(String nombre,BDLocal bd) async{
+  final ejercicio = await bd.getEjercicio(nombre);
+
+  final url = Uri.parse('http://$ipPuerto/subirEjercicio');
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode({'nombre': ejercicio['nombre'], 'tipo': ejercicio['tipo'], 'descripcion': ejercicio['descripcion']}),
+  );
+
+  if(response.statusCode==200){
+    final datos=jsonDecode(response.body);
+    return datos['id'];
+  }else{
     return -1;
   }
 }

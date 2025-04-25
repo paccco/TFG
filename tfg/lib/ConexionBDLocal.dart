@@ -260,7 +260,7 @@ class BDLocal{
 
     String ejercicios;
 
-    if(aux==""){
+    if(aux=="" || aux == null){
       ejercicios=nombreEjercicio;
     }else{
       ejercicios=aux as String;

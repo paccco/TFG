@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:tfg/API.dart';
 import 'package:tfg/ConexionBDLocal.dart';
 import 'package:tfg/constantes.dart';
 import 'package:tfg/funcionesAux.dart';
@@ -108,7 +109,19 @@ class _ListaRutinasState extends State<ListaRutinas>{
               ),
             ),
             actions: [
-              botonPopUp("Compartir", (){}, 'assets/images/subir.png'),
+              botonPopUp("Compartir", () async{
+                bool decision=false;
+                await showDialog(context: context, builder: (BuildContext context){
+                  return Confirmacion(decision: (value)=>decision=value);
+                });
+
+                if(decision){
+                  final res=await subirRutina(nombre);
+                  if(res==-2){
+                    mensaje(context, "La rutina ha de contener ejercicios para poder compartirse");
+                  }
+                }
+              }, 'assets/images/subir.png'),
               botonPopUp("Modificar", () async {
                 showDialog(
                     context: context,

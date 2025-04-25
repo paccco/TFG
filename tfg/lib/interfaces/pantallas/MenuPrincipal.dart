@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:tfg/ConexionBDLocal.dart';
 import 'package:tfg/interfaces/pantallas/ListaEjercicios.dart';
 import 'package:tfg/interfaces/pantallas/ListaRutinas.dart';
 import 'package:tfg/interfaces/pantallas/MiPerfil.dart';
@@ -16,6 +15,45 @@ class MenuPrincipal extends StatefulWidget {
 
 class MneuPrincipalState extends State<MenuPrincipal>{
 
+  Widget _hacerBoton(String texto, Function() func){
+    return InkWell(
+      onTap: func,
+      child: Container(
+        height: 7.5.h,
+        width: 50.w,
+        color: Colores.naranja,
+        alignment: Alignment.center,
+        child: Text(texto,style: TextStyle(color: Colores.blanco, fontSize: 20.sp),),
+      ),
+    );
+  }
+
+  void _cargarBuscarRutinas(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            backgroundColor: Colores.azulOscuro,
+            title: Center(
+              child: Text("¿Quieres buscar por nombre o usuario?", style: TextStyle(color: Colores.blanco),),
+            ),
+            content: SizedBox(
+              height: 18.h,
+              child: Column(
+                spacing: 1.5.h,
+                children: [
+                  _hacerBoton("Usuario",(){
+                    //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BuscarRutinasUsuario()));
+                  }),
+                  _hacerBoton("Rutina", (){})
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
+
   Widget _cajaElemento(String texto, Color color, String asset, void Function() func){
 
     double size=40.w;
@@ -27,11 +65,11 @@ class MneuPrincipalState extends State<MenuPrincipal>{
       height: size,
       child: TextButton(
           onPressed: func,
-          child: Wrap(
+          child: Column(
             spacing: 5,
             children: [
               Text(texto, style: TextStyle(color: Colores.blanco,fontSize: 18.sp)),
-              Image.asset(asset)
+              Image.asset(asset, height: size/2, width: size/2)
             ],
           )
       ),
@@ -55,7 +93,6 @@ class MneuPrincipalState extends State<MenuPrincipal>{
           SizedBox(
             height: tamSecciones,
             child: Placeholder(
-
             ),
           ),
           SizedBox(
@@ -72,7 +109,9 @@ class MneuPrincipalState extends State<MenuPrincipal>{
                 _cajaElemento("Mis Rutinas", Colores.azul, 'assets/images/rutina.png',(){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => ListaRutinas()));
                 }),
-                _cajaElemento("Mis Ejercicios", Colores.azul, 'assets/images/user.png',(){})
+                _cajaElemento("Buscar rutinas", Colores.azul, 'assets/images/red.png',(){
+                  _cargarBuscarRutinas(context);
+                })
               ],
             )
           )
