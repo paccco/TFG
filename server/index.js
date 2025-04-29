@@ -98,7 +98,7 @@ app.post('/existeUser', (req, res) => {
     });
 });
 
-app.get('/delete', (req, res) => {
+app.get('/deleteUser', (req, res) => {
     const { username } = req.query;
 
     const query = 'DELETE FROM usuarios WHERE username = ?';
@@ -106,7 +106,7 @@ app.get('/delete', (req, res) => {
 
     db.query(query, valores, (err, result) => {
         if (err) {
-            console.error('Error al ejecutar la consulta:', err);
+            console.error('Error al ejecutar la consulta:', err);deleteRutina
             return res.status(500).send('Error en el servidor');
         }
 
@@ -190,8 +190,6 @@ app.post('/aniadirEjerciciosARutina', (req, res) => {
     const query = 'UPDATE rutinas SET idEjercicios = ? WHERE id = ?';
     const valores = [idsEjercicios , idRutina];
 
-    console.log(valores);
-
     db.query(query, valores, (err, result) => {
         if (err) {
             console.error('Error al ejecutar la consulta:', err);
@@ -205,3 +203,101 @@ app.post('/aniadirEjerciciosARutina', (req, res) => {
         }
     });
 });
+
+app.post('/rutinasCompartidasUsuario', (req, res) => {
+    const { usuario } = req.body;
+
+    const query = 'SELECT id, nombre FROM rutinas WHERE usuario = ?';
+    const valores = [usuario];
+    db.query(query, valores, (err, results) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (results.length > 0) {
+            res.status(200).json({ rutinas: results });
+        } else {
+            res.status(404).json({ mensaje: 'Rutinas no encontradas' });
+        }
+    });
+});
+
+app.post('/getRutina', (req, res) => {
+    const { id } = req.body;
+
+    const query = 'SELECT descripcion, idEjercicios, descargas, descansos FROM rutinas WHERE id = ?';
+    const valores = [id];
+
+    db.query(query, valores, (err, results) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (results.length > 0) {
+            res.status(200).json({ rutina: results[0] });
+        } else {
+            res.status(404).json({ mensaje: 'Rutina no encontrada' });
+        }
+    });
+});
+
+app.get('/getRutinas', (req, res) => {
+    const query = 'SELECT id, nombre FROM rutinas';
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (results.length > 0) {
+            res.status(200).json({ rutinas: results });
+        } else {
+            res.status(404).json({ mensaje: 'Rutinas no encontradas' });
+        }
+    });
+}
+);
+
+app.post('/borrarRutina', (req, res) => {
+    const { id } = req.body;
+
+    const query = 'DELETE FROM rutinas WHERE id = ?';
+    const valores = [id];
+
+    db.query(query, valores, (err, result) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (result.affectedRows > 0) {
+            res.status(200).json({ mensaje: 'Rutina eliminada correctamente' });
+        } else {
+            res.status(404).json({ mensaje: 'Rutina no encontrada' });
+        }
+    });
+}
+);
+
+app.post('/getEjerciciosRutina', (req, res) => {
+    const { id } = req.body;
+
+    const query = 'SELECT nombre FROM ejercicios WHERE idRutina IN (SELECT id FROM rutinas WHERE id = ?)';
+    const valores = [id];
+
+    db.query(query, valores, (err, results) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (results.length > 0) {
+            res.status(200).json({ ejercicios: results });
+        } else {
+            res.status(404).json({ mensaje: 'Ejercicios no encontrados' });
+        }
+    });
+}
+);

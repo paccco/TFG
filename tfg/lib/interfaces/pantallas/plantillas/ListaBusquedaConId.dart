@@ -6,31 +6,34 @@ import '../../widgetsPersonalizados/TituloConSalida.dart';
 import '../../widgetsPersonalizados/BarraNavegacion.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class ListaBusqueda extends StatefulWidget{
+class ListaBusquedaConId extends StatefulWidget{
   final String titulo;
-  final Future<List<String>> Function() cargarContenido;
-  final void Function(BuildContext context,String nombre) cargarElemento;
+  final Future<Map<int,String>> Function() cargarContenido;
+  final void Function(BuildContext context,String nombre,int id) cargarElemento;
 
-  const ListaBusqueda({super.key, required this.titulo, required this.cargarContenido, required this.cargarElemento});
+  const ListaBusquedaConId({super.key, required this.titulo, required this.cargarContenido, required this.cargarElemento});
 
   @override
-  _ListaBusquedaState createState() => _ListaBusquedaState();
+  _ListaBusquedaConIdState createState() => _ListaBusquedaConIdState();
 }
 
-class _ListaBusquedaState extends State<ListaBusqueda>{
+class _ListaBusquedaConIdState extends State<ListaBusquedaConId>{
   final int elementosVisibles=4;
-  List<String> contenido=[];
-  List<String> filtrados=[];
+  Map<int,String> contenido={};
+  Map<int,String> filtrados={};
   List<Widget> visible=[];
   int index=0;
 
   void _setVisble(){
     visible.clear();
     int cont=0;
+    final filtradosComoLista=filtrados.values.toList();
+    final idsComoLista=filtrados.keys.toList();
 
     while(cont<elementosVisibles && (index+cont)<filtrados.length){
-      final aux=filtrados[index+cont];
-      visible.add(BotonContenido(texto: aux, func: ()=> widget.cargarElemento(context,aux)));
+      final nombre=filtradosComoLista[index+cont];
+      final id=idsComoLista[index+cont];
+      visible.add(BotonContenido(texto: nombre, func: ()=> widget.cargarElemento(context,nombre,id)));
       cont++;
     }
   }
@@ -39,20 +42,26 @@ class _ListaBusquedaState extends State<ListaBusqueda>{
 
     final elementosFetched = await widget.cargarContenido();
 
-    contenido=List.from(elementosFetched);
+    contenido=Map.from(elementosFetched);
 
-    filtrados=List.from(contenido);
+    filtrados=Map.from(contenido);
     index=0;
 
     _setVisble();
-
     setState(() {});
   }
 
   void _filtrar(String query){
-    filtrados = contenido.where((elemento) {
-      return elemento.toLowerCase().contains(query.toLowerCase());
-    }).toList();
+
+    final filrados=Map.from(contenido);
+
+    filrados.removeWhere((key,value){
+        if(value.toLowerCase().contains(query.toLowerCase())){
+          return true;
+        } else{
+          return false;
+        }
+    });
 
     index=0;
     _setVisble();

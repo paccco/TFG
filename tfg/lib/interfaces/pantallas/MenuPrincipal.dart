@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/interfaces/pantallas/ListaEjercicios.dart';
 import 'package:tfg/interfaces/pantallas/ListaRutinas.dart';
+import 'package:tfg/interfaces/pantallas/ListaRutinasCompartidas.dart';
 import 'package:tfg/interfaces/pantallas/MiPerfil.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSimple.dart';
 import '../../constantes.dart';
@@ -25,6 +26,35 @@ class MneuPrincipalState extends State<MenuPrincipal>{
         alignment: Alignment.center,
         child: Text(texto,style: TextStyle(color: Colores.blanco, fontSize: 20.sp),),
       ),
+    );
+  }
+
+  void _cargarMisRutinas(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            backgroundColor: Colores.azulOscuro,
+            title: Center(
+              child: Text("¿Quieres ver tus rutinas o las que has compartido?", style: TextStyle(color: Colores.blanco),),
+            ),
+            content: SizedBox(
+              height: 18.h,
+              child: Column(
+                spacing: 1.5.h,
+                children: [
+                  _hacerBoton("Mis rutinas",(){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ListaRutinas()));
+                  }),
+                  _hacerBoton("Compartidas", () async {
+                    final String usuario= await storage.read(key: 'usuario') ?? '';
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ListaRutinasCompartidas(usuario: usuario)));
+                  })
+                ],
+              ),
+            )
+          );
+        }
     );
   }
 
@@ -107,7 +137,7 @@ class MneuPrincipalState extends State<MenuPrincipal>{
                   Navigator.push(context, MaterialPageRoute(builder: (context) => MiPerfil(usuario: aux)));
                 }),
                 _cajaElemento("Mis Rutinas", Colores.azul, 'assets/images/rutina.png',(){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ListaRutinas()));
+                  _cargarMisRutinas(context);
                 }),
                 _cajaElemento("Buscar rutinas", Colores.azul, 'assets/images/red.png',(){
                   _cargarBuscarRutinas(context);

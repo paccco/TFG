@@ -3,7 +3,7 @@ import 'package:tfg/ConexionBDLocal.dart';
 import 'dart:convert';
 import 'constantes.dart';
 
-final ipPuerto="192.168.0.20:3000";
+final ipPuerto="192.168.1.102:3000";
 
 Future<bool> login(String user, String passwd) async {
   final url = Uri.parse('http://$ipPuerto/login');
@@ -113,7 +113,7 @@ Future<int> subirRutina(String nombre) async{
     return -1;
   }
 
-  final String usuario=await storage.read(key: 'usuario') ?? '';
+  final usuario=await storage.read(key: 'usuario') ?? '';
 
   //Subo los datos de la rutina
   final url = Uri.parse('http://$ipPuerto/subirRutina');
@@ -141,9 +141,6 @@ Future<int> subirRutina(String nombre) async{
   }
 
   final idsEjercicios=res.join(',');
-
-  print(idsEjercicios);
-  print(idRutina);
 
   final url3 = Uri.parse('http://$ipPuerto/aniadirEjerciciosARutina');
   final response3 = await http.post(
@@ -175,4 +172,98 @@ Future<int> _subirEjercicio(String nombre,BDLocal bd) async{
   }else{
     return -1;
   }
+}
+
+Future<Map<int,String>> getRutinaCompDeUser(String usuario) async{
+  final url = Uri.parse('http://$ipPuerto/rutinasCompartidasUsuario');
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode({'usuario': usuario }),
+  );
+
+  final datos=jsonDecode(response.body);
+
+  if(response.statusCode==404){
+    return {};
+  }
+
+  if(response.statusCode!=200){
+    return {-1:""};
+  }
+
+  final consulta=datos['rutinas'];
+  Map<int,String> out={};
+  consulta.forEach((value) => out[value['id']]=value['nombre']);
+
+  return out;
+}
+
+Future<Map<String,dynamic>> getRutina (int id) async{
+  final url = Uri.parse('http://$ipPuerto/getRutina');
+
+  final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'id' : id})
+  );
+
+  if(response.statusCode!=200){
+    return {'error':-1};
+  }
+
+  return jsonDecode(response.body)['rutina'];
+}
+
+Future<Map<int,String>> getRutinas () async{
+  final url = Uri.parse('http://$ipPuerto/getRutinas');
+
+  final response = await http.get(
+      url,
+      headers: {'Content-Type': 'application/json'},
+  );
+
+  if(response.statusCode!=200){
+    return {-1:"error"};
+  }
+
+  return jsonDecode(response.body)['results'];
+}
+
+Future<int> borrarRutina (int id) async{
+  final url = Uri.parse('http://$ipPuerto/borrarRutina');
+
+  final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'id' : id})
+  );
+
+  if(response.statusCode!=200){
+    return -1;
+  }
+
+  return 0;
+}
+
+Future<List<String>> getEjerciciosRutina (int id) async{
+  final url = Uri.parse('http://$ipPuerto/getEjerciciosRutina');
+
+  final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'id' : id})
+  );
+
+  if(response.statusCode!=200) {
+    return ["error"];
+  }
+
+  final consulta = jsonDecode(response.body)['ejercicios'];
+
+  List<String> out = List.empty(growable: true);
+
+  consulta.forEach((value) => out.add(value['nombre']));
+
+  return out;
 }
