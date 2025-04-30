@@ -3,7 +3,7 @@ import 'package:tfg/ConexionBDLocal.dart';
 import 'dart:convert';
 import 'constantes.dart';
 
-final ipPuerto="192.168.1.102:3000";
+final ipPuerto="192.168.0.21:3000";
 
 Future<bool> login(String user, String passwd) async {
   final url = Uri.parse('http://$ipPuerto/login');
@@ -199,13 +199,13 @@ Future<Map<int,String>> getRutinaCompDeUser(String usuario) async{
   return out;
 }
 
-Future<Map<String,dynamic>> getRutina (int id) async{
+Future<Map<String,dynamic>> getRutina (int id, {bool usuario=false}) async{
   final url = Uri.parse('http://$ipPuerto/getRutina');
 
   final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
-      body: json.encode({'id' : id})
+      body: json.encode({'id' : id, 'usuario': usuario})
   );
 
   if(response.statusCode!=200){
@@ -227,7 +227,12 @@ Future<Map<int,String>> getRutinas () async{
     return {-1:"error"};
   }
 
-  return jsonDecode(response.body)['results'];
+
+  final aux=jsonDecode(response.body)['rutinas'];
+  Map<int,String> out={};
+  aux.forEach((value) => out[value['id']]=value['nombre']);
+
+  return out;
 }
 
 Future<int> borrarRutina (int id) async{
@@ -264,6 +269,26 @@ Future<List<String>> getEjerciciosRutina (int id) async{
   List<String> out = List.empty(growable: true);
 
   consulta.forEach((value) => out.add(value['nombre']));
+
+  return out;
+}
+
+Future<List<String>> getUsuarios() async{
+  final url = Uri.parse('http://$ipPuerto/getUsuarios');
+
+  final response = await http.get(
+      url,
+      headers: {'Content-Type': 'application/json'},
+  );
+
+  if(response.statusCode!=200) {
+    return ["error"];
+  }
+
+  final aux = jsonDecode(response.body)['usuarios'];
+  List<String> out = List.empty(growable: true);
+
+  aux.forEach((value) => out.add(value['username']));
 
   return out;
 }

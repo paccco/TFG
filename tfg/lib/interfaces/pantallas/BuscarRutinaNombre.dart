@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:tfg/API.dart';
 import 'package:tfg/constantes.dart';
-import 'package:tfg/funcionesAux.dart';
 import 'package:tfg/interfaces/PopUps/DialogosError.dart';
 import 'plantillas/ListaBusquedaConId.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:tfg/funcionesAux.dart';
 
-class BuscarRutinasUsuario extends StatefulWidget{
+class BuscarRutinaNombre extends StatefulWidget{
+  const BuscarRutinaNombre({super.key});
 
-  final String usuario;
-
-  const BuscarRutinasUsuario({super.key, required this.usuario});
   @override
-  _BuscarRutinasUsuarioState createState() => _BuscarRutinasUsuarioState();
+  _BuscarRutinaNombreState createState() => _BuscarRutinaNombreState();
 }
 
-class _BuscarRutinasUsuarioState extends State<BuscarRutinasUsuario>{
+class _BuscarRutinaNombreState extends State<BuscarRutinaNombre>{
+
+
   Future<Map<int,String>> _cargarRutinas() async{
-    final rutinas=await getRutinaCompDeUser(widget.usuario);
+    final rutinas=await getRutinas();
 
     return rutinas;
   }
@@ -35,10 +35,13 @@ class _BuscarRutinasUsuarioState extends State<BuscarRutinasUsuario>{
   }
 
   void _cargarInfoRutina(BuildContext context, String nombreRutina, int id) async{
-    final rutina=await getRutina(id);
+    final rutina=await getRutina(id, usuario: true);
     final listaEjer=await getEjerciciosRutina(id);
     final estiloTitulo = TextStyle(color: Colores.blanco,fontSize: 18.sp);
     final estiloTexto = TextStyle(color: Colores.blanco,fontSize: 16.sp);
+    final estiloCreador = TextStyle(color: Colores.blanco,fontSize: 19.sp);
+
+    final String creador=rutina['usuario'];
 
     showDialog(
         context: context,
@@ -46,19 +49,26 @@ class _BuscarRutinasUsuarioState extends State<BuscarRutinasUsuario>{
 
           return AlertDialog(
             backgroundColor: Colores.azulOscuro,
-            title: Text(nombreRutina,style: TextStyle(color: Colores.blanco,fontSize: 20.sp)),
+            title: Text(nombreRutina,style: TextStyle(color: Colores.blanco,fontSize: 22.sp)),
             content: SizedBox(
-                height: 40.h,
+                height: 47.5.h,
                 child: Column(
                   spacing: 5,
                   children: [
                     Container(
                       width: 60.w,
-                      height: 29.h,
+                      height: 36.h,
                       padding: EdgeInsets.all(1.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+                          Row(
+                            children: [
+                              Text("Creador: ",style: estiloCreador,),
+                              Spacer(),
+                              Text(creador,style: estiloCreador,)
+                            ],
+                          ),
                           Text("Descripción:",style: estiloTitulo),
                           Text(rutina['descripcion'],style: estiloTexto),
                           Text("Descargas: ",style: estiloTitulo,),
@@ -89,7 +99,7 @@ class _BuscarRutinasUsuarioState extends State<BuscarRutinasUsuario>{
   @override
   Widget build(BuildContext context){
     return ListaBusquedaConId(
-        titulo: "Rutinas de ${widget.usuario}",
+        titulo: "Buscar rutinas por nombre",
         cargarContenido: _cargarRutinas,
         cargarElemento: _cargarInfoRutina
     );

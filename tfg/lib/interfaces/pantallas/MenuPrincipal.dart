@@ -6,6 +6,8 @@ import 'package:tfg/interfaces/pantallas/ListaRutinasCompartidas.dart';
 import 'package:tfg/interfaces/pantallas/MiPerfil.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSimple.dart';
 import '../../constantes.dart';
+import './BuscarRutinaNombre.dart';
+import 'BuscarUsuario.dart';
 
 class MenuPrincipal extends StatefulWidget {
   const MenuPrincipal({super.key});
@@ -73,9 +75,11 @@ class MneuPrincipalState extends State<MenuPrincipal>{
                 spacing: 1.5.h,
                 children: [
                   _hacerBoton("Usuario",(){
-                    //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BuscarRutinasUsuario()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BuscarUsuario()));
                   }),
-                  _hacerBoton("Rutina", (){})
+                  _hacerBoton("Rutina", (){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BuscarRutinaNombre()));
+                  })
                 ],
               ),
             ),

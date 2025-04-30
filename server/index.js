@@ -78,6 +78,23 @@ app.get('/verificar', verificarToken, (req, res) => {
     });
   });
 
+app.get('/getUsuarios', (req, res) => {
+    const query = 'SELECT username FROM usuarios';
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (results.length > 0) {
+            res.status(200).json({ usuarios: results });
+        } else {
+            res.status(404).json({ mensaje: 'Usuarios no encontrados' });
+        }
+    });
+}
+);
+
 app.post('/existeUser', (req, res) => {
     const { username } = req.body;
 
@@ -224,23 +241,41 @@ app.post('/rutinasCompartidasUsuario', (req, res) => {
 });
 
 app.post('/getRutina', (req, res) => {
-    const { id } = req.body;
+    const { id , usuario} = req.body;
 
-    const query = 'SELECT descripcion, idEjercicios, descargas, descansos FROM rutinas WHERE id = ?';
-    const valores = [id];
+    if(usuario==undefined){
+        const query = 'SELECT descripcion, idEjercicios, descargas, descansos FROM rutinas WHERE id = ?';
+        const valores = [id];
 
-    db.query(query, valores, (err, results) => {
-        if (err) {
-            console.error('Error al ejecutar la consulta:', err);
-            return res.status(500).send('Error en el servidor');
-        }
+        db.query(query, valores, (err, results) => {
+            if (err) {
+                console.error('Error al ejecutar la consulta:', err);
+                return res.status(500).send('Error en el servidor');
+            }
 
-        if (results.length > 0) {
-            res.status(200).json({ rutina: results[0] });
-        } else {
-            res.status(404).json({ mensaje: 'Rutina no encontrada' });
-        }
-    });
+            if (results.length > 0) {
+                res.status(200).json({ rutina: results[0] });
+            } else {
+                res.status(404).json({ mensaje: 'Rutina no encontrada' });
+            }
+        });
+    }else{
+        const query = 'SELECT descripcion, idEjercicios, descargas, descansos, usuario FROM rutinas WHERE id = ?';
+        const valores = [id];
+
+        db.query(query, valores, (err, results) => {
+            if (err) {
+                console.error('Error al ejecutar la consulta:', err);
+                return res.status(500).send('Error en el servidor');
+            }
+
+            if (results.length > 0) {
+                res.status(200).json({ rutina: results[0] });
+            } else {
+                res.status(404).json({ mensaje: 'Rutina no encontrada' });
+            }
+        });
+    }
 });
 
 app.get('/getRutinas', (req, res) => {
@@ -301,3 +336,4 @@ app.post('/getEjerciciosRutina', (req, res) => {
     });
 }
 );
+

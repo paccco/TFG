@@ -52,15 +52,8 @@ class _ListaBusquedaConIdState extends State<ListaBusquedaConId>{
   }
 
   void _filtrar(String query){
-
-    final filrados=Map.from(contenido);
-
-    filrados.removeWhere((key,value){
-        if(value.toLowerCase().contains(query.toLowerCase())){
-          return true;
-        } else{
-          return false;
-        }
+    filtrados=Map.from(contenido)..removeWhere((key,value){
+      return !value.toLowerCase().contains(query.toLowerCase());
     });
 
     index=0;

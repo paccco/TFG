@@ -196,7 +196,7 @@ class BDLocal{
     );
   }
 
-  Future<bool> insertRutina(String nombre, String descripcion, String descansos) async{
+  Future<String> insertRutina(String nombre, String descripcion, String descansos) async{
     final db = await instance.database;
 
     Map<String,dynamic> datos={
@@ -205,8 +205,27 @@ class BDLocal{
       camposRutinas[3] : descansos
     };
 
+    final aux=await getRutina(nombre);
+
+    if(aux.isNotEmpty){
+      int contador=1;
+      datos[camposRutinas[0]]+="($contador)";
+      Map<String,dynamic> consulta = await getRutina(datos[camposRutinas[0]]);
+
+      while(consulta.isNotEmpty){
+        contador++;
+        datos[camposRutinas[0]]="$nombre($contador)";
+        consulta = await getRutina(datos[camposRutinas[0]]);
+      }
+    }
+
     final res = await db.insert(rutinas, datos, conflictAlgorithm: ConflictAlgorithm.fail);
-    return res!=0;
+
+    if(res==0){
+      return "";
+    }else{
+      return datos[camposRutinas[0]];
+    }
   }
 
   Future<List<String>> getNombresRutinas() async{

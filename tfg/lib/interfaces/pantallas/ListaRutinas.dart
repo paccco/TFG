@@ -47,18 +47,13 @@ class _ListaRutinasState extends State<ListaRutinas>{
                       final nombre = contNom.value.text;
                       final descanso = contDescanso.value.text;
                       final descripcion = contDescripcion.value.text;
-                      final aux = await BDLocal.instance.getRutina(nombre);
 
-                      if(aux.isEmpty){
-                        if(validarFormatoHora(descanso)){
-                          await BDLocal.instance.insertRutina(nombre,descripcion,descanso);
-                          setState(() {});
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ListaEjerRutina(titulo: nombre)));
-                        }else{
-                          mensajeError(context, "Descanso hh:mm:ss");
-                        }
+                      if(validarFormatoHora(descanso)){
+                        final aux=await BDLocal.instance.insertRutina(nombre,descripcion,descanso);
+                        setState(() {});
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ListaEjerRutina(titulo: aux)));
                       }else{
-                        mensaje(context, "Ya existe esa rutina");
+                        mensajeError(context, "Descanso hh:mm:ss");
                       }
                     },
                     child: Text("Seguir", style: TextStyle(color: Colores.blanco))
@@ -119,6 +114,8 @@ class _ListaRutinasState extends State<ListaRutinas>{
                   final res=await subirRutina(nombre);
                   if(res==-2){
                     mensaje(context, "La rutina ha de contener ejercicios para poder compartirse");
+                  }else if(res>=0){
+                    mensaje(context, "Rutina subida correctamente");
                   }
                 }
               }, 'assets/images/subir.png'),
