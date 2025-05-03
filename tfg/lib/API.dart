@@ -273,6 +273,30 @@ Future<List<String>> getEjerciciosRutina (int id) async{
   return out;
 }
 
+Future<List<Map<String,dynamic>>> getEjerciciosRutinaDescargar (int id) async{
+  final url = Uri.parse('http://$ipPuerto/getEjerciciosRutinaDescargar');
+
+  final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'id' : id})
+  );
+
+  if(response.statusCode!=200) {
+    return [{}];
+  }
+
+  final consulta = jsonDecode(response.body)['ejercicios'];
+
+  List<Map<String,dynamic>> out=List.empty(growable: true);
+
+  consulta.forEach((value){
+    out.add(value);
+  });
+
+  return out;
+}
+
 Future<List<String>> getUsuarios() async{
   final url = Uri.parse('http://$ipPuerto/getUsuarios');
 
@@ -291,4 +315,18 @@ Future<List<String>> getUsuarios() async{
   aux.forEach((value) => out.add(value['username']));
 
   return out;
+}
+
+Future<void> registrarDescarga(int id) async {
+  final url=Uri.parse('http://$ipPuerto/registrarDescarga');
+
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode({ 'id' : id })
+  );
+
+  if(response.statusCode!=200){
+    print(jsonDecode(response.body));
+  }
 }

@@ -90,7 +90,7 @@ class ListaEjerciciosState extends State<ListaEjercicios>{
                                   };
 
                                   BDLocal.instance.insertEjercicios(datos).then((value){
-                                    if(value<0){
+                                    if(value.isEmpty){
                                       showDialog(
                                           context: context,
                                           builder: (BuildContext context){

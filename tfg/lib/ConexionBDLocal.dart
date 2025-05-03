@@ -77,7 +77,7 @@ class BDLocal{
     deleteDatabase(path);
   }
 
-  Future<int> insertEjercicios(Map<String,dynamic> datos) async{
+  Future<String> insertEjercicios(Map<String,dynamic> datos) async{
     final db = await instance.database;
     try{
       await db.insert(ejercicios, datos, conflictAlgorithm: ConflictAlgorithm.fail);
@@ -91,7 +91,7 @@ class BDLocal{
         camposMarca[7] : datos.values.first
       });
       await db.insert(marca, {
-        camposMarca[0] : '2025-01-01',
+        camposMarca[0] : '0000-00-00',
         camposMarca[2] : 0,
         camposMarca[3] : 0,
         camposMarca[4] : '00:00:00',
@@ -99,12 +99,32 @@ class BDLocal{
         camposMarca[6] : 0,
         camposMarca[7] : datos.values.first
       });
-
-      return 0;
     }catch(error){
-      print("\n $error \n");
-      return -1;
+
+      if(error.toString().contains('UNIQUE constraint failed')){
+        Map<String,dynamic> datosMod=Map.of(datos);
+        String nombre=datos.values.first;
+        final regex = RegExp(r'\(\d+\)');
+
+        String resultado = "";
+
+        if(regex.hasMatch(nombre)){
+          resultado=nombre.replaceAllMapped(regex, (match) {
+            String texto = match.group(0)!;
+            int numero = int.parse(texto.substring(1,texto.length-1));
+            int nuevoNumero = numero + 1;
+            return '($nuevoNumero)';
+          });
+        }else{
+          resultado="$nombre(1)";
+        }
+
+        datosMod[camposEjercicios[0]]=resultado;
+        return insertEjercicios(datosMod);
+      }
     }
+
+    return datos.values.first;;
   }
 
   Future<List<Map<String,dynamic>>> getEjercicios() async{
@@ -272,28 +292,32 @@ class BDLocal{
     }
   }
 
-  Future<bool> aniadirEjerRutina(String nombreRutina, String nombreEjercicio) async{
+  //Este añade contenido a lo que hay
+  Future<bool> aniadirEjerRutina(String nombreRutina, List<String> nombreEjercicios) async{
     final db = await instance.database;
     final consulta = await db.query(rutinas,where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina],columns: [camposRutinas[2]]);
-    final aux=consulta.first.values.first;
+    final aux=consulta.isNotEmpty ? consulta.first.values.first : "";
 
     String ejercicios;
+    final cadenaEjercicios=nombreEjercicios.join(',');
 
-    if(aux=="" || aux == null){
-      ejercicios=nombreEjercicio;
+    if(aux==""){
+      ejercicios=cadenaEjercicios;
     }else{
       ejercicios=aux as String;
-      ejercicios+=',$nombreEjercicio';
+      ejercicios+=',$cadenaEjercicios';
     }
 
     final res = await db.update(rutinas,{camposRutinas[2] : ejercicios},where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina]);
+
     return res!=0;
   }
 
-  Future<void> modEjerRutina(String nombreRutina, List<String> ejercicios) async{
+  //Sustituye la lista por otra
+  Future<int> modEjerRutina(String nombreRutina, List<String> ejercicios) async{
     final db = await instance.database;
     String ejerciciosStr = ejercicios.join(',');
-    await db.update(rutinas,{camposRutinas[2] : ejerciciosStr},where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina]);
+    return await db.update(rutinas,{camposRutinas[2] : ejerciciosStr},where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina]);
   }
 
   Future<void> modDescripcionDescansoRutina(String nombreRutina,String desripcion,String descanso) async{

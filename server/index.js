@@ -79,7 +79,7 @@ app.get('/verificar', verificarToken, (req, res) => {
   });
 
 app.get('/getUsuarios', (req, res) => {
-    const query = 'SELECT username FROM usuarios';
+    const query = 'SELECT username FROM usuarios ORDER BY descargas DESC';
     db.query(query, (err, results) => {
         if (err) {
             console.error('Error al ejecutar la consulta:', err);
@@ -224,7 +224,7 @@ app.post('/aniadirEjerciciosARutina', (req, res) => {
 app.post('/rutinasCompartidasUsuario', (req, res) => {
     const { usuario } = req.body;
 
-    const query = 'SELECT id, nombre FROM rutinas WHERE usuario = ?';
+    const query = 'SELECT id, nombre FROM rutinas WHERE usuario = ? ORDER BY descargas DESC';
     const valores = [usuario];
     db.query(query, valores, (err, results) => {
         if (err) {
@@ -244,7 +244,7 @@ app.post('/getRutina', (req, res) => {
     const { id , usuario} = req.body;
 
     if(usuario==undefined){
-        const query = 'SELECT descripcion, idEjercicios, descargas, descansos FROM rutinas WHERE id = ?';
+        const query = 'SELECT descripcion, descargas, descansos FROM rutinas WHERE id = ?';
         const valores = [id];
 
         db.query(query, valores, (err, results) => {
@@ -279,7 +279,7 @@ app.post('/getRutina', (req, res) => {
 });
 
 app.get('/getRutinas', (req, res) => {
-    const query = 'SELECT id, nombre FROM rutinas';
+    const query = 'SELECT id, nombre FROM rutinas ORDER BY descargas DESC';
     db.query(query, (err, results) => {
         if (err) {
             console.error('Error al ejecutar la consulta:', err);
@@ -320,6 +320,48 @@ app.post('/getEjerciciosRutina', (req, res) => {
     const { id } = req.body;
 
     const query = 'SELECT nombre FROM ejercicios WHERE idRutina IN (SELECT id FROM rutinas WHERE id = ?)';
+    const valores = [id];
+
+    db.query(query, valores, (err, results) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (results.length > 0) {
+            res.status(200).json({ ejercicios: results });
+        } else {
+            res.status(404).json({ mensaje: 'Ejercicios no encontrados' });
+        }
+    });
+}
+);
+
+app.post('/registrarDescarga',(req,res) => {
+    
+    const { id } = req.body;
+    const query = 'UPDATE rutinas SET descargas = descargas + 1 WHERE id = ?';
+    const valores = [id];
+
+    db.query(query, valores, (err, result) => {
+    if (err) {
+        console.error('Error al ejecutar la consulta:', err);
+        return res.status(500).send('Error en el servidor');
+    }
+
+    if (result.affectedRows > 0) {
+        res.status(200).json({ mensaje: 'Descarga registrada correctamente' });
+    } else {
+        res.status(404).json({ mensaje: 'Rutina no encontrada' });
+    }
+
+    });
+});
+
+app.post('/getEjerciciosRutinaDescargar', (req, res) => {
+    const { id } = req.body;
+
+    const query = 'SELECT nombre, tipo, descripcion FROM ejercicios WHERE idRutina IN (SELECT id FROM rutinas WHERE id = ?)';
     const valores = [id];
 
     db.query(query, valores, (err, results) => {

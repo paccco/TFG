@@ -28,7 +28,7 @@ class _SeleccionarEjercicioState extends State<SeleccionarEjercicio>{
         cargarContenido: _cargarContenido,
         cargarElemento: (context, nombre) async{
           final aux = BDLocal.instance;
-          final res = await aux.aniadirEjerRutina(widget.rutina, nombre);
+          final res = await aux.aniadirEjerRutina(widget.rutina, [nombre]);
 
           if(res){
             Navigator.pop(context);

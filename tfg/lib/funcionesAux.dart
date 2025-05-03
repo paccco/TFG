@@ -17,9 +17,35 @@ bool validarFormatoHora(String hora) {
       segundos >= 0 && segundos <= 59;
 }
 
-Future<bool> guardarRutina(int idRutina, String nombreRutina) async{
+Future<bool> descargarRutina(int idRutina, String nombreRutina) async{
   final rutina=await getRutina(idRutina,usuario: true);
-  final res = await BDLocal.instance.insertRutina("$nombreRutina-${rutina['usuario']}", "${rutina['descripcion']}", "${rutina['descansos']}");
+  final ejercicios=await getEjerciciosRutinaDescargar(idRutina);
 
-  return res.isNotEmpty;
+  final String nuevoNombreRutina="$nombreRutina-${rutina['usuario']}";
+
+  final resRutina = await BDLocal.instance.insertRutina(nuevoNombreRutina, "${rutina['descripcion']}", "${rutina['descansos']}");
+
+  List<Future<String>> futures = List.empty(growable: true);
+
+  ejercicios.forEach((value){
+    Map<String,dynamic> aux=Map.from(value);
+    aux['nombre']=("${value['nombre']}-${rutina['usuario']}");
+    futures.add(BDLocal.instance.insertEjercicios(aux));
+  });
+
+  final resEjericios=await Future.wait(futures);
+
+  if(resRutina.isNotEmpty && !resEjericios.contains("")){
+    final res=await BDLocal.instance.modEjerRutina(nuevoNombreRutina, resEjericios);
+
+    final sinErrores=res!=0;
+
+    if(sinErrores){
+      await registrarDescarga(idRutina);
+    }
+
+    return sinErrores;
+  }
+
+  return false;
 }

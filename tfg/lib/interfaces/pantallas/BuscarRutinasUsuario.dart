@@ -71,7 +71,7 @@ class _BuscarRutinasUsuarioState extends State<BuscarRutinasUsuario>{
                       ),
                     ),
                     _creaBoton("Descargar", () async {
-                      final aux=await guardarRutina(id, nombreRutina);
+                      final aux=await descargarRutina(id, nombreRutina);
                       if(aux){
                         mensaje(context, "Rutina descargada correctamente");
                       }else{
