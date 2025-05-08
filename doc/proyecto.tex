@@ -9,7 +9,7 @@
 \documentclass[11pt, a4paper]{book}
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
 \usepackage[utf8]{inputenc}
-\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+% \usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
 \usepackage{listings} % para insertar código con formato similar al editor
 \usepackage[spanish, es-tabla]{babel} % Selecciona el español para palabras introducidas automáticamente, p.ej. "septiembre" en la fecha y especifica que se use la palabra Tabla en vez de Cuadro
 \usepackage{url} % ,href} %para incluir URLs e hipervínculos dentro del texto (aunque hay que instalar href)
@@ -21,6 +21,8 @@
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage[style=apa,sorting=none]{biblatex}
+\addbibresource{bibliografia.bib}
 
 \usepackage[table,xcdraw]{xcolor}
 \hypersetup{
@@ -87,30 +89,6 @@
 	\input{secciones/03_descripcion}
 	
 	\input{secciones/04_planificacion}
-
-	% Análisis del problema
-	% 1. Análisis de requisitos
-	% 2. Análisis de las soluciones
-	% 3. Solucion propuesta
-	% 4. Análisis de seguridad
-	\input{secciones/05_analisis}
-
-	% Desarrollo bajo sprints: 
-	% 	1. Permitir registros y login de usuarios
-	% 	2. Desarrollo del sistema de incidencias
-	% 	3. Desarrollo del sistema de denuncias administrativas y accidentes
-	% 	4. Desarrollo del sistema de croquis
-	%   5. Instalación de la aplicación de manera automática
-	\input{secciones/06_implementacion}
-
-	% Presupuesto
-
-	% Conclusiones
-	\input{secciones/07_conclusiones}
-
-	% Trabajos futuros
-
-
 	
 	\newpage
 	\bibliography{bibliografia}
