@@ -15,14 +15,14 @@
 \usepackage{url} % ,href} %para incluir URLs e hipervínculos dentro del texto (aunque hay que instalar href)
 \usepackage{graphics,graphicx, float} %para incluir imágenes y colocarlas
 \usepackage[gen]{eurosym} %para incluir el símbolo del euro
-\usepackage{cite} %para incluir citas del archivo <nombre>.bib
+%\usepackage{cite} %para incluir citas del archivo <nombre>.bib
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{bibliografia.bib}
 \usepackage{enumerate}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{booktabs}
-\usepackage[style=apa,sorting=none]{biblatex}
-\addbibresource{bibliografia.bib}
 
 \usepackage[table,xcdraw]{xcolor}
 \hypersetup{
@@ -91,8 +91,8 @@
 	\input{secciones/04_planificacion}
 	
 	\newpage
-	\bibliography{bibliografia}
-	\bibliographystyle{plain}
+	\printbibliography
+
 	
 \end{document}
 
