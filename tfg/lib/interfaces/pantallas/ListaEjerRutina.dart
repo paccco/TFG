@@ -24,13 +24,11 @@ class _ListaEjerRutinaState extends State<ListaEjerRutina>{
 
     _contenido = List.from(out);
 
-    setState(() {});
     return out;
   }
 
   void _aniadir(BuildContext context) async {
     await Navigator.push(context, MaterialPageRoute(builder: (context)=>SeleccionarEjercicio(rutina: widget.titulo)));
-    setState(() {});
   }
 
   void _intercambiar(BuildContext context, String nombre) async{
@@ -48,7 +46,6 @@ class _ListaEjerRutinaState extends State<ListaEjerRutina>{
       _contenido[indice2]=aux;
       _seleccionado="";
       BDLocal.instance.modEjerRutina(widget.titulo, _contenido);
-      setState(() {});
     }
   }
 

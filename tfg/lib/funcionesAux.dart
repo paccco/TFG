@@ -62,3 +62,25 @@ Future<bool> descargarRutina(int idRutina, String nombreRutina) async{
 
   return false;
 }
+
+Widget botonPopUp(String texto, Function() func, String asset){
+  final double alturaBoton=6.h;
+
+  return InkWell(
+    onTap: func,
+    child: Container(
+        padding: EdgeInsets.all(1.h),
+        height: alturaBoton,
+        margin: EdgeInsets.all(1.h),
+        alignment: Alignment.center,
+        color: Colores.naranja,
+        child: Row(
+          children: [
+            Text(texto,style: TextStyle(color: Colores.blanco,fontSize: 19.sp),),
+            Spacer(),
+            Image.asset(asset, height: alturaBoton,width: alturaBoton,)
+          ],
+        )
+    ),
+  );
+}

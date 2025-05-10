@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:tfg/API.dart';
 import 'package:tfg/ConexionBDLocal.dart';
 import 'package:tfg/constantes.dart';
 import 'package:tfg/funcionesAux.dart';
 import 'package:tfg/interfaces/pantallas/ListaEjerRutina.dart';
 import 'package:tfg/interfaces/pantallas/plantillas/ListaBusquedaAniadir.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
-import 'Confirmacion.dart';
+import 'DatosRutinas.dart';
 
 class ListaRutinas extends StatefulWidget{
   const ListaRutinas({super.key});
@@ -81,100 +80,7 @@ class _ListaRutinasState extends State<ListaRutinas>{
     contDescripcion.text=rutina[campos[1]];
     contDescanso.text=rutina[campos[3]];
 
-    showDialog(
-        context: context,
-        builder: (BuildContext context){
-          return AlertDialog(
-            backgroundColor: Colores.azulOscuro,
-            title: Center(
-              child: Text(nombre,style: TextStyle(color: Colores.blanco,fontSize: Tamanios.fuenteTitulo)),
-            ),
-            content: Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.all(5),
-              color: Colores.grisClaro,
-              height: 10.h,
-              child: Column(
-                spacing: 5,
-                children: [
-                  Text("Valoracion 4.3 / 5",style: estilo),
-                  Text("Descanso $descanso",style: estilo)
-                ],
-              ),
-            ),
-            actions: [
-              botonPopUp("Compartir", () async{
-                bool decision=false;
-                decision=await Navigator.push(context, MaterialPageRoute(builder: (context)=>Confirmacion()));
-
-                if(decision){
-                  final res=await subirRutina(nombre);
-                  if(res==-2){
-                    mensaje(context, "La rutina ha de contener ejercicios para poder compartirse", error: true);
-                  }else if(res>=0){
-                    mensaje(context, "Rutina subida correctamente");
-                  }
-                }
-              }, 'assets/images/subir.png'),
-              botonPopUp("Modificar", () async {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context){
-                      TextStyle estilo=TextStyle(color: Colores.negro,fontSize: 17.5.sp);
-
-                      return AlertDialog(
-                        backgroundColor: Colores.grisClaro,
-                        content: SizedBox(
-                          height: 28.h,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            spacing: 5,
-                            children: [
-                              Text("Descanso",style: estilo),
-                              BarraTexto(controller: contDescanso),
-                              Text("Descripcion",style: estilo),
-                              BarraTexto(controller: contDescripcion,textoHint: "Descripcion",maxLineas: 3)
-                            ],
-                          ),
-                        ),
-                        actions: [
-                          botonPopUp("Guardar", (){
-                            final descanso=contDescanso.value.text;
-                            if(validarFormatoHora(descanso)){
-                              BDLocal.instance.modDescripcionDescansoRutina(nombre, contDescripcion.value.text, descanso);
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            }else{
-                              mensaje(context, "Descanso hh:mm:ss",error: true);
-                            }
-                          },
-                              'assets/images/save.png'
-                          )
-                        ],
-                      );
-                    }
-                );
-              },'assets/images/mod.png'),
-              botonPopUp(
-                  "Ejercicios",
-                      (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ListaEjerRutina(titulo: nombre)));},
-                  'assets/images/ejercicio.png'
-              ),
-              botonPopUp("Eliminar", () async {
-
-                bool decision=false;
-                decision = await Navigator.push(context, MaterialPageRoute(builder: (context)=>Confirmacion()));
-
-                if(decision){
-                  await BDLocal.instance.borrarRutina(nombre);
-                  Navigator.pop(context);
-                  setState(() {});
-                }
-              },'assets/images/papelera.png')
-            ]
-          );
-        }
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>DatosRutinas(titulo: nombre, rutina: rutina, campos: campos)));
   }
 
   Widget botonPopUp(String texto, Function() func, String asset){

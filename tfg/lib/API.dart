@@ -3,7 +3,7 @@ import 'package:tfg/ConexionBDLocal.dart';
 import 'dart:convert';
 import 'constantes.dart';
 
-final ipPuerto="172.20.10.3:3000";
+final ipPuerto="192.168.0.21:3000";
 
 Future<bool> login(String user, String passwd) async {
   final url = Uri.parse('http://$ipPuerto/login');

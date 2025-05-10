@@ -4,6 +4,7 @@ import 'package:tfg/interfaces/pantallas/ListaEjercicios.dart';
 import 'package:tfg/interfaces/pantallas/ListaRutinas.dart';
 import 'package:tfg/interfaces/pantallas/ListaRutinasCompartidas.dart';
 import 'package:tfg/interfaces/pantallas/MiPerfil.dart';
+import 'package:tfg/interfaces/pantallas/plantillas/EligeEntre2.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSimple.dart';
 import '../../constantes.dart';
 import './BuscarRutinaNombre.dart';
@@ -32,60 +33,34 @@ class MneuPrincipalState extends State<MenuPrincipal>{
   }
 
   void _cargarMisRutinas(BuildContext context){
-    showDialog(
-        context: context,
-        builder: (BuildContext context){
-          return AlertDialog(
-            backgroundColor: Colores.azulOscuro,
-            title: Center(
-              child: Text("¿Quieres ver tus rutinas o las que has compartido?", style: TextStyle(color: Colores.blanco),),
-            ),
-            content: SizedBox(
-              height: 18.h,
-              child: Column(
-                spacing: 1.5.h,
-                children: [
-                  _hacerBoton("Mis rutinas",(){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ListaRutinas()));
-                  }),
-                  _hacerBoton("Compartidas", () async {
-                    final String usuario= await storage.read(key: 'usuario') ?? '';
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ListaRutinasCompartidas(usuario: usuario)));
-                  })
-                ],
-              ),
-            )
-          );
+
+    Widget aux=EligeEntre2(
+        titulo: "",
+        pregunta: "¿Quieres ver tus rutinas o las que has compartido?",
+        opcion1: "Mis rutinas",
+        opcion2: "Compartidas",
+        func1: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ListaRutinas())),
+        func2: ()async{
+          final String usuario= await storage.read(key: 'usuario') ?? '';
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ListaRutinasCompartidas(usuario: usuario)));
         }
     );
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => aux));
   }
 
   void _cargarBuscarRutinas(BuildContext context){
-    showDialog(
-        context: context,
-        builder: (BuildContext context){
-          return AlertDialog(
-            backgroundColor: Colores.azulOscuro,
-            title: Center(
-              child: Text("¿Quieres buscar por nombre o usuario?", style: TextStyle(color: Colores.blanco),),
-            ),
-            content: SizedBox(
-              height: 18.h,
-              child: Column(
-                spacing: 1.5.h,
-                children: [
-                  _hacerBoton("Usuario",(){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BuscarUsuario()));
-                  }),
-                  _hacerBoton("Rutina", (){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BuscarRutinaNombre()));
-                  })
-                ],
-              ),
-            ),
-          );
-        }
+
+    Widget aux=EligeEntre2(
+        titulo: "",
+        pregunta: "¿Quieres buscar por nombre o usuario?",
+        opcion1: "Usuario",
+        opcion2: "Rutina",
+        func1: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BuscarUsuario())),
+        func2: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BuscarRutinaNombre()))
     );
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => aux));
   }
 
   Widget _cajaElemento(String texto, Color color, String asset, void Function() func){

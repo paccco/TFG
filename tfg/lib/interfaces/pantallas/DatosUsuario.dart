@@ -27,72 +27,47 @@ Future<Widget> _tablaDatos(BuildContext context) async{
   ]);
 
   String pesoObj=await storage.read(key: 'pesoObj') ?? "Sin establecer";
+  final TextEditingController pesoObjC=TextEditingController();
 
-  return Column(
-    spacing: 15,
-    children: [
-      DataTable(
-          columns: [
-            _columna(""),
-            _columna("Valor")
-          ],
-          rows: [
-            DataRow(cells: [_celda("Peso"),_celda(consulta[0])]),
-            DataRow(cells: [_celda("Altura"),_celda(consulta[1])]),
-            DataRow(cells: [_celda("Fecha nacimiento"),_celda(consulta[2])]),
-            DataRow(cells: [_celda("Género"),_celda(consulta[3])])
-          ]
-      ),
-      Text("Peso objetivo: $pesoObj", style: TextStyle(fontSize: 18.sp)),
-      TextButton(
-          onPressed: (){
-            showDialog(
-                context: context,
-                builder: (BuildContext context){
-                  final TextEditingController pesoObjC=TextEditingController();
-                  return AlertDialog(
-                      title: Text("Establecer peso objetivo"),
-                      content: SizedBox(
-                        height: 20.h,
-                        child: Column(
-                          spacing: 15,
-                          children: [
-                            BarraTexto(controller: pesoObjC,tipoInput: TextInputType.numberWithOptions(decimal: true)),
-                            InkWell(
-                              onTap: (){
-                                //Comprueba formato
-                                if(regexPeso.hasMatch(pesoObjC.value.text)){
-                                  storage.write(key: 'pesoObj', value: pesoObjC.value.text.replaceAll(',', '.'));
-                                  Navigator.pop(context);
-                                }else{
-                                  mensaje(context, "Numero ppositivo con un decimal máximo", error: true);
-                                }
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: 40.w,
-                                height: 7.5.h,
-                                color: Colores.naranja,
-                                child: Text("Guardar",style: TextStyle(color: Colores.blanco, fontSize: 20.sp),),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                  );
-                }
-            );
-          },
-          child: Container(
-            height: 10.h,
-            width: 60.w,
-            color: Colores.naranja,
-            child: Center(
-              child: Text("Establecer objetivo",style: TextStyle(color: Colores.blanco,fontSize: 20.sp)),
+  return Container(
+    margin: EdgeInsets.all(2.h),
+    child: Column(
+        spacing: 15,
+        children: [
+          DataTable(
+              columns: [
+                _columna(""),
+                _columna("Valor")
+              ],
+              rows: [
+                DataRow(cells: [_celda("Peso"),_celda(consulta[0])]),
+                DataRow(cells: [_celda("Altura"),_celda(consulta[1])]),
+                DataRow(cells: [_celda("Fecha nacimiento"),_celda(consulta[2])]),
+                DataRow(cells: [_celda("Género"),_celda(consulta[3])])
+              ]
+          ),
+          Text("Peso objetivo: $pesoObj", style: TextStyle(fontSize: 18.sp)),
+          BarraTexto(controller: pesoObjC,tipoInput: TextInputType.numberWithOptions(decimal: true)),
+          TextButton(
+            onPressed: (){
+              if(regexPeso.hasMatch(pesoObjC.value.text)){
+                storage.write(key: 'pesoObj', value: pesoObjC.value.text.replaceAll(',', '.'));
+                Navigator.pop(context);
+              }else{
+                mensaje(context, "Numero ppositivo con un decimal máximo", error: true);
+              }
+            },
+            child: Container(
+              height: 8.h,
+              width: 60.w,
+              color: Colores.naranja,
+              child: Center(
+                child: Text("Establecer objetivo",style: TextStyle(color: Colores.blanco,fontSize: 18.sp)),
+              ),
             ),
           ),
-      ),
-    ]
+        ]
+    ),
   );
 }
 

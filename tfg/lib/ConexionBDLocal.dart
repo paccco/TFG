@@ -298,12 +298,12 @@ class BDLocal{
     final consulta = await db.query(rutinas,where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina],columns: [camposRutinas[2]]);
     final aux=consulta.isNotEmpty ? consulta.first.values.first : "";
 
-    String ejercicios;
+    String ejercicios="";
     final cadenaEjercicios=nombreEjercicios.join(',');
 
     if(aux==""){
       ejercicios=cadenaEjercicios;
-    }else{
+    }else if (aux!=null){
       ejercicios=aux as String;
       ejercicios+=',$cadenaEjercicios';
     }
