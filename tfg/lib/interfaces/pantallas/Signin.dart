@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/API.dart';
-import 'package:tfg/interfaces/PopUps/DialogosError.dart';
+import '../../funcionesAux.dart';
 import 'package:tfg/interfaces/pantallas/LogSignIn.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloConSalida.dart';
@@ -67,10 +67,10 @@ class Singin1State extends State<Singin1>{
                       Navigator.push(context, MaterialPageRoute(builder: (context) => Singin2(usuario: usuario,passwd: passwd)));
                     }
                   }else{
-                    mensajeError(context, "Las contraseñas no coinciden");
+                    mensaje(context, "Las contraseñas no coinciden",error: true);
                   }
                 }else{
-                  mensajeError(context, "Rellena todos los campos");
+                  mensaje(context, "Rellena todos los campos", error: true);
                 }
               },
             child: Text("Seguir",style: TextStyle(color: Colores.blanco,fontSize: 31.sp),)
@@ -195,11 +195,11 @@ class Singin2State extends State<Singin2>{
                     mensaje(context, "Cuenta creada correctamente");
                   }
                 }else{
-                  mensajeError(context, "Altura en cm sin decimales, peso solo con un decimal");
+                  mensaje(context, "Altura en cm sin decimales, peso solo con un decimal", error: true);
                 }
 
               }else{
-                mensajeError(context, "Rellena los campos");
+                mensaje(context, "Rellena los campos", error: true);
               }
             },
             child: Text("Crear usuario",style: TextStyle(color: Colores.blanco,fontSize: 31.sp))

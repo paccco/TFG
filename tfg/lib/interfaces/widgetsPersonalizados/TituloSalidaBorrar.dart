@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../PopUps/Confirmacion.dart';
 import '../../constantes.dart';
 import '../../ConexionBDLocal.dart';
+import '../pantallas/Confirmacion.dart';
 
 class TituloConSalidaBorrar extends StatelessWidget{
 
@@ -36,13 +36,9 @@ class TituloConSalidaBorrar extends StatelessWidget{
         Container(
           color: Colores.rojo,
             child: IconButton(
-                onPressed: (){
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context){
-                        return Confirmacion(decision: (value)=>_borrar(value, context));
-                      }
-                  );
+                onPressed: ()async{
+                  final aux = await Navigator.push(context, MaterialPageRoute(builder: (context)=>Confirmacion()));
+                  _borrar(aux, context);
                 },
                 icon: Image.asset('assets/images/papelera.png')
             )

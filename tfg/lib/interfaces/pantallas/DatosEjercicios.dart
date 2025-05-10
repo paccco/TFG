@@ -4,7 +4,6 @@ import 'package:tfg/interfaces/widgetsPersonalizados/TituloSalidaBorrar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../ConexionBDLocal.dart';
 import '../../constantes.dart';
-import '../PopUps/DialogosError.dart';
 import '../../funcionesAux.dart';
 
 class DatosEjercicios extends StatelessWidget{
@@ -59,7 +58,7 @@ class DatosEjercicios extends StatelessWidget{
                         if(aux){
                           mensaje(context, "Se ha modificado correctamente");
                         }else{
-                          mensajeError(context, "Fallo al modificar");
+                          mensaje(context, "Fallo al modificar", error: true);
                         }
                     })],
                   );
@@ -115,7 +114,7 @@ class DatosEjercicios extends StatelessWidget{
                           try{
                             aux['repeticiones']=int.parse(rpc.value.text);
                           }catch(exception){
-                            mensajeError(context, "Repeticiones: Usa un numero positivo sin comas");
+                            mensaje(context, "Repeticiones: Usa un numero positivo sin comas",error: true);
                           }
                         }
                         if(tipo[1]=='1' && tc.value.text.isNotEmpty){
@@ -130,35 +129,25 @@ class DatosEjercicios extends StatelessWidget{
                           try{
                             aux['peso']=double.parse(psc.value.text);
                           }catch(exception){
-                            mensajeError(context, "Peso: Usa un numero con punto");
+                            mensaje(context, "Peso: Usa un numero con punto", error: true);
                           }
                         }
                         if(tipo[3]=='1' && dtc.value.text.isNotEmpty){
                          try{
                            aux['distancia']=double.parse(dtc.value.text);
                          }catch(execption){
-                           mensajeError(context, "Distancia: Usa un numero con punto");
+                           mensaje(context, "Distancia: Usa un numero con punto", error: true);
                          }
                         }
 
                         if(aux.values.contains(false)){
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context){
-                                return AlertDialog(title: Text("Formato de hora incorrecto: hh:mm:ss"),);
-                              }
-                          );
+                          mensaje(context, "Formato de hora erróneo: hh:mm:ss", error: true);
                         } else if(aux.isNotEmpty){
                           await BDLocal.instance.modMeta(titulo,aux);
                           Navigator.pop(context);
                           Navigator.pop(context);
                         }else{
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context){
-                                return AlertDialog(title: Text("Rellena los campos"),);
-                              }
-                          );
+                          mensaje(context, "Rellena los campos", error: true);
                         }
                       })
                     ],

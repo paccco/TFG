@@ -4,11 +4,10 @@ import 'package:tfg/API.dart';
 import 'package:tfg/ConexionBDLocal.dart';
 import 'package:tfg/constantes.dart';
 import 'package:tfg/funcionesAux.dart';
-import 'package:tfg/interfaces/PopUps/Confirmacion.dart';
-import 'package:tfg/interfaces/PopUps/DialogosError.dart';
 import 'package:tfg/interfaces/pantallas/ListaEjerRutina.dart';
 import 'package:tfg/interfaces/pantallas/plantillas/ListaBusquedaAniadir.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
+import 'Confirmacion.dart';
 
 class ListaRutinas extends StatefulWidget{
   const ListaRutinas({super.key});
@@ -53,7 +52,7 @@ class _ListaRutinasState extends State<ListaRutinas>{
                         setState(() {});
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ListaEjerRutina(titulo: aux)));
                       }else{
-                        mensajeError(context, "Descanso hh:mm:ss");
+                        mensaje(context, "Descanso hh:mm:ss", error: true);
                       }
                     },
                     child: Text("Seguir", style: TextStyle(color: Colores.blanco))
@@ -106,14 +105,12 @@ class _ListaRutinasState extends State<ListaRutinas>{
             actions: [
               botonPopUp("Compartir", () async{
                 bool decision=false;
-                await showDialog(context: context, builder: (BuildContext context){
-                  return Confirmacion(decision: (value)=>decision=value);
-                });
+                decision=await Navigator.push(context, MaterialPageRoute(builder: (context)=>Confirmacion()));
 
                 if(decision){
                   final res=await subirRutina(nombre);
                   if(res==-2){
-                    mensaje(context, "La rutina ha de contener ejercicios para poder compartirse");
+                    mensaje(context, "La rutina ha de contener ejercicios para poder compartirse", error: true);
                   }else if(res>=0){
                     mensaje(context, "Rutina subida correctamente");
                   }
@@ -148,7 +145,7 @@ class _ListaRutinasState extends State<ListaRutinas>{
                               Navigator.pop(context);
                               Navigator.pop(context);
                             }else{
-                              mensajeError(context, "Descanso hh:mm:ss");
+                              mensaje(context, "Descanso hh:mm:ss",error: true);
                             }
                           },
                               'assets/images/save.png'
@@ -166,10 +163,7 @@ class _ListaRutinasState extends State<ListaRutinas>{
               botonPopUp("Eliminar", () async {
 
                 bool decision=false;
-
-                await showDialog(context: context, builder: (BuildContext context){
-                  return Confirmacion(decision: (value)=>decision=value);
-                });
+                decision = await Navigator.push(context, MaterialPageRoute(builder: (context)=>Confirmacion()));
 
                 if(decision){
                   await BDLocal.instance.borrarRutina(nombre);

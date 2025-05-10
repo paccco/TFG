@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tfg/funcionesAux.dart';
 import 'package:tfg/interfaces/pantallas/plantillas/ListaBusquedaAniadir.dart';
 import './DatosEjercicios.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -103,13 +104,13 @@ class ListaEjerciciosState extends State<ListaEjercicios>{
                                   });
                                   Navigator.pop(context);
                                 }else{
-                                  showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellene el campo tipo "));});
+                                  mensaje(context, "Selecciona al menos un tipo de parámetro");
                                 }
                               }else{
-                                showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellena la descripcion"));});
+                                mensaje(context, "Rellene la descripción");
                               }
                             }else{
-                              showDialog(context: context, builder: (BuildContext context){return AlertDialog(title: Text("Rellene el nombre"));});
+                              mensaje(context, "Rellena el nombre del ejercicio");
                             }
                           },
                           child: Text("Guardar")

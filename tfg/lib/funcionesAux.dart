@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:tfg/API.dart';
 import 'package:tfg/ConexionBDLocal.dart';
+import 'package:tfg/constantes.dart';
 
 bool validarFormatoHora(String hora) {
   final regexHora = RegExp(r'^\d{2}:\d{2}:\d{2}$');
@@ -15,6 +17,16 @@ bool validarFormatoHora(String hora) {
   return horas >= 0 && horas <= 23 &&
       minutos >= 0 && minutos <= 59 &&
       segundos >= 0 && segundos <= 59;
+}
+
+void mensaje(BuildContext context, String mensaje, {bool error=false}){
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+        content:Text(mensaje),
+        duration: Duration(seconds: 4),
+        backgroundColor: error ? Colores.rojo : Colores.verde,
+    )
+  );
 }
 
 Future<bool> descargarRutina(int idRutina, String nombreRutina) async{

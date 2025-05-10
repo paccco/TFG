@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tfg/interfaces/PopUps/DialogosError.dart';
+import '../../funcionesAux.dart';
 import 'package:tfg/constantes.dart';
 import 'package:tfg/interfaces/pantallas/MenuPrincipal.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
@@ -58,10 +58,10 @@ class LoginState extends State<Login>{
                         (route) => false,
                   );
                 }else{
-                  mensajeError(context, "Credenciales incorrectos");
+                  mensaje(context, "Credenciales incorrectos", error: true);
                 }
               }else{
-                mensajeError(context, "Rellena los campos");
+                mensaje(context, "Rellena los campos", error: true);
               }
             },
             child: Text("Iniciar sesion",style: TextStyle(color: Colores.blanco,fontSize: 31.sp),)

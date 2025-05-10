@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tfg/API.dart';
 import 'package:tfg/constantes.dart';
 import 'package:tfg/funcionesAux.dart';
-import 'package:tfg/interfaces/PopUps/DialogosError.dart';
 import 'plantillas/ListaBusquedaConId.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -75,7 +74,7 @@ class _BuscarRutinasUsuarioState extends State<BuscarRutinasUsuario>{
                       if(aux){
                         mensaje(context, "Rutina descargada correctamente");
                       }else{
-                        mensaje(context, "Error al descargar la rutina");
+                        mensaje(context, "Error al descargar la rutina",error: true);
                       }
                     })
                   ],

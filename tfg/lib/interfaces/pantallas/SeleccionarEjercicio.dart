@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'plantillas/ListaBusqueda.dart';
 import '../../ConexionBDLocal.dart';
-import '../PopUps/DialogosError.dart';
+import '../../funcionesAux.dart';
 
 class SeleccionarEjercicio extends StatefulWidget{
   final String rutina;

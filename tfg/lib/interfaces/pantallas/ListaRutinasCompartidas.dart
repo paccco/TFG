@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tfg/API.dart';
 import 'package:tfg/constantes.dart';
-import 'package:tfg/interfaces/PopUps/DialogosError.dart';
+import '../../funcionesAux.dart';
 import 'plantillas/ListaBusquedaConId.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -81,7 +81,7 @@ class _ListaRutinasCompartidasState extends State<ListaRutinasCompartidas>{
                       });
                       mensaje(context, "Rutina eliminada correctamente");
                     }else{
-                      mensaje(context, "Error al eliminar la rutina");
+                      mensaje(context, "Error al eliminar la rutina", error: true);
                     }
                   })
                 ],

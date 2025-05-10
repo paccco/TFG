@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/constantes.dart';
-import 'package:tfg/interfaces/PopUps/DialogosError.dart';
+import '../../funcionesAux.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
 
 import '../widgetsPersonalizados/TituloConSalida.dart';
@@ -65,7 +65,7 @@ Future<Widget> _tablaDatos(BuildContext context) async{
                                   storage.write(key: 'pesoObj', value: pesoObjC.value.text.replaceAll(',', '.'));
                                   Navigator.pop(context);
                                 }else{
-                                  mensajeError(context, "Numero ppositivo con un decimal máximo");
+                                  mensaje(context, "Numero ppositivo con un decimal máximo", error: true);
                                 }
                               },
                               child: Container(
