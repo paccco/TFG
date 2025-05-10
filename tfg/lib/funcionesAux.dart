@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tfg/API.dart';
 import 'package:tfg/ConexionBDLocal.dart';
 import 'package:tfg/constantes.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 bool validarFormatoHora(String hora) {
   final regexHora = RegExp(r'^\d{2}:\d{2}:\d{2}$');
@@ -22,7 +23,7 @@ bool validarFormatoHora(String hora) {
 void mensaje(BuildContext context, String mensaje, {bool error=false}){
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-        content:Text(mensaje),
+        content:Text(mensaje, style: TextStyle(fontSize: 20.sp)),
         duration: Duration(seconds: 4),
         backgroundColor: error ? Colores.rojo : Colores.verde,
     )

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
+import 'ModificarDescrEjercicio.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSalidaBorrar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../ConexionBDLocal.dart';
 import '../../constantes.dart';
-import '../../funcionesAux.dart';
+import 'NuevaMetaEjercicio.dart';
 
 class DatosEjercicios extends StatelessWidget{
 
@@ -46,113 +46,11 @@ class DatosEjercicios extends StatelessWidget{
         children: [
           _hacerBoton("Hacer grafica", (){}),
           Spacer(),
-          _hacerBoton("Descripcion", (){
-            showDialog(
-                context: context,
-                builder: (BuildContext context){
-                  return AlertDialog(
-                    backgroundColor: Colores.azulOscuro,
-                    content: BarraTexto(controller: controller,maxLineas: 5,),
-                    actions: [_hacerBoton("Guardar", () async{
-                        final aux=await BDLocal.instance.modDescripcionEjer(controller.value.text, titulo);
-                        if(aux){
-                          mensaje(context, "Se ha modificado correctamente");
-                        }else{
-                          mensaje(context, "Fallo al modificar", error: true);
-                        }
-                    })],
-                  );
-                });
-          }),
+          _hacerBoton("Descripcion", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ModificarDescrEjercicio(titulo: titulo)))),
           Spacer(),
           _hacerBoton("Nueva meta", () {
-
-            TextEditingController rpc,tc,psc,dtc;
-            List<Widget> miWrap=List.empty(growable: true);
-
-            rpc=TextEditingController();
-            tc=TextEditingController();
-            psc=TextEditingController();
-            dtc=TextEditingController();
-
-            if(tipo[0]=='1'){
-              miWrap.add(
-                _nuevaMetaNum(rpc, "REPETICIONES")
-              );
-            }
-            if(tipo[1]=='1'){
-              miWrap.add(
-                  _nuevaMetaNum(tc, "TIEMPO",tiempo: true)
-              );
-            }
-            if(tipo[2]=='1'){
-              miWrap.add(
-                  _nuevaMetaNum(psc, "PESO", decimal: true)
-              );
-            }if(tipo[3]=='1'){
-              miWrap.add(
-                  _nuevaMetaNum(dtc, "DISTANCIA", decimal: true)
-              );
-            }
-
-            showDialog(
-                context: context,
-                builder: (BuildContext context){
-                  return AlertDialog(
-                    title: Text("Nueva meta",style: TextStyle(fontSize: 27.sp ,color: Colores.blanco),),
-                    backgroundColor: Colores.azulOscuro,
-                    content: Column(
-                        spacing: 5,
-                        mainAxisSize: MainAxisSize.min,
-                        children: miWrap
-                      ),
-                    actions: [
-                      _hacerBoton("Guardar", () async {
-                        Map<String,dynamic> aux={};
-
-                        if(tipo[0]=='1' && rpc.value.text.isNotEmpty){
-                          try{
-                            aux['repeticiones']=int.parse(rpc.value.text);
-                          }catch(exception){
-                            mensaje(context, "Repeticiones: Usa un numero positivo sin comas",error: true);
-                          }
-                        }
-                        if(tipo[1]=='1' && tc.value.text.isNotEmpty){
-                          final horaVal = tc.value.text;
-                          if(validarFormatoHora(horaVal)) {
-                            aux['tiempo'] = horaVal;
-                          }else{
-                            aux['tiempo'] = false;
-                          }
-                        }
-                        if(tipo[2]=='1' && psc.value.text.isNotEmpty){
-                          try{
-                            aux['peso']=double.parse(psc.value.text);
-                          }catch(exception){
-                            mensaje(context, "Peso: Usa un numero con punto", error: true);
-                          }
-                        }
-                        if(tipo[3]=='1' && dtc.value.text.isNotEmpty){
-                         try{
-                           aux['distancia']=double.parse(dtc.value.text);
-                         }catch(execption){
-                           mensaje(context, "Distancia: Usa un numero con punto", error: true);
-                         }
-                        }
-
-                        if(aux.values.contains(false)){
-                          mensaje(context, "Formato de hora erróneo: hh:mm:ss", error: true);
-                        } else if(aux.isNotEmpty){
-                          await BDLocal.instance.modMeta(titulo,aux);
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                        }else{
-                          mensaje(context, "Rellena los campos", error: true);
-                        }
-                      })
-                    ],
-                  );
-                }
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context)=>NuevaMetaEjercicio(titulo: titulo,repeticiones: tipo[0]=='1',tiempo: tipo[1]=='1',peso: tipo[2]=='1',distancia: tipo[3]=='1'))
             );
           })
         ],
