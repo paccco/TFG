@@ -19,19 +19,6 @@ class MenuPrincipal extends StatefulWidget {
 
 class MneuPrincipalState extends State<MenuPrincipal>{
 
-  Widget _hacerBoton(String texto, Function() func){
-    return InkWell(
-      onTap: func,
-      child: Container(
-        height: 7.5.h,
-        width: 50.w,
-        color: Colores.naranja,
-        alignment: Alignment.center,
-        child: Text(texto,style: TextStyle(color: Colores.blanco, fontSize: 20.sp),),
-      ),
-    );
-  }
-
   void _cargarMisRutinas(BuildContext context){
 
     Widget aux=EligeEntre2(

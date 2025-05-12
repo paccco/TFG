@@ -379,3 +379,22 @@ app.post('/getEjerciciosRutinaDescargar', (req, res) => {
 }
 );
 
+app.post('/borrarCuenta', (req, res) => {
+    const { usuario } = req.body;
+
+    const query = 'DELETE FROM usuarios WHERE username = ?';
+    const valores = [usuario];
+
+    db.query(query, valores, (err, result) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (result.affectedRows > 0) {
+            res.status(200).json({ mensaje: 'Usuario eliminado correctamente' });
+        } else {
+            res.status(404).json({ mensaje: 'Usuario no encontrado' });
+        }
+    });
+});

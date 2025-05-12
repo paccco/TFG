@@ -1,6 +1,7 @@
 
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:tfg/constantes.dart';
 
 class BDLocal{
   static final BDLocal instance = BDLocal._init();
@@ -25,10 +26,28 @@ class BDLocal{
   ];
 
   Future<Database> get database async {
+
     if (_database != null) return _database!;
 
-    _database = await _initDB('local.db');
+    String nombreUsuario = await storage.read(key: 'usuario') ?? '';
+
+    _database = await _initDB('$nombreUsuario.db');
     return _database!;
+  }
+
+  Future<int> deleteDataBase() async{
+    String nombreUsuario = await storage.read(key: 'usuario') ?? '';
+
+    if (_database != null){
+      await deleteDatabase('$nombreUsuario.db');
+    }
+
+    return 0;
+  }
+
+  Future<void> cerrarBD() async{
+    if(_database!=null) await _database!.close();
+    _database=null;
   }
 
   Future<Database> _initDB(String filePath) async {
@@ -69,12 +88,6 @@ class BDLocal{
     ${camposRutinas[3]} TIME NOT NULL
     )
     ''');
-  }
-
-  Future<void> deleteBD() async{
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, 'local.db');
-    deleteDatabase(path);
   }
 
   Future<String> insertEjercicios(Map<String,dynamic> datos) async{

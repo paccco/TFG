@@ -37,6 +37,7 @@ class AniadirEjercicioState extends State<AniadirEjercicio>{
     final double fuenteTitulo=25.sp;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colores.grisClaro,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(Tamanios.appBarH), 

@@ -42,10 +42,10 @@ class DatosRutinas extends StatelessWidget{
 
               if(decision){
                 final res=await subirRutina(titulo);
-                if(res==-2){
-                  mensaje(context, "La rutina ha de contener ejercicios para poder compartirse", error: true);
-                }else if(res>=0){
-                  mensaje(context, "Rutina subida correctamente");
+                switch(res){
+                  case -2: mensaje(context, "La rutina ha de contener ejercicios para poder compartirse", error: true);
+                  case -3: mensaje(context, "Error al verificar token", error: true);
+                  default: mensaje(context, "Rutina subida correctamente");
                 }
               }
             }, 'assets/images/subir.png'),

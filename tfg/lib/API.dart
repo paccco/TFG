@@ -28,7 +28,9 @@ Future<bool> login(String user, String passwd) async {
   }
 }
 
-Future<bool> verificar(String token) async{
+Future<bool> verificar() async{
+
+  final String token= await storage.read(key: 'token') ?? '';
   final url = Uri.parse('http://$ipPuerto/verificar');
 
   final response = await http.get(
@@ -90,6 +92,13 @@ Future<int> existeUser(String user) async{
 }
 
 Future<int> subirRutina(String nombre) async{
+
+  final ver = await verificar();
+
+  if(!ver){
+    return -3;
+  }
+
   final bd=BDLocal.instance;
 
   //Obtengo los datos de la rutina
@@ -236,6 +245,13 @@ Future<Map<int,String>> getRutinas () async{
 }
 
 Future<int> borrarRutina (int id) async{
+
+  final ver = await verificar();
+
+  if(!ver){
+    return -3;
+  }
+
   final url = Uri.parse('http://$ipPuerto/borrarRutina');
 
   final response = await http.post(
@@ -317,7 +333,14 @@ Future<List<String>> getUsuarios() async{
   return out;
 }
 
-Future<void> registrarDescarga(int id) async {
+Future<int> registrarDescarga(int id) async {
+
+  final ver = await verificar();
+
+  if(!ver){
+    return -3;
+  }
+
   final url=Uri.parse('http://$ipPuerto/registrarDescarga');
 
   final response = await http.post(
@@ -329,4 +352,30 @@ Future<void> registrarDescarga(int id) async {
   if(response.statusCode!=200){
     print(jsonDecode(response.body));
   }
+
+  return 0;
+}
+
+Future<int> borrarCuenta() async {
+
+  final ver=await verificar();
+
+  if(!ver){
+    return -3;
+  }
+
+  final String usuario = await storage.read(key: 'usuario') ?? '';
+  final url=Uri.parse('http://$ipPuerto/borrarCuenta');
+
+  final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({ 'usuario' : usuario })
+  );
+
+  if(response.statusCode!=200){
+    return -1;
+  }
+
+  return 0;
 }

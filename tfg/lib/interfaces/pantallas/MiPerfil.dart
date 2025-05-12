@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:tfg/API.dart';
+import 'package:tfg/ConexionBDLocal.dart';
 import 'package:tfg/constantes.dart';
 import 'package:tfg/interfaces/pantallas/DatosUsuario.dart';
 import 'package:tfg/interfaces/pantallas/LogSignIn.dart';
+import 'package:tfg/interfaces/pantallas/plantillas/EligeEntre2.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloConSalida.dart';
 
 class MiPerfil extends StatelessWidget{
@@ -11,16 +14,13 @@ class MiPerfil extends StatelessWidget{
   const MiPerfil({super.key, required this.usuario});
 
   void _cerrarSesion(BuildContext context){
-    storage.delete(key: 'token');
+    storage.deleteAll();
+    BDLocal.instance.cerrarBD();
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => LogSignIn()),
           (route) => false,
     );
-  }
-
-  void _verMisDatos(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>DatosUsuario()));
   }
 
   Widget _boton(String texto, void Function() func){
@@ -36,6 +36,40 @@ class MiPerfil extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+
+    final EligeEntre2 cerrarSesion = EligeEntre2(
+        titulo: "Cerrar sesión",
+        pregunta: "¿Estas seguro de que quieres cerrar sesión?",
+        opcion1: "SI",
+        opcion2: "NO",
+        func1: () => _cerrarSesion(context),
+        func2: () => Navigator.pop(context)
+    ),
+    borrar_Cuenta = EligeEntre2(
+        titulo: "Borrar Cuenta",
+        pregunta: "¿Estas seguro de que quieres borrar tu cuenta?",
+        opcion1: "SI",
+        opcion2: "NO",
+        func1: () async{
+
+          final int resnNube = await borrarCuenta();
+          final int resLocal = await BDLocal.instance.deleteDataBase();
+
+          if(resnNube>=0 && resLocal>=0){
+            await storage.deleteAll();
+            BDLocal.instance.cerrarBD();
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => LogSignIn()),
+                  (route) => false,
+            );
+          }
+        },
+        func2: ()=>Navigator.pop(context)
+    );
+
+
+
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(Tamanios.appBarH),
@@ -53,8 +87,9 @@ class MiPerfil extends StatelessWidget{
               alignment: Alignment.center,
               child: Text("Usuario: $usuario",style: TextStyle(color: Colores.negro,fontSize: 24.sp),),
             ),
-            _boton("Cerrar sesion", () => _cerrarSesion(context)),
-            _boton("Mis datos", () => _verMisDatos(context))
+            _boton("Cerrar sesion", () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>cerrarSesion))),
+            _boton("Borrar Cuenta", ()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>borrar_Cuenta))),
+            _boton("Mis datos", () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>DatosUsuario())))
           ],
         ),
       ),

@@ -11,16 +11,15 @@ void main() async{
   Widget aux=LogSignIn();
   bool tengoToken=await storage.containsKey(key: 'token');
 
-  /*if(tengoToken){
-    String token=await storage.read(key: 'token') ?? '';
-    final res = await verificar(token);
+  if(tengoToken){
+    final res = await verificar();
     print(res);
     if(res){
       aux=MenuPrincipal();
     }
   }else{
     storage.deleteAll();
-  }*/
+  }
 
   runApp(
       ResponsiveSizer(
@@ -30,7 +29,7 @@ void main() async{
               primarySwatch: Colors.blue,
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
-            home:  MenuPrincipal(),
+            home:  aux,
           );
         },
       )

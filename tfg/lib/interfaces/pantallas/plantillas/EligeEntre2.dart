@@ -39,8 +39,10 @@ class EligeEntre2 extends StatelessWidget{
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Center(
-                  child: Text(pregunta,style: TextStyle(fontSize: 30.sp,color: Colores.negro),)
+              FittedBox(
+                alignment: Alignment.center,
+                fit: BoxFit.scaleDown,
+                child: Text(pregunta,style: TextStyle(fontSize: 30.sp,color: Colores.negro),),
               ),
               Spacer(),
               _creaBoton(opcion1, func1, Colores.azul),
