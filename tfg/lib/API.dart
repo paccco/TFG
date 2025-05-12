@@ -92,13 +92,6 @@ Future<int> existeUser(String user) async{
 }
 
 Future<int> subirRutina(String nombre) async{
-
-  final ver = await verificar();
-
-  if(!ver){
-    return -3;
-  }
-
   final bd=BDLocal.instance;
 
   //Obtengo los datos de la rutina
@@ -123,12 +116,19 @@ Future<int> subirRutina(String nombre) async{
   }
 
   final usuario=await storage.read(key: 'usuario') ?? '';
+  final String token = await storage.read(key: 'token') ?? '';
+
+  final cabecera={
+    'Authorization': 'Bearer $token',
+    'Content-Type': 'application/json'
+  };
+
 
   //Subo los datos de la rutina
   final url = Uri.parse('http://$ipPuerto/subirRutina');
   final response = await http.post(
     url,
-    headers: {'Content-Type': 'application/json'},
+    headers: cabecera,
     body: json.encode({'nombre': nombre, 'descripcion': rutina['descripcion'], 'ejercicios': res,'usuario':usuario , 'descansos': rutina['descansos']}),
   );
 
@@ -141,7 +141,7 @@ Future<int> subirRutina(String nombre) async{
 
   final response2 = await http.post(
     url2,
-    headers: {'Content-Type': 'application/json'},
+    headers: cabecera,
     body: json.encode({'idsEjercicios': res, 'idRutina': idRutina})
   );
 
@@ -154,7 +154,7 @@ Future<int> subirRutina(String nombre) async{
   final url3 = Uri.parse('http://$ipPuerto/aniadirEjerciciosARutina');
   final response3 = await http.post(
       url3,
-      headers: {'Content-Type': 'application/json'},
+      headers: cabecera,
       body: json.encode({'idsEjercicios': idsEjercicios, 'idRutina': idRutina})
   );
 
@@ -246,17 +246,17 @@ Future<Map<int,String>> getRutinas () async{
 
 Future<int> borrarRutina (int id) async{
 
-  final ver = await verificar();
-
-  if(!ver){
-    return -3;
-  }
-
   final url = Uri.parse('http://$ipPuerto/borrarRutina');
+  final String token = await storage.read(key: 'token') ?? '';
+
+  final cabecera={
+    'Authorization': 'Bearer $token',
+    'Content-Type': 'application/json'
+  };
 
   final response = await http.post(
       url,
-      headers: {'Content-Type': 'application/json'},
+      headers: cabecera,
       body: json.encode({'id' : id})
   );
 
@@ -335,17 +335,17 @@ Future<List<String>> getUsuarios() async{
 
 Future<int> registrarDescarga(int id) async {
 
-  final ver = await verificar();
-
-  if(!ver){
-    return -3;
-  }
-
   final url=Uri.parse('http://$ipPuerto/registrarDescarga');
+  final String token = await storage.read(key: 'token') ?? '';
+
+  final cabecera={
+    'Authorization': 'Bearer $token',
+    'Content-Type': 'application/json'
+  };
 
   final response = await http.post(
     url,
-    headers: {'Content-Type': 'application/json'},
+    headers: cabecera,
     body: json.encode({ 'id' : id })
   );
 
@@ -358,18 +358,18 @@ Future<int> registrarDescarga(int id) async {
 
 Future<int> borrarCuenta() async {
 
-  final ver=await verificar();
-
-  if(!ver){
-    return -3;
-  }
-
   final String usuario = await storage.read(key: 'usuario') ?? '';
+  final String token = await storage.read(key: 'token') ?? '';
   final url=Uri.parse('http://$ipPuerto/borrarCuenta');
+
+  final cabecera={
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json'
+  };
 
   final response = await http.post(
       url,
-      headers: {'Content-Type': 'application/json'},
+      headers: cabecera,
       body: json.encode({ 'usuario' : usuario })
   );
 

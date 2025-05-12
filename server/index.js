@@ -115,26 +115,6 @@ app.post('/existeUser', (req, res) => {
     });
 });
 
-app.get('/deleteUser', (req, res) => {
-    const { username } = req.query;
-
-    const query = 'DELETE FROM usuarios WHERE username = ?';
-    const valores = [username];
-
-    db.query(query, valores, (err, result) => {
-        if (err) {
-            console.error('Error al ejecutar la consulta:', err);deleteRutina
-            return res.status(500).send('Error en el servidor');
-        }
-
-        if (result.affectedRows > 0) {
-            res.status(200).json({ mensaje: 'Usuario eliminado correctamente' });
-        } else {
-            res.status(404).json({ mensaje: 'Usuario no encontrado' });
-        }
-    });
-});
-
 app.post('/subirEjercicio', (req, res) => {
     const { nombre,tipo,descripcion } = req.body;
 
@@ -155,7 +135,7 @@ app.post('/subirEjercicio', (req, res) => {
     });
 });
 
-app.post('/subirRutina', (req, res) => {
+app.post('/subirRutina', verificarToken, (req, res) => {
     const { nombre, descripcion, idEjercicios, usuario, descansos } = req.body;
 
     const query = 'INSERT INTO rutinas (nombre, descripcion, idEjercicios, usuario, descansos) VALUES (?, ?, ?, ?, ?)';
@@ -175,7 +155,7 @@ app.post('/subirRutina', (req, res) => {
     });
 });
 
-app.post('/aniadirIdsAEjercicios', (req, res) => {
+app.post('/aniadirIdsAEjercicios', verificarToken, (req, res) => {
     const { idsEjercicios, idRutina } = req.body;
 
     query = 'UPDATE ejercicios SET idRutina = CASE ';
@@ -201,7 +181,7 @@ app.post('/aniadirIdsAEjercicios', (req, res) => {
     });
 });
 
-app.post('/aniadirEjerciciosARutina', (req, res) => {
+app.post('/aniadirEjerciciosARutina', verificarToken, (req, res) => {
     const { idsEjercicios, idRutina } = req.body;
 
     const query = 'UPDATE rutinas SET idEjercicios = ? WHERE id = ?';
@@ -295,7 +275,7 @@ app.get('/getRutinas', (req, res) => {
 }
 );
 
-app.post('/borrarRutina', (req, res) => {
+app.post('/borrarRutina', verificarToken, (req, res) => {
     const { id } = req.body;
 
     const query = 'DELETE FROM rutinas WHERE id = ?';
@@ -337,7 +317,7 @@ app.post('/getEjerciciosRutina', (req, res) => {
 }
 );
 
-app.post('/registrarDescarga',(req,res) => {
+app.post('/registrarDescarga',verificarToken ,(req,res) => {
     
     const { id } = req.body;
     const query = 'UPDATE rutinas SET descargas = descargas + 1 WHERE id = ?';
@@ -379,7 +359,7 @@ app.post('/getEjerciciosRutinaDescargar', (req, res) => {
 }
 );
 
-app.post('/borrarCuenta', (req, res) => {
+app.post('/borrarCuenta', verificarToken, (req, res) => {
     const { usuario } = req.body;
 
     const query = 'DELETE FROM usuarios WHERE username = ?';

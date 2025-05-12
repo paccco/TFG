@@ -333,15 +333,22 @@ class BDLocal{
     return await db.update(rutinas,{camposRutinas[2] : ejerciciosStr},where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina]);
   }
 
-  Future<void> modDescripcionDescansoRutina(String nombreRutina,String desripcion,String descanso) async{
+  Future<int> modRutina(String nombreRutina,String desripcion,String descanso, {String nombreNuevo=""}) async{
     final db = await instance.database;
 
-    await db.update(rutinas,{camposRutinas[1] : desripcion,camposRutinas[3] : descanso},where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina]);
+    int res=0;
+
+    if(nombreNuevo.isEmpty){
+      res = await db.update(rutinas,{camposRutinas[1] : desripcion,camposRutinas[3] : descanso},where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina]);
+    }else{
+      res = await db.update(rutinas,{camposRutinas[0] : nombreNuevo,camposRutinas[1] : desripcion,camposRutinas[3] : descanso},where: '${camposRutinas[0]} = ?', whereArgs: [nombreRutina]);
+    }
+
+    return res;
   }
 
   Future<void> borrarRutina(String nombre) async{
     final db = await instance.database;
     await db.delete(rutinas,where: '${camposRutinas[0]} = ?', whereArgs: [nombre]);
   }
-
 }
