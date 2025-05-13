@@ -3,7 +3,7 @@ import 'package:tfg/ConexionBDLocal.dart';
 import 'dart:convert';
 import 'constantes.dart';
 
-final ipPuerto="192.168.1.133:3000";
+final ipPuerto="192.168.0.21:3000";
 
 Future<bool> login(String user, String passwd) async {
   final url = Uri.parse('http://$ipPuerto/login');
@@ -17,7 +17,9 @@ Future<bool> login(String user, String passwd) async {
   if (response.statusCode == 200) {
     final data = json.decode(response.body);
     final token = data['token'];
+    final fechaCreacion = data['fechaCreacion'];
 
+    await storage.write(key: 'fechaCreacion', value: fechaCreacion);
     await storage.write(key: 'token', value: token);
 
     print('Login correcto: ${response.body}');

@@ -73,28 +73,6 @@ class DatosEjercicios extends StatelessWidget{
     );
   }
 
-  Widget _nuevaMetaNum(TextEditingController controller, String label,{bool decimal=false, bool tiempo=false}){
-    TextInputType aux;
-
-    if(tiempo){
-      aux=TextInputType.datetime;
-    }else{
-      aux=TextInputType.numberWithOptions(decimal: decimal);
-    }
-
-    return TextFormField(
-      keyboardType: aux,
-      decoration: InputDecoration(
-        filled: true, 
-          fillColor: Colores.azul,
-        labelText: label
-      ),
-      controller: controller,
-    );
-  }
-
-
-
   List<DataRow> _construyeTabla(String tipo, Map<String,dynamic> meta,Map<String,dynamic> marca){
 
     List<DataRow> out=List.empty(growable: true);

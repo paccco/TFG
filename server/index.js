@@ -46,7 +46,7 @@ app.post('/login', (req, res) => {
                 { expiresIn: '24h' } // Duración del token
               );
           
-              res.status(200).json({ mensaje: 'Login exitoso', token });
+              res.status(200).json({ mensaje: 'Login exitoso', token , fechaCreacion:  results[0].fechaCreacion });
             
         } else {
             res.status(401).send('Invalid username or password');

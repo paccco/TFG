@@ -9,6 +9,7 @@ import 'package:tfg/interfaces/widgetsPersonalizados/TituloSimple.dart';
 import '../../constantes.dart';
 import './BuscarRutinaNombre.dart';
 import 'BuscarUsuario.dart';
+import '../widgetsPersonalizados/Calendario.dart';
 
 class MenuPrincipal extends StatefulWidget {
   const MenuPrincipal({super.key});
@@ -74,7 +75,7 @@ class MneuPrincipalState extends State<MenuPrincipal>{
 
   @override
   Widget build(BuildContext context){
-    final tamSecciones=39.h;
+    final tamSecciones=40.h;
 
     return Scaffold(
       backgroundColor: Colores.grisClaro,
@@ -88,8 +89,7 @@ class MneuPrincipalState extends State<MenuPrincipal>{
         children: [
           SizedBox(
             height: tamSecciones,
-            child: Placeholder(
-            ),
+            child: Calendario(),
           ),
           SizedBox(
             height: tamSecciones,
