@@ -59,7 +59,7 @@ class Singin1State extends State<Singin1>{
 
                     final aux=await existeUser(usuario);
 
-                    if(aux==1){
+                    if(aux==0){
                       mensaje(context, "Ya existe es usuario");
                     }else if(aux==-1){
                       mensaje(context, "Error en el servidor");

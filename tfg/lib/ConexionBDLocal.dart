@@ -36,13 +36,17 @@ class BDLocal{
   }
 
   Future<int> deleteDataBase() async{
-    String nombreUsuario = await storage.read(key: 'usuario') ?? '';
+    final nombreUsuario = await storage.read(key: 'usuario') ?? '';
 
     if (_database != null){
       await deleteDatabase('$nombreUsuario.db');
     }
 
     return 0;
+  }
+
+  Future<void> borrarBDuserEliminado(String usuario)async{
+    await deleteDatabase('$usuario.db');
   }
 
   Future<void> cerrarBD() async{
@@ -88,6 +92,10 @@ class BDLocal{
     ${camposRutinas[3]} TIME NOT NULL
     )
     ''');
+  }
+
+  Future<bool> existeBD(String usuario) async {
+    return databaseExists('$usuario.db');
   }
 
   Future<String> insertEjercicios(Map<String,dynamic> datos) async{
@@ -168,6 +176,42 @@ class BDLocal{
   
   Future<void> borrarEjer(String nombre) async{
     final db = await instance.database;
+
+    //Obtengo las rutinas que contengan el ejercicio
+    List<Map<String,dynamic>> aux = await db.query(rutinas,where: '${camposRutinas[2]} LIKE ?', whereArgs: ['%$nombre%'],columns: [camposRutinas[0],camposRutinas[2]]);
+
+    if(aux.isNotEmpty){
+      //Borro el ejercicio
+      List<Map<String,dynamic>> nuevosDatos=[];
+      aux.forEach((rutina){
+        String listaEjercicios = rutina[camposRutinas[2]];
+        listaEjercicios = listaEjercicios.replaceAll(RegExp(r'(,?)' + RegExp.escape(nombre) + r'(,?)'), '');
+        nuevosDatos.add({ camposRutinas[0] : rutina[camposRutinas[0]] , camposRutinas[2] : listaEjercicios});
+      });
+
+      //Hago una query para actualiarlo todo a la vez
+      String query='''
+      UPDATE $rutinas
+      SET ${camposRutinas[2]} = CASE
+    ''';
+
+      nuevosDatos.forEach((rutina){
+
+        final String listaEjercicios=rutina[camposRutinas[2]];
+
+        query+= ''' 
+      WHEN ${camposRutinas[0]} = '${rutina[camposRutinas[0]]}' THEN '$listaEjercicios'
+      ''';
+      });
+
+      query+='''
+      ELSE ${camposRutinas[2]}
+      END
+    ''';
+
+      await db.rawUpdate(query);
+    }
+
     await db.delete(ejercicios,where: '${camposEjercicios[0]} = ?', whereArgs: [nombre]);
   }
 

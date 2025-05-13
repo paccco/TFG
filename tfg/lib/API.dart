@@ -3,7 +3,7 @@ import 'package:tfg/ConexionBDLocal.dart';
 import 'dart:convert';
 import 'constantes.dart';
 
-final ipPuerto="192.168.0.21:3000";
+final ipPuerto="192.168.1.133:3000";
 
 Future<bool> login(String user, String passwd) async {
   final url = Uri.parse('http://$ipPuerto/login');
@@ -80,9 +80,9 @@ Future<int> existeUser(String user) async{
     final datos=jsonDecode(response.body);
 
     if(datos['existe']){
-      return 1;
-    }else{
       return 0;
+    }else{
+      return 1;
     }
 
   } else {

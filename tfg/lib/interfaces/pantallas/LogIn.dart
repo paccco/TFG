@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tfg/ConexionBDLocal.dart';
 import '../../funcionesAux.dart';
 import 'package:tfg/constantes.dart';
 import 'package:tfg/interfaces/pantallas/MenuPrincipal.dart';
@@ -17,6 +18,20 @@ class Login extends StatefulWidget {
 class LoginState extends State<Login>{
 
   final TextEditingController nomC=TextEditingController(), passC=TextEditingController();
+
+  Future<bool> _esUnUsuarioEliminado(String usuario) async {
+    //Si existe una bdlocal del usuario pero no en el server, es un usuario eliminado
+    final existeEnElserver = await existeUser(usuario);
+    final exieteSuBDLocal = await BDLocal.instance.existeBD(usuario);
+
+    print("servidor: $existeEnElserver , local: $exieteSuBDLocal");
+
+    if(exieteSuBDLocal && existeEnElserver==1){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context){
@@ -49,6 +64,13 @@ class LoginState extends State<Login>{
               final passwd = passC.value.text;
 
               if(nombre.isNotEmpty && passwd.isNotEmpty){
+
+                if(await _esUnUsuarioEliminado(nombre)){
+                  await BDLocal.instance.borrarBDuserEliminado(nombre);
+                  mensaje(context, "Se elmino la BD de un usuario borrado recientemente", error: false);
+                  return;
+                }
+
                 final res = await login(nombre, passwd);
                 if(res){
                   storage.write(key: 'usuario', value: nombre);
