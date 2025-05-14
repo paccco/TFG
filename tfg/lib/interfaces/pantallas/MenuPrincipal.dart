@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:tfg/interfaces/pantallas/ListaEjercicios.dart';
 import 'package:tfg/interfaces/pantallas/ListaRutinas.dart';
 import 'package:tfg/interfaces/pantallas/ListaRutinasCompartidas.dart';
 import 'package:tfg/interfaces/pantallas/MiPerfil.dart';
+import 'package:tfg/interfaces/pantallas/OpcionesHoy.dart';
 import 'package:tfg/interfaces/pantallas/plantillas/EligeEntre2.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSimple.dart';
 import '../../constantes.dart';
@@ -19,6 +21,35 @@ class MenuPrincipal extends StatefulWidget {
 }
 
 class MneuPrincipalState extends State<MenuPrincipal>{
+
+  late final DateTime hoy;
+  DateTime _selectedDay=DateTime.now();
+  String _textoDiaSeleccionado="";
+
+  @override
+  void initState() {
+    super.initState();
+    final aux=DateTime.now();
+
+    hoy=DateTime(aux.year,aux.month,aux.day);
+  }
+
+  void _cambiaTextoDiaSeleccionado(){
+    if(hoy.isAfter(_selectedDay)){
+      _textoDiaSeleccionado="Entrenaste -------";
+    }else if(isSameDay(hoy, _selectedDay)){
+      _textoDiaSeleccionado="Entrenas --------";
+    }else{
+      _textoDiaSeleccionado="Entrenarás -------";
+    }
+  }
+
+  void _seleccionarDia(DateTime selectedDay){
+    setState(() {
+      _selectedDay=selectedDay;
+      _cambiaTextoDiaSeleccionado();
+    });
+  }
 
   void _cargarMisRutinas(BuildContext context){
 
@@ -84,12 +115,33 @@ class MneuPrincipalState extends State<MenuPrincipal>{
           child: TituloSimple(titulo: "Inicio")
       ),
       body: Column(
-        spacing: 5,
+        spacing: 1.h,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             height: tamSecciones,
-            child: Calendario(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Calendario(onValueChanged: _seleccionarDia),
+                Text(_textoDiaSeleccionado,style: TextStyle(fontSize: 20.sp)),
+                InkWell(
+                  onTap: (){
+                    if(isSameDay(_selectedDay, hoy)){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => OpcionesHoy(hoy: _selectedDay, rutina: "Sin asignar",)));
+                    }
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(2.h),
+                    alignment: Alignment.center,
+                    color: Colores.naranja,
+                    height: 7.5.h,
+                    child: Text("Informacion",style: TextStyle(fontSize: 22.5.sp, color: Colores.blanco)),
+                  ),
+                )
+              ],
+            ),
           ),
           SizedBox(
             height: tamSecciones,

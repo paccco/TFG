@@ -25,6 +25,11 @@ class BDLocal{
     'nombre','descripcion','ejercicios', 'descansos'
   ];
 
+  final String entrenamientos='entrenamientos';
+  final List<String> camposEntrenamientos=[
+    'fecha','rutina'
+  ];
+
   Future<Database> get database async {
 
     if (_database != null) return _database!;
@@ -91,6 +96,14 @@ class BDLocal{
     ${camposRutinas[2]} STRING,
     ${camposRutinas[3]} TIME NOT NULL
     )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE $entrenamientos(
+      ${camposEntrenamientos[0]} DATE PRIMARY KEY,
+      ${camposEntrenamientos[1]} STRING,
+      FOREIGN KEY (${camposEntrenamientos[1]}) REFERENCES $rutinas(${camposRutinas[0]}) ON DELETE SET NULL
+      )
     ''');
   }
 
@@ -394,5 +407,10 @@ class BDLocal{
   Future<void> borrarRutina(String nombre) async{
     final db = await instance.database;
     await db.delete(rutinas,where: '${camposRutinas[0]} = ?', whereArgs: [nombre]);
+  }
+
+  Future<void> insertEntrenamiento(DateTime fecha, String rutina) async{
+    final db = await instance.database;
+    await db.insert(entrenamientos,{camposEntrenamientos[0] : fecha,camposEntrenamientos[1] : rutina},conflictAlgorithm: ConflictAlgorithm.replace);
   }
 }
