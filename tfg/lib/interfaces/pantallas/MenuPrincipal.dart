@@ -5,7 +5,8 @@ import 'package:tfg/interfaces/pantallas/ListaEjercicios.dart';
 import 'package:tfg/interfaces/pantallas/ListaRutinas.dart';
 import 'package:tfg/interfaces/pantallas/ListaRutinasCompartidas.dart';
 import 'package:tfg/interfaces/pantallas/MiPerfil.dart';
-import 'package:tfg/interfaces/pantallas/OpcionesHoy.dart';
+import 'package:tfg/interfaces/pantallas/OpcionesDescanso.dart';
+import 'package:tfg/interfaces/pantallas/OpcionesHoyFuturo.dart';
 import 'package:tfg/interfaces/pantallas/plantillas/EligeEntre2.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSimple.dart';
 import '../../constantes.dart';
@@ -24,7 +25,7 @@ class MneuPrincipalState extends State<MenuPrincipal>{
 
   late final DateTime hoy;
   DateTime _selectedDay=DateTime.now();
-  String _textoDiaSeleccionado="";
+  String _textoDiaSeleccionado="", _rutina="Sin asignar";
 
   @override
   void initState() {
@@ -35,18 +36,23 @@ class MneuPrincipalState extends State<MenuPrincipal>{
   }
 
   void _cambiaTextoDiaSeleccionado(){
-    if(hoy.isAfter(_selectedDay)){
-      _textoDiaSeleccionado="Entrenaste -------";
-    }else if(isSameDay(hoy, _selectedDay)){
-      _textoDiaSeleccionado="Entrenas --------";
+    if(_rutina==""){
+      _textoDiaSeleccionado="Descanso";
     }else{
-      _textoDiaSeleccionado="Entrenarás -------";
+      if(hoy.isAfter(_selectedDay)){
+        _textoDiaSeleccionado="Entrenaste $_rutina";
+      }else if(isSameDay(hoy, _selectedDay)){
+        _textoDiaSeleccionado="Entrenas $_rutina";
+      }else{
+        _textoDiaSeleccionado="Entrenarás $_rutina";
+      }
     }
   }
 
-  void _seleccionarDia(DateTime selectedDay){
+  void _seleccionarDia(List<dynamic> lista){
     setState(() {
-      _selectedDay=selectedDay;
+      _selectedDay=lista[0];
+      _rutina=lista[1];
       _cambiaTextoDiaSeleccionado();
     });
   }
@@ -128,8 +134,12 @@ class MneuPrincipalState extends State<MenuPrincipal>{
                 Text(_textoDiaSeleccionado,style: TextStyle(fontSize: 20.sp)),
                 InkWell(
                   onTap: (){
-                    if(isSameDay(_selectedDay, hoy)){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => OpcionesHoy(hoy: _selectedDay, rutina: "Sin asignar",)));
+                    if(isSameDay(_selectedDay, hoy) || hoy.isBefore(_selectedDay)){
+                      if(_rutina.isNotEmpty){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => OpcionesHoyFuturo(diaSeleccionado: _selectedDay, rutina: _rutina)));
+                      }else{
+                        Navigator.push(context, MaterialPageRoute(builder: (build)=>OpcionesDescanso(fecha: _selectedDay)));
+                      }
                     }
                   },
                   child: Container(

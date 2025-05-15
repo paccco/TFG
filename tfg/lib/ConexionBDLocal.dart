@@ -2,6 +2,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:tfg/constantes.dart';
+import 'package:tfg/funcionesAux.dart';
 
 class BDLocal{
   static final BDLocal instance = BDLocal._init();
@@ -158,7 +159,7 @@ class BDLocal{
       }
     }
 
-    return datos.values.first;;
+    return datos.values.first;
   }
 
   Future<List<Map<String,dynamic>>> getEjercicios() async{
@@ -409,8 +410,29 @@ class BDLocal{
     await db.delete(rutinas,where: '${camposRutinas[0]} = ?', whereArgs: [nombre]);
   }
 
-  Future<void> insertEntrenamiento(DateTime fecha, String rutina) async{
+  Future<bool> insertEntrenamiento(DateTime fecha, String rutina) async{
     final db = await instance.database;
-    await db.insert(entrenamientos,{camposEntrenamientos[0] : fecha,camposEntrenamientos[1] : rutina},conflictAlgorithm: ConflictAlgorithm.replace);
+    final res=await db.insert(entrenamientos,{camposEntrenamientos[0] : stringDate(fecha),camposEntrenamientos[1] : rutina},conflictAlgorithm: ConflictAlgorithm.replace);
+
+    return res!=0;
+  }
+
+  Future<Map<String,String>> getEntrenamientos(DateTime inicial, DateTime ultima) async{
+    final db = await instance.database;
+    final String sInicial=stringDate(inicial), sUltima=stringDate(ultima);
+    final List<Map<String,dynamic>> aux = await db.query(entrenamientos,where: '${camposEntrenamientos[0]} BETWEEN ? AND ?',whereArgs: [sInicial,sUltima]);
+
+    Map<String,String> res={};
+
+    aux.forEach((fila){
+      res[fila[camposEntrenamientos[0]]]=fila[camposEntrenamientos[1]];
+    });
+
+    return res;
+  }
+
+  Future<void> borrarEntremiento(DateTime fecha) async{
+    final db=await instance.database;
+    await db.delete(entrenamientos,where: '${camposEntrenamientos[0]} = ?', whereArgs: [stringDate(fecha)]);
   }
 }

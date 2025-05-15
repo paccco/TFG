@@ -84,3 +84,7 @@ Widget botonPopUp(String texto, Function() func, String asset){
     ),
   );
 }
+
+String stringDate(DateTime fecha){
+  return "${fecha.year}-${fecha.month}-${fecha.day}";
+}

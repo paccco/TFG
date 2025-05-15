@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tfg/API.dart';
-import 'package:tfg/constantes.dart';
-import 'package:tfg/funcionesAux.dart';
 import 'package:tfg/interfaces/pantallas/DatosRutinasComp.dart';
 import 'plantillas/ListaBusquedaConId.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BuscarRutinasUsuario extends StatefulWidget{
 
@@ -20,18 +17,6 @@ class _BuscarRutinasUsuarioState extends State<BuscarRutinasUsuario>{
     final rutinas=await getRutinaCompDeUser(widget.usuario);
 
     return rutinas;
-  }
-
-  Widget _creaBoton(String texto, Function() func){
-    return InkWell(
-        onTap: func,
-        child: Container(
-          alignment: Alignment.center,
-          color: Colores.naranja,
-          height: 8.h,
-          child: Text(texto,style: TextStyle(color: Colores.blanco,fontSize: 18.sp)),
-        )
-    );
   }
 
   void _cargarInfoRutina(BuildContext context, String nombreRutina, int id) async{
