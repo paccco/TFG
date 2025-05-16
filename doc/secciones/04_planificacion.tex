@@ -27,7 +27,7 @@ En esta primera iteraci\'on me cent\'re en completar los dise\~nos de la app, pr
 \begin{description}
   \item[\textbf{SCRUM-1}] Registrar peso por d\'ia
   \item[\textbf{SCRUM-2}] Establecer peso objetivo
-  \item[\textbf{SCRUM-3}] Insertar/Borrar/Modificar ejercicio de la lista
+  \item[\textbf{SCRUM-3}] Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
   \item[\textbf{SCRUM-4}] Buscar rutina en la lista del usuario
   \item[\textbf{SCRUM-5}] Sustituir un ejercicio por otro en la rutina
   \item[\textbf{SCRUM-6}] Insertar/Borrar/Modificar rutina
@@ -50,6 +50,17 @@ En esta primera iteraci\'on me cent\'re en completar los dise\~nos de la app, pr
   \item[\textbf{SCRUM-23}] Iniciar/Cerrar sesi\'on
   \item[\textbf{SCRUM-24}] Medir SpO2
   \item[\textbf{SCRUM-25}] Interpretar constantes
+  \item[\textbf{SCRUM-26}] Buscar ejercicios en la lista de ejercicios
+  \item[\textbf{SCRUM-27}] Hacer la IU de la lista de los ejercicios
+  \item[\textbf{SCRUM-28}] Hacer la IU de creación de ejercicio
+  \item[\textbf{SCRUM-29}] Pop up de confirmación
+  \item[\textbf{SCRUM-30}] Hacer IU de datos ejercicio
+  \item[\textbf{SCRUM-31}] Crear IU de la lista de las rutinas
+  \item[\textbf{SCRUM-32}] Crear IU de pantalla inicial
+  \item[\textbf{SCRUM-33}] Crear IU menú principal
+  \item[\textbf{SCRUM-34}] Crear IU datos rutinas
+  \item[\textbf{SCRUM-35}] IU lista ejercicios de rutina modificable
+  \item[\textbf{SCRUM-36}] Crear IU para crear rutina
 \end{description}
 
 A continuación se muestran los diseños creados en esta iteración:
@@ -180,25 +191,25 @@ Adem\'as, se a\~nadieron nuevas historias al \textit{product backlog}:
 \end{itemize}
 
 \subsection*{Iteraci\'on 1}
-Al inicio de esta iteraci\'on detect\'e la ausencia de historias para el dise\~no de diagramas de la app y la base de datos. Por ello, se a\~nadi\'o la siguiente historia:
+Siendo la lista de la primera iteracion de la siguiente manera:
 
-\begin{description}
-  \item[\textbf{SCRUM-26}] Dise\~nar las tablas de la base de datos
-\end{description}
+\begin{itemize}
+    \item SCRUM-26: Buscar ejercicio en lista
+    \item SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
+    \item SCRUM-27: Hacer la IU de la lista de ejercicios
+    \item SCRUM-28: Hacer la IU de creación de ejercicio
+    \item SCRUM-29: Pop up de confirmación
+    \item SCRUM-30: Hacer IU de datos ejercicio
+\end{itemize}
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\textwidth]{fotos/PreSrprint1.png}
-  \caption{Planificaci\'on Sprint 1}
-  \label{fig:pre_sprint1}
-\end{figure}
+Dentro del SCRUM-3 tenemos subfuncionalidades, funciones pequeñas que componen la grande:
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\textwidth]{fotos/SubListPre1.png}
-  \caption{Subtareas Sprint 1}
-  \label{fig:sublist_pre1}
-\end{figure}
+\begin{itemize}
+	\item SCRUM-3.1 Borrar de la BD 
+	\item SCRUM-3.2 Insertar en la BD
+	\item SCRUM-3.3 Hacer notorios los cambios en vivo
+	\item SCRUM-3.4 Modificar en la BD
+\end{itemize}
 
 Durante esta iteraci\'on me familiaric\'e con Flutter y sus herramientas, como la base de datos local \textit{SQLite}.
 
@@ -207,20 +218,6 @@ Es una base de datos ligera, autocontenida y de c\'odigo abierto. Usa el mismo l
 
 \subsubsection*{Sprint Review 1}
 Las primeras iteraciones tienden a ser m\'as lentas debido a la fase inicial del desarrollo. No se complet\'o la totalidad del sprint; qued\'o pendiente la subtarea de modificar ejercicio en la base de datos. Aun as\'i, las expectativas son positivas, ya que se espera un aumento en la velocidad de desarrollo. No obstante, en lo que se lleva  desarrollado han aparecido pocas problemáticas
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\textwidth]{fotos/PostSprint1.png}
-  \caption{Fin Sprint 1}
-  \label{fig:post_sprint1}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\textwidth]{fotos/SubListPost1.png}
-  \caption{Subtareas completadas Sprint 1}
-  \label{fig:sublist_post1}
-\end{figure}
 
 \begin{figure}[h!]
   \centering
@@ -244,19 +241,26 @@ Las primeras iteraciones tienden a ser m\'as lentas debido a la fase inicial del
 \subsection*{Iteraci\'on 2}
 Esta iteraci\'on se centr\'o en el desarrollo del sistema de sesiones, la API de la aplicaci\'on, el backend b\'asico del servidor y la secci\'on de rutinas.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\textwidth]{fotos/PreSprint2.png}
-  \caption{Planificaci\'on Sprint 2}
-  \label{fig:pre_sprint2}
-\end{figure}
+\begin{description}
+  \item[SCRUM-21] Crear/Borrar mi usuario
+  \item[SCRUM-23] Iniciar/Cerrar sesión
+  \item[SCRUM-6] Insertar/Borrar/Modificar rutina
+  \item[SCRUM-4] Buscar rutina en la lista del usuario
+  \item[SCRUM-31] Crear IU de la lista de las rutinas
+  \item[SCRUM-32] Crear IU de pantalla inicial
+  \item[SCRUM-33] Crear IU menú principal
+  \item[SCRUM-34] Crear IU datos rutinas
+  \item[SCRUM-35] IU lista ejercicios de rutina modificable
+  \item[SCRUM-36] Crear IU para crear rutina
+\end{description}
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\textwidth]{fotos/SubListPre2.png}
-  \caption{Subtareas Sprint 2}
-  \label{fig:sublist_pre2}
-\end{figure}
+Subtareas de esta iteración:
+
+\begin{itemize}
+	\item SCRUM-25.1 Iniciar sesion
+	\item SCRUM-25.2 Crear cuenta 1
+	\item SCRUM-25.3 Crear cuenta 2
+\end{itemize}
 
 \subsubsection*{Sistema de sesiones}
 Se implement\'o un sistema de autenticaci\'on basado en tokens. Cuando el usuario verifica su identidad, recibe un token que se guarda en el dispositivo y se usa para validar el acceso posterior. Esto evita que usuarios no autorizados suban contenido haci\'endose pasar por otros.
