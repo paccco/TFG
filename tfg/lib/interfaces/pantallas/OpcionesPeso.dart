@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/constantes.dart';
+import 'package:tfg/interfaces/pantallas/ModificarMacros.dart';
 import 'plantillas/OpcionesDia.dart';
 import '../../ConexionBDLocal.dart';
 import '../../funcionesAux.dart';
@@ -95,7 +96,10 @@ class OpcionesPeso extends StatelessWidget{
     if(esHoy){
       auxInferior = [
         textoInferior,
-        _hacerBoton((){}, "Modificar Macros")
+        _hacerBoton(
+                ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ModificarMacros(fecha: fecha))),
+            "Modificar Macros"
+        )
       ];
     }else{
       auxInferior = [

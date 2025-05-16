@@ -55,8 +55,9 @@ class _OpcionesHoyFuturoState extends State<OpcionesHoyFuturo>{
       children: [
         _hacerBoton("Empezar entrenamiento",(){},color: Colores.naranja),
         _hacerBoton("Cambiar rutina",() async{
-          final String res = await Navigator.push(context, MaterialPageRoute(builder: (builder)=>SeleccionarRutina()));
-          if(res!=""){
+          final String? res = await Navigator.push(context, MaterialPageRoute(builder: (builder)=>SeleccionarRutina()));
+
+          if(res!="" && res!=null){
             final bool sinError=await BDLocal.instance.insertEntrenamiento(widget.diaSeleccionado, res);
 
             if(sinError){
