@@ -31,6 +31,11 @@ class BDLocal{
     'fecha','rutina'
   ];
 
+  final String pesajes='pesajes';
+  final List<String> camposPesajes=[
+    'fecha','peso','grasa','hueso','musculo'
+  ];
+
   Future<Database> get database async {
 
     if (_database != null) return _database!;
@@ -104,6 +109,16 @@ class BDLocal{
       ${camposEntrenamientos[0]} DATE PRIMARY KEY,
       ${camposEntrenamientos[1]} STRING,
       FOREIGN KEY (${camposEntrenamientos[1]}) REFERENCES $rutinas(${camposRutinas[0]}) ON DELETE SET NULL
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE $pesajes(
+        ${camposPesajes[0]} DATE PRIMARY KEY,
+        ${camposPesajes[1]} INT NOT NULL,
+        ${camposPesajes[2]} INT,
+        ${camposPesajes[3]} INT,
+        ${camposPesajes[4]} INT
       )
     ''');
   }
@@ -432,7 +447,88 @@ class BDLocal{
   }
 
   Future<void> borrarEntremiento(DateTime fecha) async{
-    final db=await instance.database;
+    final db = await instance.database;
     await db.delete(entrenamientos,where: '${camposEntrenamientos[0]} = ?', whereArgs: [stringDate(fecha)]);
+  }
+
+  Future<bool> insertPesaje(DateTime fecha, String peso) async {
+    final db = await instance.database;
+    final res = await db.insert(pesajes, {camposPesajes[0] : stringDate(fecha),camposPesajes[1] : gestorDeComas(peso)},conflictAlgorithm: ConflictAlgorithm.replace);
+
+    return res!=0;
+  }
+
+  Future<void> insertMetaPeso(String nuevoPeso, int pesoActual) async {
+    final db = await instance.database;
+
+    int pesoObj=gestorDeComas(nuevoPeso);
+
+    if(pesoActual>pesoObj){
+      //El peso actual es mayor que el objetivo, quiere adelgazar, peso negativo
+      pesoObj=(-pesoObj);
+    }
+
+    await db.insert(pesajes, {camposPesajes[0] : '0000-00-00',camposPesajes[1] : pesoObj},conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<bool> setMacros(DateTime fecha, int grasa, int hueso, int musculo) async{
+    final db = await instance.database;
+    final res = await db.update(pesajes,
+        {camposPesajes[2] : grasa,camposPesajes[3] : hueso,camposPesajes[4] : musculo},
+        where: '${camposPesajes[0]} = ?',
+        whereArgs: [stringDate(fecha)],
+        conflictAlgorithm: ConflictAlgorithm.replace
+    );
+
+    return res!=0;
+  }
+
+  Future<Map<String,int>> getPesaje(DateTime fecha) async{
+    final db = await instance.database;
+    final res = await db.query(pesajes,
+        where: '${camposPesajes[0]} = ?',
+        whereArgs: [stringDate(fecha)],
+        columns: [camposPesajes[1],camposPesajes[2],camposPesajes[3],camposPesajes[4]]
+    );
+
+    if(res.isNotEmpty){
+      Map<String,int> out = {};
+      res.first.forEach((key, value) {
+        out[key]=(value ?? 0) as int;
+      });
+      return out;
+    }else{
+      return {};
+    }
+  }
+
+  Future<int> getPesoObjetivo() async{
+    final db = await instance.database;
+    final res = await db.query(pesajes,
+        where: '${camposPesajes[0]} = ?',
+        whereArgs: ['0000-00-00'],
+        columns: [camposPesajes[1]]);
+
+    int out = 0;
+
+    if(res.isNotEmpty){
+      out = res.first[camposPesajes[1]] as int;
+    }
+
+    return out;
+  }
+
+  Future<int> getPesoActual() async{
+    final db = await instance.database;
+    final res = await db.query(
+        pesajes,
+        columns: [camposPesajes[1]],
+        orderBy: '${camposPesajes[0]} DESC',
+      limit: 1
+    );
+
+    final out = res.first[camposPesajes[1]] as int;
+
+    return out;
   }
 }

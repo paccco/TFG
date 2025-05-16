@@ -24,7 +24,7 @@ class _calendarioState extends State<Calendario>{
   Map<String,String> _entrenamientos={};
 
   Future<void> _actualizarEntrenamientos() async{
-    _entrenamientos=await BDLocal.instance.getEntrenamientos(_primerDia, _ultimoDia);
+    _entrenamientos=await BDLocal.instance.getEntrenamientos(_primerDia, _ultimoDia);;
   }
 
   Future<Widget> _calendario(context) async{
@@ -32,14 +32,14 @@ class _calendarioState extends State<Calendario>{
     final String aux = await storage.read(key: 'fechaCreacion') ??'';
     _primerDia = DateTime.parse(aux);
     _ultimoDia=_hoy.add(Duration(days: 31));
-    _actualizarEntrenamientos();
+    await _actualizarEntrenamientos();
 
     _entrenamientos.forEach((key,value){
       _eventos[key]=[value];
     });
 
     return TableCalendar(
-      onPageChanged: (primeraFecha){
+      onPageChanged: (primeraFecha) {
         _focusedDay=primeraFecha;
         final DateTime ultimaFecha=primeraFecha.add(Duration(days: 14));
         _primerDia=primeraFecha;

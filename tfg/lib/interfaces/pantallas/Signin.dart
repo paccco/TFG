@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/API.dart';
+import 'package:tfg/ConexionBDLocal.dart';
 import '../../funcionesAux.dart';
 import 'package:tfg/interfaces/pantallas/LogSignIn.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
@@ -169,19 +170,19 @@ class Singin2State extends State<Singin2>{
         color: Colores.azul,
         child: TextButton(
             onPressed: () async{
-              final peso = peC.value.text;
+              final pesoStr = peC.value.text;
               final altura = alC.value.text;
 
-              if(fechaN!=DateTime.now() && peso.isNotEmpty && altura.isNotEmpty){
+              if(fechaN!=DateTime.now() && pesoStr.isNotEmpty && altura.isNotEmpty){
                 final regexAlt = RegExp(r'^[1-9][0-9]{1,2}$');
 
-                if(regexAlt.hasMatch(altura)&&regexPeso.hasMatch(peso)){
+                if(regexAlt.hasMatch(altura)&&regexPeso.hasMatch(pesoStr)){
                   final aux = await singin(widget.usuario, widget.passwd);
                   if(aux){
                     mensaje(context, "Error al insertar usuario");
                   }else{
                     await Future.wait([
-                      storage.write(key: 'peso', value: peso.replaceAll(',','.')),
+                      BDLocal.instance.insertPesaje(DateTime.now(), pesoStr),
                       storage.write(key: 'altura', value: altura),
                       storage.write(key: 'fechaN', value: fechaFormato),
                       storage.write(key: 'genero', value: generoSeleccionado)

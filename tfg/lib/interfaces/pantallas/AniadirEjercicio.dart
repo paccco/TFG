@@ -19,18 +19,18 @@ class AniadirEjercicioState extends State<AniadirEjercicio>{
   final TextEditingController contNomEjercicio = TextEditingController();
   final TextEditingController descEjercicio = TextEditingController();
 
+  bool _repeticiones=false, _peso=false, _tiempo=false, _distancia=false;
+  
   @override
   Widget build(BuildContext context) {
 
     final BarraTexto barraNombreEjer=BarraTexto(controller: contNomEjercicio, textoHint: "Nombre");
     final BarraTexto barraDesc=BarraTexto(controller: descEjercicio, textoHint: "Descripcion", maxLineas: 8);
 
-    bool repeticiones=false, peso=false, tiempo=false, distancia=false;
-
-    BotonBool repBot=BotonBool(miBool: repeticiones, texto: "Repeticiones", cambio: (value) {repeticiones=value;});
-    BotonBool pesoBot=BotonBool(miBool: peso, texto: "Peso", cambio: (value){peso=value;});
-    BotonBool tiemBot=BotonBool(miBool: tiempo, texto: "Tiempo", cambio: (value){tiempo=value;});
-    BotonBool distBot=BotonBool(miBool: distancia, texto: "Distancia", cambio: (value){distancia=value;});
+    BotonBool repBot=BotonBool(miBool: _repeticiones, texto: "Repeticiones", cambio: (value) {_repeticiones=value;});
+    BotonBool pesoBot=BotonBool(miBool: _peso, texto: "Peso", cambio: (value){_peso=value;});
+    BotonBool tiemBot=BotonBool(miBool: _tiempo, texto: "Tiempo", cambio: (value){_tiempo=value;});
+    BotonBool distBot=BotonBool(miBool: _distancia, texto: "Distancia", cambio: (value){_distancia=value;});
 
     final EdgeInsets padding=EdgeInsets.all(5);
 
@@ -78,13 +78,13 @@ class AniadirEjercicioState extends State<AniadirEjercicio>{
                             nombre=contNomEjercicio.value.text;
                             if(descEjercicio.value.text.isNotEmpty){
                               desc=descEjercicio.value.text;
-                              if(repeticiones || tiempo || distancia || peso){
+                              if(_repeticiones || _tiempo || _distancia || _peso){
                                 String byte="";
 
-                                byte += (repeticiones ? '1' : '0');
-                                byte += (peso ? '1' : '0');
-                                byte += (tiempo ? '1' : '0');
-                                byte += (distancia ? '1' : '0');
+                                byte += (_repeticiones ? '1' : '0');
+                                byte += (_peso ? '1' : '0');
+                                byte += (_tiempo ? '1' : '0');
+                                byte += (_distancia ? '1' : '0');
                                 byte += '0000';
 
                                 codTipo=int.parse(byte,radix: 2);
@@ -102,6 +102,7 @@ class AniadirEjercicioState extends State<AniadirEjercicio>{
                                 });
                                 Navigator.pop(context);
                               }else{
+                                print("$_repeticiones $_tiempo $_distancia $_peso");
                                 mensaje(context, "Selecciona al menos un tipo de parámetro", error: true);
                               }
                             }else{

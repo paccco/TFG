@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:tfg/ConexionBDLocal.dart';
 import 'package:tfg/constantes.dart';
 import '../../funcionesAux.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
@@ -19,14 +20,15 @@ DataCell _celda(String? texto){
 }
 
 Future<Widget> _tablaDatos(BuildContext context) async{
+
   final consulta = await Future.wait([
-    storage.read(key: 'peso'),
     storage.read(key: 'altura'),
     storage.read(key: 'fechaN'),
     storage.read(key: 'genero')
   ]);
 
-  String pesoObj=await storage.read(key: 'pesoObj') ?? "Sin establecer";
+  final int pesoActual=await BDLocal.instance.getPesoActual();
+  int pesoObj=await BDLocal.instance.getPesoObjetivo();
   final TextEditingController pesoObjC=TextEditingController();
 
   return Container(
@@ -40,21 +42,23 @@ Future<Widget> _tablaDatos(BuildContext context) async{
                 _columna("Valor")
               ],
               rows: [
-                DataRow(cells: [_celda("Peso"),_celda(consulta[0])]),
-                DataRow(cells: [_celda("Altura"),_celda(consulta[1])]),
-                DataRow(cells: [_celda("Fecha nacimiento"),_celda(consulta[2])]),
-                DataRow(cells: [_celda("Género"),_celda(consulta[3])])
+                DataRow(cells: [_celda("Peso"),_celda("${pesoActual/100}")]),
+                DataRow(cells: [_celda("Altura"),_celda(consulta[0])]),
+                DataRow(cells: [_celda("Fecha nacimiento"),_celda(consulta[1])]),
+                DataRow(cells: [_celda("Género"),_celda(consulta[2])])
               ]
           ),
-          Text("Peso objetivo: $pesoObj", style: TextStyle(fontSize: 18.sp)),
+          Text("Peso objetivo: ${pesoObj==0 ? "No establecido":"${pesoObj.abs()/10} kg"}", style: TextStyle(fontSize: 18.sp)),
           BarraTexto(controller: pesoObjC,tipoInput: TextInputType.numberWithOptions(decimal: true)),
           TextButton(
             onPressed: (){
-              if(regexPeso.hasMatch(pesoObjC.value.text)){
-                storage.write(key: 'pesoObj', value: pesoObjC.value.text.replaceAll(',', '.'));
+              final String pesoStr=pesoObjC.value.text;
+
+              if(regexPeso.hasMatch(pesoStr)){
+                BDLocal.instance.insertMetaPeso(pesoStr,pesoActual);
                 Navigator.pop(context);
               }else{
-                mensaje(context, "Numero ppositivo con un decimal máximo", error: true);
+                mensaje(context, "Numero positivo con un decimal máximo", error: true);
               }
             },
             child: Container(
@@ -86,7 +90,7 @@ class DatosUsuario extends StatelessWidget{
           future: _tablaDatos(context),
           builder: (context,snapshot){
             if(snapshot.hasError){
-              return Text("Error, intenta volver a cargar la página");
+              return Text("Error, intenta volver a cargar la página, ${snapshot.error}");
             }else if(snapshot.hasData){
               return Center(
                 child: snapshot.data!,

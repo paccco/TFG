@@ -88,3 +88,16 @@ Widget botonPopUp(String texto, Function() func, String asset){
 String stringDate(DateTime fecha){
   return "${fecha.year}-${fecha.month}-${fecha.day}";
 }
+
+int gestorDeComas(String numero){
+
+  late final int out;
+
+  if(numero.contains(comasPuntos)){
+    out=int.parse(numero.replaceAll(comasPuntos, ''));
+  }else{
+    out=int.parse(numero)*10;
+  }
+
+  return out;
+}

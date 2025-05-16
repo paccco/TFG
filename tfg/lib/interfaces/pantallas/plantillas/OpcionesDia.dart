@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:tfg/constantes.dart';
+import 'package:tfg/interfaces/pantallas/OpcionesPeso.dart';
 import '../../widgetsPersonalizados/TituloConSalida.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -31,7 +33,8 @@ class _OpcionesDiaState extends State<OpcionesDia>{
   }
 
   Widget _hacerCaja(Widget hijo){
-    return SizedBox(
+    return Container(
+      alignment: Alignment.center,
       height: alturaCaja,
       child: hijo,
     );   
@@ -63,7 +66,16 @@ class _OpcionesDiaState extends State<OpcionesDia>{
         color: Colores.azul,
         height: 10.h,
         alignment: Alignment.center,
-        child: TextButton(onPressed: (){}, child: Text("Datos",style: TextStyle(fontSize: 25.sp, color: Colores.blanco))),
+        child: TextButton(
+            onPressed: (){
+              final hoy=DateTime.now();
+              final bool esHoy = isSameDay(widget.fechaTitulo, hoy);
+
+              if(esHoy || hoy.isBefore(widget.fechaTitulo)){
+                Navigator.push(context, MaterialPageRoute(builder: (builder)=>OpcionesPeso(fecha: widget.fechaTitulo, esHoy: esHoy)));
+              }
+            },
+            child: Text("Datos",style: TextStyle(fontSize: 25.sp, color: Colores.blanco))),
       )
     );
   }

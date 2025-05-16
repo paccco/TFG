@@ -30,6 +30,7 @@ class Tamanios{
 }
 
 final regexPeso = RegExp(r'^\d{1,3}([.,]\d)?$');
+final comasPuntos=RegExp(r'[,.]');
 
 final List<String> meses=[
   'Enero','Febrero','Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
