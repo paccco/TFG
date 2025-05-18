@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tfg/ConexionBDLocal.dart';
 import 'package:tfg/funcionesAux.dart';
-import 'package:tfg/interfaces/pantallas/OpcionesDescanso.dart';
+import 'package:tfg/interfaces/pantallas/EntrrenamientoListarEjericicos.dart';
 import 'package:tfg/interfaces/pantallas/SeleccionarRutina.dart';
 import 'plantillas/OpcionesDia.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -53,7 +53,18 @@ class _OpcionesHoyFuturoState extends State<OpcionesHoyFuturo>{
     _inferior=Column(
       spacing: 2.h,
       children: [
-        _hacerBoton("Empezar entrenamiento",(){},color: Colores.naranja),
+        _hacerBoton("Empezar entrenamiento",() async {
+          final rutina = await BDLocal.instance.getRutina(widget.rutina);
+          final camposRutinas=BDLocal.instance.camposRutinas;
+          final String listaEjercicios=rutina[camposRutinas[2]];
+          print(listaEjercicios);
+          if(listaEjercicios!=""){
+            final List<String> aux=listaEjercicios.split(",");
+            Navigator.push(context, MaterialPageRoute(builder: (builder)=>EntrenamientoListarEjericicos(ejercicios: aux, descanso: rutina[camposRutinas[3]])));
+          }else{
+            mensaje(context, "Esta rutina no tiene ejercicios", error: true);
+          }
+        },color: Colores.naranja),
         _hacerBoton("Cambiar rutina",() async{
           final String? res = await Navigator.push(context, MaterialPageRoute(builder: (builder)=>SeleccionarRutina()));
 

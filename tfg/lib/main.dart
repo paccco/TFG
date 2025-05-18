@@ -3,7 +3,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/interfaces/pantallas/LogSignIn.dart';
 import 'package:tfg/interfaces/pantallas/MenuPrincipal.dart';
-import 'package:tfg/interfaces/pantallas/RellenaMarca.dart';
 import 'constantes.dart';
 import 'API.dart';
 
@@ -33,7 +32,7 @@ void main() async{
               primarySwatch: Colors.blue,
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
-            home:  RellenaMarca(ejercicio: "", tipo: '11111000'),
+            home:  aux,
           );
         },
       )

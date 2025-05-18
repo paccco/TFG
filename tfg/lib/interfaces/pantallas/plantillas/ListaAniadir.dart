@@ -55,10 +55,11 @@ class _ListaAniadirState extends State<ListaAniadir>{
 
     final elementosFetched = await widget.cargarContenido();
 
-    contenido=List.from(elementosFetched);
+    setState(() {
+      contenido=List.from(elementosFetched);
+    });
 
     _setVisble();
-    setState(() {});
   }
 
   void _navegar(bool value){

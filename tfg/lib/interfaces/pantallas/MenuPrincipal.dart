@@ -23,7 +23,7 @@ class MenuPrincipal extends StatefulWidget {
 
 class MneuPrincipalState extends State<MenuPrincipal>{
 
-  late final DateTime hoy;
+  late final DateTime _hoy;
   DateTime _selectedDay=DateTime.now();
   String _textoDiaSeleccionado="", _rutina="Sin asignar";
 
@@ -32,16 +32,16 @@ class MneuPrincipalState extends State<MenuPrincipal>{
     super.initState();
     final aux=DateTime.now();
 
-    hoy=DateTime(aux.year,aux.month,aux.day);
+    _hoy=DateTime(aux.year,aux.month,aux.day);
   }
 
   void _cambiaTextoDiaSeleccionado(){
     if(_rutina==""){
       _textoDiaSeleccionado="Descanso";
     }else{
-      if(hoy.isAfter(_selectedDay)){
+      if(_hoy.isAfter(_selectedDay)){
         _textoDiaSeleccionado="Entrenaste $_rutina";
-      }else if(isSameDay(hoy, _selectedDay)){
+      }else if(isSameDay(_hoy, _selectedDay)){
         _textoDiaSeleccionado="Entrenas $_rutina";
       }else{
         _textoDiaSeleccionado="Entrenarás $_rutina";
@@ -134,7 +134,7 @@ class MneuPrincipalState extends State<MenuPrincipal>{
                 Text(_textoDiaSeleccionado,style: TextStyle(fontSize: 20.sp)),
                 InkWell(
                   onTap: (){
-                    if(isSameDay(_selectedDay, hoy) || hoy.isBefore(_selectedDay)){
+                    if(isSameDay(_selectedDay, _hoy) || _hoy.isBefore(_selectedDay)){
                       if(_rutina.isNotEmpty){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => OpcionesHoyFuturo(diaSeleccionado: _selectedDay, rutina: _rutina)));
                       }else{
