@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:tfg/constantes.dart';
-import 'package:tfg/interfaces/pantallas/OpcionesPeso.dart';
+import 'package:tfg/interfaces/pantallas/calendario/OpcionesPeso.dart';
 import '../../widgetsPersonalizados/TituloConSalida.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 

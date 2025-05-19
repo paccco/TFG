@@ -141,7 +141,7 @@ class BDLocal{
         camposMarca[7] : datos.values.first
       });
       await db.insert(marca, {
-        camposMarca[0] : '0000-00-00',
+        camposMarca[0] : stringDate(DateTime.now()),
         camposMarca[2] : 0,
         camposMarca[3] : 0,
         camposMarca[4] : '00:00:00',

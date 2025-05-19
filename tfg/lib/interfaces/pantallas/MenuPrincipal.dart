@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:tfg/interfaces/pantallas/ListaEjercicios.dart';
-import 'package:tfg/interfaces/pantallas/ListaRutinas.dart';
-import 'package:tfg/interfaces/pantallas/ListaRutinasCompartidas.dart';
-import 'package:tfg/interfaces/pantallas/MiPerfil.dart';
-import 'package:tfg/interfaces/pantallas/OpcionesDescanso.dart';
-import 'package:tfg/interfaces/pantallas/OpcionesHoyFuturo.dart';
+import 'package:tfg/interfaces/pantallas/misEjercicios/ListaEjercicios.dart';
+import 'package:tfg/interfaces/pantallas/misRutinas/ListaRutinas.dart';
+import 'package:tfg/interfaces/pantallas/misRutinas/ListaRutinasCompartidas.dart';
+import 'package:tfg/interfaces/pantallas/miPerfil/MiPerfil.dart';
+import 'package:tfg/interfaces/pantallas/calendario/OpcionesDescanso.dart';
+import 'package:tfg/interfaces/pantallas/calendario/OpcionesHoyFuturo.dart';
 import 'package:tfg/interfaces/pantallas/plantillas/EligeEntre2.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSimple.dart';
 import '../../constantes.dart';
-import './BuscarRutinaNombre.dart';
-import 'BuscarUsuario.dart';
+import 'buscarRutinas/BuscarRutinaNombre.dart';
+import 'buscarRutinas/BuscarUsuario.dart';
 import '../widgetsPersonalizados/Calendario.dart';
 
 class MenuPrincipal extends StatefulWidget {
