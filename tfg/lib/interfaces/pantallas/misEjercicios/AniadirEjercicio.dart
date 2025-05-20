@@ -29,7 +29,7 @@ class AniadirEjercicioState extends State<AniadirEjercicio>{
 
     BotonBool repBot=BotonBool(miBool: _repeticiones, texto: "Repeticiones", cambio: (value) {_repeticiones=value;});
     BotonBool pesoBot=BotonBool(miBool: _peso, texto: "Peso", cambio: (value){_peso=value;});
-    BotonBool tiemBot=BotonBool(miBool: _tiempo, texto: "Tiempo", cambio: (value){_tiempo=value;});
+    BotonBool timeBot=BotonBool(miBool: _tiempo, texto: "Tiempo", cambio: (value){_tiempo=value;});
     BotonBool distBot=BotonBool(miBool: _distancia, texto: "Distancia", cambio: (value){_distancia=value;});
 
     final EdgeInsets padding=EdgeInsets.all(5);
@@ -58,7 +58,7 @@ class AniadirEjercicioState extends State<AniadirEjercicio>{
                 Wrap(
                   alignment: WrapAlignment.center,
                   children: [
-                    repBot,pesoBot,tiemBot,distBot
+                    repBot,pesoBot,timeBot,distBot
                   ],
                 ),
                 Padding(padding: padding,child: barraDesc),
@@ -90,9 +90,9 @@ class AniadirEjercicioState extends State<AniadirEjercicio>{
                                 codTipo=int.parse(byte,radix: 2);
 
                                 Map<String,dynamic> datos={
-                                  BDLocal.instance.camposEjercicios[0] :  nombre,
-                                  BDLocal.instance.camposEjercicios[1] :  codTipo,
-                                  BDLocal.instance.camposEjercicios[2] :  desc
+                                  BDLocal.camposEjercicios[0] :  nombre,
+                                  BDLocal.camposEjercicios[1] :  codTipo,
+                                  BDLocal.camposEjercicios[2] :  desc
                                 };
 
                                 BDLocal.instance.insertEjercicios(datos).then((value){
@@ -102,7 +102,6 @@ class AniadirEjercicioState extends State<AniadirEjercicio>{
                                 });
                                 Navigator.pop(context);
                               }else{
-                                print("$_repeticiones $_tiempo $_distancia $_peso");
                                 mensaje(context, "Selecciona al menos un tipo de parámetro", error: true);
                               }
                             }else{

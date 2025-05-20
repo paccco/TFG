@@ -6,8 +6,8 @@ import 'package:tfg/funcionesAux.dart';
 
 class Calendario extends StatefulWidget{
 
-  final ValueChanged<List<dynamic>> onValueChanged;
-  const Calendario({super.key, required this.onValueChanged});
+  final ValueChanged<List<dynamic>> _onValueChanged;
+  const Calendario({super.key, required void Function(List<dynamic>) onValueChanged}) : _onValueChanged = onValueChanged;
 
   @override
   _calendarioState createState() => _calendarioState();
@@ -24,7 +24,7 @@ class _calendarioState extends State<Calendario>{
   Map<String,String> _entrenamientos={};
 
   Future<void> _actualizarEntrenamientos() async{
-    _entrenamientos=await BDLocal.instance.getEntrenamientos(_primerDia, _ultimoDia);;
+    _entrenamientos=await BDLocal.instance.getEntrenamientos(_primerDia, _ultimoDia);
   }
 
   Future<Widget> _calendario(context) async{
@@ -66,7 +66,7 @@ class _calendarioState extends State<Calendario>{
         if(selectedDay!=_selectedDay){
          setState(() {
            _selectedDay=selectedDay;
-           widget.onValueChanged([_selectedDay ?? DateTime.now(), _entrenamientos[stringDate(_selectedDay ?? _hoy)] ?? '']);
+           widget._onValueChanged([_selectedDay ?? DateTime.now(), _entrenamientos[stringDate(_selectedDay ?? _hoy)] ?? '']);
          });
         }
       },

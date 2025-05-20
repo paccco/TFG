@@ -18,14 +18,15 @@ class MenuPrincipal extends StatefulWidget {
   const MenuPrincipal({super.key});
 
   @override
-  MneuPrincipalState createState() => MneuPrincipalState();
+  MenuPrincipalState createState() => MenuPrincipalState();
 }
 
-class MneuPrincipalState extends State<MenuPrincipal>{
+class MenuPrincipalState extends State<MenuPrincipal>{
 
   late final DateTime _hoy;
   DateTime _selectedDay=DateTime.now();
   String _textoDiaSeleccionado="", _rutina="Sin asignar";
+  late final Calendario _miCalendar=Calendario(onValueChanged: _seleccionarDia);
 
   @override
   void initState() {
@@ -130,15 +131,19 @@ class MneuPrincipalState extends State<MenuPrincipal>{
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Calendario(onValueChanged: _seleccionarDia),
+                _miCalendar,
                 Text(_textoDiaSeleccionado,style: TextStyle(fontSize: 20.sp)),
                 InkWell(
-                  onTap: (){
+                  onTap: () async {
                     if(isSameDay(_selectedDay, _hoy) || _hoy.isBefore(_selectedDay)){
                       if(_rutina.isNotEmpty){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => OpcionesHoyFuturo(diaSeleccionado: _selectedDay, rutina: _rutina)));
+                        await Navigator.push(context, MaterialPageRoute(builder: (context) => OpcionesHoyFuturo(diaSeleccionado: _selectedDay, rutina: _rutina)));
+                        setState(() {
+                          _textoDiaSeleccionado="";
+                        });
                       }else{
                         Navigator.push(context, MaterialPageRoute(builder: (build)=>OpcionesDescanso(fecha: _selectedDay)));
+                        _cambiaTextoDiaSeleccionado();
                       }
                     }
                   },

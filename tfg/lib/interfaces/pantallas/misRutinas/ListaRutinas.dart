@@ -21,7 +21,7 @@ class _ListaRutinasState extends State<ListaRutinas>{
   void _cargarRutina(BuildContext context,String nombre) async{
 
     final rutina = await BDLocal.instance.getRutina(nombre);
-    final campos = BDLocal.instance.camposRutinas;
+    final campos = BDLocal.camposRutinas;
 
     final TextEditingController contDescripcion=TextEditingController();
     final TextEditingController contDescanso=TextEditingController();

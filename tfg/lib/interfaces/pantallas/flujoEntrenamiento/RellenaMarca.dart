@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/constantes.dart';
@@ -10,8 +12,9 @@ class RellenaMarca extends StatefulWidget{
 
   final String ejercicio;
   final String tipo;
+  final String descanso;
 
-  const RellenaMarca({super.key,  required this.ejercicio, required this.tipo});
+  const RellenaMarca({super.key,  required this.ejercicio, required this.tipo, required this.descanso});
 
   @override
   State<RellenaMarca> createState() => _RellenaMarcaState();
@@ -19,39 +22,78 @@ class RellenaMarca extends StatefulWidget{
 
 class _RellenaMarcaState extends State<RellenaMarca>{
 
-  TextEditingController? repeC, pesoC, distC, tiempoC;
-  List<Widget> cajasTexto=[];
+  TextEditingController? _repeC, _pesoC, _distC, _tiempoC;
+  List<Widget> _cajasTexto=[];
+  List<int> _digitosDescanso=[];
+  Timer? _timer;
+  String _tiempoRestante="";
+  bool _finDescanso=false;
 
   @override
   void initState() {
     super.initState();
+    _digitosDescanso=widget.descanso.split(":").map((e) => int.parse(e)).toList();
 
     final String tipo=widget.tipo;
 
     if(tipo[0]=='1'){
-      repeC=TextEditingController();
-      cajasTexto.add(
-        BarraTexto(controller: repeC!, textoHint: "REPETICIONES",tipoInput: TextInputType.number)
+      _repeC=TextEditingController();
+      _cajasTexto.add(
+        BarraTexto(controller: _repeC!, textoHint: "REPETICIONES",tipoInput: TextInputType.number)
       );
     }
     if(tipo[1]=='1'){
-      tiempoC=TextEditingController();
-      cajasTexto.add(
-          BarraTexto(controller: tiempoC!, textoHint: "TIEMPO",tipoInput: TextInputType.number)
+      _pesoC=TextEditingController();
+      _cajasTexto.add(
+          BarraTexto(controller: _pesoC!, textoHint: "PESO",tipoInput: TextInputType.numberWithOptions(decimal: true))
       );
     }
     if(tipo[2]=='1'){
-      pesoC=TextEditingController();
-      cajasTexto.add(
-          BarraTexto(controller: pesoC!, textoHint: "PESO",tipoInput: TextInputType.numberWithOptions(decimal: true))
+      _tiempoC=TextEditingController();
+      _cajasTexto.add(
+          BarraTexto(controller: _tiempoC!, textoHint: "TIEMPO")
       );
     }
     if(tipo[3]=='1'){
-      distC=TextEditingController();
-      cajasTexto.add(
-          BarraTexto(controller: distC!, textoHint: "DISTANCIA", tipoInput: TextInputType.number)
+      _distC=TextEditingController();
+      _cajasTexto.add(
+          BarraTexto(controller: _distC!, textoHint: "DISTANCIA", tipoInput: TextInputType.number)
       );
     }
+
+    _iniciarCuentaAtras();
+  }
+
+  void _durationStr(Duration duration){
+    final int aux = duration.inSeconds;
+    _tiempoRestante = "${aux ~/ 60} : ${aux % 60}";
+  }
+
+  void _iniciarCuentaAtras(){
+    DateTime objetivo=DateTime.now().add(Duration(minutes: _digitosDescanso[0], seconds: _digitosDescanso[1]));
+
+    _timer?.cancel();
+    Duration duracion = objetivo.difference(DateTime.now());
+    if (duracion.isNegative){ duracion = Duration.zero;}
+
+    _durationStr(duracion);
+
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      final ahora = DateTime.now();
+      final resta = objetivo.difference(ahora);
+      if (resta.isNegative) {
+        timer.cancel();
+        setState(() {
+          duracion = Duration.zero;
+        });
+        _finDescanso=true;
+      } else {
+        setState(() {
+          duracion = resta;
+        });
+      }
+      _durationStr(duracion);
+    });
   }
 
   @override
@@ -68,50 +110,62 @@ class _RellenaMarcaState extends State<RellenaMarca>{
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: 2.h,
-          children: cajasTexto,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: 1.h,
+              children: _cajasTexto,
+            ),
+            Text("Descanso: $_tiempoRestante", style: TextStyle(fontSize: 24.sp))
+          ]
         ),
       ),
       bottomNavigationBar: InkWell(
         onTap: () async {
           Map<String,dynamic> aux={};
-          final camposMarca=BDLocal.instance.camposMarca;
+          final camposMarca=BDLocal.camposMarca;
 
-          if(repeC!=null && repeC!.value.text.isNotEmpty){
+          if(_repeC!=null && _repeC!.value.text.isNotEmpty){
             try{
-              aux[camposMarca[2]]=int.parse(repeC!.value.text);
+              aux[camposMarca[2]]=int.parse(_repeC!.value.text);
             }catch(exception){
               mensaje(context, "Repeticiones: Usa un numero positivo sin comas",error: true);
             }
           }
-          if(tiempoC!=null && tiempoC!.value.text.isNotEmpty){
-            final horaVal = tiempoC!.value.text;
+          if(_tiempoC!=null && _tiempoC!.value.text.isNotEmpty){
+            final horaVal = _tiempoC!.value.text;
             if(validarFormatoHora(horaVal)) {
               aux[camposMarca[4]] = horaVal;
             }else{
               aux[camposMarca[4]] = false;
             }
           }
-          if(pesoC!=null && pesoC!.value.text.isNotEmpty){
+          if(_pesoC!=null && _pesoC!.value.text.isNotEmpty){
             try{
-              aux[camposMarca[3]]=double.parse(pesoC!.value.text);
+              aux[camposMarca[3]]=double.parse(_pesoC!.value.text);
             }catch(exception){
               mensaje(context, "Peso: Usa un numero con punto", error: true);
             }
           }
-          if(distC!=null && distC!.value.text.isNotEmpty){
+          if(_distC!=null && _distC!.value.text.isNotEmpty){
             try{
-              aux[camposMarca[5]]=double.parse(distC!.value.text);
+              aux[camposMarca[5]]=double.parse(_distC!.value.text);
             }catch(execption){
               mensaje(context, "Distancia: Usa un numero con punto", error: true);
             }
           }
 
           if(aux.values.contains(false)){
-            mensaje(context, "Formato de hora erróneo: hh:mm:ss", error: true);
+            mensaje(context, "Formato de hora erróneo: mm:ss", error: true);
           } else if(aux.isNotEmpty){
-            aux[camposMarca[0]]=stringDate(DateTime.now());
-            aux[camposMarca[7]]=widget.ejercicio;
-            Navigator.pop(context, aux);
+            if(_finDescanso){
+              aux[camposMarca[0]]=stringDate(DateTime.now());
+              aux[camposMarca[7]]=widget.ejercicio;
+              Navigator.pop(context, aux);
+            }else{
+              mensaje(context, "Espera a que acabe el descanso",error: true);
+            }
             //Cambiar de pantalla
           }else{
             mensaje(context, "Rellena los campos", error: true);
@@ -130,10 +184,10 @@ class _RellenaMarcaState extends State<RellenaMarca>{
 
   @override
   void dispose() {
-    repeC?.dispose();
-    pesoC?.dispose();
-    distC?.dispose();
-    tiempoC?.dispose();
+    _repeC?.dispose();
+    _pesoC?.dispose();
+    _distC?.dispose();
+    _tiempoC?.dispose();
     super.dispose();
   }
 

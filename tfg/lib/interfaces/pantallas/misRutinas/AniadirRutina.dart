@@ -37,7 +37,7 @@ class _AniadirRutinaState extends State<AniadirRutina>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             BarraTexto(controller: contNom,textoHint: "Nombre",),
-            BarraTexto(controller: contDescanso,textoHint: "Descanso: hh:mm:ss",tipoInput: TextInputType.datetime),
+            BarraTexto(controller: contDescanso,textoHint: "Descanso: mm:ss",tipoInput: TextInputType.datetime),
             BarraTexto(controller: contDescripcion,textoHint: "Descripcion",maxLineas: 5,),
             Container(
                 color: Colores.naranja,
@@ -51,7 +51,7 @@ class _AniadirRutinaState extends State<AniadirRutina>{
                         final aux=await BDLocal.instance.insertRutina(nombre,descripcion,descanso);
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ListaEjerRutina(titulo: aux)));
                       }else{
-                        mensaje(context, "Descanso hh:mm:ss", error: true);
+                        mensaje(context, "Descanso mm:ss", error: true);
                       }
                     },
                     child: Text("Seguir", style: TextStyle(color: Colores.blanco, fontSize: 20.sp))

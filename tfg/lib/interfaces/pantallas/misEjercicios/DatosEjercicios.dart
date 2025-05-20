@@ -50,7 +50,7 @@ class DatosEjercicios extends StatelessWidget{
           Spacer(),
           _hacerBoton("Nueva meta", () {
             Navigator.push(context, MaterialPageRoute(
-                builder: (context)=>NuevaMetaEjercicio(titulo: titulo,repeticiones: tipo[0]=='1',tiempo: tipo[1]=='1',peso: tipo[2]=='1',distancia: tipo[3]=='1'))
+                builder: (context)=>NuevaMetaEjercicio(titulo: titulo,repeticiones: tipo[0]=='1',peso: tipo[1]=='1',tiempo: tipo[2]=='1',distancia: tipo[3]=='1'))
             );
           })
         ],
@@ -75,27 +75,33 @@ class DatosEjercicios extends StatelessWidget{
 
   List<DataRow> _construyeTabla(String tipo, Map<String,dynamic> meta,Map<String,dynamic> marca){
 
+    final camposMarca=BDLocal.camposMarca;
+    final repeticiones=camposMarca[2],
+          peso=camposMarca[3],
+          tiempo=camposMarca[4],
+          distancia=camposMarca[5];
     List<DataRow> out=List.empty(growable: true);
+
 
     if(tipo[0]=='1'){
       out.add(
-        DataRow(cells: _construyeFila('REPETICIONES',marca['repeticiones'], meta['repeticiones'])),
+        DataRow(cells: _construyeFila('REPETICIONES',marca[repeticiones], meta[repeticiones])),
       );
     }
     if(tipo[1]=='1'){
-
-      String marcaT=marca['tiempo'],metaT=meta['tiempo'];
-      String tiempos="$marcaT|$metaT";
-
       out.add(
-        DataRow(cells: _construyeFila('TIEMPO',_time2Int(marcaT),_time2Int(metaT),esTiempo: tiempos))
+        DataRow(cells: _construyeFila('PESO',marca[peso], meta[peso],esDouble: true))
       );
     }
     if(tipo[2]=='1'){
+      String marcaT=marca[tiempo],metaT=meta[tiempo];
+      String tiempos="$marcaT|$metaT";
+
       out.add(
-        DataRow(cells: _construyeFila('PESO',marca['peso'], meta['peso'],esDouble: true))
+          DataRow(cells: _construyeFila('TIEMPO',_time2Int(marcaT),_time2Int(metaT),esTiempo: tiempos))
       );
-    }if(tipo[3]=='1'){
+    }
+    if(tipo[3]=='1'){
       String aux="";
 
       if(tipo[4]=='1'){
@@ -105,7 +111,7 @@ class DatosEjercicios extends StatelessWidget{
       }
 
       out.add(
-        DataRow(cells: _construyeFila('DISTANCIA',marca['distancia'], meta['distancia'],unidades: aux,esDouble: true)),
+        DataRow(cells: _construyeFila('DISTANCIA',marca[distancia], meta[distancia],unidades: aux,esDouble: true)),
       );
     }
 
@@ -117,9 +123,8 @@ class DatosEjercicios extends StatelessWidget{
     final List<String> aux = value.split(':');
     int res=0;
 
-    res+=int.parse(aux[0])*24;
+    res+=int.parse(aux[0])*60;
     res+=int.parse(aux[1])*60;
-    res+=int.parse(aux[2])*60;
 
     return res;
   }
@@ -160,7 +165,7 @@ class DatosEjercicios extends StatelessWidget{
 
     double tamIconos=7.w;
 
-    if(marca>=meta){
+    if((marca>=meta) ){
       out.add(DataCell(Image.asset('assets/images/check.png',width: tamIconos,height: tamIconos)));
     } else {
       out.add(DataCell(Image.asset('assets/images/forbidden.png',width: tamIconos,height: tamIconos)));

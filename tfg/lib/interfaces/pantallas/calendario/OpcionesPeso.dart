@@ -29,7 +29,7 @@ class OpcionesPeso extends StatelessWidget{
   Future<Widget> _cargarDatos(BuildContext context) async{
     final datos=await BDLocal.instance.getPesaje(fecha);
 
-    final camposPesajes=BDLocal.instance.camposPesajes;
+    final camposPesajes=BDLocal.camposPesajes;
     final estiloTexto = TextStyle(fontSize: 22.sp, color: Colores.negro);
 
     late final List<Widget> auxSuperior;

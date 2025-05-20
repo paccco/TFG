@@ -12,27 +12,27 @@ class BDLocal{
   BDLocal._init();
 
   final String ejercicios='ejercicios';
-  final List<String> camposEjercicios = [
+  static const List<String> camposEjercicios = [
     'nombre', 'tipo', 'descripcion'
   ];
 
   final String marca='marca';
-  final List<String> camposMarca=[
+  static const List<String> camposMarca=[
     'fecha','id','repeticiones','peso','tiempo','distancia','unidades','nombreEjercicio'
   ];
 
   final String rutinas='rutinas';
-  final List<String> camposRutinas=[
+  static const List<String> camposRutinas=[
     'nombre','descripcion','ejercicios', 'descansos'
   ];
 
   final String entrenamientos='entrenamientos';
-  final List<String> camposEntrenamientos=[
+  static const List<String> camposEntrenamientos=[
     'fecha','rutina'
   ];
 
   final String pesajes='pesajes';
-  final List<String> camposPesajes=[
+  static const List<String> camposPesajes=[
     'fecha','peso','grasa','hueso','musculo'
   ];
 
@@ -69,11 +69,14 @@ class BDLocal{
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path,version: 1, onCreate: _onCreateDB);
+    return await openDatabase(path,version: 1,
+        onConfigure: (db) async {
+          await db.execute('PRAGMA foreign_keys = ON');
+        },
+        onCreate: _onCreateDB);
   }
 
   Future _onCreateDB(Database db, int version) async {
-    await db.execute('PRAGMA foreign_keys = ON');
     await db.execute('''
     CREATE TABLE $ejercicios(
     ${camposEjercicios[0]} STRING PRIMARY KEY,
@@ -135,7 +138,7 @@ class BDLocal{
         camposMarca[0] : '0000-00-00',
         camposMarca[2] : 0,
         camposMarca[3] : 0,
-        camposMarca[4] : '00:00:00',
+        camposMarca[4] : '00:00',
         camposMarca[5] : 0,
         camposMarca[6] : 0,
         camposMarca[7] : datos.values.first
@@ -144,7 +147,7 @@ class BDLocal{
         camposMarca[0] : stringDate(DateTime.now()),
         camposMarca[2] : 0,
         camposMarca[3] : 0,
-        camposMarca[4] : '00:00:00',
+        camposMarca[4] : '00:00',
         camposMarca[5] : 0,
         camposMarca[6] : 0,
         camposMarca[7] : datos.values.first
@@ -265,7 +268,7 @@ class BDLocal{
 
   Future<void> insertMarca(Map<String,dynamic> datos) async{
     final db = await instance.database;
-    await db.insert(ejercicios, datos, conflictAlgorithm: ConflictAlgorithm.fail);
+    await db.insert(marca, datos, conflictAlgorithm: ConflictAlgorithm.fail);
   }
 
   Future<Map<String,dynamic>> getMetaActual(String ejercicio) async{
@@ -276,7 +279,7 @@ class BDLocal{
 
   Future<Map<String,dynamic>> getMarcaActual(String ejercicio) async{
     final db = await instance.database;
-    final out = await db.query(marca,where: '${camposMarca[7]} = ?', whereArgs: [ejercicio], orderBy: '${camposMarca[0]} DESC', columns: camposMarca.sublist(2,6));
+    final out = await db.query(marca,where: '${camposMarca[7]} = ?', whereArgs: [ejercicio], orderBy: '${camposMarca[1]} DESC', columns: camposMarca.sublist(2,6));
     return out.first;
   }
 

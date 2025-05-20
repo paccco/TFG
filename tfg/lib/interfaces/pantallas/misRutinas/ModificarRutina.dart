@@ -74,7 +74,7 @@ class _ModificarRutinaState extends State<ModificarRutina>{
                   mensaje(context, "Error al modificar la rutina", error: true);
                 }
               }else{
-                mensaje(context, "Descanso hh:mm:ss",error: true);
+                mensaje(context, "Descanso mm:ss",error: true);
               }
             },
                 'assets/images/save.png'

@@ -71,7 +71,7 @@ class _OpcionesHoyFuturoState extends State<OpcionesHoyFuturo>{
             final bool sinError=await BDLocal.instance.insertEntrenamiento(widget.diaSeleccionado, res);
 
             if(sinError){
-              Navigator.pop(context);
+              Navigator.pop(context,true);
               mensaje(context, "Rutina cambiada");
             }else{
               mensaje(context, "Error al caqmbiar rutina", error: true);
