@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tfg/ConexionBDLocal.dart';
-import 'package:tfg/funcionesAux.dart';
+import 'package:tfg/constantes.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/interfaces/pantallas/flujoEntrenamiento/EntreSeries.dart';
 import 'package:tfg/interfaces/pantallas/flujoEntrenamiento/EntrrenamientoListarEjericicos.dart';
+import 'package:tfg/interfaces/pantallas/flujoEntrenamiento/FinEntrenamiento.dart';
 import 'package:tfg/interfaces/pantallas/flujoEntrenamiento/RealizandoEjercicio.dart';
 import 'package:tfg/interfaces/pantallas/flujoEntrenamiento/RellenaMarca.dart';
+import 'package:tfg/interfaces/pantallas/plantillas/PantallasEntrenamiento.dart';
 
 class FlujoEntrenamiento{
   late final List<String> _listaEjercicios;
@@ -117,6 +120,8 @@ class FlujoEntrenamiento{
       }
     }
 
+    Navigator.push(context, MaterialPageRoute(builder: (builder)=>FinEntrenamiento()));
+
     Map<String,Map<String,bool>> metasSuperadas={};
 
     //Por cada ejercicio miramos las marcas
@@ -132,6 +137,25 @@ class FlujoEntrenamiento{
       metasSuperadas[ejercicio]=resultadoEjercicio;
     }
 
+    for(var ejercicio in metasSuperadas.keys){
+      if(metasSuperadas[ejercicio]!.isNotEmpty){
+        List<Widget> aux=[
+          Text("¡Enhorabuena!", style: TextStyle(fontSize: 27.5.sp)),
+          Text("Has superado metas", style: TextStyle(fontSize: 19.sp)),
+          Icon(Icons.access_alarms, size: 40.sp, color: Colores.verde)
+        ];
+        metasSuperadas[ejercicio]!.keys.forEach((value){
+          aux.add(Text("$value superada", style: TextStyle(fontSize: 20.sp,color: Colores.negro)));
+        });
+        final pantalla=PantallasEntrenamiento(
+            titulo: "Meta superada",
+            hijos: aux,
+            boton: true,
+            textoBoton: "Finalizar",
+        );
+        await Navigator.push(context, MaterialPageRoute(builder: (builder)=>pantalla));
+      }
+    }
 
     return true;
   }

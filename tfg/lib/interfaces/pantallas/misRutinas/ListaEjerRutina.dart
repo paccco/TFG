@@ -22,6 +22,8 @@ class _ListaEjerRutinaState extends State<ListaEjerRutina>{
   Future<List<String>> _cargarEjericios() async{
     final out = await BDLocal.instance.getEjerciciosRutina(widget.titulo);
 
+    print(out);
+
     setState(() {
       _contenido = List.from(out);
     });

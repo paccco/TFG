@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tfg/constantes.dart';
 import 'package:tfg/interfaces/pantallas/flujoEntrenamiento/RealizandoEjercicio.dart';
+import 'package:tfg/interfaces/pantallas/plantillas/PantallasEntrenamiento.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSimple.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -34,23 +35,10 @@ class EntreSeries extends StatelessWidget{
     if(!primeraSerie){
       botones.add(_boton(context,"Fin del ejercicio", Colores.naranja, finEjercicio: true));
     }
-    
-    return Scaffold(
-      backgroundColor: Colores.grisClaro,
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(Tamanios.appBarH),
-          child: TituloSimple(titulo: ejercicio)
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.all(2.h),
-        child: Column(
-          spacing: 2.h,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: botones,
-        ),
-      ),
+
+    return PantallasEntrenamiento(
+        titulo: ejercicio,
+        hijos: botones
     );
   }
 }

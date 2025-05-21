@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tfg/constantes.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:tfg/interfaces/pantallas/plantillas/PantallasEntrenamiento.dart';
 import '../../widgetsPersonalizados/TituloSimple.dart';
 
 class EntrenamientoListarEjericicos extends StatelessWidget{
@@ -25,32 +26,12 @@ class EntrenamientoListarEjericicos extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colores.grisClaro,
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(Tamanios.appBarH),
-          child: TituloSimple(titulo: "Ejercicios")
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.all(2.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          spacing: 2.h,
-          children: _hijosColumna(),
-        ),
-      ),
-        bottomNavigationBar: InkWell(
-          onTap: ()=>Navigator.pop(context),
-        child: Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.all(2.h),
-          color: Colores.naranja,
-          height: 15.h,
-          child: Text("Empezar",style: TextStyle(color: Colores.blanco, fontSize: 30.sp),),
-        ),
-      ),
+
+    return PantallasEntrenamiento(
+        titulo: "Ejercicios",
+        hijos: _hijosColumna(),
+        textoBoton: "Empezar",
+        boton: true
     );
   }
 }

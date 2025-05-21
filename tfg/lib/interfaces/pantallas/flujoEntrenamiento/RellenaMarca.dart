@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/constantes.dart';
@@ -7,6 +6,10 @@ import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSimple.dart';
 import 'package:tfg/funcionesAux.dart';
 import '../../../ConexionBDLocal.dart';
+
+/**
+ * En esta clase no me interesa usar la plantilla
+ */
 
 class RellenaMarca extends StatefulWidget{
 
@@ -98,87 +101,90 @@ class _RellenaMarcaState extends State<RellenaMarca>{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colores.grisClaro,
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(Tamanios.appBarH), 
-          child: TituloSimple(titulo: "Marcas")
-      ),
-      body: Container(
-        margin: EdgeInsets.all(2.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          spacing: 2.h,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: 1.h,
-              children: _cajasTexto,
+    return PopScope(
+        canPop: false,
+        child: Scaffold(
+          backgroundColor: Colores.grisClaro,
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(Tamanios.appBarH),
+              child: TituloSimple(titulo: "Marcas")
+          ),
+          body: Container(
+            margin: EdgeInsets.all(2.h),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 2.h,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    spacing: 1.h,
+                    children: _cajasTexto,
+                  ),
+                  Text("Descanso: $_tiempoRestante", style: TextStyle(fontSize: 24.sp))
+                ]
             ),
-            Text("Descanso: $_tiempoRestante", style: TextStyle(fontSize: 24.sp))
-          ]
-        ),
-      ),
-      bottomNavigationBar: InkWell(
-        onTap: () async {
-          Map<String,dynamic> aux={};
-          final camposMarca=BDLocal.camposMarca;
+          ),
+          bottomNavigationBar: InkWell(
+            onTap: () async {
+              Map<String,dynamic> aux={};
+              final camposMarca=BDLocal.camposMarca;
 
-          if(_repeC!=null && _repeC!.value.text.isNotEmpty){
-            try{
-              aux[camposMarca[2]]=int.parse(_repeC!.value.text);
-            }catch(exception){
-              mensaje(context, "Repeticiones: Usa un numero positivo sin comas",error: true);
-            }
-          }
-          if(_tiempoC!=null && _tiempoC!.value.text.isNotEmpty){
-            final horaVal = _tiempoC!.value.text;
-            if(validarFormatoHora(horaVal)) {
-              aux[camposMarca[4]] = horaVal;
-            }else{
-              aux[camposMarca[4]] = false;
-            }
-          }
-          if(_pesoC!=null && _pesoC!.value.text.isNotEmpty){
-            try{
-              aux[camposMarca[3]]=double.parse(_pesoC!.value.text);
-            }catch(exception){
-              mensaje(context, "Peso: Usa un numero con punto", error: true);
-            }
-          }
-          if(_distC!=null && _distC!.value.text.isNotEmpty){
-            try{
-              aux[camposMarca[5]]=double.parse(_distC!.value.text);
-            }catch(execption){
-              mensaje(context, "Distancia: Usa un numero con punto", error: true);
-            }
-          }
+              if(_repeC!=null && _repeC!.value.text.isNotEmpty){
+                try{
+                  aux[camposMarca[2]]=int.parse(_repeC!.value.text);
+                }catch(exception){
+                  mensaje(context, "Repeticiones: Usa un numero positivo sin comas",error: true);
+                }
+              }
+              if(_tiempoC!=null && _tiempoC!.value.text.isNotEmpty){
+                final horaVal = _tiempoC!.value.text;
+                if(validarFormatoHora(horaVal)) {
+                  aux[camposMarca[4]] = horaVal;
+                }else{
+                  aux[camposMarca[4]] = false;
+                }
+              }
+              if(_pesoC!=null && _pesoC!.value.text.isNotEmpty){
+                try{
+                  aux[camposMarca[3]]=double.parse(_pesoC!.value.text);
+                }catch(exception){
+                  mensaje(context, "Peso: Usa un numero con punto", error: true);
+                }
+              }
+              if(_distC!=null && _distC!.value.text.isNotEmpty){
+                try{
+                  aux[camposMarca[5]]=double.parse(_distC!.value.text);
+                }catch(execption){
+                  mensaje(context, "Distancia: Usa un numero con punto", error: true);
+                }
+              }
 
-          if(aux.values.contains(false)){
-            mensaje(context, "Formato de hora erróneo: mm:ss", error: true);
-          } else if(aux.isNotEmpty){
-            if(_finDescanso){
-              aux[camposMarca[0]]=stringDate(DateTime.now());
-              aux[camposMarca[7]]=widget.ejercicio;
-              Navigator.pop(context, aux);
-            }else{
-              mensaje(context, "Espera a que acabe el descanso",error: true);
-            }
-            //Cambiar de pantalla
-          }else{
-            mensaje(context, "Rellena los campos", error: true);
-          }
-        },
-        child: Container(
-          padding: EdgeInsets.all(2.h),
-          alignment: Alignment.center,
-          color: Colores.naranja,
-          height: 12.5.h,
-          child: Text("Guardar",style: TextStyle(fontSize: 28.sp,color: Colores.blanco),),
-        ),
-      ),
+              if(aux.values.contains(false)){
+                mensaje(context, "Formato de hora erróneo: mm:ss", error: true);
+              } else if(aux.isNotEmpty){
+                if(_finDescanso){
+                  aux[camposMarca[0]]=stringDate(DateTime.now());
+                  aux[camposMarca[7]]=widget.ejercicio;
+                  Navigator.pop(context, aux);
+                }else{
+                  mensaje(context, "Espera a que acabe el descanso",error: true);
+                }
+                //Cambiar de pantalla
+              }else{
+                mensaje(context, "Rellena los campos", error: true);
+              }
+            },
+            child: Container(
+              padding: EdgeInsets.all(2.h),
+              alignment: Alignment.center,
+              color: Colores.naranja,
+              height: 12.5.h,
+              child: Text("Guardar",style: TextStyle(fontSize: 28.sp,color: Colores.blanco),),
+            ),
+          ),
+        )
     );
   }
 
