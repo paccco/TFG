@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:tfg/interfaces/pantallas/logSing/LogSignIn.dart';
@@ -8,6 +9,10 @@ import 'API.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   Widget aux=LogSignIn();
   bool tengoToken=await storage.containsKey(key: 'token');

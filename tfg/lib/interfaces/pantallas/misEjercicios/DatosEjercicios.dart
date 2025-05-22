@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'ModificarDescrEjercicio.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSalidaBorrar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../ConexionBDLocal.dart';
 import '../../../constantes.dart';
 import 'NuevaMetaEjercicio.dart';
+import 'GraficaEjercicio.dart';
 
 class DatosEjercicios extends StatelessWidget{
 
@@ -29,12 +31,11 @@ class DatosEjercicios extends StatelessWidget{
           child: TituloConSalidaBorrar(titulo: titulo)
       ),
       body: DataTable(
-        columnSpacing: 6.w,
         dataRowMinHeight: 10.h,
         dataRowMaxHeight: 15.h,
         columns: [
           DataColumn(label: Text(''), columnWidth: FixedColumnWidth(28.w)),
-          DataColumn(label: Text('Marca actual')),
+          DataColumn(label: Text('Marca \n actual')),
           DataColumn(label: Text('Meta')),
           DataColumn(label: Text('')),
         ],
@@ -44,7 +45,7 @@ class DatosEjercicios extends StatelessWidget{
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _hacerBoton("Hacer grafica", (){}),
+          _hacerBoton("Hacer grafica", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>GraficaEjercicio(ejercicio: titulo)))),
           Spacer(),
           _hacerBoton("Descripcion", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ModificarDescrEjercicio(titulo: titulo)))),
           Spacer(),
@@ -176,6 +177,12 @@ class DatosEjercicios extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown
+    ]);
+
     return FutureBuilder(
         future: _fetchInfo(context),
         builder: (context,snapshot){

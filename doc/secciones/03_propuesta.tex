@@ -32,7 +32,7 @@ En esta primera iteraci\'on me cent\'re en completar los dise\~nos de la app, pr
   \item[\textbf{SCRUM-5}] Sustituir un ejercicio por otro en la rutina
   \item[\textbf{SCRUM-6}] Insertar/Borrar/Modificar rutina
   \item[\textbf{SCRUM-7}] Poner una meta en cada ejercicio
-  \item[\textbf{SCRUM-8}] Graficar los datos de los ejercicios
+  \item[\textbf{SCRUM-8}] Hacer grafica de los datos de los ejercicios
   \item[\textbf{SCRUM-9}] Revisar datos para ver si el descanso es necesario
   \item[\textbf{SCRUM-10}] Ense\~nar datos de una rutina a descargar
   \item[\textbf{SCRUM-11}] Compartir mi rutina
@@ -43,7 +43,7 @@ En esta primera iteraci\'on me cent\'re en completar los dise\~nos de la app, pr
   \item[\textbf{SCRUM-16}] Avisar de anomal\'ias en el pulso de forma suave
   \item[\textbf{SCRUM-17}] Obtener calor\'ias quemadas
   \item[\textbf{SCRUM-18}] Comprobar el equilibrio nervioso del usuario
-  \item[\textbf{SCRUM-19}] Ejecutar el flujo del entrenamiento
+  \item[\textbf{SCRUM-19}] Realizar el flujo del entrenamiento
   \item[\textbf{SCRUM-20}] Conectar con la IA para iniciar di\'alogo
   \item[\textbf{SCRUM-21}] Crear/Borrar usuario
   \item[\textbf{SCRUM-22}] Resumir datos
@@ -61,6 +61,13 @@ En esta primera iteraci\'on me cent\'re en completar los dise\~nos de la app, pr
   \item[\textbf{SCRUM-34}] Crear IU datos rutinas
   \item[\textbf{SCRUM-35}] IU lista ejercicios de rutina modificable
   \item[\textbf{SCRUM-36}] Crear IU para crear rutina
+  \item[\textbf{SCRUM-36}] Detectar metas cumplidas despues del entrenamiento
+  \item[\textbf{SCRUM-37}] Crear IU del perfil del usuario
+  \item[\textbf{SCRUM-38}] Detectar metas cumplidas en los ejercicios despues del entrenamiento
+  \item[\textbf{SCRUM-39}] Crear IU de buscar rutinas para descargar
+  \item[\textbf{SCRUM-40}] IU del pop up de resumir datos
+  \item[\textbf{SCRUM-41}] IU desplegable rutina
+  
 \end{description}
 
 A continuación se muestran los diseños creados en esta iteración:
@@ -183,11 +190,11 @@ Durante esta revisi\'on de sprint se realizaron mejoras de dise\~no, como la inc
 Adem\'as, se a\~nadieron nuevas historias al \textit{product backlog}:
 
 \begin{itemize}
-  \item Copiar rutina
-  \item A\~nadir meta por par\'ametro
-  \item Solicitar permiso al usuario antes de enviar datos a la IA
-  \item Enviar datos del entrenamiento actual y anteriores a la IA
-  \item Conectar/Desconectar con la IA
+  \item SCRUM-42: Copiar rutina
+  \item SCRUM-43: Añadir meta por parámetro
+  \item SCRUM-44: Solicitar permiso al usuario antes de enviar datos a la IA
+  \item SCRUM-45: Enviar datos del entrenamiento actual y anteriores a la IA
+  \item SCRUM-46: Conectar/Desconectar con la IA
 \end{itemize}
 
 \subsection*{Iteraci\'on 1}
@@ -241,18 +248,18 @@ Las primeras iteraciones tienden a ser m\'as lentas debido a la fase inicial del
 \subsection*{Iteraci\'on 2}
 Esta iteraci\'on se centr\'o en el desarrollo del sistema de sesiones, la API de la aplicaci\'on, el backend b\'asico del servidor y la secci\'on de rutinas.
 
-\begin{description}
-  \item[SCRUM-21] Crear/Borrar mi usuario
-  \item[SCRUM-23] Iniciar/Cerrar sesión
-  \item[SCRUM-6] Insertar/Borrar/Modificar rutina
-  \item[SCRUM-4] Buscar rutina en la lista del usuario
-  \item[SCRUM-31] Crear IU de la lista de las rutinas
-  \item[SCRUM-32] Crear IU de pantalla inicial
-  \item[SCRUM-33] Crear IU menú principal
-  \item[SCRUM-34] Crear IU datos rutinas
-  \item[SCRUM-35] IU lista ejercicios de rutina modificable
-  \item[SCRUM-36] Crear IU para crear rutina
-\end{description}
+\begin{itemize}
+  \item SCRUM-21 Crear/Borrar mi usuario
+  \item SCRUM-23 Iniciar/Cerrar sesión
+  \item SCRUM-6 Insertar/Borrar/Modificar rutina
+  \item SCRUM-4 Buscar rutina en la lista del usuario
+  \item SCRUM-31 Crear IU de la lista de las rutinas
+  \item SCRUM-32 Crear IU de pantalla inicial
+  \item SCRUM-33 Crear IU menú principal
+  \item SCRUM-34 Crear IU datos rutinas
+  \item SCRUM-35 IU lista ejercicios de rutina modificable
+  \item SCRUM-36 Crear IU para crear rutina
+\end{itemize}
 
 Subtareas de esta iteración:
 
@@ -280,24 +287,30 @@ Se sugirieron mejoras menores como el ajuste de tama\~nos e iconos en los botone
 
 Tambi\'en se modific\'o la funcionalidad de compartir rutinas. Ahora todas son modificables, eliminando la distinci\'on entre rutinas descargadas (antes no modificables) y creadas (modificables). Esto mejora la experiencia del usuario: si desea volver a una rutina original, simplemente la puede volver a buscar y descargar.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\textwidth]{fotos/PostSprint2.png}
-  \includegraphics[width=0.7\textwidth]{fotos/SubListPost2.png}
-  \caption{Fin Sprint 2 y subtareas}
-  \label{fig:post_sprint2}
-\end{figure}
+Se cumplieron todas las funcionalidades en este sprint.
 
 
 \subsection*{Iteraci\'on 3}
 Esta iteraci\'on se centr\'o en desarrollar la funcionalidad para compartir rutinas entre usuarios, incluyendo la subida, visualizaci\'on y descarga de rutinas. Adem\'as, se comenz\'o a implementar la funcionalidad de resumen de datos para optimizar el uso de la memoria local.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\textwidth]{fotos/PreSprint3.png}
-  \caption{Planificaci\'on Sprint 3}
-  \label{fig:pre_sprint3}
-\end{figure}
+\begin{itemize}
+  \item SCRUM-2 Establecer peso objetivo
+  \item SCRUM-37 Crear IU del perfil del usuario
+  \item SCRUM-42 Copiar rutina
+  \item SCRUM-10 Enseñar datos de una rutina a descargar
+  \item SCRUM-11 Compartir mi rutina
+  \item SCRUM-39 Crear IU de buscar rutinas para descargar
+  \item SCRUM-9 Revisar datos para ver si el descanso es necesario
+  \item SCRUM-22 Resumir datos
+  \item SCRUM-40 IU del pop up de resumir datos
+  \item SCRUM-41 IU desplegable rutina
+\end{itemize}
+
+\subsubsection{Funcionalidad descartada}
+
+Se ha decidido, descartar una funcionalidad, en concreto el SCRUM-9 (Revisar datos para ver si el descanso es necesario), dado porque necesitaría los datos de un smartwatch y ha sido una funcionalidad previamente descartada.
+
+También se ha descartado SCRUM-42 (Copiar rutina), dado que aporta poco valor a la app.
 
 \subsubsection*{Peso objetivo}
 El peso objetivo es una meta que define el usuario y se almacena en memoria. Esta meta se representar\'a en la gr\'afica de evoluci\'on del peso del usuario, y se generar\'a una alerta cuando dicha meta sea alcanzada. La visualizaci\'on a\'un no ha sido implementada completamente.
@@ -327,7 +340,7 @@ Los imprevistos y problemas surgidos durante el desarrollo han permitido detecta
 Algunas de las funcionalidades propuestas como mejora son:
 
 \begin{itemize}
-  \item Verificar el token del usuario antes de permitir la subida de rutinas, para evitar plagios.
+  \item Verificar el token del usuario antes de permitir la subida de rutinas, para evitar suplantación.
   \item Al seleccionar la opci\'on de borrar usuario del dispositivo, eliminar tambi\'en la base de datos local asociada.
   \item Crear una base de datos local independiente para cada nuevo usuario creado en un dispositivo.
   \item Posibilidad de editar el nombre de una rutina.
@@ -346,8 +359,66 @@ Al descargar una rutina, los ejercicios asociados se guardan en la memoria local
 
 En esta review se estuvo debatiendo si quitar las funcionalidades relacionadas con el smartwatch, por cuestiones de tiempo, ya que con las funcionalidades añadidas en el capitulo anterior se va ajustando el plazo.
 
-En esta iteración se tenía pensado implementar la funcionalidad de resumir los datos, no obstante, al no tener implementada la parte en la que guardo las marcas de los entrenamientos, no puedo trabajar en esa funcionalidad. Por lo tanto, se ha pospuesto para la próxima iteración.
+En esta iteración se tenía pensado implementar la funcionalidad de resumir los datos, no obstante, al no tener implementada la parte en la que guardo las marcas de los entrenamientos, no puedo trabajar en esa funcionalidad. Por lo tanto, se ha pospuesto para la próxima iteración. También se le dió el visto bueno a la implementación de las funcionalidades previamente expuestas durante el desarrollo.
+
+También, debido al querer hacer la app accesible se ha decidido sustituir los pop ups por pantallas normales, dado que los pop ups son un gran problema para este objetivo, debido a que un usuario puede hacerlo desaparecer este tocando fuera del area en pantalla de este.
 
 \subsection{Iteraci\'on 4}
 
-En esta iteración se tiene pensado implementar la funcionalidad del calendario, donde el usuario podrá ver su planificación y acceder a sus marcas.
+En esta iteración se tiene pensado implementar la funcionalidad del calendario, donde el usuario podrá ver su planificación y acceder a sus marcas. Por otro lado, también se implementarán las funcionalidades nuevas del sprint anterior y las nuevas pantallas.
+
+\begin{itemize}
+	  \item SCRUM-39 Detectar metas cumplidas en los ejercicios despues del entrenamiento
+	  \item SCRUM-1 Registrar peso por día
+	  \item SCRUM-19 Realizar el flujo del entrenamiento
+	  \item SCRUM-43: Añadir meta por parámetro
+	  \item SCRUM-44: Implementar calendario
+\end{itemize}
+
+En esta iteración hay pocas funcionalidades commparadas con otras, porque el flujo del entrenamiento es una funcionalidad muy grande. A parte se añade esta funcionalidad que también se va a realizar en esta iteración, SCRUM-44 Implementar calendario.
+
+\subsubsection{Paquete tableCalendar}
+
+Es un paquete de flutter, que permite implementar y customizar un calendario, de forma fácil y rápida. También permite trabajar con información para reflejarla en las fechass del calendario.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{fotos/PantallaCalendario.png}
+    \caption{Pantalla Calendario}
+    \label{fig:Pantalla Calendario}
+\end{figure}
+
+Existen varios formatos de calendario preimplementados, que cambian el numero de dias en pantalla, se escogió este porque es el que menos problemas da en pantalla y más cómodo para las interacciones que busca el usuario.
+
+\subsubsection{Pantallas cambiadas por pop ups}
+
+La solución que se ha dado para que este problema no quite mucho tiempo de desarrollo es la siguiente, reciclar todo el contenido posible del interior de los pop ups y plasmarlo tal cual en una pantalla. Dado que los diseños implementados eran buenos, quitando algún fallo que puedan dar por este cambio de formato.
+
+Los pop ups que se cambiaron son los siguientes:
+
+\begin{itemize}
+	\item Los pop ups de confirmacion
+	\item Crear ejercicios
+	\item Modificar ejercicios
+	\item Nueva meta en un ejercicio
+	\item Crear rutinas
+	\item Modificar rutinas
+	\item Modificar ejercicios de una rutina
+	\item Información de una rutina a descargar
+	\item Modificar informacion del perfil del usuario
+\end{itemize}
+
+Por consecuencia las futuras funcionalidades en la que se mencionan los pop ups, pasaran a ser pantallas completas.
+
+\subsubsection{Cambios en el backend}
+
+Los cambios en el backend están relacionados con las siguientes funcionalidades propuestas en la iteracion anterior:
+
+\begin{itemize}
+	\item Cambio 1: Verificar el token del usuario antes de permitir la subida de rutinas, para evitar suplantación.
+  	\item Cambio 2: Marcar a los usuarios permanentemente eliminados con una \textit{flag}, para proceder a eliminarlos en los dispositvos.
+\end{itemize}
+
+Cambio 1: la solución implementada es la siguiente, a todas las funciones que puedan ser potencialmente victimas de una suplantación(via peticion normal de http), se les ha añadido un middleware, una función que se ejecuta antes para verificar el token. Express.js permite implementar esto rapidamente
+
+Cambio 2: de primeras se pensó en usar una flag, pero finalmente para evitar perdida de rendimiento al momento de que el usuario realize un entrenamiento(que es cuando en un principio se tenía pensado borrar el ejercicio), se optó por modificar la lista de ejercicios de la rutina al momento de borrar el ejercicio. El número de consultas iba a ser el mismo, pero se ahorra memoria, ya que no añadimos una columna más a la tabla de ejercicios
