@@ -65,7 +65,7 @@ Algunas incluyen tareas secundarias:
   \item[\textbf{SCRUM-36}] Detectar metas cumplidas despues del entrenamiento
   \item[\textbf{SCRUM-37}] Crear IU del perfil del usuario
   \item[\textbf{SCRUM-38}] Detectar metas cumplidas en los ejercicios despues del entrenamiento
-  \item[\textbf{SCRUM-39}] Crear IU de buscar rutinas para descargar
+  \item[\textbf{SCRUM-39}] Buscar rutinas para descargar
   \item[\textbf{SCRUM-40}] IU del pop up de resumir datos
   \item[\textbf{SCRUM-41}] IU desplegable rutina
   
@@ -165,14 +165,14 @@ A continuación se muestran los diseños creados en esta iteración:
 \begin{figure}[H]
    \centering
     \includegraphics[width=0.6\textwidth]{fotos/Frame 48.png}
-    \caption{Datos rutina compartir}
-    \label{fig:Datos rutina compartir}
+    \caption{Datos rutina modificable}
+    \label{fig:Datos rutina modificable}
 \end{figure}
 \begin{figure}[H]
    \centering
     \includegraphics[width=0.6\textwidth]{fotos/Frame 49.png}
-    \caption{Datos rutina no compartir}
-    \label{fig:Datos rutina descargada}
+    \caption{Datos rutina no modificable}
+    \label{fig:Datos rutina no modificable}
 \end{figure}
 \begin{figure}[H]
    \centering
@@ -407,7 +407,7 @@ SCRUM-26: Buscar ejercicio en lista
 \HU{
 SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
 }{
-	\item Implementar lo necesario en la BD local
+	\item Implementar la BD local
 	\item Implementar las funciones para las consultas
 	\item Implementar las funciones para las modificaciones
 	\item Implementar las funciones para el borrado
@@ -417,6 +417,14 @@ SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
 	\item si se modifica, sale con los datos modificados
 	\item si se inserta, sale en la lista el ejercicio
 	\item se enseñan los datos del ejercicio de forma correcta
+}
+\HU{
+SCRUM-43: Añadir meta por parámetro
+}{
+	\item Implementar la BD local
+	\item Implementar las funciones para modificar metas
+}{
+	\item si existe una meta determinada para ese ejercicio y se quiere insertar una, sustituir la actual
 }
 \HU{
 	SCRUM-29: Pop up de confirmación
@@ -438,7 +446,7 @@ Es una base de datos ligera, autocontenida y de c\'odigo abierto. Usa el mismo l
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.7\textwidth]{fotos/BDL iteracion 1.png}
+    \includegraphics[width=\textwidth]{fotos/BDL iteracion 1.png}
     \caption{BD local iteracion 1}
     \label{fig:BD local iteracion 1}
 \end{figure}
@@ -476,7 +484,6 @@ Esta iteraci\'on se centr\'o en el desarrollo del sistema de sesiones, la API de
   \item SCRUM-31 Crear IU de la lista de las rutinas ELIMINAR
   \item SCRUM-32 Crear IU de pantalla inicial ELIMINAR
   \item SCRUM-33 Implementar menú principal
-  \item SCRUM-?? Implementar mi perfil
   \item SCRUM-34 Crear IU datos rutinas ELIMINAR
   \item SCRUM-35 IU lista ejercicios de rutina modificable ELIMINAR
   \item SCRUM-36 Crear IU para crear rutina ELIMINAR
@@ -492,18 +499,9 @@ SCRUM-33 Implementar menú principal
 	\item si la funcionalidad seleccionada está implementada, desplegar ventana de dicha funcionañidad
 }
 \HU{
-SCRUM-?? Implementar mi perfil
-}{
-	\item Implementar el boceto IU \cref{fig:Opciones de perfil usuario}
-	\item Añadir accesos a las funcionalidades actuales
-}{
-	\item si la funcionalidad seleccionada no está implementada, no hacer nada
-	\item si la funcionalidad seleccionada está implementada, desplegar ventana de dicha funcionañidad
-}
-\HU{
 SCRUM-21 Crear/Borrar mi usuario
 }{
-	\item Implementar bocetos de IU \cref{fig:Crear cuenta 1} ,\cref{fig:Crear cuenta 2}, \cref{fig:Pagina inicial}
+	\item Implementar bocetos de IU \cref{fig:Crear cuenta 1} ,\cref{fig:Crear cuenta 2}, \cref{fig:Pagina inicial} y la parte necesaria de \cref{fig:Opciones de perfil usuario}
 	\item Implementar funciones de inserccion y borrado en el backend
 }{
 	\item si el usuario que se quiere crear ya existe, informar y pedir que se rellenen los credenciales otra vez
@@ -516,7 +514,7 @@ SCRUM-21 Crear/Borrar mi usuario
 \HU{
 SCRUM-23 Iniciar/Cerrar sesión
 }{
-	\item Implementar el boceto IU \cref{fig:Inicio de sesion}
+	\item Implementar el boceto IU \cref{fig:Inicio de sesion} y parte necesaria de \cref{fig:Opciones de perfil usuario}
 	\item Implementar función de consulta en el backend
 }{
 	\item si el usuario con esa contraseña no existe, informar al usuario
@@ -570,7 +568,7 @@ Se cumplieron todas las funcionalidades en este sprint.
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.7\textwidth]{fotos/BDL iteracion 2.png}
+    \includegraphics[width=\textwidth]{fotos/BDL iteracion 2.png}
     \caption{BD local iteracion 2}
     \label{fig:BD local iteracion 2}
 \end{figure}
@@ -589,16 +587,67 @@ Esta iteraci\'on se centr\'o en desarrollar la funcionalidad para compartir ruti
 
 \begin{itemize}
   \item SCRUM-2 Establecer peso objetivo
-  \item SCRUM-37 Crear IU del perfil del usuario
+  \item SCRUM-37 Crear IU del perfil del usuario ELIMINAR
   \item SCRUM-42 Copiar rutina
   \item SCRUM-10 Enseñar datos de una rutina a descargar
   \item SCRUM-11 Compartir mi rutina
-  \item SCRUM-39 Crear IU de buscar rutinas para descargar
+  \item SCRUM-39 Buscar rutinas para descargar
   \item SCRUM-9 Revisar datos para ver si el descanso es necesario
   \item SCRUM-22 Resumir datos
-  \item SCRUM-40 IU del pop up de resumir datos
-  \item SCRUM-41 IU desplegable rutina
+  \item SCRUM-40 IU del pop up de resumir datos ELIMINAR
+  \item SCRUM-41 IU desplegable rutina ELIMINAR
 \end{itemize}
+\HU{
+SCRUM-2 Establecer peso objetivo
+}{
+	\item Implementar la parte necesaria de \cref{fig:Opciones de perfil usuario}
+	\item Implementar el almacenaje de ese peso objetivo
+}{
+	\item si el peso objetivo está en el formato correcto, guardar
+	\item si el peso objetivo no está en el formato correcto, enseñar una alerta para su corrección
+}
+\HU{
+SCRUM-11 Compartir mi rutina
+}{
+	\item Implementar la BD en el backend
+	\item Implementar funciones de inserción en la API
+}{
+	\item si la rutina no contiene ejercicios, no permitir su subida al servidor
+	\item si la rutina contiene ejercicios, permitir la subida al servidor
+}
+\HU{
+SCRUM-39 Buscar rutinas para descargar
+}{
+	\item Implementar funciones de consultas en la API
+	\item Implementar IU de busqueda de rutinas por usuario creador y por nombre de rutina
+}{
+	\item si busco un usuario que no existe, no se muestra ningún acceso en la IU
+	\item si busco un usuario existente, se muestra su acceso en la IU
+	\item si busco una rutina que no existe, no se muestra ningún acceso en la IU
+	\item si busco una rutina existente, se muestra su acceso en la IU
+}
+\HU{
+SCRUM-10 Enseñar datos de una rutina a descargar
+}{
+	\item Implementar el IU pop up
+	\item Implementar las funciones de consulta en la API
+	\item Implementar las funciones de inserción en la BD local
+}{
+	\item si se va a descargar la rutina y el usuario tiene en el dispositivo otra con el mismo nombre, un algorítmo resolverá este problema
+	\item si se va a descargar la rutina y el usuario no tiene en el dispositivo otra con el mismo nombre, descargar normalmente
+}
+\HU{
+SCRUM-42 Copiar rutina
+}{
+	\item Añadir al boceto IU de datos rutina \cref{fig:Datos rutina modificable} esta funcionalidad
+	\item Implementar la IU resultante de la tarea anterior
+	\item Implementar las consultas e inserciones necesarias en la BD local
+}{
+	\item si hay algún problema por coincidencia de nombres, un algorítmo resolverá este problema
+	\item si no hay algún problema por coincidencia de nombres, copiar
+}
+
+Durante la realización de estas tareas de usuario, se dió notoriedad a que las historias restantes de este sprint (SCRUM-9 Revisar datos para ver si el descanso es necesario y SCRUM-22 Resumir datos) no pueden ser implementadas en este punto del desarrollo. Se pospondrán para su futura implementación.
 
 \subsubsection{Funcionalidad descartada}
 
@@ -649,6 +698,19 @@ La base de datos utilizada en el backend está basada en \textit{MySQL}. En ella
 
 Al descargar una rutina, los ejercicios asociados se guardan en la memoria local del usuario como si fueran de su propiedad. Es decir, el usuario puede modificarlos libremente sin restricciones.
 
+\subsubsection{Estado BD local}
+
+No ha habido cambios respecto a la iteración anterior
+
+\subsubsection{Estado BD backend}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=\textwidth]{fotos/BD be iteracion 3.png}
+    \caption{BD backend iteracion 3}
+    \label{fig:BD be iteracion 3}
+\end{figure}
+
 \subsubsection{Sprint Review 3}
 
 En esta review se estuvo debatiendo si quitar las funcionalidades relacionadas con el smartwatch, por cuestiones de tiempo, ya que con las funcionalidades añadidas en el capitulo anterior se va ajustando el plazo.
@@ -665,9 +727,59 @@ En esta iteración se tiene pensado implementar la funcionalidad del calendario,
 	  \item SCRUM-39 Detectar metas cumplidas en los ejercicios despues del entrenamiento
 	  \item SCRUM-1 Registrar peso por día
 	  \item SCRUM-19 Realizar el flujo del entrenamiento
-	  \item SCRUM-43: Añadir meta por parámetro
 	  \item SCRUM-44: Implementar calendario
 \end{itemize}
+
+\HU{
+SCRUM-44: Implementar calendario
+}{
+	\item Implementar la IU e insertarla en el menu principal \cref{fig:Menu principal}
+	\item Implementar en la BD local
+	\item Implementar funciones de inserción en BD local
+	\item Implementar funciones de consulta en BD local
+	\item Implementar funciones de borrado en BD local
+	\item Implementar un acceso para ver los datos registrados sobre un día en concreto
+}{
+	\item si un día no tiene una rutina asignada, se considera descanso
+	\item si un día tiene una rutina asignada, no hay marcas registradas y el día ya ha pasado, no se enseñará información, ya que se considera no entrenado
+	\item si un día tiene una rutina asignada, no hay marcas registradas pero es hoy, se enseñará un acceso para empezar el entrenamiento, se considera que el usuario todavía no ha entrenado
+	\item si un día tiene una rutina asignada, pero es futuro, no se enseñará un acceso para empezar el entrenamiento
+	\item si un día tiene una rutina asignada y hay marcas registradas sea el día actual o pasado, se mostrará información de las marcas, sin acceso a entrenamiento
+}
+\HU{
+SCRUM-19 Realizar el flujo del entrenamiento
+}{
+	\item Implementar IU de las pantallas de entrenamientos(de la \cref{fig:Lista ejercicios del entrenamiento actual}  a la \cref{fig:Fin entrenamiento})
+	\item Implementar una clase que controle el cambio entre distintas pantallas y el guardado de marcas
+}{
+	\item si la rutina asignada para un día, no tiene ejercicios y se desea iniciar el entrenamiento, se muestra por pantalla una alerta y no se permite continuar con el entrenamiento
+	\item si la rutina asignada para un día, tiene ejercicios, comienza el recorrido entre IUs
+	\item si es la primera serie de un ejercicio, no se permite terminar el ejercicio
+	\item si no es la primera serie de un ejercicio, se permite terminar el ejercicio
+	\item si acaba una serie, no se permitirá acabar el ejercicio o continuar con este hasta que termine el tiempo de descanso que se muestra en pantalla
+	\item si finaliza el último ejercicio de la lista, fin del entrenamiento, se devuelve al usuario al menú principal
+}
+\HU{
+SCRUM-39 Detectar metas cumplidas en los ejercicios despues del entrenamiento
+}{
+	\item Implementar bocetos de IU \cref{fig:Metas cumplidas}
+	\item Implementar lógica para comparar marcas y metas despues de acabar el entrenamiento en la clase que controla el flujo del entrenamiento
+}{
+	\item si en un ejercicio no se ha cumplido la meta, no se enseña nada
+	\item si en un ejercicio cumplimos una meta, se enseña en que ejercicio se cumplió la meta
+}
+\HU{
+SCRUM-1 Registrar peso por día
+}{
+	\item Implementar boceto de IU \cref{fig:Datos detallados entrenamiento terminado}
+	\item Implementar en BD local
+	\item Implementar funciones de inserción
+	\item Implementar funciones de consulta
+	\item Implementar lógica para determinar si un usuario quiere subir o bajar de peso
+}{
+	\item si se introduce algún dato como formato incorrecto, se muestra una alerta por pantalla
+	\item si se introducen los datos en formato correcto, se guarda
+}
 
 En esta iteración hay pocas funcionalidades commparadas con otras, porque el flujo del entrenamiento es una funcionalidad muy grande. A parte se añade esta funcionalidad que también se va a realizar en esta iteración, SCRUM-44 Implementar calendario.
 
@@ -731,6 +843,19 @@ Aquí un diagrama de actividades que explica la tarea de esta clase:
     \caption{Flujo entrenamiento}
     \label{fig:Flujo entrenamiento}
 \end{figure}
+
+\subsubsection{Estado de la BD local}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fotos/BDL iteracion 4.png}
+    \caption{BD local iteración 4}
+    \label{fig:BDL iteracion 4}
+\end{figure}
+
+\subsubsection{Estado BD backend}
+
+No sufrió cambios respecto a la iteración anterior
 
 \subsubsection{Sprint review 4}
 
