@@ -105,8 +105,8 @@ A continuación se muestran los diseños creados en esta iteración:
 \begin{figure}[H]
    \centering
     \includegraphics[width=0.6\textwidth]{fotos/Frame 30.png}
-    \caption{Frame 30.png}
-    \label{fig:Frame_30}
+    \caption{Menu principal}
+    \label{fig:Menu principal}
 \end{figure}
 
 \textbf{Lista ejercicios del usuario}
@@ -216,8 +216,8 @@ A continuación se muestran los diseños creados en esta iteración:
 \begin{figure}[H]
    \centering
     \includegraphics[width=0.75\textwidth]{fotos/Frame 39.png}
-    \caption{Pop up de confirmacion borrar cuenta}
-    \label{fig:Pop up de confirmacion borrar cuenta}
+    \caption{Pop up de confirmacion resumir datos}
+    \label{fig:Pop up de confirmacion resumir datos}
 \end{figure}
 
 \textbf{Buscar rutina para descargar}
@@ -388,25 +388,60 @@ Siendo la lista de la primera iteracion de la siguiente manera:
 \begin{itemize}
     \item SCRUM-26: Buscar ejercicio en lista
     \item SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
-    \item SCRUM-27: Hacer la IU de la lista de ejercicios
-    \item SCRUM-28: Hacer la IU de creación de ejercicio
+    \item SCRUM-27: Hacer la IU de la lista de ejercicios ELIMINAR
+    \item SCRUM-28: Hacer la IU de creación de ejercicio ELIMINAR
     \item SCRUM-29: Pop up de confirmación
-    \item SCRUM-30: Hacer IU de datos ejercicio
+    \item SCRUM-30: Hacer IU de datos ejercicio ELIMINAR
 \end{itemize}
+
+\HU{
+SCRUM-26: Buscar ejercicio en lista
+}{
+	\item Implementar la BD local
+    \item Implementar algoritmo de búsqueda por nombre
+   	\item Implementar boceto de IU \cref{fig:Lista ejercicios}
+}{
+	\item si no existe ejercicio buscado, no sale nada en pantalla
+   	\item si existe ejercicio buscado, sale un acceso en pantalla
+}
+\HU{
+SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
+}{
+	\item Implementar lo necesario en la BD local
+	\item Implementar las funciones para las consultas
+	\item Implementar las funciones para las modificaciones
+	\item Implementar las funciones para el borrado
+	\item Implementar boceto de la IU \cref{fig:Datos ejercicio}, para borrar/modificar desde ahí
+}{
+	\item si se borra un ejercicio, no sale en la lista
+	\item si se modifica, sale con los datos modificados
+	\item si se inserta, sale en la lista el ejercicio
+	\item se enseñan los datos del ejercicio de forma correcta
+}
+\HU{
+	SCRUM-29: Pop up de confirmación
+}{
+	\item Implementar la confirmación para que pueda ser usado en pantallas distintas
+	\item Impelementar boceto de IU \cref{fig:Pop up de confirmacion}
+}{
+	\item si se ha seleccionado una opcion, se devuelve la opcion seleccionada
+}
 
 Dentro del SCRUM-3 tenemos subfuncionalidades, funciones pequeñas que componen la grande:
-
-\begin{itemize}
-	\item SCRUM-3.1 Borrar de la BD 
-	\item SCRUM-3.2 Insertar en la BD
-	\item SCRUM-3.3 Hacer notorios los cambios en vivo
-	\item SCRUM-3.4 Modificar en la BD
-\end{itemize}
 
 Durante esta iteraci\'on me familiaric\'e con Flutter y sus herramientas, como la base de datos local \textit{SQLite}.
 
 \subsubsection{SQLite}
 Es una base de datos ligera, autocontenida y de c\'odigo abierto. Usa el mismo lenguaje de consultas que SQL, lo que la hace ideal para la app. Adem\'as, permite transportar toda la BD en un \textit{.db}, lo cual puede facilitar funcionalidades como copias de seguridad descargables desde la nube.
+
+\subsubsection{Estado de la BD local}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.7\textwidth]{fotos/BDL iteracion 1.png}
+    \caption{BD local iteracion 1}
+    \label{fig:BD local iteracion 1}
+\end{figure}
 
 \subsubsection{Sprint Review 1}
 Las primeras iteraciones tienden a ser m\'as lentas debido a la fase inicial del desarrollo. No se complet\'o la totalidad del sprint; qued\'o pendiente la subtarea de modificar ejercicio en la base de datos. Aun as\'i, las expectativas son positivas, ya que se espera un aumento en la velocidad de desarrollo. No obstante, en lo que se lleva  desarrollado han aparecido pocas problemáticas
@@ -438,22 +473,79 @@ Esta iteraci\'on se centr\'o en el desarrollo del sistema de sesiones, la API de
   \item SCRUM-23 Iniciar/Cerrar sesión
   \item SCRUM-6 Insertar/Borrar/Modificar rutina
   \item SCRUM-4 Buscar rutina en la lista del usuario
-  \item SCRUM-31 Crear IU de la lista de las rutinas
-  \item SCRUM-32 Crear IU de pantalla inicial
-  \item SCRUM-33 Crear IU menú principal
-  \item SCRUM-34 Crear IU datos rutinas
-  \item SCRUM-35 IU lista ejercicios de rutina modificable
-  \item SCRUM-36 Crear IU para crear rutina
+  \item SCRUM-31 Crear IU de la lista de las rutinas ELIMINAR
+  \item SCRUM-32 Crear IU de pantalla inicial ELIMINAR
+  \item SCRUM-33 Implementar menú principal
+  \item SCRUM-?? Implementar mi perfil
+  \item SCRUM-34 Crear IU datos rutinas ELIMINAR
+  \item SCRUM-35 IU lista ejercicios de rutina modificable ELIMINAR
+  \item SCRUM-36 Crear IU para crear rutina ELIMINAR
 \end{itemize}
 
-Subtareas de esta iteración:
-
-\begin{itemize}
-	\item SCRUM-25.1 Iniciar sesion
-	\item SCRUM-25.2 Crear cuenta 1
-	\item SCRUM-25.3 Crear cuenta 2
-\end{itemize}
-
+\HU{
+SCRUM-33 Implementar menú principal
+}{
+	\item Implementar el boceto IU \cref{fig:Menu principal}
+	\item Añadir accesos a las funcionalidades actuales
+}{
+	\item si la funcionalidad seleccionada no está implementada, no hacer nada
+	\item si la funcionalidad seleccionada está implementada, desplegar ventana de dicha funcionañidad
+}
+\HU{
+SCRUM-?? Implementar mi perfil
+}{
+	\item Implementar el boceto IU \cref{fig:Opciones de perfil usuario}
+	\item Añadir accesos a las funcionalidades actuales
+}{
+	\item si la funcionalidad seleccionada no está implementada, no hacer nada
+	\item si la funcionalidad seleccionada está implementada, desplegar ventana de dicha funcionañidad
+}
+\HU{
+SCRUM-21 Crear/Borrar mi usuario
+}{
+	\item Implementar bocetos de IU \cref{fig:Crear cuenta 1} ,\cref{fig:Crear cuenta 2}, \cref{fig:Pagina inicial}
+	\item Implementar funciones de inserccion y borrado en el backend
+}{
+	\item si el usuario que se quiere crear ya existe, informar y pedir que se rellenen los credenciales otra vez
+	\item si el usuario que se quiere crear no existe, crear usuario y pasar a la siguiente pantalla
+	\item si cualquier dato requerido está en un formato incorrecto ,informar al usuario para que vuelva a rellenar estos
+	\item si todos los datos están en el formato correcto ,seguir con la creación del usuario
+	\item si se ha creado exitosamente el usuario, volver a la pantalla inicial
+	\item si se borra el usuario, borrar el token en el dispositvo y sus credenciales en el backend
+}
+\HU{
+SCRUM-23 Iniciar/Cerrar sesión
+}{
+	\item Implementar el boceto IU \cref{fig:Inicio de sesion}
+	\item Implementar función de consulta en el backend
+}{
+	\item si el usuario con esa contraseña no existe, informar al usuario
+	\item si el usuario con esa contraseña existe, devolver un token para su guardado y guardar usuario 
+	\item si el usuario quiere cerrar sesión, borrar token y nombre del usuario del dispositivo y volver a la pantalla inicial \cref{fig:Pagina inicial}
+}
+\HU{
+SCRUM-4 Buscar rutina en la lista del usuario
+}{
+	\item Implementar IU del boceto \cref{fig:Lista rutinas}
+	\item Implementar lo necesario en la BD local
+	\item Implementar algorítmo de búsqueda
+	\item Implementar acceso a la rutina seleccionada
+}{
+	\item si no existe la rutina buscada, no enseñar acceso en pantalla
+	\item si existe la rutina buscada, enseñar acceso en pantalla
+}
+\HU{
+SCRUM-6 Insertar/Borrar/Modificar rutina
+}{
+	\item Implementar las insercciones en para la BD local
+	\item Implementar los borrados para la BD local
+	\item Implementar las modificaciones para la BD local
+}{
+	\item si se hace una insercción, que el elemento insertado sea visible en la lista de ejercicios
+	\item si se hace un borrado, que el elemento desaparezca de la lista
+	\item si se hace una modificación, que se hagan visibles los cambios al momento
+	\item si hay algún fallo en alguna de estas operaciones, informar al usuario con el motivo
+}
 \subsubsection{Sistema de sesiones}
 Se implement\'o un sistema de autenticaci\'on basado en tokens. Cuando el usuario verifica su identidad, recibe un token que se guarda en el dispositivo y se usa para validar el acceso posterior. Esto evita que usuarios no autorizados suban contenido haci\'endose pasar por otros.
 
@@ -474,6 +566,23 @@ Tambi\'en se modific\'o la funcionalidad de compartir rutinas. Ahora todas son m
 
 Se cumplieron todas las funcionalidades en este sprint.
 
+\subsubsection{Estado de la BD local}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.7\textwidth]{fotos/BDL iteracion 2.png}
+    \caption{BD local iteracion 2}
+    \label{fig:BD local iteracion 2}
+\end{figure}
+
+\subsubsection{Estado de la BD backend}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.7\textwidth]{fotos/BD be iteracion 2.png}
+    \caption{BD backend iteracion 2}
+    \label{fig:BD backend iteracion 2}
+\end{figure}
 
 \subsection{Iteraci\'on 3}
 Esta iteraci\'on se centr\'o en desarrollar la funcionalidad para compartir rutinas entre usuarios, incluyendo la subida, visualizaci\'on y descarga de rutinas. Adem\'as, se comenz\'o a implementar la funcionalidad de resumen de datos para optimizar el uso de la memoria local.
@@ -614,6 +723,19 @@ Para acaparar esta funcionalidad, se ha implementado una clase aparte encargada 
 
 Esta clase, solo se puede crear de forma util llamando a un método estático de la propia clase (se hace así ya que necesita hacer operaciones asíncronas para obtener los datos necesarios), este método estático me devuelve la instancia con la que voy a trabajar. Se llama al método ejecutar de la instancia creada y sola se encarga de mostrar las pantallas al usuario, guardar los datos y de comparar las metas que se propuso el usuario.
 
+Aquí un diagrama de actividades que explica la tarea de esta clase:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{tablas/FlujoEntrenamiento.png}
+    \caption{Flujo entrenamiento}
+    \label{fig:Flujo entrenamiento}
+\end{figure}
+
 \subsubsection{Sprint review 4}
 
 En esta review se ha propuesto que despues de los entrenamientos se les enseñe a los usuarios las metas que tenían establecidas siempre, aunque no la hayan superado, evitando siempre el feedback negativo al usuario.
+
+\subsection{Iteraci\'on 5}
+
+Debido a retrasos y problemas durante el desarrollo esta será la última iteración, que se dedicará a la implementación de gráficas para representar los datos requeridos por el usuario. Dado al tiempo limitado que se posee la implementación de la IA se aplazará al máximo e incluso siendo posible su descarte.

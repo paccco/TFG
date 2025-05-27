@@ -23,6 +23,9 @@
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{csquotes}
+\usepackage{enumitem}
+\usepackage{cleveref}
 
 \usepackage[table,xcdraw]{xcolor}
 \hypersetup{
@@ -50,6 +53,37 @@
 \setcounter{secnumdepth}{4}
 \usepackage[Lenny]{fncychap}
 \usepackage{pdflscape}
+
+\newcommand{\HU}[3]{%
+    \begin{tabular}{|p{14cm}|}
+		\hline
+		\multicolumn{1}{|c|}{\textbf{#1}} \\ \hline
+
+		Tareas:
+
+		\sloppy
+		\begin{minipage}[t]{\linewidth}
+			\begin{enumerate}[leftmargin=*, label=\arabic*.]
+    			#2
+			\end{enumerate}
+		\end{minipage}
+		\fussy
+		\\ \hline
+
+		Pruebas de aceptación:
+
+		\sloppy
+		\begin{minipage}[t]{\linewidth}
+			\begin{itemize}[leftmargin=*]
+    			#3
+			\end{itemize}
+		\end{minipage}
+		\fussy
+		\\ \hline
+
+	\end{tabular}
+}
+
 
 
 \begin{document}
