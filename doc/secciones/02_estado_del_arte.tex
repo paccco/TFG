@@ -36,7 +36,7 @@ es la repetición de un movimiento varias veces para estimular uno o varios mús
 
 \section{Aplicaciones similares}
 
-Algunas de las aplicaciones que existen, para mediciones de constantes relacionadas durante el entrenamiento físico, suelen ser de pago. Ejemplos de precios mensuales:
+En esta sección describiremos algunas de las aplicaciones que existen similares a la propuesta. Las que permiten mediciones de constantes relacionadas durante el entrenamiento físico suelen ser de pago. Ejemplos de aplicaciones con precios mensuales:
 
 \begin{itemize}
 	\item \textbf{Fitbit Premium: €9.99}, esta app ofrece una interfaz para medir constantes usando un smartwatch con sensor cardíaco (ritmo cardíaco, calorías quemadas, pasos, ect). En lo que respecta que es el entrenamiento, solo ofrece una serie de entrenamiento prefijados, además no permite guardar resultados.
@@ -69,7 +69,8 @@ Algunas de las aplicaciones que existen, para mediciones de constantes relaciona
 \end{figure} 
 \end{itemize}
 
-Es verdad que algunas tienen versión gratuita, pero no ofrecen la totalidad de sus funcionalidades, de hecho, estas versiones suelen ser extremadamente limitadas. Otras aplicaciones como Garmin Connect, si que son gratuitas, pero te obligan a ceñirte a un smartwatch de la marca Garmin, los cuales su precio no baja de los 300€. 
+Es verdad que algunas tienen versión gratuita, pero no ofrecen la totalidad de sus funcionalidades, de hecho, estas versiones suelen ser extremadamente limitadas. Otras aplicaciones como Garmin Connect, sí que son gratuitas, pero te obligan a usar un smartwatch de la marca Garmin, cuyo precio no baja de los 300€. 
+%El párrafo siguiente no se pone aquí. En esta sección solo debes presentar qué hay, y el párrafo siguiente llevarlo al capítulo de tu propuesta. 
 La app presentada daría la mayoría de funcionalidades de pago de una manera gratuita y aporta su funcionalidad de medir de forma personalizada el rendimiento del deportista. También se añade una IA, una funcionalidad que no vista en muchas aplicaciones del sector y si existen, son de pago. La función de la inteligencia artificial sería la de aconsejar al usuario cuando este lo necesite, sobre su rendimiento y/o parámetros medidos durante su entrenamiento.
 Para clarificar las diferencias con el resto de apps del mercado:
 
@@ -96,16 +97,16 @@ Existen muchas formas de desarrollar software con sus respectivas ventajas, desv
 
 \section{Tecnologías potenciales para usar}
 
-Para hablar de las tecnologías a emplear, lo voy a separar en las 3 partes importantes de la app la base de datos, backend y frontend.
+Para hablar de las tecnologías a emplear, lo voy a separar en las 3 partes importantes en un desarrollo como el que se va a abordar: la base de datos, el backend y el frontend.
 
 \subsection{Base de datos}
 
 En este punto vamos a hablar de las ventajas y desventajas entre usar BDs relacionales y no relacionales, así como las herramientas a emplear en cada una para desarrollar estos servicios.
 
-\textbf{Relacionales:} Las bases de datos relacionales o SQL, como bien sabemos nos permiten guardar datos de una manera bien definida y ordenada, permitiendo asegurar la integridad de la información almacenada. Es muy buena opción, si se prefiere una escalabilidad vertical, es decir, aumentar la capacidad de procesamiento del servidor que va a albergar la BD. Algunas de los SGBDS existentes en la actualidad son:
+\textbf{Relacionales:} Las bases de datos relacionales o SQL, como bien sabemos nos permiten guardar datos de una manera bien definida y estructurada, permitiendo asegurar la integridad de la información almacenada. Son muy buena opción, si se prefiere una escalabilidad vertical, es decir, aumentar la capacidad de procesamiento del servidor que va a albergar la BD. Algunas de los SGBDS existentes en la actualidad son:
 
 \begin{itemize}
-	\item MySQL
+	\item MySQL  %yo añadiría MariaDB
 	\item Oracle Database
 	\item SQL server(Microsoft)
 	\item PostgreSQL
@@ -114,33 +115,39 @@ En este punto vamos a hablar de las ventajas y desventajas entre usar BDs relaci
 \textbf{No relacionales:} También llamadas NoSQL, sirven para trabajar con estructuras de datos semidefinidas o no definidas. Esto quiere decir que no siguen un esquema rígido, lo cuál puede complicar consultas complejas, pero permiten una gran escalabilidad horizontal, permiten añadir más servidores para que operen con la misma base de datos, por tanto aumentar el número de peticiones que puede atender. Cabe decir que dentro de este tipo de bases de datos existen varios subtipos, cada uno especializado en una cualidad:
 
 \begin{itemize}
-	\item Documentales(MongoDB): guardan los datos en un JSON
-	\item Columnares(Cassandra): los datos no se guardan en filas, sino en columnas ,ideal para tratar grandes volumenes de datos por columnas
-	\item Clave-Valor(DynamoDB): acceso rápido a los datos
-	\item Graficas(Amazon Neptune): para tratar relaciones complejas
+	\item Documentales(p.e. MongoDB): guardan los datos en un JSON
+	\item Columnares(p.e. Cassandra): los datos no se guardan en filas, sino en columnas ,ideal para tratar grandes volumenes de datos por columnas
+	\item Clave-Valor(p.e. DynamoDB): acceso rápido a los datos
+	\item Graficas(p.e. Amazon Neptune): para tratar relaciones complejas
 \end{itemize}
+
+%Aquí falta una tabla comparativa de características de todas que te permita luego en tu propuesta justificar tu elección
 
 \subsection{Backend}
 
 En el desarrollo del backend exiten varios frameworks que nos van a permitir un desarrollo rápido, eficaz y de calidad. Nuetro backend se va encargar principalmente de recibir y realizar peticiones de los clientes y/o consultas a la BD. Para ello se han investigado las siguientes herramientas:
 
 \begin{itemize}
-	\item Express.js(Node.js): muy escalable y alto rendimiento
-	\item Django(Python): ideal para sistemas a gran escala
+	\item Express.js(p.e. Node.js): muy escalable y alto rendimiento
+	\item Django(p.e. Python): ideal para sistemas a gran escala
 	\item Ruby on rails: el mejor en velociad de desarrollo
 \end{itemize}
 
 Existen más frameworks, pero he decidido investigar solo sobre aquellos que me permitan un desarrollo más ágil, el resto de herramientas como Spring Boot(Java) o Laravel(PHP), también son buenas herramientas, pero tengo más familiaridad con algunas de las herramientas anteriores.
+
+%Aquí falta una tabla comparativa de más características que te permita luego en tu propuesta justificar tu elección
 
 \subsection{Frontend}
 
 Como se dijo en la introducción, uno de los objetivos es que el software sea multiplataforma, así que se investigará sobre frameworks que me permitan esa capacidad:
 
 \begin{itemize}
-	\item Flutter(Dart): de las manos de Google, esta herramienta permite un desarrollo rápido ya que nos permite el hot reload y no tener que recompilar la app cada vez que haya un cambio. También es muy personalizable en lo que respecta a la UI.
-	\item React Native(js): es un framework que extiende React, permitiendo hacer sentir aplicaciones en js como si fueran nativas.
-	\item Xamarín(C\#): de Microsoft, esta herramienta es ideal para desarrolladores familiarizados con C\# y .NET, también es idóneo para el alto rendimiento y acceso a HW nativo.
+	\item Flutter(lenguaje Dart): de las manos de Google, esta herramienta permite un desarrollo rápido ya que nos permite el hot reload y no tener que recompilar la app cada vez que haya un cambio. También es muy personalizable en lo que respecta a la UI.
+	\item React Native(lenguaje JavaScript): es un framework que extiende React, permitiendo hacer sentir aplicaciones en js como si fueran nativas.
+	\item Xamarín(Lenguajes C\#): de Microsoft, esta herramienta es ideal para desarrolladores familiarizados con C\# y .NET, también es idóneo para el alto rendimiento y acceso a HW nativo.
 \end{itemize}
 
-\section{Trabajos relacionados}
-El software libre y sus licencias \cite{gplv3} ha permitido llevar a cabo una expansión del aprendizaje de la informática sin precedentes.
+%Aquí falta una tabla comparativa de más características que te permita luego en tu propuesta justificar tu elección
+
+\section{Trabajos relacionados} %Mejor llámalo aplicaciones similares.
+El software libre y sus licencias \cite{gplv3} ha permitido llevar a cabo una expansión del aprendizaje de la informática sin precedentes.  %¿porqué mencionas software libre?
