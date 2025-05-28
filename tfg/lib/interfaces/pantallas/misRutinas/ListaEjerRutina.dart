@@ -22,8 +22,6 @@ class _ListaEjerRutinaState extends State<ListaEjerRutina>{
   Future<List<String>> _cargarEjericios() async{
     final out = await BDLocal.instance.getEjerciciosRutina(widget.titulo);
 
-    print(out);
-
     setState(() {
       _contenido = List.from(out);
     });
@@ -33,6 +31,11 @@ class _ListaEjerRutinaState extends State<ListaEjerRutina>{
 
   void _aniadir(BuildContext context) async {
     await Navigator.push(context, MaterialPageRoute(builder: (context)=>SeleccionarEjercicio(rutina: widget.titulo)));
+    final out = await BDLocal.instance.getEjerciciosRutina(widget.titulo);
+
+    setState(() {
+      _contenido = List.from(out);
+    });
   }
 
   void _intercambiar(BuildContext context, String nombre) async{

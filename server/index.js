@@ -115,6 +115,26 @@ app.post('/existeUser', (req, res) => {
     });
 });
 
+app.post('/getUsuarioFechaC', verificarToken, (req, res) => {
+    const { username } = req.body;
+
+    const query = 'SELECT fechaCreacion FROM usuarios WHERE username = ?';
+    const valores = [username];
+
+    db.query(query, valores, (err, results) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        if (results.length > 0) {
+            res.status(200).json({ fechaCreacion: results[0].fechaCreacion });
+        } else {
+            res.status(404).json({ mensaje: 'Usuario no encontrado' });
+        }
+    });
+});
+
 app.post('/subirEjercicio', (req, res) => {
     const { nombre,tipo,descripcion } = req.body;
 
@@ -266,7 +286,7 @@ app.get('/getRutinas', (req, res) => {
             return res.status(500).send('Error en el servidor');
         }
 
-        if (results.length > 0) {
+        if (results != undefined) {
             res.status(200).json({ rutinas: results });
         } else {
             res.status(404).json({ mensaje: 'Rutinas no encontradas' });

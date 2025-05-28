@@ -38,7 +38,7 @@ class OpcionesPeso extends StatelessWidget{
     if(datos[camposPesajes[1]]==null){
       peso = 'Sin asignar';
     }else{
-      peso = '${datos[camposPesajes[1]]!/10} kg';
+      peso = '${datos[camposPesajes[1]]!/100} kg';
     }
 
     final Widget textoSuperior=Text('Peso: $peso', style: estiloTexto);

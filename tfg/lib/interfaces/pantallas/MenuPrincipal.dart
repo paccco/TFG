@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tfg/ConexionBDLocal.dart';
+import 'package:tfg/interfaces/pantallas/calendario/OpcionesPasado.dart';
 import 'package:tfg/interfaces/pantallas/misEjercicios/ListaEjercicios.dart';
 import 'package:tfg/interfaces/pantallas/misRutinas/ListaRutinas.dart';
 import 'package:tfg/interfaces/pantallas/misRutinas/ListaRutinasCompartidas.dart';
@@ -134,18 +136,37 @@ class MenuPrincipalState extends State<MenuPrincipal>{
                 _miCalendar,
                 Text(_textoDiaSeleccionado,style: TextStyle(fontSize: 20.sp)),
                 InkWell(
-                  onTap: () async {
-                    if(isSameDay(_selectedDay, _hoy) || _hoy.isBefore(_selectedDay)){
+                  onTap: () async {_cambiaTextoDiaSeleccionado();
+                    //Seleccionar un dia anterior
+                    if(_hoy.isAfter(_selectedDay)){
+                      final marcas = await BDLocal.instance.getMarcasfecha(_selectedDay);
+                      if(marcas.isNotEmpty){
+                        Navigator.push(context, MaterialPageRoute(builder: (build)=>OpcionesPasado(diaSeleccionado: _selectedDay, rutina: _rutina,marcas: marcas, entrenado: true,)));
+                      }else{
+                        Navigator.push(context, MaterialPageRoute(builder: (build)=>OpcionesPasado(diaSeleccionado: _selectedDay, rutina: _rutina,marcas: [])));
+                      }
+                    }else if(isSameDay(_hoy, _selectedDay)){//seleccionar dia actual
                       if(_rutina.isNotEmpty){
-                        await Navigator.push(context, MaterialPageRoute(builder: (context) => OpcionesHoyFuturo(diaSeleccionado: _selectedDay, rutina: _rutina)));
-                        setState(() {
-                          _textoDiaSeleccionado="";
-                        });
+                        final marcas = await BDLocal.instance.getMarcasfecha(_selectedDay);
+                        if(marcas.isNotEmpty){
+                          Navigator.push(context, MaterialPageRoute(builder: (build)=>OpcionesPasado(diaSeleccionado: _selectedDay, rutina: _rutina,marcas: marcas, entrenado: true,)));
+                        }else{
+                          await Navigator.push(context, MaterialPageRoute(builder: (context) => OpcionesHoyFuturo(diaSeleccionado: _selectedDay, rutina: _rutina)));
+                        }
                       }else{
                         Navigator.push(context, MaterialPageRoute(builder: (build)=>OpcionesDescanso(fecha: _selectedDay)));
-                        _cambiaTextoDiaSeleccionado();
+                      }
+                    }else{
+                      if(_rutina.isNotEmpty){
+                        Navigator.push(context, MaterialPageRoute(builder: (build)=>OpcionesHoyFuturo(diaSeleccionado: _selectedDay, rutina: _rutina)));
+                      }else{
+                        Navigator.push(context, MaterialPageRoute(builder: (build)=>OpcionesDescanso(fecha: _selectedDay)));
                       }
                     }
+
+                    setState(() {
+                      _textoDiaSeleccionado="";
+                    });
                   },
                   child: Container(
                     margin: EdgeInsets.all(2.h),

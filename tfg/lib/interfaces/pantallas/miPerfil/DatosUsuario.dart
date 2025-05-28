@@ -48,7 +48,7 @@ Future<Widget> _tablaDatos(BuildContext context) async{
                 DataRow(cells: [_celda("Género"),_celda(consulta[2])])
               ]
           ),
-          Text("Peso objetivo: ${pesoObj==0 ? "No establecido":"${pesoObj.abs()/10} kg"}", style: TextStyle(fontSize: 18.sp)),
+          Text("Peso objetivo: ${pesoObj==0 ? "No establecido":"${pesoObj.abs()/100} kg"}", style: TextStyle(fontSize: 18.sp)),
           BarraTexto(controller: pesoObjC,tipoInput: TextInputType.numberWithOptions(decimal: true)),
           TextButton(
             onPressed: (){
@@ -57,6 +57,7 @@ Future<Widget> _tablaDatos(BuildContext context) async{
               if(regexPeso.hasMatch(pesoStr)){
                 BDLocal.instance.insertMetaPeso(pesoStr,pesoActual);
                 Navigator.pop(context);
+                mensaje(context, "Objetivo establecido con éxito");
               }else{
                 mensaje(context, "Numero positivo con un decimal máximo", error: true);
               }

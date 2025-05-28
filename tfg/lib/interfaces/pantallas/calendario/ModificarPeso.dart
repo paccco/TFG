@@ -64,6 +64,9 @@ class _ModificarPesoState extends State<ModificarPeso>{
                   }
 
                   mensaje(context, "Peso guardado");
+
+                  //Comprobar si ha cumplido meta de peso
+
                   Navigator.pop(context);
                 }else{
                   mensaje(context, "Numero positivo con un decimal máximo", error: true);

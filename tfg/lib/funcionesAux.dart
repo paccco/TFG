@@ -94,8 +94,10 @@ int gestorDeComas(String numero){
   if(numero.contains(comasPuntos)){
     out=int.parse(numero.replaceAll(comasPuntos, ''));
   }else{
-    out=int.parse(numero)*10;
+    out=int.parse(numero)*100;
   }
+
+
 
   return out;
 }

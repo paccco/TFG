@@ -30,12 +30,14 @@ class _ListaBusquedaConIdState extends State<ListaBusquedaConId>{
     final filtradosComoLista=filtrados.values.toList();
     final idsComoLista=filtrados.keys.toList();
 
-    while(cont<elementosVisibles && (index+cont)<filtrados.length){
-      final nombre=filtradosComoLista[index+cont];
-      final id=idsComoLista[index+cont];
-      visible.add(BotonContenido(texto: nombre, func: ()=> widget.cargarElemento(context,nombre,id)));
-      cont++;
-    }
+    setState(() {
+      while(cont<elementosVisibles && (index+cont)<filtrados.length){
+        final nombre=filtradosComoLista[index+cont];
+        final id=idsComoLista[index+cont];
+        visible.add(BotonContenido(texto: nombre, func: ()=> widget.cargarElemento(context,nombre,id)));
+        cont++;
+      }
+    });
   }
 
   void _fetchContenido() async{
@@ -48,7 +50,6 @@ class _ListaBusquedaConIdState extends State<ListaBusquedaConId>{
     index=0;
 
     _setVisble();
-    setState(() {});
   }
 
   void _filtrar(String query){
@@ -58,7 +59,6 @@ class _ListaBusquedaConIdState extends State<ListaBusquedaConId>{
 
     index=0;
     _setVisble();
-    setState(() {});
   }
 
   void _navegar(bool value){

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tfg/API.dart';
 import 'package:tfg/ConexionBDLocal.dart';
 import 'package:tfg/constantes.dart';
 import 'package:tfg/funcionesAux.dart';
@@ -29,8 +30,8 @@ class _calendarioState extends State<Calendario>{
 
   Future<Widget> _calendario(context) async{
     _eventos.clear();
-    final String aux = await storage.read(key: 'fechaCreacion') ??'';
-    _primerDia = DateTime.parse(aux);
+    final String usuario = await storage.read(key: 'usuario') ?? '';
+    _primerDia = await getUsuarioFechaC(usuario);
     _ultimoDia=_hoy.add(Duration(days: 31));
     await _actualizarEntrenamientos();
 

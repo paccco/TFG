@@ -22,12 +22,14 @@ class _BuscarRutinasUsuarioState extends State<BuscarRutinasUsuario>{
   void _cargarInfoRutina(BuildContext context, String nombreRutina, int id) async{
     final rutina=await getRutina(id);
     final listaEjer=await getEjerciciosRutina(id);
+    final creador=rutina['usuario'];
 
     Navigator.push(context, MaterialPageRoute(builder: (context) => DatosRutinasComp(
         titulo: nombreRutina,
         id: id,
         rutina: rutina,
-        listaEjer: listaEjer
+        listaEjer: listaEjer,
+        creador: creador,
     )));
   }
 

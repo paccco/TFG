@@ -3,7 +3,7 @@ import 'package:tfg/ConexionBDLocal.dart';
 import 'dart:convert';
 import 'constantes.dart';
 
-final ipPuerto="172.20.10.3:3000";
+final ipPuerto="192.168.0.21:3000";
 
 Future<bool> login(String user, String passwd) async {
   final url = Uri.parse('http://$ipPuerto/login');
@@ -94,7 +94,7 @@ Future<int> existeUser(String user) async{
 }
 
 Future<int> subirRutina(String nombre) async{
-  final bd=BDLocal.instance;
+  final bd= BDLocal.instance;
 
   //Obtengo los datos de la rutina
   final rutina = await bd.getRutina(nombre);
@@ -124,7 +124,6 @@ Future<int> subirRutina(String nombre) async{
     'Authorization': 'Bearer $token',
     'Content-Type': 'application/json'
   };
-
 
   //Subo los datos de la rutina
   final url = Uri.parse('http://$ipPuerto/subirRutina');
@@ -223,7 +222,12 @@ Future<Map<String,dynamic>> getRutina (int id, {bool usuario=false}) async{
     return {'error':-1};
   }
 
-  return jsonDecode(response.body)['rutina'];
+  Map<String,dynamic> aux=jsonDecode(response.body)['rutina'];
+  String auxDescanso=aux['descansos'];
+  auxDescanso=auxDescanso.substring(3);
+  aux['descansos']=auxDescanso;
+
+  return aux;
 }
 
 Future<Map<int,String>> getRutinas () async{
@@ -287,6 +291,8 @@ Future<List<String>> getEjerciciosRutina (int id) async{
   List<String> out = List.empty(growable: true);
 
   consulta.forEach((value) => out.add(value['nombre']));
+
+  print(out);
 
   return out;
 }
@@ -356,6 +362,33 @@ Future<int> registrarDescarga(int id) async {
   }
 
   return 0;
+}
+
+Future<DateTime> getUsuarioFechaC(String nombre) async{
+  final String token = await storage.read(key: 'token') ?? '';
+  final url=Uri.parse('http://$ipPuerto/getUsuarioFechaC');
+
+  final cabecera={
+    'Authorization': 'Bearer $token',
+    'Content-Type': 'application/json'
+  };
+
+  final response = await http.post(
+      url,
+      headers: cabecera,
+      body: json.encode({ 'username' : nombre })
+  );
+
+  if(response.statusCode!=200){
+    return DateTime(0);
+  }
+  
+  final String aux = jsonDecode(response.body)['fechaCreacion'];
+
+  final DateTime out = DateTime.parse(aux);
+
+  return out;
+
 }
 
 Future<int> borrarCuenta() async {

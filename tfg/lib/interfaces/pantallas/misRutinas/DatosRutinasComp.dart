@@ -33,6 +33,66 @@ class DatosRutinasComp extends StatelessWidget{
 
     String auxTitulo=(creador!="") ? "$titulo (by '$creador')" : titulo;
 
+    List<Widget> hijos=[];
+
+    if(creador==""){
+      hijos=[
+        Container(
+          padding: EdgeInsets.all(2.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text("Descripción:",style: estiloTitulo),
+              Text(rutina['descripcion'],style: estiloTexto),
+              Text("Descargas: ",style: estiloTitulo,),
+              Text("${rutina['descargas']}",style: estiloTexto,),
+              Text("Descansos: ",style: estiloTitulo,),
+              Text(rutina['descansos'],style: estiloTexto,),
+              Text("Lista ejercicios: ",style: estiloTitulo,),
+              Text("$listaEjer",style: estiloTexto,)
+            ],
+          ),
+        ),
+        _creaBoton("Eliminar",() async{
+          final aux= await borrarRutina(id);
+
+          if(aux==0){
+            Navigator.pop(context);
+            mensaje(context, "Rutina eliminada correctamente");
+          }else{
+            mensaje(context, "Error al eliminar la rutina", error: true);
+          }
+        })
+      ];
+    }else{
+      hijos=[
+        Container(
+          padding: EdgeInsets.all(2.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text("Descripción:",style: estiloTitulo),
+              Text(rutina['descripcion'],style: estiloTexto),
+              Text("Descargas: ",style: estiloTitulo,),
+              Text("${rutina['descargas']}",style: estiloTexto,),
+              Text("Descansos: ",style: estiloTitulo,),
+              Text(rutina['descansos'],style: estiloTexto,),
+              Text("Lista ejercicios: ",style: estiloTitulo,),
+              Text("$listaEjer",style: estiloTexto,)
+            ],
+          ),
+        ),
+        _creaBoton("Descargar", () async {
+          final aux=await descargarRutina(id, titulo);
+          if(aux){
+            mensaje(context, "Rutina descargada correctamente");
+          }else{
+            mensaje(context, "Error al descargar la rutina");
+          }
+        })
+      ];
+    }
+
     return Scaffold(
       backgroundColor: Colores.grisClaro,
       appBar: PreferredSize(
@@ -43,34 +103,7 @@ class DatosRutinasComp extends StatelessWidget{
         margin: EdgeInsets.all(2.h),
         child: Column(
           spacing: 2.h,
-          children: [
-            Container(
-              padding: EdgeInsets.all(2.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text("Descripción:",style: estiloTitulo),
-                  Text(rutina['descripcion'],style: estiloTexto),
-                  Text("Descargas: ",style: estiloTitulo,),
-                  Text("${rutina['descargas']}",style: estiloTexto,),
-                  Text("Descansos: ",style: estiloTitulo,),
-                  Text(rutina['descansos'],style: estiloTexto,),
-                  Text("Lista ejercicios: ",style: estiloTitulo,),
-                  Text("$listaEjer",style: estiloTexto,)
-                ],
-              ),
-            ),
-            _creaBoton("Eliminar",() async{
-              final aux= await borrarRutina(id);
-
-              if(aux==0){
-                Navigator.pop(context);
-                mensaje(context, "Rutina eliminada correctamente");
-              }else{
-                mensaje(context, "Error al eliminar la rutina", error: true);
-              }
-            })
-          ],
+          children: hijos,
         ),
       ),
     );

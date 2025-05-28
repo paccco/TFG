@@ -71,9 +71,7 @@ class _OpcionesDiaState extends State<OpcionesDia>{
               final hoy=DateTime.now();
               final bool esHoy = isSameDay(widget.fechaTitulo, hoy);
 
-              if(esHoy || hoy.isBefore(widget.fechaTitulo)){
-                Navigator.push(context, MaterialPageRoute(builder: (builder)=>OpcionesPeso(fecha: widget.fechaTitulo, esHoy: esHoy)));
-              }
+              Navigator.push(context, MaterialPageRoute(builder: (builder)=>OpcionesPeso(fecha: widget.fechaTitulo, esHoy: esHoy)));
             },
             child: Text("Datos",style: TextStyle(fontSize: 25.sp, color: Colores.blanco))),
       )

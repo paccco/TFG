@@ -39,7 +39,7 @@ class FlujoEntrenamiento{
       }
     }
 
-    return FlujoEntrenamiento.4(rutina, listaEjercicios, ejerciciosTipo, descanso);
+    return FlujoEntrenamiento._privateConstructor(rutina, listaEjercicios, ejerciciosTipo, descanso);
   }
 
   Map<String,bool> _comprobarMeta(Map<String,dynamic> meta, Map<String,dynamic> marca){

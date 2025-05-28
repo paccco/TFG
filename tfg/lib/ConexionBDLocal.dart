@@ -143,15 +143,6 @@ class BDLocal{
         camposMarca[6] : 0,
         camposMarca[7] : datos.values.first
       });
-      await db.insert(marca, {
-        camposMarca[0] : stringDate(DateTime.now()),
-        camposMarca[2] : 0,
-        camposMarca[3] : 0,
-        camposMarca[4] : '00:00',
-        camposMarca[5] : 0,
-        camposMarca[6] : 0,
-        camposMarca[7] : datos.values.first
-      });
     }catch(error){
 
       if(error.toString().contains('UNIQUE constraint failed')){
@@ -268,7 +259,11 @@ class BDLocal{
 
   Future<void> insertMarca(Map<String,dynamic> datos) async{
     final db = await instance.database;
-    await db.insert(marca, datos, conflictAlgorithm: ConflictAlgorithm.fail);
+    Map<String,dynamic> aux = datos;
+    aux[camposMarca[2]]=aux[camposMarca[2]]==null ? null : aux[camposMarca[2]]*100;
+    aux[camposMarca[5]]=aux[camposMarca[5]]==null ? null : aux[camposMarca[5]]*100;
+
+    await db.insert(marca, aux, conflictAlgorithm: ConflictAlgorithm.fail);
   }
 
   Future<Map<String,dynamic>> getMetaActual(String ejercicio) async{
@@ -281,6 +276,13 @@ class BDLocal{
     final db = await instance.database;
     final out = await db.query(marca,where: '${camposMarca[7]} = ?', whereArgs: [ejercicio], orderBy: '${camposMarca[1]} DESC', columns: camposMarca.sublist(2,6));
     return out.first;
+  }
+
+  Future<List<Map<String,dynamic>>> getMarcasfecha(DateTime fecha) async{
+    final db = await instance.database;
+    final out = await db.query(marca,where: '${camposMarca[0]} = ?', whereArgs: [stringDate(fecha)], columns: camposMarca.sublist(2,8));
+
+    return out;
   }
 
   Future<void> modMeta(String ejercicio,Map<String,dynamic> datos) async{
@@ -456,13 +458,17 @@ class BDLocal{
 
   Future<bool> insertPesaje(DateTime fecha, String peso) async {
     final db = await instance.database;
-    final res = await db.insert(pesajes, {camposPesajes[0] : stringDate(fecha),camposPesajes[1] : gestorDeComas(peso)},conflictAlgorithm: ConflictAlgorithm.replace);
+
+    String aux="${peso}00";
+    final res = await db.insert(pesajes, {camposPesajes[0] : stringDate(fecha),camposPesajes[1] : aux},conflictAlgorithm: ConflictAlgorithm.replace);
 
     return res!=0;
   }
 
   Future<void> insertMetaPeso(String nuevoPeso, int pesoActual) async {
     final db = await instance.database;
+
+    print(nuevoPeso);
 
     int pesoObj=gestorDeComas(nuevoPeso);
 
