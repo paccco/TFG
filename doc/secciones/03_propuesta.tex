@@ -1,16 +1,22 @@
 \chapter{Propuesta}
+% la primera sección debe ser una descripción detallada 
+
+%Falta una sección donde justifiques la elección de tecnologías e incluir un diagrama de arquitectura del sistema donde se vea dónde se aplican
 
 \section{Metodolog\'ia utilizada}
 Para el desarrollo de esta app, usar\'e una metodolog\'ia \textit{\'agil} tipo \textbf{SCRUM}. He decidido usar esta porque me permite corregir fallos en la velocidad de dise\~no y/o planificaci\'on de forma eficiente y sin da\~nar el producto final.
+%Añade también que te permite ir haciendo desarrollos que puedes enseñarme y validar poco a poco, a lo largo de diferentes iteraciones o sprints.
 
 Las reuniones con la tutora ser\'an las \textit{sprint reviews}.
 
 \section{Temporizaci\'on}
 La temporizaci\'on se realiz\'o el d\'ia 25 de marzo de 2025. La entrega del producto (este TFG) est\'a prevista para el 16 de junio de 2025, es decir, 83 d\'ias, o lo que es lo mismo, casi 12 semanas. Si un sprint dura 2 semanas, habr\'a 6 sprints hasta la entrega final.
 
-La iteraci\'on 0 se dedicar\'a al dise\~no de pantallas y al repaso de las funcionalidades de la app. La idea inicial es dividir la app en varios m\'odulos y centrar cada sprint en uno de ellos:
+La iteraci\'on 0 se dedicar\'a al dise\~no de pantallas y al repaso de las funcionalidades de la app 
+%añade que para concretar con la tutora cuáles serán las historias de usuario y sus prioridades. 
+La idea inicial es dividir la app en varios m\'odulos y centrar cada sprint en cada uno de ellos:
 
-\begin{itemize}
+\begin{itemize}  %enumera esta lista de módulos/sprints
   \item Diagramas de la app y ejercicios
   \item Rutinas, usuarios y sesi\'on
   \item Datos que ingresa el usuario
@@ -22,8 +28,16 @@ La iteraci\'on 0 se dedicar\'a al dise\~no de pantallas y al repaso de las funci
 \section{Seguimiento del desarrollo}
 
 \subsection{Iteraci\'on 0}
-En esta primera iteraci\'on me cent\'re en completar los dise\~nos de la app, priorizando su accesibilidad. Tambi\'en concret\'e el \textit{product backlog}, compuesto por 41 historias de usuario. A pesar de trabajar con SCRUM se realizarán todos los diseños para concretar al tutor la idea a desarrollar en este TFG.
-Algunas incluyen tareas secundarias:
+En esta primera iteraci\'on me cent\'re en realizar los dise\~nos de la app, priorizando su accesibilidad. 
+%no es cierto, no has priorizado la accesibilidad, la has considerado solo, y no todo es accesible (p.e. recuerda que te faltan iconos en muchos sitios)
+
+Tambi\'en concret\'e el \textit{product backlog}, compuesto por 41 historias de usuario. 
+%Tienes que decir que hay un único actor en tu aplicación, que es el usuario que realiza los ejercicios, y que por tanto todas las historias lo tienen a él como protagonista.
+
+A pesar de trabajar con SCRUM se realizarán todos los diseños de interfaces de usuario en este primer sprint para concretar con la tutora los requisitos principales de la aplicación a desarrollar en este TFG. En nuestro caso los diseños de las interfaces se usarán como herramientas de captura y especificación de requisitos. En cada iteración se podrán revisar si hay cambios. 
+%Te he añadido esas dos últimas frases
+
+La lista inicial de historias de usuario es la siguiente, y algunas incluyen tareas secundarias:
 
 \begin{description}
   \item[\textbf{SCRUM-1}] Registrar peso por d\'ia
@@ -370,9 +384,9 @@ Si le das a datos de un entrenamiento terminado
 Estos diseños pueden cambiar y sufrir alteraciones debido a los sprints reviews y correcciones de accesibilidad. De todas formas, cada cambio será informado con su motivo.
 
 \subsubsection{Sprint Review 0}
-Durante esta revisi\'on de sprint se realizaron mejoras de dise\~no, como la incorporaci\'on de iconos en todos los botones para mejorar la accesibilidad. Se revisaron los t\'itulos de las ventanas, cambiando aquellos que no eran lo suficientemente claros.
+Durante esta revisi\'on de sprint se realizaron mejoras de dise\~no, como la incorporaci\'on de iconos en todos los botones para mejorar la accesibilidad. Se revisaron también los t\'itulos de las ventanas, cambiando aquellos que no eran lo suficientemente claros.
 
-Adem\'as, se a\~nadieron nuevas historias al \textit{product backlog}:
+Adem\'as, se a\~nadieron nuevas historias al \textit{product backlog}, incorporando o desglosando funcionalidades:
 
 \begin{itemize}
   \item SCRUM-42: Copiar rutina
@@ -382,8 +396,11 @@ Adem\'as, se a\~nadieron nuevas historias al \textit{product backlog}:
   \item SCRUM-46: Conectar/Desconectar con la IA
 \end{itemize}
 
+%Muy importante: aquí falta una tabla con todas las historias, priorizadas y organizadas por iteraciones.
+
+
 \subsection{Iteraci\'on 1}
-Siendo la lista de la primera iteracion de la siguiente manera:
+La lista de historias de la primera iteracion queda de la siguiente manera:
 
 \begin{itemize}
     \item SCRUM-26: Buscar ejercicio en lista
@@ -393,6 +410,9 @@ Siendo la lista de la primera iteracion de la siguiente manera:
     \item SCRUM-29: Pop up de confirmación
     \item SCRUM-30: Hacer IU de datos ejercicio ELIMINAR
 \end{itemize}
+
+A continuación especificaremos las tareas y pruebas de cada historia, y los resultados asociados a cada una. 
+%añadida la frase previa para facilitar y guiar en la lectura.
 
 \HU{
 SCRUM-26: Buscar ejercicio en lista
@@ -427,10 +447,12 @@ SCRUM-43: Añadir meta por parámetro
 	\item si existe una meta determinada para ese ejercicio y se quiere insertar una, sustituir la actual
 }
 \HU{
-	SCRUM-29: Pop up de confirmación
+	SCRUM-29: Pop up de confirmación  
+ %Tendrás que decir en la revisíon que los popups no son accesibles y que tendrás que cambiarlo
 }{
 	\item Implementar la confirmación para que pueda ser usado en pantallas distintas
-	\item Impelementar boceto de IU \cref{fig:Pop up de confirmacion}
+	\item Impelementar boceto de IU \cref{fig:Pop up de confirmacion} 
+ %Revisa erratas, aquí pone Impelmentar en lugar de Implementar
 }{
 	\item si se ha seleccionado una opcion, se devuelve la opcion seleccionada
 }
@@ -439,11 +461,13 @@ Dentro del SCRUM-3 tenemos subfuncionalidades, funciones pequeñas que componen 
 
 Durante esta iteraci\'on me familiaric\'e con Flutter y sus herramientas, como la base de datos local \textit{SQLite}.
 
-\subsubsection{SQLite}
+\subsubsection{SQLite}  %No procede aqui sino en la sección de elección de tecnologías.
 Es una base de datos ligera, autocontenida y de c\'odigo abierto. Usa el mismo lenguaje de consultas que SQL, lo que la hace ideal para la app. Adem\'as, permite transportar toda la BD en un \textit{.db}, lo cual puede facilitar funcionalidades como copias de seguridad descargables desde la nube.
 
-\subsubsection{Estado de la BD local}
+%Es IMPORTANTE que, al menos en esta primera iteracion, muestres los resultados de la realizacion de las tareas que has indicado para cada historia: capturas de pantalla de bocetos, contar algo de cómo has implementado el backend (por ejemplo bibliotecas o librerías usadas, ficheros creados, etc.). También debes añadir un párrafo para explicar que has hecho las pruebas y sus resultados: si han salido bien y en caso de que no, cómo lo has solucionado. Además, si has tenido difucultades con algo, explica cómo las has solventado. Solo completando esto puedes demostrar que sabes del tema, resaltar tu capacidad de trabajo y permitir que se pueda valorar el esfuerzo realizado.
 
+\subsubsection{Estado de la BD local}
+Al finalizar esta iteración, el estado de la BD queda tal y como se muestra en la figura %añadir referencia
 \begin{figure}[H]
    \centering
     \includegraphics[width=\textwidth]{fotos/BDL iteracion 1.png}
@@ -452,8 +476,10 @@ Es una base de datos ligera, autocontenida y de c\'odigo abierto. Usa el mismo l
 \end{figure}
 
 \subsubsection{Sprint Review 1}
-Las primeras iteraciones tienden a ser m\'as lentas debido a la fase inicial del desarrollo. No se complet\'o la totalidad del sprint; qued\'o pendiente la subtarea de modificar ejercicio en la base de datos. Aun as\'i, las expectativas son positivas, ya que se espera un aumento en la velocidad de desarrollo. No obstante, en lo que se lleva  desarrollado han aparecido pocas problemáticas
+Las primeras iteraciones tienden a ser m\'as lentas debido a la fase inicial del desarrollo. No se complet\'o la totalidad del sprint; qued\'o pendiente la subtarea de modificar ejercicio en la base de datos %¿de qué historia?. 
+Aun as\'i, las expectativas son positivas, ya que se espera un aumento en la velocidad de desarrollo. No obstante, en lo que se lleva  desarrollado han aparecido pocas problemáticas. %quitar esta última frase o explicar las que hayan aparecido y sus soluciones.
 
+%Estas figuras necesitan un párrafo que las referencie.
 \begin{figure}[h!]
   \centering
   \begin{minipage}[b]{0.45\textwidth}
@@ -474,7 +500,7 @@ Las primeras iteraciones tienden a ser m\'as lentas debido a la fase inicial del
 \end{figure}
 
 \subsection{Iteraci\'on 2}
-Esta iteraci\'on se centr\'o en el desarrollo del sistema de sesiones, la API de la aplicaci\'on, el backend b\'asico del servidor y la secci\'on de rutinas.
+Esta iteraci\'on se centr\'o en el desarrollo del sistema de sesiones, la API de la aplicaci\'on, el backend b\'asico del servidor y la secci\'on de rutinas. Las historias que incluye son las siguientes:
 
 \begin{itemize}
   \item SCRUM-21 Crear/Borrar mi usuario
@@ -488,6 +514,8 @@ Esta iteraci\'on se centr\'o en el desarrollo del sistema de sesiones, la API de
   \item SCRUM-35 IU lista ejercicios de rutina modificable ELIMINAR
   \item SCRUM-36 Crear IU para crear rutina ELIMINAR
 \end{itemize}
+
+%Tienes que decir que además terminarás la tarea no finalizada en la iteración previa.
 
 \HU{
 SCRUM-33 Implementar menú principal
@@ -544,7 +572,9 @@ SCRUM-6 Insertar/Borrar/Modificar rutina
 	\item si se hace una modificación, que se hagan visibles los cambios al momento
 	\item si hay algún fallo en alguna de estas operaciones, informar al usuario con el motivo
 }
-\subsubsection{Sistema de sesiones}
+\subsubsection{Sistema de sesiones}  
+%este título de sección despista porque corresponde con la segunda historia de esta iteración y no se dice nada de las otras. Faltaría, igual que en la iteración anterior, poner resultados de todas las tareas de cada historia, y si acaso decir que se incluye una subsección que detalla más cómo se abordó el sistema de sesiones, por su complejidad.
+
 Se implement\'o un sistema de autenticaci\'on basado en tokens. Cuando el usuario verifica su identidad, recibe un token que se guarda en el dispositivo y se usa para validar el acceso posterior. Esto evita que usuarios no autorizados suban contenido haci\'endose pasar por otros.
 
 El backend est\'a desarrollado en \textit{Node.js} y utiliza una base de datos SQL para gestionar las contrase\~nas de los usuarios. Este mismo backend se usar\'a para las funcionalidades de las siguientes iteraciones.
@@ -573,7 +603,9 @@ Se cumplieron todas las funcionalidades en este sprint.
     \label{fig:BD local iteracion 2}
 \end{figure}
 
-\subsubsection{Estado de la BD backend}
+%Comenta qué cambios hay respecto a la iteración anterior
+
+\subsubsection{Estado de la BD backend} %No entiendo lo del backend aparte de la BD local, explica.
 
 \begin{figure}[H]
    \centering
@@ -583,7 +615,7 @@ Se cumplieron todas las funcionalidades en este sprint.
 \end{figure}
 
 \subsection{Iteraci\'on 3}
-Esta iteraci\'on se centr\'o en desarrollar la funcionalidad para compartir rutinas entre usuarios, incluyendo la subida, visualizaci\'on y descarga de rutinas. Adem\'as, se comenz\'o a implementar la funcionalidad de resumen de datos para optimizar el uso de la memoria local.
+Esta iteraci\'on se centr\'o en desarrollar la funcionalidad para compartir rutinas entre usuarios, incluyendo la subida, visualizaci\'on y descarga de rutinas. Adem\'as, se comenz\'o a implementar la funcionalidad de resumen de datos para optimizar el uso de la memoria local. Incluye las siguientes historias:
 
 \begin{itemize}
   \item SCRUM-2 Establecer peso objetivo
@@ -647,18 +679,23 @@ SCRUM-42 Copiar rutina
 	\item si no hay algún problema por coincidencia de nombres, copiar
 }
 
-Durante la realización de estas tareas de usuario, se dió notoriedad a que las historias restantes de este sprint (SCRUM-9 Revisar datos para ver si el descanso es necesario y SCRUM-22 Resumir datos) no pueden ser implementadas en este punto del desarrollo. Se pospondrán para su futura implementación.
+%El siguiente párrafo debería ir dentro de la subsección siguiente.
+Durante la realización de estas tareas de usuario, se dió notoriedad a que las historias restantes de este sprint (SCRUM-9 Revisar datos para ver si el descanso es necesario y SCRUM-22 Resumir datos) no pueden ser implementadas en este punto del desarrollo. 
+Si no se hacen sobra tiempo, ¿por qué no se ha decidio adelantar otras?
+Se pospondrán para su futura implementación.
 
 \subsubsection{Funcionalidad descartada}
 
-Se ha decidido, descartar una funcionalidad, en concreto el SCRUM-9 (Revisar datos para ver si el descanso es necesario), dado porque necesitaría los datos de un smartwatch y ha sido una funcionalidad previamente descartada.
+Se ha decidido, descartar una funcionalidad, en concreto el SCRUM-9 (Revisar datos para ver si el descanso es necesario), porque necesitaría los datos de un smartwatch y ha sido una funcionalidad previamente descartada. %Más que descartada pondría a la que se ha decidido dar menos prioridad y que por tanto no se abordará en este TFG por limitaciones de tiempo.
 
 También se ha descartado SCRUM-42 (Copiar rutina), dado que aporta poco valor a la app.
 
-\subsubsection{Peso objetivo}
-El peso objetivo es una meta que define el usuario y se almacena en memoria. Esta meta se representar\'a en la gr\'afica de evoluci\'on del peso del usuario, y se generar\'a una alerta cuando dicha meta sea alcanzada. La visualizaci\'on a\'un no ha sido implementada completamente.
+\subsubsection{Peso objetivo} %Más que una subsección, añade el párrafo siguiente cuando estés describiendo los resultados de la historia a la que corresponde.
+El peso objetivo es una meta que define el usuario y se almacena en memoria. Esta meta se representar\'a en la gr\'afica de evoluci\'on del peso del usuario, y se generar\'a una alerta cuando dicha meta sea alcanzada. La visualizaci\'on a\'un no ha sido implementada completamente. %Explica porqué no y que la harás en la siguiente iteración. 
 
-\subsubsection{Cambios durante el desarrollo}
+\subsubsection{Cambios durante el desarrollo} 
+%Esta subsección y las dos siguientes las combinaría con el sprint review, ya que dices cosas repetidas y es mejor agrupar todos los cambios, problemas y valor añadido al final de la iteración, asociados a la revisión de lo realizado.
+
 Durante esta iteraci\'on surgieron cambios en la forma de visualizar y gestionar las rutinas compartidas y almacenadas:
 
 \begin{itemize}
@@ -717,7 +754,7 @@ En esta review se estuvo debatiendo si quitar las funcionalidades relacionadas c
 
 En esta iteración se tenía pensado implementar la funcionalidad de resumir los datos, no obstante, al no tener implementada la parte en la que guardo las marcas de los entrenamientos, no puedo trabajar en esa funcionalidad. Por lo tanto, se ha pospuesto para la próxima iteración. También se le dió el visto bueno a la implementación de las funcionalidades previamente expuestas durante el desarrollo.
 
-También, debido al querer hacer la app accesible se ha decidido sustituir los pop ups por pantallas normales, dado que los pop ups son un gran problema para este objetivo, debido a que un usuario puede hacerlo desaparecer este tocando fuera del area en pantalla de este.
+También, debido al querer hacer la app accesible se ha decidido sustituir los pop ups por pantallas normales, dado que los pop ups son un gran problema para este objetivo, debido a que un usuario puede hacerlo desaparecer este tocando fuera del area en pantalla de este. %esta última frase tiene algun error gramatical, reescribe. Añade también que los lectores de pantalla presentan problemas cuando se interacciona con ventanas emergentes y popups.
 
 \subsection{Iteraci\'on 4}
 
@@ -781,9 +818,9 @@ SCRUM-1 Registrar peso por día
 	\item si se introducen los datos en formato correcto, se guarda
 }
 
-En esta iteración hay pocas funcionalidades commparadas con otras, porque el flujo del entrenamiento es una funcionalidad muy grande. A parte se añade esta funcionalidad que también se va a realizar en esta iteración, SCRUM-44 Implementar calendario.
+En esta iteración hay pocas funcionalidades comparadas con otras, porque el flujo del entrenamiento es una funcionalidad muy grande. A parte se añade esta funcionalidad que también se va a realizar en esta iteración, SCRUM-44 Implementar calendario.
 
-\subsubsection{Paquete tableCalendar}
+\subsubsection{Paquete tableCalendar} % al igual que en iteraciones previas, asocia esto a la historia concreta afectada y a sus resultados.
 
 Es un paquete de flutter, que permite implementar y customizar un calendario, de forma fácil y rápida. También permite trabajar con información para reflejarla en las fechass del calendario.
 
