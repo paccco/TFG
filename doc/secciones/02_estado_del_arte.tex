@@ -1,42 +1,47 @@
 \chapter{Estado del arte}
 
-%aquí debería haber una subsección llamada Dominion del problema.
-
-Antes de seguir, %Más que antes de seguir, sería "Para comenzar" 
-
-me veo en la obligación de %Habla en impersonal o en primera persona de plural "Nos vemos en la obligación de", "Es necesario"
-
-hablar un poco sobre conceptos generales en el mundo del deporte, definiendo algunos conceptos. Un ejercicio 
-%sueles poner una coma entre el sujeto y el predicado de una frase, como en este caso, ten cuidado con eso "un ejercicio, es la..."
-es la repetición de un movimiento varias veces para estimular uno o varios músculos. Los entrenamientos, entendámolos como la colección de distintos ejercicios destinados a entrenar una parte o varias del cuerpo, a los entrenamientos también se les llama rutinas. Una serie, es cuando dentro de un ejercicio, repetimos ese movimiento un número determinado de veces y se realiza un descanso
-%¿o varios descansos?
-, sin cambiar de ejercicio. Una repetición, es la realización del movimiento de ese ejercicio en una serie, es decir, si por ejemplo estoy haciendo flexiones, hago 12, descanso, hago 10, descanso, hago 9 y ya no hago más flexiones, dentro de mi entrenamiento se vería así:
+\section{Dominio del problema}
+Para comenzar, es necesario hablar un poco sobre conceptos generales en el mundo del deporte, definiendo algunos conceptos. Un ejercicio es la repetición de un movimiento varias veces para estimular uno o varios músculos. Las rutinas, entendámolos como la colección de distintos ejercicios destinados a entrenar una parte o varias del cuerpo, a las rutinas también se les llama entrenamientos, pero en la app se referirá a rutinas como la anterior definición y los entrenamientos serán el hecho de haber realizado una rutina. Ejemplo, el entrenamiento del día 6 es hacer la rutina de flexiones. Una serie es cuando dentro de un ejercicio repetimos ese movimiento un número determinado de veces. Entre series se hacen descansos. Una repetición, es la realización del movimiento de ese ejercicio en una serie, es decir, si por ejemplo estoy haciendo flexiones, hago 12, descanso, hago 10, descanso, hago 9 y ya no hago más flexiones, dentro de mi entrenamiento se vería así:
 
 \underline {Rutina de entrenamiento 1:}
 \begin{itemize}
 	\item Ejercicio 1
 	\begin{itemize}
 		\item Serie 1: X repeticiones
+		\item Descanso
 		\item Serie 2: X repeticiones
 	\end{itemize}
 	\item Flexiones
 	\begin{itemize}
 		\item Serie 1: 12 repeticiones
+		\item Descanso
 		\item Serie 2: 10 repeticiones 
+		\item Descanso
 		\item Serie 3: 9 repeticiones
 	\end{itemize}
 	\item Ejercicio 3
 	\begin{itemize}
 		\item Serie 1: X repeticiones
+		\item Descanso
 		\item Serie 2: X repeticiones
 	\end{itemize}
 \end{itemize}
 
-%Aquí falta que añadas varis párrafos más: uno para explicar lo de las metas, otro para explicar lo de compartir rutinas, otro sobre lo que te dije que quitaras de la introducción, con su referencia, y finalmente otro párrafo explicando que sería muy útil una aplicacion que permitiera planificar rutinas de esta forma y luego ayudar a su seguimiento o monitorización. 
+Las metas son objetivos que se pone el usuario en un ejercicio, por ejemplo, si un usuario desea llegar a hacer 10 flexiones mínimo en una serie la proxima vez que entrene, es que se ha puesto una meta de 10 flexiones.
+
+El compartir una rutina es publicar los detalles de una rutina para que otra persona la pueda hacer en sus entrenamientos.
+
+En este gremio del deporte es muy importante la planificación, ya que si se entrena muy de seguido un músculo te puedes llegar a lesionar o hacer que los entrenamientos sean inútiles, lo que se conoce como sobrentrenamiento. Por su contraparte, es importante no dejar de entrenar todas las zonas del cuerpo, ya que te puede lastrar una musculatura debil para otros tipos de entrenamientos. También es importante planificar los días de descansos, para evitar entrenamientos con el cuerpo fatigado. 
+
+Ya dentro de los entrenamientos también es importante respetar los descansos. Dado que si se descansa menos tiempo del debido puede provocar lesiones de muchos tipos, incluido neuronales dado al estrés que sufre el cerebro durante el deporte.
+
+Aunque hagamos correctamente lo mencionado en los 2 párrafos anteriores, puede que el deportista no vea los frutos de sus entrenamientos porque o bien no se acuerda de su rendimiento de hace 1 mes y no sabe si es el mismo o no, o simplemente es un sentimiento placebo. Por ello sería util tener un historial de entrenamiento de fácil acceso o incluso gráficas, para ver si el deportista a mejorado su rendimiento o no.
 
 \section{Aplicaciones similares}
 
-En esta sección describiremos algunas de las aplicaciones que existen similares a la propuesta. Las que permiten mediciones de constantes relacionadas durante el entrenamiento físico suelen ser de pago. Ejemplos de aplicaciones con precios mensuales:
+En esta sección describiremos algunas de las aplicaciones que existen similares a la propuesta. Las que permiten mediciones de constantes relacionadas durante el entrenamiento físico suelen ser de pago.
+
+Ejemplos de aplicaciones con precios mensuales:
 
 \begin{itemize}
 	\item \textbf{Fitbit Premium: €9.99}, esta app ofrece una interfaz para medir constantes usando un smartwatch con sensor cardíaco (ritmo cardíaco, calorías quemadas, pasos, ect). En lo que respecta que es el entrenamiento, solo ofrece una serie de entrenamiento prefijados, además no permite guardar resultados.
@@ -70,18 +75,6 @@ En esta sección describiremos algunas de las aplicaciones que existen similares
 \end{itemize}
 
 Es verdad que algunas tienen versión gratuita, pero no ofrecen la totalidad de sus funcionalidades, de hecho, estas versiones suelen ser extremadamente limitadas. Otras aplicaciones como Garmin Connect, sí que son gratuitas, pero te obligan a usar un smartwatch de la marca Garmin, cuyo precio no baja de los 300€. 
-%El párrafo siguiente no se pone aquí. En esta sección solo debes presentar qué hay, y el párrafo siguiente llevarlo al capítulo de tu propuesta. 
-La app presentada daría la mayoría de funcionalidades de pago de una manera gratuita y aporta su funcionalidad de medir de forma personalizada el rendimiento del deportista. También se añade una IA, una funcionalidad que no vista en muchas aplicaciones del sector y si existen, son de pago. La función de la inteligencia artificial sería la de aconsejar al usuario cuando este lo necesite, sobre su rendimiento y/o parámetros medidos durante su entrenamiento.
-Para clarificar las diferencias con el resto de apps del mercado:
-
-\begin{landscape}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=1.65\textwidth]{tablas/tabla.png}
-    \caption{Tabla comparativa}
-    \label{fig:Tabla comparativa}
-\end{figure} 
-\end{landscape}
 
 \section{Metodologías potenciales a aplicar}
 
@@ -106,7 +99,8 @@ En este punto vamos a hablar de las ventajas y desventajas entre usar BDs relaci
 \textbf{Relacionales:} Las bases de datos relacionales o SQL, como bien sabemos nos permiten guardar datos de una manera bien definida y estructurada, permitiendo asegurar la integridad de la información almacenada. Son muy buena opción, si se prefiere una escalabilidad vertical, es decir, aumentar la capacidad de procesamiento del servidor que va a albergar la BD. Algunas de los SGBDS existentes en la actualidad son:
 
 \begin{itemize}
-	\item MySQL  %yo añadiría MariaDB
+	\item MySQL
+	\item MariaDB
 	\item Oracle Database
 	\item SQL server(Microsoft)
 	\item PostgreSQL
@@ -121,7 +115,12 @@ En este punto vamos a hablar de las ventajas y desventajas entre usar BDs relaci
 	\item Graficas(p.e. Amazon Neptune): para tratar relaciones complejas
 \end{itemize}
 
-%Aquí falta una tabla comparativa de características de todas que te permita luego en tu propuesta justificar tu elección
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=\textwidth]{tablas/BDS.png}
+    \caption{Tabla comparativa tipos de bases de datos}
+    \label{fig:Tabla BDS}
+\end{figure} 
 
 \subsection{Backend}
 
@@ -135,7 +134,12 @@ En el desarrollo del backend exiten varios frameworks que nos van a permitir un 
 
 Existen más frameworks, pero he decidido investigar solo sobre aquellos que me permitan un desarrollo más ágil, el resto de herramientas como Spring Boot(Java) o Laravel(PHP), también son buenas herramientas, pero tengo más familiaridad con algunas de las herramientas anteriores.
 
-%Aquí falta una tabla comparativa de más características que te permita luego en tu propuesta justificar tu elección
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=\textwidth]{tablas/Backend.png}
+    \caption{Tabla comparativa frameworks para el backend}
+    \label{fig:Tabla backend}
+\end{figure}
 
 \subsection{Frontend}
 
@@ -147,7 +151,9 @@ Como se dijo en la introducción, uno de los objetivos es que el software sea mu
 	\item Xamarín(Lenguajes C\#): de Microsoft, esta herramienta es ideal para desarrolladores familiarizados con C\# y .NET, también es idóneo para el alto rendimiento y acceso a HW nativo.
 \end{itemize}
 
-%Aquí falta una tabla comparativa de más características que te permita luego en tu propuesta justificar tu elección
-
-\section{Trabajos relacionados} %Esta sección no es necesaria, solo si vas a revisar artículos científicos sobre la temática
-El software libre y sus licencias \cite{gplv3} ha permitido llevar a cabo una expansión del aprendizaje de la informática sin precedentes.  %¿porqué mencionas software libre?
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=\textwidth]{tablas/Frontend.png}
+    \caption{Tabla comparativa frameworks para el frontend}
+    \label{fig:Tabla frontend}
+\end{figure} 

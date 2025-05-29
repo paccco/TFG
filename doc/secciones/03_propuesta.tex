@@ -1,46 +1,78 @@
 \chapter{Propuesta}
-% la primera sección debe ser una descripción detallada 
 
-%Falta una sección donde justifiques la elección de tecnologías e incluir un diagrama de arquitectura del sistema donde se vea dónde se aplican
+\section{Descripcion detallada}
 
-\section{Metodolog\'ia utilizada}
-Para el desarrollo de esta app, usar\'e una metodolog\'ia \textit{\'agil} tipo \textbf{SCRUM}. He decidido usar esta porque me permite corregir fallos en la velocidad de dise\~no y/o planificaci\'on de forma eficiente y sin da\~nar el producto final.
-%Añade también que te permite ir haciendo desarrollos que puedes enseñarme y validar poco a poco, a lo largo de diferentes iteraciones o sprints.
+La app presentada daría la mayoría de funcionalidades de pago de una manera gratuita y aporta su funcionalidad de medir de forma personalizada el rendimiento del deportista. También se añade una IA, una funcionalidad que no vista en muchas aplicaciones del sector y si existen, son de pago. La función de la inteligencia artificial sería la de aconsejar al usuario cuando este lo necesite, sobre su rendimiento y/o parámetros medidos durante su entrenamiento.
+Para clarificar las diferencias con el resto de apps del mercado:
 
-Las reuniones con la tutora ser\'an las \textit{sprint reviews}.
+\begin{landscape}
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=1.65\textwidth]{tablas/tabla.png}
+    \caption{Tabla comparativa}
+    \label{fig:Tabla comparativa}
+\end{figure} 
+\end{landscape}
 
-\section{Temporizaci\'on}
-La temporizaci\'on se realiz\'o el d\'ia 25 de marzo de 2025. La entrega del producto (este TFG) est\'a prevista para el 16 de junio de 2025, es decir, 83 d\'ias, o lo que es lo mismo, casi 12 semanas. Si un sprint dura 2 semanas, habr\'a 6 sprints hasta la entrega final.
+\section{Elección de tecnologías}
 
-La iteraci\'on 0 se dedicar\'a al dise\~no de pantallas y al repaso de las funcionalidades de la app 
-%añade que para concretar con la tutora cuáles serán las historias de usuario y sus prioridades. 
-La idea inicial es dividir la app en varios m\'odulos y centrar cada sprint en cada uno de ellos:
+\section{Backend}
 
-\begin{itemize}  %enumera esta lista de módulos/sprints
+Se usará Express.js(Node.js), la principal razón que se tiene para optar por esta tecnología, es la gran familiaridad que se tiene con el entorno de JavaScript, se conocen las tecnologías y la forma de implementación, su gran flexibilidad para implementar muchas funcionalidades diversas también fué una buena baza para escoger esta herramienta.
+Django fué la primera descartada, porque como bien dice en la tabla de la sección anterior(\cref{fig:Tabla backend}) está más enfocado a proyectos de gran envergadura.
+Ruby on Rails fue la que más dudas planteó, como se dijo anteriormente es muy buena opción para las metodologías ágiles y como se dirá más adelante, se optará por una metodología ágil para el desarrollo. Pero al final se descartó por el desconocimiento de la herramienta.
+
+\section{Frontend}
+
+Se ha decidido usar Flutter, dado que Xamarin es buena herramienta, pero está más enfocada a un desarrollo en un ambiente Microsoft.
+React Native también es una buena herramienta, fue principalmente la que más dudas sembró, ya que como se dijo previamente se usará un backend basado en Express.js, esto entonces permitiría unificar entornos lo cual favorecería al desarrollo. pero se descartó por lo personalizable que son las IUs desarrolladas en Flutter respecto a esta tecnología.
+
+\section{Base de datos}
+
+Para las bases de datos, tanto para el backend como para la local de la app se usará una SQL, dado a la familiaridad que se dispone con esta tecnología y la necesidad de unificar el tipo de tecnología del servidor y de la app. Esto anterior se debe a que como bien se ha dicho se usará Flutter como entorno frontend y la herramienta que se facilita para el almacenamiento local en este es SQlite, basada en un modelo relacional.
+
+Los modelos NoSQL, se descartaron principalmente porque las relaciones entre elementos suelen ser más complejas y en este proyecto pueden enrevesarse facilmente.
+
+\section{Diagrama de arquitectura}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=\textwidth]{tablas/Arq.png}
+    \caption{Tabla comparativa}
+    \label{fig:Tabla comparativa}
+\end{figure} 
+
+\section{Metodología utilizada}
+Para el desarrollo de esta app, se usará una metodología \textit{ágil} tipo \textbf{SCRUM}. Se decidió usar esta porque permite corregir fallos en la velocidad de diseño y/o planificación de forma eficiente y sin dañar el producto final. Esta metodología permite también entregar desarrollos funcionales a la tutora e ir validando las funcionalidades poco a poco mediante reuniones.
+
+Las reuniones con la tutora serán las \textit{sprint reviews}.
+
+\section{Temporización}
+La temporización se realizó el día 25 de marzo de 2025. La entrega del producto (este TFG) está prevista para el 16 de junio de 2025, es decir, 83 días, o lo que es lo mismo, casi 12 semanas. Si un sprint dura 2 semanas, habrá 6 sprints hasta la entrega final.
+
+La iteración 0 se dedicará al diseño de pantallas y al repaso de las funcionalidades de la app, para concretar las historias de usuario y sus prioridades. La idea inicial es dividir la app en varios módulos y centrar cada sprint en cada uno de ellos:
+
+\begin{enumerate}
   \item Diagramas de la app y ejercicios
-  \item Rutinas, usuarios y sesi\'on
+  \item Rutinas, usuarios y sesión
   \item Datos que ingresa el usuario
   \item Flujo de entrenamiento
   \item Inteligencia Artificial (IA)
   \item Smartwatch
-\end{itemize}
+\end{enumerate}
 
 \section{Seguimiento del desarrollo}
 
 \subsection{Iteraci\'on 0}
-En esta primera iteraci\'on me cent\'re en realizar los dise\~nos de la app, priorizando su accesibilidad. 
-%no es cierto, no has priorizado la accesibilidad, la has considerado solo, y no todo es accesible (p.e. recuerda que te faltan iconos en muchos sitios)
-
-Tambi\'en concret\'e el \textit{product backlog}, compuesto por 41 historias de usuario. 
-%Tienes que decir que hay un único actor en tu aplicación, que es el usuario que realiza los ejercicios, y que por tanto todas las historias lo tienen a él como protagonista.
+En esta primera iteración me centré en realizar los diseños de la app, considerando su accesibilidad. También concreté el \textit{product backlog}, compuesto por 41 historias de usuario. En las historias no menciono ningún actor puesto que solo existe el usuario que realiza los ejercicios y el es protagonista en todas ellas, no hay ningún moderador.
 
 A pesar de trabajar con SCRUM se realizarán todos los diseños de interfaces de usuario en este primer sprint para concretar con la tutora los requisitos principales de la aplicación a desarrollar en este TFG. En nuestro caso los diseños de las interfaces se usarán como herramientas de captura y especificación de requisitos. En cada iteración se podrán revisar si hay cambios. 
-%Te he añadido esas dos últimas frases
+
 
 La lista inicial de historias de usuario es la siguiente, y algunas incluyen tareas secundarias:
 
 \begin{description}
-  \item[\textbf{SCRUM-1}] Registrar peso por d\'ia
+  \item[\textbf{SCRUM-1}] Registrar peso por día
   \item[\textbf{SCRUM-2}] Establecer peso objetivo
   \item[\textbf{SCRUM-3}] Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
   \item[\textbf{SCRUM-4}] Buscar rutina en la lista del usuario
@@ -49,20 +81,20 @@ La lista inicial de historias de usuario es la siguiente, y algunas incluyen tar
   \item[\textbf{SCRUM-7}] Poner una meta en cada ejercicio
   \item[\textbf{SCRUM-8}] Hacer grafica de los datos de los ejercicios
   \item[\textbf{SCRUM-9}] Revisar datos para ver si el descanso es necesario
-  \item[\textbf{SCRUM-10}] Ense\~nar datos de una rutina a descargar
+  \item[\textbf{SCRUM-10}] Enseñar datos de una rutina a descargar
   \item[\textbf{SCRUM-11}] Compartir mi rutina
   \item[\textbf{SCRUM-12}] Guardar las repeticiones y series de todos los ejercicios de un entrenamiento
   \item[\textbf{SCRUM-13}] Valorar el entrenamiento en base a la marca actual y la meta del usuario
   \item[\textbf{SCRUM-14}] Monitorizar pulso en tiempo real
   \item[\textbf{SCRUM-15}] Medir pulso en reposo y compararlo con datos de ejercicios
-  \item[\textbf{SCRUM-16}] Avisar de anomal\'ias en el pulso de forma suave
-  \item[\textbf{SCRUM-17}] Obtener calor\'ias quemadas
+  \item[\textbf{SCRUM-16}] Avisar de anomalías en el pulso de forma suave
+  \item[\textbf{SCRUM-17}] Obtener calorías quemadas
   \item[\textbf{SCRUM-18}] Comprobar el equilibrio nervioso del usuario
   \item[\textbf{SCRUM-19}] Realizar el flujo del entrenamiento
-  \item[\textbf{SCRUM-20}] Conectar con la IA para iniciar di\'alogo
+  \item[\textbf{SCRUM-20}] Conectar con la IA para iniciar diálogo
   \item[\textbf{SCRUM-21}] Crear/Borrar usuario
   \item[\textbf{SCRUM-22}] Resumir datos
-  \item[\textbf{SCRUM-23}] Iniciar/Cerrar sesi\'on
+  \item[\textbf{SCRUM-23}] Iniciar/Cerrar sesión
   \item[\textbf{SCRUM-24}] Medir SpO2
   \item[\textbf{SCRUM-25}] Interpretar constantes
   \item[\textbf{SCRUM-26}] Buscar ejercicios en la lista de ejercicios
@@ -384,9 +416,9 @@ Si le das a datos de un entrenamiento terminado
 Estos diseños pueden cambiar y sufrir alteraciones debido a los sprints reviews y correcciones de accesibilidad. De todas formas, cada cambio será informado con su motivo.
 
 \subsubsection{Sprint Review 0}
-Durante esta revisi\'on de sprint se realizaron mejoras de dise\~no, como la incorporaci\'on de iconos en todos los botones para mejorar la accesibilidad. Se revisaron también los t\'itulos de las ventanas, cambiando aquellos que no eran lo suficientemente claros.
+Durante esta revisi\'on de sprint se realizaron mejoras de diseño, como la incorporación de iconos en todos los botones para mejorar la accesibilidad. Se revisaron también los títulos de las ventanas, cambiando aquellos que no eran lo suficientemente claros.
 
-Adem\'as, se a\~nadieron nuevas historias al \textit{product backlog}, incorporando o desglosando funcionalidades:
+Además, se añadieron nuevas historias al \textit{product backlog}, incorporando o desglosando funcionalidades:
 
 \begin{itemize}
   \item SCRUM-42: Copiar rutina
@@ -412,7 +444,6 @@ La lista de historias de la primera iteracion queda de la siguiente manera:
 \end{itemize}
 
 A continuación especificaremos las tareas y pruebas de cada historia, y los resultados asociados a cada una. 
-%añadida la frase previa para facilitar y guiar en la lectura.
 
 \HU{
 SCRUM-26: Buscar ejercicio en lista
@@ -448,21 +479,14 @@ SCRUM-43: Añadir meta por parámetro
 }
 \HU{
 	SCRUM-29: Pop up de confirmación  
- %Tendrás que decir en la revisíon que los popups no son accesibles y que tendrás que cambiarlo
 }{
 	\item Implementar la confirmación para que pueda ser usado en pantallas distintas
-	\item Impelementar boceto de IU \cref{fig:Pop up de confirmacion} 
- %Revisa erratas, aquí pone Impelmentar en lugar de Implementar
+	\item Implementar boceto de IU \cref{fig:Pop up de confirmacion} 
 }{
 	\item si se ha seleccionado una opcion, se devuelve la opcion seleccionada
 }
 
 Dentro del SCRUM-3 tenemos subfuncionalidades, funciones pequeñas que componen la grande:
-
-Durante esta iteraci\'on me familiaric\'e con Flutter y sus herramientas, como la base de datos local \textit{SQLite}.
-
-\subsubsection{SQLite}  %No procede aqui sino en la sección de elección de tecnologías.
-Es una base de datos ligera, autocontenida y de c\'odigo abierto. Usa el mismo lenguaje de consultas que SQL, lo que la hace ideal para la app. Adem\'as, permite transportar toda la BD en un \textit{.db}, lo cual puede facilitar funcionalidades como copias de seguridad descargables desde la nube.
 
 %Es IMPORTANTE que, al menos en esta primera iteracion, muestres los resultados de la realizacion de las tareas que has indicado para cada historia: capturas de pantalla de bocetos, contar algo de cómo has implementado el backend (por ejemplo bibliotecas o librerías usadas, ficheros creados, etc.). También debes añadir un párrafo para explicar que has hecho las pruebas y sus resultados: si han salido bien y en caso de que no, cómo lo has solucionado. Además, si has tenido difucultades con algo, explica cómo las has solventado. Solo completando esto puedes demostrar que sabes del tema, resaltar tu capacidad de trabajo y permitir que se pueda valorar el esfuerzo realizado.
 
@@ -476,10 +500,12 @@ Al finalizar esta iteración, el estado de la BD queda tal y como se muestra en 
 \end{figure}
 
 \subsubsection{Sprint Review 1}
-Las primeras iteraciones tienden a ser m\'as lentas debido a la fase inicial del desarrollo. No se complet\'o la totalidad del sprint; qued\'o pendiente la subtarea de modificar ejercicio en la base de datos %¿de qué historia?. 
-Aun as\'i, las expectativas son positivas, ya que se espera un aumento en la velocidad de desarrollo. No obstante, en lo que se lleva  desarrollado han aparecido pocas problemáticas. %quitar esta última frase o explicar las que hayan aparecido y sus soluciones.
+Las primeras iteraciones tienden a ser más lentas debido a la fase inicial del desarrollo. No se completó la totalidad del sprint; quedó pendiente la subtarea de modificar ejercicio en la base de datos(SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios). Aun así, las expectativas son positivas, ya que se espera un aumento en la velocidad de desarrollo.
 
-%Estas figuras necesitan un párrafo que las referencie.
+La pantalla en la que se enseñan los datos de un ejercicio se modificó para facilitar su lectura y entendimiento, dado que su anterior diseño era confuso.
+
+Otra parte a modificar es la del pop up de confirmación, ya que debido a la poca accesibilidad de los pop ups se sustituirá por una pantalla independiente.
+
 \begin{figure}[h!]
   \centering
   \begin{minipage}[b]{0.45\textwidth}
@@ -495,12 +521,12 @@ Aun as\'i, las expectativas son positivas, ya que se espera un aumento en la vel
     \caption{Pantalla antigua}
     \label{fig:pantalla_vieja}
   \end{minipage}
-  \caption{Comparaci\'on entre la pantalla nueva y la anterior}
+  \caption{Comparación entre la pantalla nueva y la anterior}
   \label{fig:comparacion_pantallas}
 \end{figure}
 
-\subsection{Iteraci\'on 2}
-Esta iteraci\'on se centr\'o en el desarrollo del sistema de sesiones, la API de la aplicaci\'on, el backend b\'asico del servidor y la secci\'on de rutinas. Las historias que incluye son las siguientes:
+\subsection{Iteración 2}
+Esta iteración se centró en el desarrollo del sistema de sesiones, la API de la aplicación, el backend básico del servidor y la sección de rutinas. Las historias que incluye son las siguientes:
 
 \begin{itemize}
   \item SCRUM-21 Crear/Borrar mi usuario
@@ -515,7 +541,7 @@ Esta iteraci\'on se centr\'o en el desarrollo del sistema de sesiones, la API de
   \item SCRUM-36 Crear IU para crear rutina ELIMINAR
 \end{itemize}
 
-%Tienes que decir que además terminarás la tarea no finalizada en la iteración previa.
+También se terminará la historia no finalizada de la iteración anterior(SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios).
 
 \HU{
 SCRUM-33 Implementar menú principal
@@ -572,25 +598,26 @@ SCRUM-6 Insertar/Borrar/Modificar rutina
 	\item si se hace una modificación, que se hagan visibles los cambios al momento
 	\item si hay algún fallo en alguna de estas operaciones, informar al usuario con el motivo
 }
+
 \subsubsection{Sistema de sesiones}  
 %este título de sección despista porque corresponde con la segunda historia de esta iteración y no se dice nada de las otras. Faltaría, igual que en la iteración anterior, poner resultados de todas las tareas de cada historia, y si acaso decir que se incluye una subsección que detalla más cómo se abordó el sistema de sesiones, por su complejidad.
 
-Se implement\'o un sistema de autenticaci\'on basado en tokens. Cuando el usuario verifica su identidad, recibe un token que se guarda en el dispositivo y se usa para validar el acceso posterior. Esto evita que usuarios no autorizados suban contenido haci\'endose pasar por otros.
+Dado a la complejidad del sistema de sesiones se le dedica este apartado de forma excepcional. Se implementó un sistema de autenticación basado en tokens. Cuando el usuario verifica su identidad, recibe un token que se guarda en el dispositivo y se usa para validar el acceso posterior. Esto evita que usuarios no autorizados suban contenido haciéndose pasar por otros.
 
-El backend est\'a desarrollado en \textit{Node.js} y utiliza una base de datos SQL para gestionar las contrase\~nas de los usuarios. Este mismo backend se usar\'a para las funcionalidades de las siguientes iteraciones.
+El backend está desarrollado en \textit{Node.js} y utiliza una base de datos SQL para gestionar las contraseñas de los usuarios. Este mismo backend se usará para las funcionalidades de las siguientes iteraciones.
 
 \subsubsection{API de la app}
-La comunicaci\'on entre la app y el servidor se realiza mediante peticiones HTTP. En el futuro, estas podr\'an migrarse a HTTPS para proteger operaciones sensibles. Por ahora se mantiene HTTP para facilitar el depurado.
+La comunicación entre la app y el servidor se realiza mediante peticiones HTTP. En el futuro, estas podrán migrarse a HTTPS para proteger operaciones sensibles. Por ahora se mantiene HTTP para facilitar el depurado.
 
 \subsubsection{Cambios importantes}
-Se redise\~n\'o la implementaci\'on de las pantallas con listas. En lugar de una \'unica clase con condiciones para la visibilidad de elementos, se opt\'o por crear clases espec\'ificas para cada tipo de lista.
+Se rediseñó la implementación de las pantallas con listas. En lugar de una única clase con condiciones para la visibilidad de elementos, se optó por crear clases específicas para cada tipo de lista.
 
-\textbf{Ventaja:} El c\'odigo es m\'as limpio, escalable y modular. Si hay que modificar un tipo de lista, los dem\'as no se ven afectados.
+\textbf{Ventaja:} El código es más limpio, escalable y modular. Si hay que modificar un tipo de lista, los demás no se ven afectados.
 
 \subsubsection{Sprint Review 2}
-Se sugirieron mejoras menores como el ajuste de tama\~nos e iconos en los botones de la secci\'on de creaci\'on de rutinas.
+Se sugirieron mejoras menores como el ajuste de tamaños e iconos en los botones de la sección de creación de rutinas.
 
-Tambi\'en se modific\'o la funcionalidad de compartir rutinas. Ahora todas son modificables, eliminando la distinci\'on entre rutinas descargadas (antes no modificables) y creadas (modificables). Esto mejora la experiencia del usuario: si desea volver a una rutina original, simplemente la puede volver a buscar y descargar.
+También se modificó la funcionalidad de compartir rutinas. Ahora todas son modificables, eliminando la distinción entre rutinas descargadas (antes no modificables) y creadas (modificables). Esto mejora la experiencia del usuario: si desea volver a una rutina original, simplemente la puede volver a buscar y descargar.
 
 Se cumplieron todas las funcionalidades en este sprint.
 
@@ -603,9 +630,11 @@ Se cumplieron todas las funcionalidades en este sprint.
     \label{fig:BD local iteracion 2}
 \end{figure}
 
-%Comenta qué cambios hay respecto a la iteración anterior
+Se añadieron las tablas de ejercicios y marcas, una o varias marcas siempre están relacionadas con un ejercicio, de esta forma, se saben todas las marcas de un ejercicio y si se elimina un ejercicio sus marcas también desaparecen.
 
-\subsubsection{Estado de la BD backend} %No entiendo lo del backend aparte de la BD local, explica.
+\subsubsection{Estado de la BD backend} 
+
+Antes de seguir, la BD del backend es donde se guardan los usuarios registrados y sus rutinas compartidas. Para diferenciarlo de la BD local, que es el almacenamiento interno del dispositivo.
 
 \begin{figure}[H]
    \centering
@@ -615,7 +644,7 @@ Se cumplieron todas las funcionalidades en este sprint.
 \end{figure}
 
 \subsection{Iteraci\'on 3}
-Esta iteraci\'on se centr\'o en desarrollar la funcionalidad para compartir rutinas entre usuarios, incluyendo la subida, visualizaci\'on y descarga de rutinas. Adem\'as, se comenz\'o a implementar la funcionalidad de resumen de datos para optimizar el uso de la memoria local. Incluye las siguientes historias:
+Esta iteración se centró en desarrollar la funcionalidad para compartir rutinas entre usuarios, incluyendo la subida, visualización y descarga de rutinas. Además, se comenzó a implementar la funcionalidad de resumen de datos para optimizar el uso de la memoria local. Incluye las siguientes historias:
 
 \begin{itemize}
   \item SCRUM-2 Establecer peso objetivo
@@ -679,19 +708,19 @@ SCRUM-42 Copiar rutina
 	\item si no hay algún problema por coincidencia de nombres, copiar
 }
 
-%El siguiente párrafo debería ir dentro de la subsección siguiente.
-Durante la realización de estas tareas de usuario, se dió notoriedad a que las historias restantes de este sprint (SCRUM-9 Revisar datos para ver si el descanso es necesario y SCRUM-22 Resumir datos) no pueden ser implementadas en este punto del desarrollo. 
-Si no se hacen sobra tiempo, ¿por qué no se ha decidio adelantar otras?
-Se pospondrán para su futura implementación.
-
 \subsubsection{Funcionalidad descartada}
 
-Se ha decidido, descartar una funcionalidad, en concreto el SCRUM-9 (Revisar datos para ver si el descanso es necesario), porque necesitaría los datos de un smartwatch y ha sido una funcionalidad previamente descartada. %Más que descartada pondría a la que se ha decidido dar menos prioridad y que por tanto no se abordará en este TFG por limitaciones de tiempo.
+Durante la realización de estas tareas de usuario, se dió notoriedad a que las historias restantes de este sprint (SCRUM-9 Revisar datos para ver si el descanso es necesario y SCRUM-22 Resumir datos) no pueden ser implementadas en este punto del desarrollo. Se pospondrán para su futura implementación.
+%Si no se hacen sobra tiempo, ¿por qué no se ha decidio adelantar otras?
 
-También se ha descartado SCRUM-42 (Copiar rutina), dado que aporta poco valor a la app.
+Se ha decidido dar menos prioridad y que por tanto no se abordará en este TFG por limitaciones de tiempo en concreto el SCRUM-9 (Revisar datos para ver si el descanso es necesario), porque necesitaría los datos de un smartwatch y ha sido una funcionalidad previamente descartada.
+
+También se ha reducido la prioridad de SCRUM-42 (Copiar rutina), dado que aporta poco valor a la app.
+
+Se decidió adelantar otras, pero debido a los problemas encontrados durante esta iteración no se pudieron realizar.
 
 \subsubsection{Peso objetivo} %Más que una subsección, añade el párrafo siguiente cuando estés describiendo los resultados de la historia a la que corresponde.
-El peso objetivo es una meta que define el usuario y se almacena en memoria. Esta meta se representar\'a en la gr\'afica de evoluci\'on del peso del usuario, y se generar\'a una alerta cuando dicha meta sea alcanzada. La visualizaci\'on a\'un no ha sido implementada completamente. %Explica porqué no y que la harás en la siguiente iteración. 
+El peso objetivo es una meta que define el usuario y se almacena en memoria. Esta meta se representará en la gráfica de evolución del peso del usuario, y se generará una alerta cuando dicha meta sea alcanzada. La visualización aún no ha sido implementada completamente. %Explica porqué no y que la harás en la siguiente iteración. 
 
 \subsubsection{Cambios durante el desarrollo} 
 %Esta subsección y las dos siguientes las combinaría con el sprint review, ya que dices cosas repetidas y es mejor agrupar todos los cambios, problemas y valor añadido al final de la iteración, asociados a la revisión de lo realizado.
@@ -699,36 +728,36 @@ El peso objetivo es una meta que define el usuario y se almacena en memoria. Est
 Durante esta iteraci\'on surgieron cambios en la forma de visualizar y gestionar las rutinas compartidas y almacenadas:
 
 \begin{itemize}
-  \item Ahora, al descargar una rutina, se a\~nade el nombre del creador al nombre de la rutina, facilitando la distinci\'on entre rutinas propias y descargadas.
-  \item Cuando hay conflicto de nombres al crear una rutina, se genera un nombre alternativo del tipo \texttt{Nombre(n)}, siendo \texttt{n} un n\'umero incremental.
-  \item Se ha implementado un selector entre ``Mis rutinas'' y ``Compartidas'' para facilitar la visualizaci\'on de las rutinas subidas a la nube por el usuario.
-  \item Se reemplaz\'o el filtro integrado en la ventana de b\'usqueda por un selector emergente que permite buscar rutinas por nombre o por nombre de usuario.
-  \item La interfaz de descarga y visualizaci\'on de rutinas ahora es un cuadro emergente (pop-up) en lugar de un desplegable.
+  \item Ahora, al descargar una rutina, se a\~nade el nombre del creador al nombre de la rutina, facilitando la distinción entre rutinas propias y descargadas.
+  \item Cuando hay conflicto de nombres al crear una rutina, se genera un nombre alternativo del tipo \texttt{Nombre(n)}, siendo \texttt{n} un número incremental.
+  \item Se ha implementado un selector entre ``Mis rutinas'' y ``Compartidas'' para facilitar la visualización de las rutinas subidas a la nube por el usuario.
+  \item Se reemplazó el filtro integrado en la ventana de búsqueda por un selector emergente que permite buscar rutinas por nombre o por nombre de usuario.
+  \item La interfaz de descarga y visualización de rutinas ahora es un cuadro emergente (pop-up) en lugar de un desplegable.
 \end{itemize}
 
 \subsubsection{Imprevistos y problemas en el desarrollo}
-Se identificaron dos errores principales de planificaci\'on:
+Se identificaron dos errores principales de planificación:
 
 \begin{description}
-  \item[Error 1:] Se planific\'o implementar la funcionalidad de resumir datos sin haber completado la obtenci\'on de datos. \\ \textbf{Soluci\'on:} Replanificar los sprints.
-  \item[Error 2:] Se subestim\'o la complejidad del sistema de rutinas compartidas, especialmente en la resoluci\'on de conflictos de nombres. \\ \textbf{Soluci\'on:} Aplicar nombres combinados (nombre + creador + copia) en memoria local e identificadores \textit{autoincrementales} en la nube.
+  \item[Error 1:] Se planificó implementar la funcionalidad de resumir datos sin haber completado la obtención de datos. \\ \textbf{Solución:} Replanificar los sprints.
+  \item[Error 2:] Se subestimó la complejidad del sistema de rutinas compartidas, especialmente en la resolución de conflictos de nombres. \\ \textbf{Solución:} Aplicar nombres combinados (nombre + creador + copia) en memoria local e identificadores \textit{autoincrementales} en la nube.
 \end{description}
 
 \subsubsection{Valor a\~nadido a la app}
-Los imprevistos y problemas surgidos durante el desarrollo han permitido detectar \textit{bugs}, errores de dise\~no y carencias funcionales que de otro modo podr\'ian haber pasado desapercibidos. Gracias a ello, se han podido proponer nuevas funcionalidades y mejorar las ya existentes, lo cual contribuye significativamente a aumentar la calidad global de la aplicaci\'on.
+Los imprevistos y problemas surgidos durante el desarrollo han permitido detectar \textit{bugs}, errores de dise\~no y carencias funcionales que de otro modo podrían haber pasado desapercibidos. Gracias a ello, se han podido proponer nuevas funcionalidades y mejorar las ya existentes, lo cual contribuye significativamente a aumentar la calidad global de la aplicación.
 
 Algunas de las funcionalidades propuestas como mejora son:
 
 \begin{itemize}
   \item Verificar el token del usuario antes de permitir la subida de rutinas, para evitar suplantación.
-  \item Al seleccionar la opci\'on de borrar usuario del dispositivo, eliminar tambi\'en la base de datos local asociada.
+  \item Al seleccionar la opción de borrar usuario del dispositivo, eliminar también la base de datos local asociada.
   \item Crear una base de datos local independiente para cada nuevo usuario creado en un dispositivo.
   \item Posibilidad de editar el nombre de una rutina.
   \item Marcar los ejercicios eliminados con una \textit{flag}, para evitar que se inicien rutinas que los contengan.
   \item Marcar a los usuarios permanentemente eliminados con una \textit{flag}, para proceder a eliminarlos en los dispositvos.
 \end{itemize}
 
-Estas funcionalidades est\'an pensadas para aportar mayor \textbf{seguridad}, \textbf{integridad} y \textbf{calidad} al producto final.
+Estas funcionalidades están pensadas para aportar mayor \textbf{seguridad}, \textbf{integridad} y \textbf{calidad} al producto final.
 
 \subsubsection{Base de datos del backend}
 La base de datos utilizada en el backend está basada en \textit{MySQL}. En ella se almacenan los usuarios junto con sus contraseñas, así como los ejercicios y las rutinas. Las rutinas están vinculadas al usuario que las creó, y los ejercicios se asocian a las rutinas a las que pertenecen. Si un usuario decide eliminar su cuenta de forma permanente, las rutinas y ejercicios relacionados se eliminarán en cascada.
