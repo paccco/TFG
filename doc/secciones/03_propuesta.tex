@@ -63,7 +63,7 @@ La iteración 0 se dedicará al diseño de pantallas y al repaso de las funciona
 
 \section{Seguimiento del desarrollo}
 
-\subsection{Iteraci\'on 0}
+\subsection{Iteración 0}
 En esta primera iteración me centré en realizar los diseños de la app, considerando su accesibilidad. También concreté el \textit{product backlog}, compuesto por 41 historias de usuario. En las historias no menciono ningún actor puesto que solo existe el usuario que realiza los ejercicios y el es protagonista en todas ellas, no hay ningún moderador.
 
 A pesar de trabajar con SCRUM se realizarán todos los diseños de interfaces de usuario en este primer sprint para concretar con la tutora los requisitos principales de la aplicación a desarrollar en este TFG. En nuestro caso los diseños de las interfaces se usarán como herramientas de captura y especificación de requisitos. En cada iteración se podrán revisar si hay cambios. 
@@ -416,7 +416,7 @@ Si le das a datos de un entrenamiento terminado
 Estos diseños pueden cambiar y sufrir alteraciones debido a los sprints reviews y correcciones de accesibilidad. De todas formas, cada cambio será informado con su motivo.
 
 \subsubsection{Sprint Review 0}
-Durante esta revisi\'on de sprint se realizaron mejoras de diseño, como la incorporación de iconos en todos los botones para mejorar la accesibilidad. Se revisaron también los títulos de las ventanas, cambiando aquellos que no eran lo suficientemente claros.
+Durante esta revisión de sprint se realizaron mejoras de diseño, como la incorporación de iconos en todos los botones para mejorar la accesibilidad. Se revisaron también los títulos de las ventanas, cambiando aquellos que no eran lo suficientemente claros.
 
 Además, se añadieron nuevas historias al \textit{product backlog}, incorporando o desglosando funcionalidades:
 
@@ -455,6 +455,9 @@ SCRUM-26: Buscar ejercicio en lista
 	\item si no existe ejercicio buscado, no sale nada en pantalla
    	\item si existe ejercicio buscado, sale un acceso en pantalla
 }
+
+
+
 \HU{
 SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
 }{
@@ -711,7 +714,6 @@ SCRUM-42 Copiar rutina
 \subsubsection{Funcionalidad descartada}
 
 Durante la realización de estas tareas de usuario, se dió notoriedad a que las historias restantes de este sprint (SCRUM-9 Revisar datos para ver si el descanso es necesario y SCRUM-22 Resumir datos) no pueden ser implementadas en este punto del desarrollo. Se pospondrán para su futura implementación.
-%Si no se hacen sobra tiempo, ¿por qué no se ha decidio adelantar otras?
 
 Se ha decidido dar menos prioridad y que por tanto no se abordará en este TFG por limitaciones de tiempo en concreto el SCRUM-9 (Revisar datos para ver si el descanso es necesario), porque necesitaría los datos de un smartwatch y ha sido una funcionalidad previamente descartada.
 
@@ -725,13 +727,13 @@ El peso objetivo es una meta que define el usuario y se almacena en memoria. Est
 \subsubsection{Cambios durante el desarrollo} 
 %Esta subsección y las dos siguientes las combinaría con el sprint review, ya que dices cosas repetidas y es mejor agrupar todos los cambios, problemas y valor añadido al final de la iteración, asociados a la revisión de lo realizado.
 
-Durante esta iteraci\'on surgieron cambios en la forma de visualizar y gestionar las rutinas compartidas y almacenadas:
+Durante esta iteración surgieron cambios en la forma de visualizar y gestionar las rutinas compartidas y almacenadas:
 
 \begin{itemize}
-  \item Ahora, al descargar una rutina, se a\~nade el nombre del creador al nombre de la rutina, facilitando la distinción entre rutinas propias y descargadas.
+  \item Ahora, al descargar una rutina, se añade el nombre del creador al nombre de la rutina, facilitando la distinción entre rutinas propias y descargadas.
   \item Cuando hay conflicto de nombres al crear una rutina, se genera un nombre alternativo del tipo \texttt{Nombre(n)}, siendo \texttt{n} un número incremental.
   \item Se ha implementado un selector entre ``Mis rutinas'' y ``Compartidas'' para facilitar la visualización de las rutinas subidas a la nube por el usuario.
-  \item Se reemplazó el filtro integrado en la ventana de búsqueda por un selector emergente que permite buscar rutinas por nombre o por nombre de usuario.
+  \item Se remplazó el filtro integrado en la ventana de búsqueda por un selector emergente que permite buscar rutinas por nombre o por nombre de usuario.
   \item La interfaz de descarga y visualización de rutinas ahora es un cuadro emergente (pop-up) en lugar de un desplegable.
 \end{itemize}
 
@@ -743,7 +745,7 @@ Se identificaron dos errores principales de planificación:
   \item[Error 2:] Se subestimó la complejidad del sistema de rutinas compartidas, especialmente en la resolución de conflictos de nombres. \\ \textbf{Solución:} Aplicar nombres combinados (nombre + creador + copia) en memoria local e identificadores \textit{autoincrementales} en la nube.
 \end{description}
 
-\subsubsection{Valor a\~nadido a la app}
+\subsubsection{Valor añadido a la app}
 Los imprevistos y problemas surgidos durante el desarrollo han permitido detectar \textit{bugs}, errores de dise\~no y carencias funcionales que de otro modo podrían haber pasado desapercibidos. Gracias a ello, se han podido proponer nuevas funcionalidades y mejorar las ya existentes, lo cual contribuye significativamente a aumentar la calidad global de la aplicación.
 
 Algunas de las funcionalidades propuestas como mejora son:
@@ -782,8 +784,6 @@ No ha habido cambios respecto a la iteración anterior
 En esta review se estuvo debatiendo si quitar las funcionalidades relacionadas con el smartwatch, por cuestiones de tiempo, ya que con las funcionalidades añadidas en el capitulo anterior se va ajustando el plazo.
 
 En esta iteración se tenía pensado implementar la funcionalidad de resumir los datos, no obstante, al no tener implementada la parte en la que guardo las marcas de los entrenamientos, no puedo trabajar en esa funcionalidad. Por lo tanto, se ha pospuesto para la próxima iteración. También se le dió el visto bueno a la implementación de las funcionalidades previamente expuestas durante el desarrollo.
-
-También, debido al querer hacer la app accesible se ha decidido sustituir los pop ups por pantallas normales, dado que los pop ups son un gran problema para este objetivo, debido a que un usuario puede hacerlo desaparecer este tocando fuera del area en pantalla de este. %esta última frase tiene algun error gramatical, reescribe. Añade también que los lectores de pantalla presentan problemas cuando se interacciona con ventanas emergentes y popups.
 
 \subsection{Iteraci\'on 4}
 
@@ -929,4 +929,4 @@ En esta review se ha propuesto que despues de los entrenamientos se les enseñe 
 
 \subsection{Iteraci\'on 5} %Falta actualizar esto
 
-Debido a retrasos y problemas durante el desarrollo esta será la última iteración, que se dedicará a la implementación de gráficas para representar los datos requeridos por el usuario. Dado al tiempo limitado que se posee la implementación de la IA se aplazará al máximo e incluso siendo posible su descarte.
+Debido a retrasos y problemas durante el desarrollo esta será la última iteración, que se dedicará a la implementación de gráficas para representar los datos requeridos por el usuario. Dado al tiempo limitado que se poseé la implementación de la IA se aplazará al máximo e incluso siendo posible su descarte.

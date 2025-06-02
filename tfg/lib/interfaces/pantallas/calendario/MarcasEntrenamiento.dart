@@ -71,9 +71,15 @@ class _MarcasEntrenamientoState extends State<MarcasEntrenamiento>{
 
     marca.forEach((key, value) {
       if(value!=null){
-        hijos.add(
-          Text("$key: $value",style: TextStyle(color: Colores.negro, fontSize: 20.sp))
-        );
+        if(key!=BDLocal.camposMarca[4]){
+          hijos.add(
+              Text("$key: ${value/100}",style: TextStyle(color: Colores.negro, fontSize: 20.sp))
+          );
+        }else{
+          hijos.add(
+              Text("$key: $value",style: TextStyle(color: Colores.negro, fontSize: 20.sp))
+          );
+        }
       }
     });
 
@@ -89,7 +95,7 @@ class _MarcasEntrenamientoState extends State<MarcasEntrenamiento>{
 
     _visible.clear();
 
-    List<Widget> aux=[Text("${indiceStr[indexEjercicio]}",style: TextStyle(color: Colores.negro, fontSize: 35.sp),)];
+    List<Widget> aux=[Text("${indiceStr[indexEjercicio]}",style: TextStyle(color: Colores.negro, fontSize: 30.sp),)];
 
     final marcasEjercicio=marcas[indiceStr[indexEjercicio]];
     indexSerie=indexSerie%marcasEjercicio!.length;
@@ -99,7 +105,7 @@ class _MarcasEntrenamientoState extends State<MarcasEntrenamiento>{
 
     int cont=indexSerie+1;
     seriesVisibles.forEach((marca){
-      aux.add(Text("Serie $cont", style: TextStyle(fontSize: 25.sp),));
+      aux.add(Text("Serie $cont", style: TextStyle(fontSize: 24.sp),));
       cont++;
       aux.add(_cajaSerie(marca));
     });
@@ -119,7 +125,7 @@ class _MarcasEntrenamientoState extends State<MarcasEntrenamiento>{
       ),
       body: Container(
         alignment: Alignment.center,
-        margin: EdgeInsets.all(2.h),
+        margin: EdgeInsets.all(1.h),
         child: InkWell(
           onTap: (){
             indexSerie++;
@@ -129,7 +135,7 @@ class _MarcasEntrenamientoState extends State<MarcasEntrenamiento>{
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 3.h,
+              spacing: 2.h,
               children: _visible,
             ),
           ),

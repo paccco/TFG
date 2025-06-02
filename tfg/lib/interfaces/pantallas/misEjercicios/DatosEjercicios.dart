@@ -6,7 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../ConexionBDLocal.dart';
 import '../../../constantes.dart';
 import 'NuevaMetaEjercicio.dart';
-import 'GraficaEjercicio.dart';
+import '../plantillas/Grafica.dart';
 
 class DatosEjercicios extends StatelessWidget{
 
@@ -45,7 +45,7 @@ class DatosEjercicios extends StatelessWidget{
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _hacerBoton("Hacer grafica", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>GraficaEjercicio(ejercicio: titulo)))),
+          _hacerBoton("Hacer grafica", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Grafica(ejercicio: titulo, fetchContenido: BDLocal.instance.getMediaMarca)))),
           Spacer(),
           _hacerBoton("Descripcion", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ModificarDescrEjercicio(titulo: titulo)))),
           Spacer(),
@@ -91,7 +91,7 @@ class DatosEjercicios extends StatelessWidget{
     }
     if(tipo[1]=='1'){
       out.add(
-        DataRow(cells: _construyeFila('PESO',marca[peso], meta[peso],esDouble: true))
+        DataRow(cells: _construyeFila('PESO',marca[peso], meta[peso]))
       );
     }
     if(tipo[2]=='1'){
@@ -112,7 +112,7 @@ class DatosEjercicios extends StatelessWidget{
       }
 
       out.add(
-        DataRow(cells: _construyeFila('DISTANCIA',marca[distancia], meta[distancia],unidades: aux,esDouble: true)),
+        DataRow(cells: _construyeFila('DISTANCIA',marca[distancia], meta[distancia],unidades: aux)),
       );
     }
 
@@ -130,19 +130,12 @@ class DatosEjercicios extends StatelessWidget{
     return res;
   }
 
-  List<DataCell> _construyeFila(String nombre, int marca, int meta,{bool esDouble=false, String esTiempo = '', String unidades=''}){
+  List<DataCell> _construyeFila(String nombre, int marca, int meta,{String esTiempo = '', String unidades=''}){
     List<DataCell> out=List.empty(growable: true);
 
-    if(esDouble){
-      double auxMarca=marca/100,
-              auxMeta=meta/100;
 
-      out.addAll([
-        DataCell(Text(nombre)),
-        DataCell(Text("$auxMarca")),
-        DataCell(Text("$auxMeta"))
-      ]);
-    }else if(esTiempo.isNotEmpty){
+
+    if(esTiempo.isNotEmpty){
       List<String> aux=esTiempo.split('|');
 
       out.addAll([
@@ -150,18 +143,23 @@ class DatosEjercicios extends StatelessWidget{
         DataCell(Text(aux[0])),
         DataCell(Text(aux[1]))
       ]);
-    } else if(unidades.isNotEmpty){
-      out.addAll([
-        DataCell(Text(nombre)),
-        DataCell(Text("$marca $unidades")),
-        DataCell(Text("$meta $unidades"))
-      ]);
     } else{
-      out.addAll([
-        DataCell(Text(nombre)),
-        DataCell(Text("$marca")),
-        DataCell(Text("$meta"))
-      ]);
+      final auxMarca=marca/100,
+          auxMeta=meta/100;
+      
+      if(unidades.isNotEmpty){
+        out.addAll([
+          DataCell(Text(nombre)),
+          DataCell(Text("$auxMarca $unidades")),
+          DataCell(Text("$auxMeta $unidades"))
+        ]);
+      }else{
+        out.addAll([
+          DataCell(Text(nombre)),
+          DataCell(Text("$auxMarca")),
+          DataCell(Text("$auxMeta"))
+        ]);
+      }
     }
 
     double tamIconos=7.w;

@@ -261,6 +261,7 @@ class BDLocal{
     final db = await instance.database;
     Map<String,dynamic> aux = datos;
     aux[camposMarca[2]]=aux[camposMarca[2]]==null ? null : aux[camposMarca[2]]*100;
+    aux[camposMarca[3]]=aux[camposMarca[3]]==null ? null : aux[camposMarca[3]]*100;
     aux[camposMarca[5]]=aux[camposMarca[5]]==null ? null : aux[camposMarca[5]]*100;
 
     await db.insert(marca, aux, conflictAlgorithm: ConflictAlgorithm.fail);
@@ -284,6 +285,58 @@ class BDLocal{
 
     return out;
   }
+
+  Future<Map<String,Map<String,dynamic>>> getMediaMarca(String ejercicio, {DateTime? desde, DateTime? hasta}) async {
+    final db = await instance.database;
+
+    desde??=DateTime(1);
+    hasta??=DateTime.now();
+
+    final aux = await db.rawQuery('''
+    SELECT
+      ${camposMarca[0]} AS fecha,
+      AVG(${camposMarca[2]}) AS repeticiones,
+      AVG(${camposMarca[3]}) AS peso,
+      AVG(${camposMarca[5]}) AS distancia,
+      AVG(
+        (strftime('%M', ${camposMarca[4]}) * 60) + COALESCE(strftime('%S', ${camposMarca[4]}), 0)
+      ) AS tiempo
+    FROM $marca
+    WHERE ${camposMarca[7]} = ?
+      AND ${camposMarca[0]} BETWEEN ? AND ?
+    GROUP BY ${camposMarca[0]}
+    ORDER BY ${camposMarca[0]} ASC
+  ''', [ejercicio,stringDate(desde),stringDate(hasta)]);
+
+    final Map<String,Map<String,dynamic>> out={};
+
+    aux.forEach((mediaPorFecha){
+
+      String fecha = mediaPorFecha[camposMarca[0]] as String;
+
+      final List<String> aux=fecha.split('-');
+
+      if(aux[1].length!=2){
+        aux[1]='0'+aux[1];
+      }
+      if(aux[2].length!=2){
+        aux[2]='0'+aux[2];
+      }
+
+      fecha="${aux[0]}-${aux[1]}-${aux[2]}";
+
+      out[fecha]={
+        camposMarca[2] : ((mediaPorFecha[camposMarca[2]] as double)/100).round()*1.0,
+        camposMarca[3] : ((mediaPorFecha[camposMarca[3]] as double)/100).round()*1.0,
+        camposMarca[4] : mediaPorFecha[camposMarca[4]],
+        camposMarca[5] : ((mediaPorFecha[camposMarca[5]] as double)/100).round()*1.0
+      };
+    });
+
+    return out;
+  }
+
+
 
   Future<void> modMeta(String ejercicio,Map<String,dynamic> datos) async{
     final db = await instance.database;
