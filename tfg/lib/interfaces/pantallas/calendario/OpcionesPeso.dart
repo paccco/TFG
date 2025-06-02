@@ -117,7 +117,8 @@ class OpcionesPeso extends StatelessWidget{
     return OpcionesDia(
         hijosSuperior: hijosSuperior,
         hijosInferior: hijosInferior,
-        fechaTitulo: fecha
+        fechaTitulo: fecha,
+        hideDatos: true,
     );
   }
 

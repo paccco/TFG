@@ -37,30 +37,43 @@ class _RellenaMarcaState extends State<RellenaMarca>{
     super.initState();
     _digitosDescanso=widget.descanso.split(":").map((e) => int.parse(e)).toList();
 
+    final estiloTitulos=TextStyle(fontSize: 20.sp, color: Colores.negro);
     final String tipo=widget.tipo;
 
     if(tipo[0]=='1'){
       _repeC=TextEditingController();
-      _cajasTexto.add(
-        BarraTexto(controller: _repeC!, textoHint: "REPETICIONES",tipoInput: TextInputType.number)
+      _cajasTexto.addAll(
+        [
+          Text("Repeticiones",style: estiloTitulos,),
+          BarraTexto(controller: _repeC!, textoHint: "REPETICIONES",tipoInput: TextInputType.number)
+        ]
       );
     }
     if(tipo[1]=='1'){
       _pesoC=TextEditingController();
-      _cajasTexto.add(
+      _cajasTexto.addAll(
+        [
+          Text("Peso",style: estiloTitulos,),
           BarraTexto(controller: _pesoC!, textoHint: "PESO",tipoInput: TextInputType.numberWithOptions(decimal: true))
-      );
+        ]
+    );
     }
     if(tipo[2]=='1'){
       _tiempoC=TextEditingController();
-      _cajasTexto.add(
-          BarraTexto(controller: _tiempoC!, textoHint: "TIEMPO")
+      _cajasTexto.addAll(
+          [
+            Text("Tiempo", style: estiloTitulos),
+            BarraTexto(controller: _tiempoC!, textoHint: "TIEMPO")
+          ]
       );
     }
     if(tipo[3]=='1'){
       _distC=TextEditingController();
-      _cajasTexto.add(
-          BarraTexto(controller: _distC!, textoHint: "DISTANCIA", tipoInput: TextInputType.number)
+      _cajasTexto.addAll(
+          [
+            Text("Distancia", style: estiloTitulos,),
+            BarraTexto(controller: _distC!, textoHint: "DISTANCIA", tipoInput: TextInputType.number)
+          ]
       );
     }
 

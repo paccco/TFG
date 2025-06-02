@@ -25,6 +25,9 @@ class _ModificarMacrosState extends State<ModificarMacros>{
   
   @override
   Widget build(BuildContext context) {
+
+    final estiloTitulo=TextStyle(fontSize: 25.sp, color: Colores.negro);
+
     return Scaffold(
       backgroundColor: Colores.grisClaro,
       appBar: PreferredSize(
@@ -37,8 +40,11 @@ class _ModificarMacrosState extends State<ModificarMacros>{
         child: Column(
           spacing: 2.h,
           children: [
+            Text("Grasa", style: estiloTitulo,),
             BarraTexto(controller: grasaC, textoHint: "Grasa",tipoInput: TextInputType.number,),
+            Text("Hueso",style: estiloTitulo),
             BarraTexto(controller: huesoC, textoHint: "Hueso",tipoInput: TextInputType.number,),
+            Text("Músculo", style: estiloTitulo,),
             BarraTexto(controller: musculoC, textoHint: "Musculo",tipoInput: TextInputType.number,),
             InkWell(
               onTap: () async {

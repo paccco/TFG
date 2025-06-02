@@ -9,8 +9,9 @@ class OpcionesDia extends StatefulWidget{
 
   final Widget hijosSuperior, hijosInferior;
   final DateTime fechaTitulo;
+  final bool hideDatos;
 
-  const OpcionesDia({super.key, required this.hijosSuperior, required this.hijosInferior, required this.fechaTitulo});
+  const OpcionesDia({super.key, required this.hijosSuperior, required this.hijosInferior, required this.fechaTitulo, this.hideDatos=false});
 
   @override
   _OpcionesDiaState createState() => _OpcionesDiaState();
@@ -42,6 +43,24 @@ class _OpcionesDiaState extends State<OpcionesDia>{
   
   @override
   Widget build(BuildContext context) {
+
+    final aux = widget.hideDatos ? SizedBox(
+      height: 10.h,
+    ) :
+    Container(
+      color: Colores.azul,
+      height: 10.h,
+      alignment: Alignment.center,
+      child: TextButton(
+          onPressed: (){
+            final hoy=DateTime.now();
+            final bool esHoy = isSameDay(widget.fechaTitulo, hoy);
+
+            Navigator.push(context, MaterialPageRoute(builder: (builder)=>OpcionesPeso(fecha: widget.fechaTitulo, esHoy: esHoy)));
+          },
+          child: Text("Datos",style: TextStyle(fontSize: 25.sp, color: Colores.blanco))),
+    );
+
     return Scaffold(
       backgroundColor: Colores.grisClaro,
       appBar: PreferredSize(
@@ -62,19 +81,7 @@ class _OpcionesDiaState extends State<OpcionesDia>{
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        color: Colores.azul,
-        height: 10.h,
-        alignment: Alignment.center,
-        child: TextButton(
-            onPressed: (){
-              final hoy=DateTime.now();
-              final bool esHoy = isSameDay(widget.fechaTitulo, hoy);
-
-              Navigator.push(context, MaterialPageRoute(builder: (builder)=>OpcionesPeso(fecha: widget.fechaTitulo, esHoy: esHoy)));
-            },
-            child: Text("Datos",style: TextStyle(fontSize: 25.sp, color: Colores.blanco))),
-      )
+      bottomNavigationBar: aux
     );
   }
 }

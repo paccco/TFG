@@ -98,22 +98,11 @@ La lista inicial de historias de usuario es la siguiente, y algunas incluyen tar
   \item[\textbf{SCRUM-24}] Medir SpO2
   \item[\textbf{SCRUM-25}] Interpretar constantes
   \item[\textbf{SCRUM-26}] Buscar ejercicios en la lista de ejercicios
-  \item[\textbf{SCRUM-27}] Hacer la IU de la lista de los ejercicios
-  \item[\textbf{SCRUM-28}] Hacer la IU de creación de ejercicio
-  \item[\textbf{SCRUM-29}] Pop up de confirmación
-  \item[\textbf{SCRUM-30}] Hacer IU de datos ejercicio
-  \item[\textbf{SCRUM-31}] Crear IU de la lista de las rutinas
-  \item[\textbf{SCRUM-32}] Crear IU de pantalla inicial
-  \item[\textbf{SCRUM-33}] Crear IU menú principal
-  \item[\textbf{SCRUM-34}] Crear IU datos rutinas
-  \item[\textbf{SCRUM-35}] IU lista ejercicios de rutina modificable
-  \item[\textbf{SCRUM-36}] Crear IU para crear rutina
-  \item[\textbf{SCRUM-36}] Detectar metas cumplidas despues del entrenamiento
-  \item[\textbf{SCRUM-37}] Crear IU del perfil del usuario
-  \item[\textbf{SCRUM-38}] Detectar metas cumplidas en los ejercicios despues del entrenamiento
-  \item[\textbf{SCRUM-39}] Buscar rutinas para descargar
-  \item[\textbf{SCRUM-40}] IU del pop up de resumir datos
-  \item[\textbf{SCRUM-41}] IU desplegable rutina
+  \item[\textbf{SCRUM-27}] Pop up de confirmación
+  \item[\textbf{SCRUM-28}] Implementar menú principal
+  \item[\textbf{SCRUM-29}] Detectar metas cumplidas en los ejercicios despues del entrenamiento
+  \item[\textbf{SCRUM-30}] Buscar rutinas para descargar
+  \item[\textbf{SCRUM-31}] Implementar calendario
   
 \end{description}
 
@@ -421,11 +410,11 @@ Durante esta revisión de sprint se realizaron mejoras de diseño, como la incor
 Además, se añadieron nuevas historias al \textit{product backlog}, incorporando o desglosando funcionalidades:
 
 \begin{itemize}
-  \item SCRUM-42: Copiar rutina
-  \item SCRUM-43: Añadir meta por parámetro
-  \item SCRUM-44: Solicitar permiso al usuario antes de enviar datos a la IA
-  \item SCRUM-45: Enviar datos del entrenamiento actual y anteriores a la IA
-  \item SCRUM-46: Conectar/Desconectar con la IA
+  \item SCRUM-31: Copiar rutina
+  \item SCRUM-32: Añadir meta por parámetro
+  \item SCRUM-33: Solicitar permiso al usuario antes de enviar datos a la IA
+  \item SCRUM-34: Enviar datos del entrenamiento actual y anteriores a la IA
+  \item SCRUM-35: Conectar/Desconectar con la IA
 \end{itemize}
 
 %Muy importante: aquí falta una tabla con todas las historias, priorizadas y organizadas por iteraciones.
@@ -437,10 +426,7 @@ La lista de historias de la primera iteracion queda de la siguiente manera:
 \begin{itemize}
     \item SCRUM-26: Buscar ejercicio en lista
     \item SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
-    \item SCRUM-27: Hacer la IU de la lista de ejercicios ELIMINAR
-    \item SCRUM-28: Hacer la IU de creación de ejercicio ELIMINAR
-    \item SCRUM-29: Pop up de confirmación
-    \item SCRUM-30: Hacer IU de datos ejercicio ELIMINAR
+    \item SCRUM-27: Pop up de confirmación
 \end{itemize}
 
 A continuación especificaremos las tareas y pruebas de cada historia, y los resultados asociados a cada una. 
@@ -458,7 +444,7 @@ SCRUM-26: Buscar ejercicio en lista
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=\textwidth]{pantallas/listaEjercicios.png}
+    \includegraphics[width=0.8\textwidth]{pantallas/listaEjercicios.png}
     \caption{Lista ejercicios}
     \label{fig:ListaEjer}
 \end{figure}
@@ -467,7 +453,7 @@ Una de las dificultades de esta funcionalidad fue que esta pantalla debería fun
 
 Otro problema encontrado durante las pruebas fue la actualización de la lista, se tuvieron muchos problemas dado que en flutter si se tiene una instancia de un widget llamemoslo A, que forma parte de otro llamado B, si yo llamo a una actualización de la IU desde B porque ha cambiado el contenido se genera una excepción. Como solución, se optó por solo usar la función setState (Usada para actualizar el contenido) dentro del código de la plantilla y cada vez que fuera necesario hacer una actualización desde B recargar otra vez la pantalla entera.
 
-Las pruebas realizadas fueron de caja negra, ir añadiendo elementos para que se hagan visibles en la IU e ir comprobando navegabilidad del menu, el algorítmo de búsqueda y que se actualizaba correctamente al añadir algún objeto.
+Las pruebas realizadas fueron de caja negra, ir añadiendo elementos para que se hagan visibles en la IU e ir comprobando navegabilidad del menu, el algorítmo de búsqueda y que se actualizaba correctamente al añadir algún objeto. Pasó todas las pruebas.
 
 \HU{
 SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
@@ -498,10 +484,10 @@ SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
     \label{fig:ModDescpEjer}
 \end{figure}
 
-Las pruebas realizadas para la SCRUM-3, fueron de caja negra, ir haciendo inserciones y borrados en la BD local para despues hacer consultas y comprobar si los resultados eran correctos. También se comprobó su correcto funcionamiento con el SCRUM-3, corroborando la correcta actualización de los contenidos.
+Las pruebas realizadas para la SCRUM-3, fueron de caja negra, ir haciendo inserciones y borrados en la BD local para despues hacer consultas y comprobar si los resultados eran correctos. También se comprobó su correcto funcionamiento con el SCRUM-3, corroborando la correcta actualización de los contenidos. Pasó todas las pruebas.
 
 \HU{
-SCRUM-43: Añadir meta por parámetro
+SCRUM-32: Añadir meta por parámetro
 }{
 	\item Implementar la BD local
 	\item Implementar las funciones para modificar metas
@@ -518,10 +504,10 @@ SCRUM-43: Añadir meta por parámetro
 
 El problema de esta iteración fue el como distinguir internamente, si un usuario quiere superar con un valor mayor o menor su meta, es decir, si un usuario quiere aumentar el peso con el que hace un ejercicio o disminuirlo. Al final optó por que solo se pueda aumentar.
 
-Las pruebas realizadas se basaron en añadir valores nuevos de metas tanto erroneos como válidos, para ver como se comportaban las soluciones implementadas a las erratas que pueda introducir el usuario.
+Las pruebas realizadas se basaron en añadir valores nuevos de metas tanto erroneos como válidos, para ver como se comportaban las soluciones implementadas a las erratas que pueda introducir el usuario. Pasó todas las pruebas.
 
 \HU{
-	SCRUM-29: Pop up de confirmación  
+	SCRUM-27: Pop up de confirmación  
 }{
 	\item Implementar la confirmación para que pueda ser usado en pantallas distintas
 	\item Implementar boceto de IU \cref{fig:Pop up de confirmacion} 
@@ -535,6 +521,8 @@ Las pruebas realizadas se basaron en añadir valores nuevos de metas tanto erron
     \caption{PopUp Confirmacion}
     \label{fig:PopUpConfirmacion}
 \end{figure}
+
+Un pop
 
 \subsubsection{Estado de la BD local}
 
@@ -574,6 +562,22 @@ Otra parte a modificar es la del pop up de confirmación, ya que debido a la poc
   \label{fig:comparacion_pantallas}
 \end{figure}
 
+También se cambiaron todos los pop ups y se sustituyeron por pantallas completas:
+
+\begin{itemize}
+	\item Los pop ups de confirmacion
+	\item Crear ejercicios
+	\item Modificar ejercicios
+	\item Nueva meta en un ejercicio
+	\item Crear rutinas
+	\item Modificar rutinas
+	\item Modificar ejercicios de una rutina
+	\item Información de una rutina a descargar
+	\item Modificar informacion del perfil del usuario
+\end{itemize}
+
+Por consecuencia las futuras funcionalidades en la que se mencionan los pop ups, pasaran a ser pantallas completas.
+
 \subsection{Iteración 2}
 Esta iteración se centró en el desarrollo del sistema de sesiones, la API de la aplicación, el backend básico del servidor y la sección de rutinas. Las historias que incluye son las siguientes:
 
@@ -582,18 +586,13 @@ Esta iteración se centró en el desarrollo del sistema de sesiones, la API de l
   \item SCRUM-23 Iniciar/Cerrar sesión
   \item SCRUM-6 Insertar/Borrar/Modificar rutina
   \item SCRUM-4 Buscar rutina en la lista del usuario
-  \item SCRUM-31 Crear IU de la lista de las rutinas ELIMINAR
-  \item SCRUM-32 Crear IU de pantalla inicial ELIMINAR
-  \item SCRUM-33 Implementar menú principal
-  \item SCRUM-34 Crear IU datos rutinas ELIMINAR
-  \item SCRUM-35 IU lista ejercicios de rutina modificable ELIMINAR
-  \item SCRUM-36 Crear IU para crear rutina ELIMINAR
+  \item SCRUM-28 Implementar menú principal
 \end{itemize}
 
 También se terminará la historia no finalizada de la iteración anterior(SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios).
 
 \HU{
-SCRUM-33 Implementar menú principal
+SCRUM-28 Implementar menú principal
 }{
 	\item Implementar el boceto IU \cref{fig:Menu principal}
 	\item Añadir accesos a las funcionalidades actuales
@@ -646,7 +645,7 @@ SCRUM-21 Crear/Borrar mi usuario
     \label{fig:SingIn2}
 \end{figure}
 
-Las pruebas se realizaron en el backend, la correcta inserción y borrado de usuarios. Cuando se crea correctamente un usuario se redirige a la pantalla inicial. Si se intenta crear un usuario ya existente, se lanza un aviso.
+Las pruebas se realizaron en el backend, la correcta inserción y borrado de usuarios. Cuando se crea correctamente un usuario se redirige a la pantalla inicial. Si se intenta crear un usuario ya existente, se lanza un aviso. Pasó todas las pruebas.
 
 \HU{
 SCRUM-23 Iniciar/Cerrar sesión
@@ -677,6 +676,8 @@ Al hacer el login correctamente se otorga un token que no hay que renovar hasta 
 
 Para comprobar la veracidad de los credenciales se implementó la parte básica del backend, un server con una BD(mySQL) que guardará los usuarios con sus contraseñas y la parte implementada usando Express.js(Node.js) para escuchar peticiones, el server también será el encargado de proporcionar y verificar los tokens. La comunicación entre servidor y cliente (el dispositivo en el que esta instalada la app) se usan peticiones HTTP, en futuro se puede migrar a HTTPS si es necesaria mas seguridad.
 
+Se hicieron pruebas abriendo y cerrando sesión comprando si exsitía el token en memoria e intentando acceder a la app usando un token caducado. Siempre se añadía/borraba el token cuando se iniciaba/cerraba sesión y no dejaba entrar usando tokens caducados. Pasó todas las pruebas.
+
 \HU{
 SCRUM-4 Buscar rutina en la lista del usuario
 }{
@@ -696,7 +697,7 @@ SCRUM-4 Buscar rutina en la lista del usuario
     \label{fig:listaRutinas}
 \end{figure}
 
-Esta funcionalidad se abarcó aprovechando lo implementado en la iteración anterior del SCRUM-26. Se realizaron las mismas pruebas pero relacionadas con las rutinas.
+Esta funcionalidad se abarcó aprovechando lo implementado en la iteración anterior del SCRUM-26. Se realizaron las mismas pruebas pero relacionadas con las rutinas. Como la funcionalidad previamente mencionada se diseñó para poder usar código a modo de plantilla y pasó todas las pruebas, esta como era de esperar las pasó también.
 
 \HU{
 SCRUM-6 Insertar/Borrar/Modificar rutina
@@ -786,15 +787,12 @@ Esta iteración se centró en desarrollar la funcionalidad para compartir rutina
 
 \begin{itemize}
   \item SCRUM-2 Establecer peso objetivo
-  \item SCRUM-37 Crear IU del perfil del usuario ELIMINAR
-  \item SCRUM-42 Copiar rutina
+  \item SCRUM-31 Copiar rutina
   \item SCRUM-10 Enseñar datos de una rutina a descargar
   \item SCRUM-11 Compartir mi rutina
-  \item SCRUM-39 Buscar rutinas para descargar
+  \item SCRUM-30 Buscar rutinas para descargar
   \item SCRUM-9 Revisar datos para ver si el descanso es necesario
   \item SCRUM-22 Resumir datos
-  \item SCRUM-40 IU del pop up de resumir datos ELIMINAR
-  \item SCRUM-41 IU desplegable rutina ELIMINAR
 \end{itemize}
 \HU{
 SCRUM-2 Establecer peso objetivo
@@ -814,7 +812,7 @@ SCRUM-2 Establecer peso objetivo
     \label{fig:pesoObj}
 \end{figure}
 
-Para guardar el peso, en esta iteración como no se crearan las tablas para guardas los pesajes del usuario se guardará usando secure storage, es una solución temporal. En para esta funcionalidad se hicieron pruebas para comprobar la correcta insercción del formato del peso, que no se añadan letras. que se admitan comas y puntos, que solo se use un decimal.
+Para guardar el peso, en esta iteración como no se crearan las tablas para guardas los pesajes del usuario se guardará usando secure storage, es una solución temporal. En para esta funcionalidad se hicieron pruebas para comprobar la correcta insercción del formato del peso, que no se añadan letras. que se admitan comas y puntos, que solo se use un decimal. Pasó todas las pruebas.
 
 \HU{
 SCRUM-11 Compartir mi rutina
@@ -827,6 +825,7 @@ SCRUM-11 Compartir mi rutina
 }
 
 Esta funcionalidad dió muchos quebraderos de cabeza ya que varios usuarios podrían tener una rutina con el mismo nombre y al mismo tiempo al descargar una rutina, un usuario podría tener un ejercicio llamado igual o varios usuario podrían tener en la nube varios ejercicios subidos con el mismo nombre. Esto son solo uno de los pocos problemas encontrados en esta funcionalidad.
+Haciendo pruebas de esta funcionalidad sobre integridad usando distintos casos se hizo conocer lo mencionado previamente.
 
 Para solucionar algunos de estos problemas se hizo lo siguiente, en el backend en la BD los ejercicios y rutinas serán guardados usando como clave primaria un id que sera un int autoincrementado, evitando problemas integridad. Tambíén cuando sean referenciados en la BD se hará usando su id.
 
@@ -852,7 +851,7 @@ Para solucionar algunos de estos problemas se hizo lo siguiente, en el backend e
 \end{figure}
 
 \HU{
-SCRUM-39 Buscar rutinas para descargar
+SCRUM-30 Buscar rutinas para descargar
 }{
 	\item Implementar funciones de consultas en la API
 	\item Implementar IU de busqueda de rutinas por usuario creador y por nombre de rutina
@@ -863,9 +862,11 @@ SCRUM-39 Buscar rutinas para descargar
 	\item si busco una rutina existente, se muestra su acceso en la IU
 }
 
-Se puede buscar tanto un usuario y ver las rutinas que ha subido o directamente buscar por nombre de la rutina. Se recicló la pantalla de lista de rutinas \cref{fig:Lista rutinas}, y se implementó la pantalla de DatosRutinaComp, que se usa para ver datos de pantallas compartidas. También para hacer más fácil la distinción entre rutinas del propio usuario y las que ha compartido se añadió otra pantalla exclusivamente de pantallas compartidas, en la cual se nos permite elminar de la nube las rutinas elegidas.
+Se puede buscar tanto un usuario y ver las rutinas que ha subido o directamente buscar por nombre de la rutina. Se recicló la pantalla de lista de rutinas \cref{fig:Lista rutinas}, y se implementó la pantalla de DatosRutinaComp, que se usa para ver datos de pantallas compartidas. También para hacer más fácil la distinción entre rutinas del propio usuario y las que ha compartido se añadió otra pantalla exclusivamente de pantallas compartidas, en la cual se nos permite eliminar de la nube las rutinas elegidas.
 
-Para solucionar los problemas de integridad generados en el dispositivo del usuario, al descargar una rutina se le añadirá a su nombre y al de los ejercicios que contiene el nombre del creador, y si aún así hay problemas de integridad, se añade al nombre de la rutina y/o ejercicio el número de copia que es dentro del dispositivo. Desarrollando lo anterior, al descargar una rutina llamada "Flexiones" del usuario "Paco", en el dispositivo que realiza la descarga se llamará "Flexiones-Paco", si en el dispisitivo en el que se realiza la descarga ya existe otra rutina llamada "Flexiones-Paco", la descargada se llamará en el dispositivo "Flexiones-Paco(1)".La integridad de los ejercicios se trata igual.
+Haciendo pruebas descargando varias veces la misma rutina y casos distintos fue fácil detectar el motivo de los problemas. Para solucionar los problemas de integridad generados en el dispositivo del usuario, al descargar una rutina se le añadirá a su nombre y al de los ejercicios que contiene el nombre del creador, y si aún así hay problemas de integridad, se añade al nombre de la rutina y/o ejercicio el número de copia que es dentro del dispositivo. Desarrollando lo anterior, al descargar una rutina llamada "Flexiones" del usuario "Paco", en el dispositivo que realiza la descarga se llamará "Flexiones-Paco", si en el dispisitivo en el que se realiza la descarga ya existe otra rutina llamada "Flexiones-Paco", la descargada se llamará en el dispositivo "Flexiones-Paco(1)".La integridad de los ejercicios se trata igual.
+
+Una vez implementadas estas soluciones, ya se pasaron exitosamente las pruebas.
 
 \begin{figure}[H]
    \centering
@@ -899,7 +900,7 @@ SCRUM-10 Enseñar datos de una rutina a descargar
 	\item si se va a descargar la rutina y el usuario no tiene en el dispositivo otra con el mismo nombre, descargar normalmente
 }
 
-Es la misma pantalla para ver nuestras rutinas subidas, reciclamos código, la única diferencia es que no podedmos elminarla de la nube, solo podemos descargarla.
+Es la misma pantalla para ver nuestras rutinas subidas, reciclamos código, la única diferencia es que no podedmos elminarla de la nube, solo podemos descargarla. Se hicieron pruebas comprobando que solo podía borrar la rutina el usuario creador y que los datos enseñados al descargar la rutina eran correctos.
 
 \begin{figure}[H]
    \centering
@@ -909,7 +910,7 @@ Es la misma pantalla para ver nuestras rutinas subidas, reciclamos código, la �
 \end{figure}
 
 \HU{
-SCRUM-42 Copiar rutina
+SCRUM-31 Copiar rutina
 }{
 	\item Añadir al boceto IU de datos rutina \cref{fig:Datos rutina modificable} esta funcionalidad
 	\item Implementar la IU resultante de la tarea anterior
@@ -925,7 +926,7 @@ Durante la realización de estas tareas de usuario, se dió notoriedad a que las
 
 Se ha decidido dar menos prioridad y que por tanto no se abordará en este TFG por limitaciones de tiempo en concreto el SCRUM-9 (Revisar datos para ver si el descanso es necesario), porque necesitaría los datos de un smartwatch y ha sido una funcionalidad previamente descartada.
 
-También se ha reducido la prioridad de SCRUM-42 (Copiar rutina), dado que aporta poco valor a la app.
+También se ha reducido la prioridad de SCRUM-31 (Copiar rutina), dado que aporta poco valor a la app.
 
 Se decidió adelantar otras, pero debido a los problemas encontrados durante esta iteración no se pudieron realizar.
 
@@ -974,14 +975,14 @@ En esta iteración se tenía pensado implementar la funcionalidad de resumir los
 En esta iteración se tiene pensado implementar la funcionalidad del calendario, donde el usuario podrá ver su planificación y acceder a sus marcas. Por otro lado, también se implementarán las funcionalidades nuevas del sprint anterior y las nuevas pantallas.
 
 \begin{itemize}
-	  \item SCRUM-39 Detectar metas cumplidas en los ejercicios despues del entrenamiento
+	  \item SCRUM-29 Detectar metas cumplidas en los ejercicios despues del entrenamiento
 	  \item SCRUM-1 Registrar peso por día
 	  \item SCRUM-19 Realizar el flujo del entrenamiento
-	  \item SCRUM-44: Implementar calendario
+	  \item SCRUM-31: Implementar calendario
 \end{itemize}
 
 \HU{
-SCRUM-44: Implementar calendario
+SCRUM-31: Implementar calendario
 }{
 	\item Implementar la IU e insertarla en el menu principal \cref{fig:Menu principal}
 	\item Implementar en la BD local
@@ -996,6 +997,39 @@ SCRUM-44: Implementar calendario
 	\item si un día tiene una rutina asignada, pero es futuro, no se enseñará un acceso para empezar el entrenamiento
 	\item si un día tiene una rutina asignada y hay marcas registradas sea el día actual o pasado, se mostrará información de las marcas, sin acceso a entrenamiento
 }
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/Calendario.png}
+    \caption{Calendario}
+    \label{fig:Calendario}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/CalendarioEventos.png}
+    \caption{Calendario con eventos}
+    \label{fig:CalendarioEventos}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/descanso.png}
+    \caption{Descanso}
+    \label{fig:Descanso}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/entrenar.png}
+    \caption{Entrenar}
+    \label{fig:Entrenar}
+\end{figure}
+
+El calendario es donde el usuario podrá organizar sus entrenamientos, acceder a sus marcas y datos sobre su peso guardados por días. El calendario está implementado usando la librería de tableCalendar, que permite trabajar con calendarios con una alta personalización de la estética y trabajar comodamente con los datos reflejados en el mismo usando el tipo DateTime de flutter. Para guardar eventos los almaceno en una tabla en la BD local llamada entrenamientos. Cada entrenamiento se guarda usando la fecha de cuando se realizó/realizará como primary key junto con la ruitna que se hizo o planea hacerse. Como no dejo modificar las rutinas una vez ya se haya entrenado o pasado el día, el único problema de integridad es cuando añado un evento a un día ya asignado, lo resuelvo sustituyendo el nuevo por el antiguo. Las marcas funcionan de manera similar, primary key es un int auto incrementado, pero tiene asociado cada marca una fecha. Importante, cada marca se asocia a los resultados de una serie.
+
+Se realizaron pruebas comprobando si se actualizaban los entrenamientos/pesajes añadidos se veían reflejados correctamente. Todos los datos se guardan correctamente así que pasó las pruebas, el único fallo es que a veces no actualiza la IU correctamente, por lo que se dijo previamente de que no se puede actualizar un widget dentro de otro, pero solo es visual.
+
 \HU{
 SCRUM-19 Realizar el flujo del entrenamiento
 }{
@@ -1009,77 +1043,34 @@ SCRUM-19 Realizar el flujo del entrenamiento
 	\item si acaba una serie, no se permitirá acabar el ejercicio o continuar con este hasta que termine el tiempo de descanso que se muestra en pantalla
 	\item si finaliza el último ejercicio de la lista, fin del entrenamiento, se devuelve al usuario al menú principal
 }
-\HU{
-SCRUM-39 Detectar metas cumplidas en los ejercicios despues del entrenamiento
-}{
-	\item Implementar bocetos de IU \cref{fig:Metas cumplidas}
-	\item Implementar lógica para comparar marcas y metas despues de acabar el entrenamiento en la clase que controla el flujo del entrenamiento
-}{
-	\item si en un ejercicio no se ha cumplido la meta, no se enseña nada
-	\item si en un ejercicio cumplimos una meta, se enseña en que ejercicio se cumplió la meta
-}
-\HU{
-SCRUM-1 Registrar peso por día
-}{
-	\item Implementar boceto de IU \cref{fig:Datos detallados entrenamiento terminado}
-	\item Implementar en BD local
-	\item Implementar funciones de inserción
-	\item Implementar funciones de consulta
-	\item Implementar lógica para determinar si un usuario quiere subir o bajar de peso
-}{
-	\item si se introduce algún dato como formato incorrecto, se muestra una alerta por pantalla
-	\item si se introducen los datos en formato correcto, se guarda
-}
 
-En esta iteración hay pocas funcionalidades comparadas con otras, porque el flujo del entrenamiento es una funcionalidad muy grande. A parte se añade esta funcionalidad que también se va a realizar en esta iteración, SCRUM-44 Implementar calendario.
-
-\subsubsection{Paquete tableCalendar} % al igual que en iteraciones previas, asocia esto a la historia concreta afectada y a sus resultados.
-
-Es un paquete de flutter, que permite implementar y customizar un calendario, de forma fácil y rápida. También permite trabajar con información para reflejarla en las fechass del calendario.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.45\textwidth]{fotos/PantallaCalendario.png}
-    \caption{Pantalla Calendario}
-    \label{fig:Pantalla Calendario}
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/listaIni.png}
+    \caption{Lista inicial de ejercicios}
+    \label{fig:listaIni}
 \end{figure}
 
-Existen varios formatos de calendario preimplementados, que cambian el numero de dias en pantalla, se escogió este porque es el que menos problemas da en pantalla y más cómodo para las interacciones que busca el usuario.
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/entrenando.png}
+    \caption{Realizando serie}
+    \label{fig:entrenando}
+\end{figure}
 
-\subsubsection{Pantallas cambiadas por pop ups}
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/guardarMarc.png}
+    \caption{Guardando marcas}
+    \label{fig:guardarMarc}
+\end{figure}
 
-La solución que se ha dado para que este problema no quite mucho tiempo de desarrollo es la siguiente, reciclar todo el contenido posible del interior de los pop ups y plasmarlo tal cual en una pantalla. Dado que los diseños implementados eran buenos, quitando algún fallo que puedan dar por este cambio de formato.
-
-Los pop ups que se cambiaron son los siguientes:
-
-\begin{itemize}
-	\item Los pop ups de confirmacion
-	\item Crear ejercicios
-	\item Modificar ejercicios
-	\item Nueva meta en un ejercicio
-	\item Crear rutinas
-	\item Modificar rutinas
-	\item Modificar ejercicios de una rutina
-	\item Información de una rutina a descargar
-	\item Modificar informacion del perfil del usuario
-\end{itemize}
-
-Por consecuencia las futuras funcionalidades en la que se mencionan los pop ups, pasaran a ser pantallas completas.
-
-\subsubsection{Cambios en el backend}
-
-Los cambios en el backend están relacionados con las siguientes funcionalidades propuestas en la iteracion anterior:
-
-\begin{itemize}
-	\item Cambio 1: Verificar el token del usuario antes de permitir la subida de rutinas, para evitar suplantación.
-  	\item Cambio 2: Marcar a los usuarios permanentemente eliminados con una \textit{flag}, para proceder a eliminarlos en los dispositvos.
-\end{itemize}
-
-Cambio 1: la solución implementada es la siguiente, a todas las funciones que puedan ser potencialmente victimas de una suplantación(via peticion normal de http), se les ha añadido un middleware, una función que se ejecuta antes para verificar el token. Express.js permite implementar esto rapidamente
-
-Cambio 2: de primeras se pensó en usar una flag, pero finalmente para evitar perdida de rendimiento al momento de que el usuario realize un entrenamiento(que es cuando en un principio se tenía pensado borrar el ejercicio), se optó por modificar la lista de ejercicios de la rutina al momento de borrar el ejercicio. El número de consultas iba a ser el mismo, pero se ahorra memoria, ya que no añadimos una columna más a la tabla de ejercicios
-
-\subsubsection{Flujo entrenamiento}
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/entreSerie.png}
+    \caption{Pantalla enter series}
+    \label{fig:entreSerie}
+\end{figure}
 
 Para acaparar esta funcionalidad, se ha implementado una clase aparte encargada del desarrollo de esta parte de la app. Se ha decidido así ya que es una lógica más compleja y es conveniente tenerla separada de la IU.
 
@@ -1094,6 +1085,66 @@ Aquí un diagrama de actividades que explica la tarea de esta clase:
     \label{fig:Flujo entrenamiento}
 \end{figure}
 
+Se hicieron pruebas simulando el flujo varias veces de distintas formas, comprobando su correcta ejecución y que se guardaban correctamente los datos. Pasó todas las pruebas.
+
+\HU{
+SCRUM-29 Detectar metas cumplidas en los ejercicios despues del entrenamiento
+}{
+	\item Implementar bocetos de IU \cref{fig:Metas cumplidas}
+	\item Implementar lógica para comparar marcas y metas despues de acabar el entrenamiento en la clase que controla el flujo del entrenamiento
+}{
+	\item si en un ejercicio no se ha cumplido la meta, no se enseña nada
+	\item si en un ejercicio cumplimos una meta, se enseña en que ejercicio se cumplió la meta
+}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/metaSup.png}
+    \caption{Meta superada}
+    \label{fig:metaSup}
+\end{figure}
+
+Esta funcionalidad es un añadido a la clase FlujoEntrenamiento, cuando se detecta el fin antes de subir las marcas, se ordenan por ejercicio y se comprueba si en algún momento se superó alguna meta y cual parámetro medido fue el superado. Se hicieron pruebas comprobando si de verdad se cumplían las metas cuando saltaba el aviso en pantalla, pasó todas las pruebaa.
+
+\HU{
+SCRUM-1 Registrar peso por día
+}{
+	\item Implementar boceto de IU \cref{fig:Datos detallados entrenamiento terminado}
+	\item Implementar en BD local
+	\item Implementar funciones de inserción
+	\item Implementar funciones de consulta
+	\item Implementar lógica para determinar si un usuario quiere subir o bajar de peso
+}{
+	\item si se introduce algún dato como formato incorrecto, se muestra una alerta por pantalla
+	\item si se introducen los datos en formato correcto, se guarda
+}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/RegistrarPeso.png}
+    \caption{Registrar peso por día}
+    \label{fig:RegistrarPeso}
+\end{figure}
+
+Para implementar esta funcionalidad se añadió un acceso en la parte de abajo de la pantalla para cada día del calendario, dando igual si existe algún evento o no, siempre se puede guardar/modificar el peso del usuario siempre que no sea de un día pasado. Se realizaron pruebas comprobando los correctos formatos al introducir el peso y los procentajes, también se comprobo que se hacía un correcto display de estos datos al acceder a ellos desde el calendario. Pasó todas las pruebas.
+
+En esta iteración hay pocas funcionalidades comparadas con otras, porque el flujo del entrenamiento es una funcionalidad muy grande. A parte se añade esta funcionalidad que también se va a realizar en esta iteración, SCRUM-31 Implementar calendario.
+
+\subsubsection{Cambios en el backend}
+
+Los cambios en el backend están relacionados con las siguientes funcionalidades propuestas en la iteracion anterior:
+
+\begin{itemize}
+	\item Cambio 1: Verificar el token del usuario antes de permitir la subida de rutinas, para evitar suplantación.
+  	\item Cambio 2: Marcar a los usuarios permanentemente eliminados con una \textit{flag}, para proceder a eliminarlos en los dispositvos.
+\end{itemize}
+
+Cambio 1: la solución implementada es la siguiente, a todas las funciones que puedan ser potencialmente victimas de una suplantación(via peticion normal de http), se les ha añadido un middleware, una función que se ejecuta antes para verificar el token. Express.js permite implementar esto rapidamente
+
+Cambio 2: de primeras se pensó en usar una flag, pero finalmente para evitar perdida de rendimiento al momento de que el usuario realize un entrenamiento(que es cuando en un principio se tenía pensado borrar el ejercicio), se optó por modificar la lista de ejercicios de la rutina al momento de borrar el ejercicio. El número de consultas iba a ser el mismo, pero se ahorra memoria, ya que no añadimos una columna más a la tabla de ejercicios
+
+Otro cambio en el backend que no tiene que ver con lo propuesto con la iteración anterior, la adición de 2 campos a la tabla usuarios del backend, se añadió el campo int descargas, siendo este el número total de descargas que posee en sus rutinas el usuario en cuestión, y el campo fechaCreacion que es la fecha en la que se creo la cuenta en cuestión. El número total de descargas se usa para que cuando se busquen usuarios para descargar rutinas salgan los que más descargas poseen primero y la fecha de creación para que cuando la app se inicie cree un calendario que vaya desde la fecha de creación hasta 1 mes en adelante de la fecha actual, porque no tiene sentido añadir fechas de antes de crear la cuenta.
+
 \subsubsection{Estado de la BD local}
 
 \begin{figure}[H]
@@ -1105,12 +1156,45 @@ Aquí un diagrama de actividades que explica la tarea de esta clase:
 
 \subsubsection{Estado BD backend}
 
-No sufrió cambios respecto a la iteración anterior
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fotos/BD be iteracion 4.png}
+    \caption{BD backend iteración 4}
+    \label{fig:BD be iteracion 4}
+\end{figure}
 
 \subsubsection{Sprint review 4}
 
-En esta review se ha propuesto que despues de los entrenamientos se les enseñe a los usuarios las metas que tenían establecidas siempre, aunque no la hayan superado, evitando siempre el feedback negativo al usuario.
+En esta review se ha propuesto que despues de los entrenamientos se les enseñe a los usuarios las metas que tenían establecidas siempre, aunque no la hayan superado, evitando siempre el feedback negativo al usuario. Se tendrá en cuenta para la próxima iteración.
 
-\subsection{Iteraci\'on 5} %Falta actualizar esto
+\subsection{Iteración 5}
 
-Debido a retrasos y problemas durante el desarrollo esta será la última iteración, que se dedicará a la implementación de gráficas para representar los datos requeridos por el usuario. Dado al tiempo limitado que se poseé la implementación de la IA se aplazará al máximo e incluso siendo posible su descarte.
+Al principio de la iteración se dio a notar que faltaba la IU y algunas funciones para visualizar las marcas obtenidas por el usuario, se añadirá a esta iteración. Teniendo en cuenta el tiempo que se posee la IA no se podrá implementar se dará prioridad a la funcionalidad de hacer gráficas usando las marcas obtenidas por el usuario, no se añadió desde un principio porque era necesario poder añadir marcas.
+
+\begin{itemize}
+	\item SCRUM-32: Enseñar las marcas obtenidas en un día
+	\item SCRUM-33: Hacer gráfica en base a las marcas obtenidas
+\end{itemize}
+
+\HU{
+SCRUM-32: Enseñar las marcas obtenidas en un día
+}{
+\item Implementar las consultas en la BD local
+\item Implementar la IU
+}{
+\item si existen varios ejercicios separarlos en distintas pantallas
+\item pulsar en la pantalla para ir pasando series del mismo ejercicio
+}
+
+Se añadió una nueva pantalla MarcasEntrenamientos, en la cual se muestran los resultados del entrenamiento de un usuario en sus distintas series. Pasó todas las pruebas.
+
+\HU{
+SCRUM-33: Hacer gráfica en base a las marcas obtenidas
+}{
+\item Implementar las consultas necesarias
+\item Implementar la IU
+}{
+\item hacer un display correcto de los distintos datos
+}
+
+Esta funcionalidad dado al poco tiempo que se posee no se implementará
