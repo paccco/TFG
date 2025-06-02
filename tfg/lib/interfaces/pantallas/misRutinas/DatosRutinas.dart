@@ -34,7 +34,6 @@ class DatosRutinas extends StatelessWidget{
         child: Column(
           spacing: 2.h,
           children: [
-            Text("Valoracion 4.3 / 5",style: estilo),
             Text("Descanso $descanso",style: estilo),
             botonPopUp("Compartir", () async{
               bool decision=false;

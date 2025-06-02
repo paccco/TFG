@@ -27,6 +27,7 @@ Future<Widget> _tablaDatos(BuildContext context) async{
     storage.read(key: 'genero')
   ]);
 
+
   final int pesoActual=await BDLocal.instance.getPesoActual();
   int pesoObj=await BDLocal.instance.getPesoObjetivo();
   final TextEditingController pesoObjC=TextEditingController();

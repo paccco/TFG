@@ -445,9 +445,9 @@ class BDLocal{
     String ejercicios="";
     final cadenaEjercicios=nombreEjercicios.join(',');
 
-    if(aux==""){
+    if(aux=="" || aux == null){
       ejercicios=cadenaEjercicios;
-    }else if (aux!=null){
+    }else{
       ejercicios=aux as String;
       ejercicios+=',$cadenaEjercicios';
     }

@@ -51,13 +51,13 @@ class _ModificarPesoState extends State<ModificarPeso>{
                     if(pesoObj>0){
                       //Cuando el peso objetivo es mayor que cero, el usuario quiere subir peso
                       if(pesoObj<peso){
-                        BDLocal.instance.insertMetaPeso('0',0);
+                        await BDLocal.instance.insertMetaPeso('0',0);
                         mensaje(context, felicitacion);
                       }
                     } else{
                       //Sino quiere bajar de peso
                       if(pesoObj>peso){
-                        BDLocal.instance.insertMetaPeso('0',0);
+                        await BDLocal.instance.insertMetaPeso('0',0);
                         mensaje(context, felicitacion);
                       }
                     }

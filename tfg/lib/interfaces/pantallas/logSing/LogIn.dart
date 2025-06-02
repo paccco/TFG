@@ -74,6 +74,7 @@ class LoginState extends State<Login>{
                 final res = await login(nombre, passwd);
                 if(res){
                   storage.write(key: 'usuario', value: nombre);
+                  await BDLocal.instance.database;
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) => MenuPrincipal()),

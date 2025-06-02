@@ -30,6 +30,9 @@ class _SeleccionarEjercicioState extends State<SeleccionarEjercicio>{
           final aux = BDLocal.instance;
           final res = await aux.aniadirEjerRutina(widget.rutina, [nombre]);
 
+          final debug = await aux.getEjerciciosRutina(widget.rutina);
+          print(debug);
+
           if(res){
             Navigator.pop(context);
           }else{

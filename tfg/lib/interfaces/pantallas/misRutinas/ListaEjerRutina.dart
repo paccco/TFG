@@ -31,11 +31,7 @@ class _ListaEjerRutinaState extends State<ListaEjerRutina>{
 
   void _aniadir(BuildContext context) async {
     await Navigator.push(context, MaterialPageRoute(builder: (context)=>SeleccionarEjercicio(rutina: widget.titulo)));
-    final out = await BDLocal.instance.getEjerciciosRutina(widget.titulo);
-
-    setState(() {
-      _contenido = List.from(out);
-    });
+    await _cargarEjericios();
   }
 
   void _intercambiar(BuildContext context, String nombre) async{

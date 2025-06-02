@@ -182,11 +182,13 @@ class Singin2State extends State<Singin2>{
                     mensaje(context, "Error al insertar usuario");
                   }else{
                     await Future.wait([
+                      //Insertando valores por defecto
                       BDLocal.instance.insertPesaje(DateTime.now(), pesoStr),
                       storage.write(key: 'altura', value: altura),
                       storage.write(key: 'fechaN', value: fechaFormato),
                       storage.write(key: 'genero', value: generoSeleccionado)
                     ]);
+                    BDLocal.instance.insertMetaPeso("0", 1);
 
                     Navigator.pushAndRemoveUntil(
                       context,

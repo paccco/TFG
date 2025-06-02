@@ -431,7 +431,7 @@ Además, se añadieron nuevas historias al \textit{product backlog}, incorporand
 %Muy importante: aquí falta una tabla con todas las historias, priorizadas y organizadas por iteraciones.
 
 
-\subsection{Iteraci\'on 1}
+\subsection{Iteración 1}
 La lista de historias de la primera iteracion queda de la siguiente manera:
 
 \begin{itemize}
@@ -456,7 +456,18 @@ SCRUM-26: Buscar ejercicio en lista
    	\item si existe ejercicio buscado, sale un acceso en pantalla
 }
 
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=\textwidth]{pantallas/listaEjercicios.png}
+    \caption{Lista ejercicios}
+    \label{fig:ListaEjer}
+\end{figure}
 
+Una de las dificultades de esta funcionalidad fue que esta pantalla debería funcionar como una plantilla, es decir, se han de pasar las funciones de consultas y la clase construiría una lista pasase lo que se pasase, de esta forma se recilclaría mucho código ahorrando tiempo. Lo que se hizo fue una ingeniería inversa, se desarrollo la pantalla forma específica para los ejericios y cuando funcionaba correctamente, se fue abstrayendo el código hasta obtener la clase ListaBusquedaAniadir.
+
+Otro problema encontrado durante las pruebas fue la actualización de la lista, se tuvieron muchos problemas dado que en flutter si se tiene una instancia de un widget llamemoslo A, que forma parte de otro llamado B, si yo llamo a una actualización de la IU desde B porque ha cambiado el contenido se genera una excepción. Como solución, se optó por solo usar la función setState (Usada para actualizar el contenido) dentro del código de la plantilla y cada vez que fuera necesario hacer una actualización desde B recargar otra vez la pantalla entera.
+
+Las pruebas realizadas fueron de caja negra, ir añadiendo elementos para que se hagan visibles en la IU e ir comprobando navegabilidad del menu, el algorítmo de búsqueda y que se actualizaba correctamente al añadir algún objeto.
 
 \HU{
 SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
@@ -472,6 +483,23 @@ SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
 	\item si se inserta, sale en la lista el ejercicio
 	\item se enseñan los datos del ejercicio de forma correcta
 }
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/CrearEjercicio.png}
+    \caption{Crear ejercicios}
+    \label{fig:CrearEjers}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/ModDescpEjer.png}
+    \caption{Modificar descripcion ejercicios}
+    \label{fig:ModDescpEjer}
+\end{figure}
+
+Las pruebas realizadas para la SCRUM-3, fueron de caja negra, ir haciendo inserciones y borrados en la BD local para despues hacer consultas y comprobar si los resultados eran correctos. También se comprobó su correcto funcionamiento con el SCRUM-3, corroborando la correcta actualización de los contenidos.
+
 \HU{
 SCRUM-43: Añadir meta por parámetro
 }{
@@ -480,6 +508,18 @@ SCRUM-43: Añadir meta por parámetro
 }{
 	\item si existe una meta determinada para ese ejercicio y se quiere insertar una, sustituir la actual
 }
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/NuevaMeta.png}
+    \caption{Nueva meta}
+    \label{fig:NuevaMeta}
+\end{figure}
+
+El problema de esta iteración fue el como distinguir internamente, si un usuario quiere superar con un valor mayor o menor su meta, es decir, si un usuario quiere aumentar el peso con el que hace un ejercicio o disminuirlo. Al final optó por que solo se pueda aumentar.
+
+Las pruebas realizadas se basaron en añadir valores nuevos de metas tanto erroneos como válidos, para ver como se comportaban las soluciones implementadas a las erratas que pueda introducir el usuario.
+
 \HU{
 	SCRUM-29: Pop up de confirmación  
 }{
@@ -489,12 +529,18 @@ SCRUM-43: Añadir meta por parámetro
 	\item si se ha seleccionado una opcion, se devuelve la opcion seleccionada
 }
 
-Dentro del SCRUM-3 tenemos subfuncionalidades, funciones pequeñas que componen la grande:
-
-%Es IMPORTANTE que, al menos en esta primera iteracion, muestres los resultados de la realizacion de las tareas que has indicado para cada historia: capturas de pantalla de bocetos, contar algo de cómo has implementado el backend (por ejemplo bibliotecas o librerías usadas, ficheros creados, etc.). También debes añadir un párrafo para explicar que has hecho las pruebas y sus resultados: si han salido bien y en caso de que no, cómo lo has solucionado. Además, si has tenido difucultades con algo, explica cómo las has solventado. Solo completando esto puedes demostrar que sabes del tema, resaltar tu capacidad de trabajo y permitir que se pueda valorar el esfuerzo realizado.
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/PopUpConfirmacion.png}
+    \caption{PopUp Confirmacion}
+    \label{fig:PopUpConfirmacion}
+\end{figure}
 
 \subsubsection{Estado de la BD local}
-Al finalizar esta iteración, el estado de la BD queda tal y como se muestra en la figura %añadir referencia
+
+Cabe aclarar que la BD local es la memoria persistente de la app que solo existe en el dispositivo que esta instalada la app, se le llama BD local porque tiene una estrucura tipo SQL.
+
+Al finalizar esta iteración, el estado de la BD queda tal y como se muestra en la figura \cref{fig:BD local iteracion 1}
 \begin{figure}[H]
    \centering
     \includegraphics[width=\textwidth]{fotos/BDL iteracion 1.png}
@@ -555,6 +601,16 @@ SCRUM-33 Implementar menú principal
 	\item si la funcionalidad seleccionada no está implementada, no hacer nada
 	\item si la funcionalidad seleccionada está implementada, desplegar ventana de dicha funcionañidad
 }
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/MenuPrincipalSemi.png}
+    \caption{Menu Principal semifuncional}
+    \label{fig:MenuPrincipalSemi}
+\end{figure}
+
+Las funcionalidades que no esten disponibles al ser pulsadas no hacen nada.
+
 \HU{
 SCRUM-21 Crear/Borrar mi usuario
 }{
@@ -568,6 +624,30 @@ SCRUM-21 Crear/Borrar mi usuario
 	\item si se ha creado exitosamente el usuario, volver a la pantalla inicial
 	\item si se borra el usuario, borrar el token en el dispositvo y sus credenciales en el backend
 }
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/LogSingIn.png}
+    \caption{Log In / Sing In}
+    \label{fig:LogSingIn}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/SingIn1.png}
+    \caption{Sing In pantalla 1}
+    \label{fig:SingIn1}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/SingIn2.png}
+    \caption{Sing In pantalla 2}
+    \label{fig:SingIn2}
+\end{figure}
+
+Las pruebas se realizaron en el backend, la correcta inserción y borrado de usuarios. Cuando se crea correctamente un usuario se redirige a la pantalla inicial. Si se intenta crear un usuario ya existente, se lanza un aviso.
+
 \HU{
 SCRUM-23 Iniciar/Cerrar sesión
 }{
@@ -578,6 +658,25 @@ SCRUM-23 Iniciar/Cerrar sesión
 	\item si el usuario con esa contraseña existe, devolver un token para su guardado y guardar usuario 
 	\item si el usuario quiere cerrar sesión, borrar token y nombre del usuario del dispositivo y volver a la pantalla inicial \cref{fig:Pagina inicial}
 }
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/LogIn.png}
+    \caption{Log In}
+    \label{fig:LogIn}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/OpcUser.png}
+    \caption{Opciones Usuario}
+    \label{fig:Opciones Usuario}
+\end{figure}
+
+Al hacer el login correctamente se otorga un token que no hay que renovar hasta el día siguiente, al cerrar sesión se borra automaticamente. Las pruebas realizadas se basaron en comprobar el correcto alamacenaje y borrado del token, usando la librería de secure storage de flutter, que nos permite guardar variables de forma permanente y encriptada con un facil acceso, como si fuera un map.
+
+Para comprobar la veracidad de los credenciales se implementó la parte básica del backend, un server con una BD(mySQL) que guardará los usuarios con sus contraseñas y la parte implementada usando Express.js(Node.js) para escuchar peticiones, el server también será el encargado de proporcionar y verificar los tokens. La comunicación entre servidor y cliente (el dispositivo en el que esta instalada la app) se usan peticiones HTTP, en futuro se puede migrar a HTTPS si es necesaria mas seguridad.
+
 \HU{
 SCRUM-4 Buscar rutina en la lista del usuario
 }{
@@ -589,6 +688,16 @@ SCRUM-4 Buscar rutina en la lista del usuario
 	\item si no existe la rutina buscada, no enseñar acceso en pantalla
 	\item si existe la rutina buscada, enseñar acceso en pantalla
 }
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/listaRutinas.png}
+    \caption{Lista Rutinas}
+    \label{fig:listaRutinas}
+\end{figure}
+
+Esta funcionalidad se abarcó aprovechando lo implementado en la iteración anterior del SCRUM-26. Se realizaron las mismas pruebas pero relacionadas con las rutinas.
+
 \HU{
 SCRUM-6 Insertar/Borrar/Modificar rutina
 }{
@@ -602,20 +711,46 @@ SCRUM-6 Insertar/Borrar/Modificar rutina
 	\item si hay algún fallo en alguna de estas operaciones, informar al usuario con el motivo
 }
 
-\subsubsection{Sistema de sesiones}  
-%este título de sección despista porque corresponde con la segunda historia de esta iteración y no se dice nada de las otras. Faltaría, igual que en la iteración anterior, poner resultados de todas las tareas de cada historia, y si acaso decir que se incluye una subsección que detalla más cómo se abordó el sistema de sesiones, por su complejidad.
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/DatosRutina.png}
+    \caption{Datos Rutina}
+    \label{fig:DatosRutina}
+\end{figure}
 
-Dado a la complejidad del sistema de sesiones se le dedica este apartado de forma excepcional. Se implementó un sistema de autenticación basado en tokens. Cuando el usuario verifica su identidad, recibe un token que se guarda en el dispositivo y se usa para validar el acceso posterior. Esto evita que usuarios no autorizados suban contenido haciéndose pasar por otros.
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/crearRutina.png}
+    \caption{Crear Rutina}
+    \label{fig:crearRutina}
+\end{figure}
 
-El backend está desarrollado en \textit{Node.js} y utiliza una base de datos SQL para gestionar las contraseñas de los usuarios. Este mismo backend se usará para las funcionalidades de las siguientes iteraciones.
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/listaEjerRutina.png}
+    \caption{Lista Ejercicios Rutina}
+    \label{fig:listaEjerRutina}
+\end{figure}
 
-\subsubsection{API de la app}
-La comunicación entre la app y el servidor se realiza mediante peticiones HTTP. En el futuro, estas podrán migrarse a HTTPS para proteger operaciones sensibles. Por ahora se mantiene HTTP para facilitar el depurado.
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/modRutina.png}
+    \caption{Modificar Rutina}
+    \label{fig:modRutina}
+\end{figure}
 
-\subsubsection{Cambios importantes}
-Se rediseñó la implementación de las pantallas con listas. En lugar de una única clase con condiciones para la visibilidad de elementos, se optó por crear clases específicas para cada tipo de lista.
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/listaAddEjerRut.png}
+    \caption{Lista añadir ejercicio a rutina}
+    \label{fig:listaAddEjerRut}
+\end{figure}
 
-\textbf{Ventaja:} El código es más limpio, escalable y modular. Si hay que modificar un tipo de lista, los demás no se ven afectados.
+Como se puede observar se rescato mucho código de la primera iteración, solo hubo que hacer unas pequeñas modificaciones en la clase plantilla usada para crear las pantallas \cref{fig:listaEjerRutina} y \cref{fig:listaAddEjerRut}, en concreto a la pantalla de la lista de ejercicios preteneciente a la rutina se le realizaron pruebas para ver la correcta actualización de los contenidos.
+
+En la pantalla \cref{fig:modRutina} la unica prueba realizada fue comprobar la correcta modifición en la BD local y su correcta visualización en la misma.
+
+La funcionalidad de compartir todavía no está implementada.
 
 \subsubsection{Sprint Review 2}
 Se sugirieron mejoras menores como el ajuste de tamaños e iconos en los botones de la sección de creación de rutinas.
@@ -646,7 +781,7 @@ Antes de seguir, la BD del backend es donde se guardan los usuarios registrados 
     \label{fig:BD backend iteracion 2}
 \end{figure}
 
-\subsection{Iteraci\'on 3}
+\subsection{Iteración 3}
 Esta iteración se centró en desarrollar la funcionalidad para compartir rutinas entre usuarios, incluyendo la subida, visualización y descarga de rutinas. Además, se comenzó a implementar la funcionalidad de resumen de datos para optimizar el uso de la memoria local. Incluye las siguientes historias:
 
 \begin{itemize}
@@ -670,6 +805,17 @@ SCRUM-2 Establecer peso objetivo
 	\item si el peso objetivo está en el formato correcto, guardar
 	\item si el peso objetivo no está en el formato correcto, enseñar una alerta para su corrección
 }
+
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/pesoObj.png}
+    \caption{Peso Objetivo}
+    \label{fig:pesoObj}
+\end{figure}
+
+Para guardar el peso, en esta iteración como no se crearan las tablas para guardas los pesajes del usuario se guardará usando secure storage, es una solución temporal. En para esta funcionalidad se hicieron pruebas para comprobar la correcta insercción del formato del peso, que no se añadan letras. que se admitan comas y puntos, que solo se use un decimal.
+
 \HU{
 SCRUM-11 Compartir mi rutina
 }{
@@ -679,6 +825,32 @@ SCRUM-11 Compartir mi rutina
 	\item si la rutina no contiene ejercicios, no permitir su subida al servidor
 	\item si la rutina contiene ejercicios, permitir la subida al servidor
 }
+
+Esta funcionalidad dió muchos quebraderos de cabeza ya que varios usuarios podrían tener una rutina con el mismo nombre y al mismo tiempo al descargar una rutina, un usuario podría tener un ejercicio llamado igual o varios usuario podrían tener en la nube varios ejercicios subidos con el mismo nombre. Esto son solo uno de los pocos problemas encontrados en esta funcionalidad.
+
+Para solucionar algunos de estos problemas se hizo lo siguiente, en el backend en la BD los ejercicios y rutinas serán guardados usando como clave primaria un id que sera un int autoincrementado, evitando problemas integridad. Tambíén cuando sean referenciados en la BD se hará usando su id.
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/rutinaMiaOComp.png}
+    \caption{Elegir lista compartida por el usuario o locales}
+    \label{fig:rutinaMiaOComp}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/rutinasCompUsuario.png}
+    \caption{Rutinas compartidas por el usuario}
+    \label{fig:rutinasCompUsuario}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/DatosMiRutinaComp.png}
+    \caption{Datos rutinas compartidas por el usuario}
+    \label{fig:DatosMiRutinaComp}
+\end{figure}
+
 \HU{
 SCRUM-39 Buscar rutinas para descargar
 }{
@@ -690,6 +862,32 @@ SCRUM-39 Buscar rutinas para descargar
 	\item si busco una rutina que no existe, no se muestra ningún acceso en la IU
 	\item si busco una rutina existente, se muestra su acceso en la IU
 }
+
+Se puede buscar tanto un usuario y ver las rutinas que ha subido o directamente buscar por nombre de la rutina. Se recicló la pantalla de lista de rutinas \cref{fig:Lista rutinas}, y se implementó la pantalla de DatosRutinaComp, que se usa para ver datos de pantallas compartidas. También para hacer más fácil la distinción entre rutinas del propio usuario y las que ha compartido se añadió otra pantalla exclusivamente de pantallas compartidas, en la cual se nos permite elminar de la nube las rutinas elegidas.
+
+Para solucionar los problemas de integridad generados en el dispositivo del usuario, al descargar una rutina se le añadirá a su nombre y al de los ejercicios que contiene el nombre del creador, y si aún así hay problemas de integridad, se añade al nombre de la rutina y/o ejercicio el número de copia que es dentro del dispositivo. Desarrollando lo anterior, al descargar una rutina llamada "Flexiones" del usuario "Paco", en el dispositivo que realiza la descarga se llamará "Flexiones-Paco", si en el dispisitivo en el que se realiza la descarga ya existe otra rutina llamada "Flexiones-Paco", la descargada se llamará en el dispositivo "Flexiones-Paco(1)".La integridad de los ejercicios se trata igual.
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/buscarRutinasNomOUser.png}
+    \caption{Buscar rutinas o usuario}
+    \label{fig:buscarRutinasNomOUser}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/buscarRutina.png}
+    \caption{Buscar rutinas por su nombre}
+    \label{fig:buscarRutina}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/buscarUser.png}
+    \caption{Buscar usuarios}
+    \label{fig:buscarUser}
+\end{figure}
+
 \HU{
 SCRUM-10 Enseñar datos de una rutina a descargar
 }{
@@ -700,6 +898,16 @@ SCRUM-10 Enseñar datos de una rutina a descargar
 	\item si se va a descargar la rutina y el usuario tiene en el dispositivo otra con el mismo nombre, un algorítmo resolverá este problema
 	\item si se va a descargar la rutina y el usuario no tiene en el dispositivo otra con el mismo nombre, descargar normalmente
 }
+
+Es la misma pantalla para ver nuestras rutinas subidas, reciclamos código, la única diferencia es que no podedmos elminarla de la nube, solo podemos descargarla.
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.8\textwidth]{pantallas/datosRutinasDesc.png}
+    \caption{Datos rutinas para descargar}
+    \label{fig:datosRutinasDesc}
+\end{figure}
+
 \HU{
 SCRUM-42 Copiar rutina
 }{
@@ -721,51 +929,6 @@ También se ha reducido la prioridad de SCRUM-42 (Copiar rutina), dado que aport
 
 Se decidió adelantar otras, pero debido a los problemas encontrados durante esta iteración no se pudieron realizar.
 
-\subsubsection{Peso objetivo} %Más que una subsección, añade el párrafo siguiente cuando estés describiendo los resultados de la historia a la que corresponde.
-El peso objetivo es una meta que define el usuario y se almacena en memoria. Esta meta se representará en la gráfica de evolución del peso del usuario, y se generará una alerta cuando dicha meta sea alcanzada. La visualización aún no ha sido implementada completamente. %Explica porqué no y que la harás en la siguiente iteración. 
-
-\subsubsection{Cambios durante el desarrollo} 
-%Esta subsección y las dos siguientes las combinaría con el sprint review, ya que dices cosas repetidas y es mejor agrupar todos los cambios, problemas y valor añadido al final de la iteración, asociados a la revisión de lo realizado.
-
-Durante esta iteración surgieron cambios en la forma de visualizar y gestionar las rutinas compartidas y almacenadas:
-
-\begin{itemize}
-  \item Ahora, al descargar una rutina, se añade el nombre del creador al nombre de la rutina, facilitando la distinción entre rutinas propias y descargadas.
-  \item Cuando hay conflicto de nombres al crear una rutina, se genera un nombre alternativo del tipo \texttt{Nombre(n)}, siendo \texttt{n} un número incremental.
-  \item Se ha implementado un selector entre ``Mis rutinas'' y ``Compartidas'' para facilitar la visualización de las rutinas subidas a la nube por el usuario.
-  \item Se remplazó el filtro integrado en la ventana de búsqueda por un selector emergente que permite buscar rutinas por nombre o por nombre de usuario.
-  \item La interfaz de descarga y visualización de rutinas ahora es un cuadro emergente (pop-up) en lugar de un desplegable.
-\end{itemize}
-
-\subsubsection{Imprevistos y problemas en el desarrollo}
-Se identificaron dos errores principales de planificación:
-
-\begin{description}
-  \item[Error 1:] Se planificó implementar la funcionalidad de resumir datos sin haber completado la obtención de datos. \\ \textbf{Solución:} Replanificar los sprints.
-  \item[Error 2:] Se subestimó la complejidad del sistema de rutinas compartidas, especialmente en la resolución de conflictos de nombres. \\ \textbf{Solución:} Aplicar nombres combinados (nombre + creador + copia) en memoria local e identificadores \textit{autoincrementales} en la nube.
-\end{description}
-
-\subsubsection{Valor añadido a la app}
-Los imprevistos y problemas surgidos durante el desarrollo han permitido detectar \textit{bugs}, errores de dise\~no y carencias funcionales que de otro modo podrían haber pasado desapercibidos. Gracias a ello, se han podido proponer nuevas funcionalidades y mejorar las ya existentes, lo cual contribuye significativamente a aumentar la calidad global de la aplicación.
-
-Algunas de las funcionalidades propuestas como mejora son:
-
-\begin{itemize}
-  \item Verificar el token del usuario antes de permitir la subida de rutinas, para evitar suplantación.
-  \item Al seleccionar la opción de borrar usuario del dispositivo, eliminar también la base de datos local asociada.
-  \item Crear una base de datos local independiente para cada nuevo usuario creado en un dispositivo.
-  \item Posibilidad de editar el nombre de una rutina.
-  \item Marcar los ejercicios eliminados con una \textit{flag}, para evitar que se inicien rutinas que los contengan.
-  \item Marcar a los usuarios permanentemente eliminados con una \textit{flag}, para proceder a eliminarlos en los dispositvos.
-\end{itemize}
-
-Estas funcionalidades están pensadas para aportar mayor \textbf{seguridad}, \textbf{integridad} y \textbf{calidad} al producto final.
-
-\subsubsection{Base de datos del backend}
-La base de datos utilizada en el backend está basada en \textit{MySQL}. En ella se almacenan los usuarios junto con sus contraseñas, así como los ejercicios y las rutinas. Las rutinas están vinculadas al usuario que las creó, y los ejercicios se asocian a las rutinas a las que pertenecen. Si un usuario decide eliminar su cuenta de forma permanente, las rutinas y ejercicios relacionados se eliminarán en cascada.
-
-Al descargar una rutina, los ejercicios asociados se guardan en la memoria local del usuario como si fueran de su propiedad. Es decir, el usuario puede modificarlos libremente sin restricciones.
-
 \subsubsection{Estado BD local}
 
 No ha habido cambios respecto a la iteración anterior
@@ -781,11 +944,32 @@ No ha habido cambios respecto a la iteración anterior
 
 \subsubsection{Sprint Review 3}
 
+Se identificaron dos errores principales de planificación:
+
+\begin{description}
+  \item[Error 1:] Se planificó implementar la funcionalidad de resumir datos sin haber completado la obtención de datos. \\ \textbf{Solución:} Replanificar los sprints.
+\end{description}
+
+Los imprevistos y problemas surgidos durante el desarrollo han permitido detectar \textit{bugs}, errores de dise\~no y carencias funcionales que de otro modo podrían haber pasado desapercibidos. Gracias a ello, se han podido proponer nuevas funcionalidades y mejorar las ya existentes, lo cual contribuye significativamente a aumentar la calidad global de la aplicación.
+
+Algunas funcionalidades propuestas como mejora son:
+
+\begin{itemize}
+  \item Verificar el token del usuario antes de permitir la subida de rutinas, para evitar suplantación.
+  \item Al seleccionar la opción de borrar usuario del dispositivo, eliminar también la base de datos local asociada.
+  \item Crear una base de datos local independiente para cada nuevo usuario creado en un dispositivo.
+  \item Posibilidad de editar el nombre de una rutina.
+  \item Marcar los ejercicios eliminados con una \textit{flag}, para evitar que se inicien rutinas que los contengan.
+  \item Marcar a los usuarios permanentemente eliminados con una \textit{flag}, para proceder a eliminarlos en los dispositvos.
+\end{itemize}
+
+Estas funcionalidades están pensadas para aportar mayor \textbf{seguridad}, \textbf{integridad} y \textbf{calidad} al producto final.
+
 En esta review se estuvo debatiendo si quitar las funcionalidades relacionadas con el smartwatch, por cuestiones de tiempo, ya que con las funcionalidades añadidas en el capitulo anterior se va ajustando el plazo.
 
 En esta iteración se tenía pensado implementar la funcionalidad de resumir los datos, no obstante, al no tener implementada la parte en la que guardo las marcas de los entrenamientos, no puedo trabajar en esa funcionalidad. Por lo tanto, se ha pospuesto para la próxima iteración. También se le dió el visto bueno a la implementación de las funcionalidades previamente expuestas durante el desarrollo.
 
-\subsection{Iteraci\'on 4}
+\subsection{Iteración 4}
 
 En esta iteración se tiene pensado implementar la funcionalidad del calendario, donde el usuario podrá ver su planificación y acceder a sus marcas. Por otro lado, también se implementarán las funcionalidades nuevas del sprint anterior y las nuevas pantallas.
 

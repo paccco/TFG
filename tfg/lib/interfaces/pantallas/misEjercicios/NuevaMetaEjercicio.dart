@@ -75,26 +75,37 @@ class _NuevaMetaEjercicioState extends State<NuevaMetaEjercicio>{
   @override
   Widget build(BuildContext context) {
 
+    final estiloTitulos=TextStyle(fontSize: 20.sp, color: Colores.negro);
     miColumn.clear();
 
     if(widget.repeticiones){
-      miColumn.add(
-          _nuevaMetaNum(rpc, "REPETICIONES")
+      miColumn.addAll(
+        [Text("Repeticiones", style: estiloTitulos),
+          _nuevaMetaNum(rpc, "REPETICIONES")]
       );
     }
     if(widget.tiempo){
-      miColumn.add(
+      miColumn.addAll(
+        [
+          Text("Tiempo", style: estiloTitulos),
           _nuevaMetaNum(tc, "TIEMPO",tiempo: true)
+        ]
       );
     }
     if(widget.peso){
-      miColumn.add(
-          _nuevaMetaNum(psc, "PESO", decimal: true)
+      miColumn.addAll(
+          [
+            Text("Peso", style: estiloTitulos),
+            _nuevaMetaNum(psc, "PESO", decimal: true)
+          ]
       );
     }
     if(widget.distancia){
-      miColumn.add(
-          _nuevaMetaNum(dtc, "DISTANCIA", decimal: true)
+      miColumn.addAll(
+          [
+            Text("Distancia", style: estiloTitulos),
+            _nuevaMetaNum(dtc, "DISTANCIA", decimal: true)
+          ]
       );
     }
 
