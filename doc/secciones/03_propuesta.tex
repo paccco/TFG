@@ -53,12 +53,12 @@ La temporización se realizó el día 25 de marzo de 2025. La entrega del produc
 La iteración 0 se dedicará al diseño de pantallas y al repaso de las funcionalidades de la app, para concretar las historias de usuario y sus prioridades. La idea inicial es dividir la app en varios módulos y centrar cada sprint en cada uno de ellos:
 
 \begin{enumerate}
-  \item Diagramas de la app y ejercicios
+  \item Ejercicios
   \item Rutinas, usuarios y sesión
-  \item Datos que ingresa el usuario
+  \item Descargar y compartir rutinas
   \item Flujo de entrenamiento
   \item Inteligencia Artificial (IA)
-  \item Smartwatch
+  \item Smartwatch y tratamiento de datos
 \end{enumerate}
 
 \section{Seguimiento del desarrollo}
@@ -76,34 +76,32 @@ La lista inicial de historias de usuario es la siguiente, y algunas incluyen tar
   \item[\textbf{SCRUM-2}] Establecer peso objetivo
   \item[\textbf{SCRUM-3}] Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
   \item[\textbf{SCRUM-4}] Buscar rutina en la lista del usuario
-  \item[\textbf{SCRUM-5}] Sustituir un ejercicio por otro en la rutina
-  \item[\textbf{SCRUM-6}] Insertar/Borrar/Modificar rutina
-  \item[\textbf{SCRUM-7}] Poner una meta en cada ejercicio
-  \item[\textbf{SCRUM-8}] Hacer grafica de los datos de los ejercicios
-  \item[\textbf{SCRUM-9}] Revisar datos para ver si el descanso es necesario
-  \item[\textbf{SCRUM-10}] Enseñar datos de una rutina a descargar
-  \item[\textbf{SCRUM-11}] Compartir mi rutina
-  \item[\textbf{SCRUM-12}] Guardar las repeticiones y series de todos los ejercicios de un entrenamiento
-  \item[\textbf{SCRUM-13}] Valorar el entrenamiento en base a la marca actual y la meta del usuario
-  \item[\textbf{SCRUM-14}] Monitorizar pulso en tiempo real
-  \item[\textbf{SCRUM-15}] Medir pulso en reposo y compararlo con datos de ejercicios
-  \item[\textbf{SCRUM-16}] Avisar de anomalías en el pulso de forma suave
-  \item[\textbf{SCRUM-17}] Obtener calorías quemadas
-  \item[\textbf{SCRUM-18}] Comprobar el equilibrio nervioso del usuario
-  \item[\textbf{SCRUM-19}] Realizar el flujo del entrenamiento
-  \item[\textbf{SCRUM-20}] Conectar con la IA para iniciar diálogo
-  \item[\textbf{SCRUM-21}] Crear/Borrar usuario
-  \item[\textbf{SCRUM-22}] Resumir datos
-  \item[\textbf{SCRUM-23}] Iniciar/Cerrar sesión
-  \item[\textbf{SCRUM-24}] Medir SpO2
-  \item[\textbf{SCRUM-25}] Interpretar constantes
-  \item[\textbf{SCRUM-26}] Buscar ejercicios en la lista de ejercicios
-  \item[\textbf{SCRUM-27}] Pop up de confirmación
-  \item[\textbf{SCRUM-28}] Implementar menú principal
-  \item[\textbf{SCRUM-29}] Detectar metas cumplidas en los ejercicios despues del entrenamiento
-  \item[\textbf{SCRUM-30}] Buscar rutinas para descargar
-  \item[\textbf{SCRUM-31}] Implementar calendario
+  \item[\textbf{SCRUM-5}] Insertar/Borrar/Modificar rutina
+  \item[\textbf{SCRUM-6}] Hacer gráfica en base a las marcas obtenidas
+  \item[\textbf{SCRUM-7}] Revisar datos para ver si el descanso es necesario
+  \item[\textbf{SCRUM-8}] Enseñar datos de una rutina a descargar
+  \item[\textbf{SCRUM-9}] Compartir mi rutina
+  \item[\textbf{SCRUM-10}] Valorar el entrenamiento en base a la marca actual y la meta del usuario
+  \item[\textbf{SCRUM-11}] Monitorizar pulso en tiempo real
+  \item[\textbf{SCRUM-12}] Medir pulso en reposo y compararlo con datos de ejercicios
+  \item[\textbf{SCRUM-13}] Avisar de anomalías en el pulso de forma suave
+  \item[\textbf{SCRUM-14}] Obtener calorías quemadas
+  \item[\textbf{SCRUM-15}] Comprobar el equilibrio nervioso del usuario
+  \item[\textbf{SCRUM-16}] Realizar el flujo del entrenamiento
+  \item[\textbf{SCRUM-17}] Conectar con la IA para iniciar diálogo
+  \item[\textbf{SCRUM-18}] Crear/Borrar usuario
+  \item[\textbf{SCRUM-19}] Resumir datos
+  \item[\textbf{SCRUM-20}] Iniciar/Cerrar sesión
+  \item[\textbf{SCRUM-21}] Medir SpO2
+  \item[\textbf{SCRUM-22}] Interpretar constantes
+  \item[\textbf{SCRUM-23}] Buscar ejercicios en la lista de ejercicios
+  \item[\textbf{SCRUM-24}] Pop up de confirmación
+  \item[\textbf{SCRUM-25}] Implementar menú principal
+  \item[\textbf{SCRUM-26}] Detectar metas cumplidas en los ejercicios después del entrenamiento
+  \item[\textbf{SCRUM-27}] Buscar rutinas para descargar
+  \item[\textbf{SCRUM-28}] Implementar calendario
 \end{description}
+
 
 A continuación se muestran los diseños creados en esta iteración:
 
@@ -191,7 +189,7 @@ A continuación se muestran los diseños creados en esta iteración:
     \label{fig:Lista rutinas}
 \end{figure}
 \begin{figure}[H]
-   \centering
+   \centering Pop up datos de un ejercicio en entrenamiento
     \includegraphics[width=0.6\textwidth]{fotos/Frame 47.png}
     \caption{Lista rutinas filtradas}
     \label{fig:Lista rutinas filtradas}
@@ -409,12 +407,32 @@ Durante esta revisión de sprint se realizaron mejoras de diseño, como la incor
 Además, se añadieron nuevas historias al \textit{product backlog}, incorporando o desglosando funcionalidades:
 
 \begin{itemize}
-  \item SCRUM-31: Copiar rutina
-  \item SCRUM-32: Añadir meta por parámetro
-  \item SCRUM-33: Solicitar permiso al usuario antes de enviar datos a la IA
-  \item SCRUM-34: Enviar datos del entrenamiento actual y anteriores a la IA
-  \item SCRUM-35: Conectar/Desconectar con la IA
+  \item SCRUM-29: Copiar rutina
+  \item SCRUM-30: Añadir meta por parámetro
+  \item SCRUM-31: Solicitar permiso al usuario antes de enviar datos a la IA
+  \item SCRUM-32: Enviar datos del entrenamiento actual y anteriores a la IA
+  \item SCRUM-33: Conectar/Desconectar con la IA
 \end{itemize}
+
+El backlog quedaría de la siguiente manera:
+
+\begin{landscape}
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=1.5\textwidth]{tablas/backlog1.png}
+    \caption{Backlog prioridades MoSCoW}
+    \label{fig:backlog1}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=1.5\textwidth]{tablas/backlog2.png}
+    \caption{Backlog prioridades MoSCoW}
+    \label{fig:backlog2}
+\end{figure}
+\end{landscape}
 
 %Muy importante: aquí falta una tabla con todas las historias, priorizadas y organizadas por iteraciones.
 
@@ -423,15 +441,16 @@ Además, se añadieron nuevas historias al \textit{product backlog}, incorporand
 La lista de historias de la primera iteracion queda de la siguiente manera:
 
 \begin{itemize}
-    \item SCRUM-26: Buscar ejercicio en lista
+    \item SCRUM-23: Buscar ejercicio en lista de ejercicios
     \item SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
-    \item SCRUM-27: Pop up de confirmación
+    \item SCRUM-24: Pop up de confirmación
+    \item SCRUM-30: Añadir meta por parámetro
 \end{itemize}
 
 A continuación especificaremos las tareas y pruebas de cada historia, y los resultados asociados a cada una. 
 
 \HU{
-SCRUM-26: Buscar ejercicio en lista
+SCRUM-23: Buscar ejercicio en lista de ejercicios
 }{
 	\item Implementar la BD local
     \item Implementar algoritmo de búsqueda por nombre
@@ -486,7 +505,7 @@ SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
 Las pruebas realizadas para la SCRUM-3, fueron de caja negra, ir haciendo inserciones y borrados en la BD local para despues hacer consultas y comprobar si los resultados eran correctos. También se comprobó su correcto funcionamiento con el SCRUM-3, corroborando la correcta actualización de los contenidos. Pasó todas las pruebas.
 
 \HU{
-SCRUM-32: Añadir meta por parámetro
+SCRUM-30: Añadir meta por parámetro
 }{
 	\item Implementar la BD local
 	\item Implementar las funciones para modificar metas
@@ -506,7 +525,7 @@ El problema de esta iteración fue el como distinguir internamente, si un usuari
 Las pruebas realizadas se basaron en añadir valores nuevos de metas tanto erroneos como válidos, para ver como se comportaban las soluciones implementadas a las erratas que pueda introducir el usuario. Pasó todas las pruebas.
 
 \HU{
-	SCRUM-27: Pop up de confirmación  
+	SCRUM-24: Pop up de confirmación  
 }{
 	\item Implementar la confirmación para que pueda ser usado en pantallas distintas
 	\item Implementar boceto de IU \cref{fig:Pop up de confirmacion} 
@@ -521,7 +540,7 @@ Las pruebas realizadas se basaron en añadir valores nuevos de metas tanto erron
     \label{fig:PopUpConfirmacion}
 \end{figure}
 
-Un pop
+Es un pop up que se usará siempre que se requiera una confirmación ,se implementó para que pueda ser usado en cualquier contexto de la app, pasó las pruebas.
 
 \subsubsection{Estado de la BD local}
 
@@ -581,17 +600,17 @@ Por consecuencia las futuras funcionalidades en la que se mencionan los pop ups,
 Esta iteración se centró en el desarrollo del sistema de sesiones, la API de la aplicación, el backend básico del servidor y la sección de rutinas. Las historias que incluye son las siguientes:
 
 \begin{itemize}
-  \item SCRUM-21 Crear/Borrar mi usuario
-  \item SCRUM-23 Iniciar/Cerrar sesión
-  \item SCRUM-6 Insertar/Borrar/Modificar rutina
+  \item SCRUM-18 Crear/Borrar mi usuario
+  \item SCRUM-20 Iniciar/Cerrar sesión
+  \item SCRUM-5 Insertar/Borrar/Modificar rutina
   \item SCRUM-4 Buscar rutina en la lista del usuario
-  \item SCRUM-28 Implementar menú principal
+  \item SCRUM-25 Implementar menú principal
 \end{itemize}
 
 También se terminará la historia no finalizada de la iteración anterior(SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios).
 
 \HU{
-SCRUM-28 Implementar menú principal
+SCRUM-25 Implementar menú principal
 }{
 	\item Implementar el boceto IU \cref{fig:Menu principal}
 	\item Añadir accesos a las funcionalidades actuales
@@ -610,7 +629,7 @@ SCRUM-28 Implementar menú principal
 Las funcionalidades que no esten disponibles al ser pulsadas no hacen nada.
 
 \HU{
-SCRUM-21 Crear/Borrar mi usuario
+SCRUM-18 Crear/Borrar mi usuario
 }{
 	\item Implementar bocetos de IU \cref{fig:Crear cuenta 1} ,\cref{fig:Crear cuenta 2}, \cref{fig:Pagina inicial} y la parte necesaria de \cref{fig:Opciones de perfil usuario}
 	\item Implementar funciones de inserccion y borrado en el backend
@@ -647,7 +666,7 @@ SCRUM-21 Crear/Borrar mi usuario
 Las pruebas se realizaron en el backend, la correcta inserción y borrado de usuarios. Cuando se crea correctamente un usuario se redirige a la pantalla inicial. Si se intenta crear un usuario ya existente, se lanza un aviso. Pasó todas las pruebas.
 
 \HU{
-SCRUM-23 Iniciar/Cerrar sesión
+SCRUM-20 Iniciar/Cerrar sesión
 }{
 	\item Implementar el boceto IU \cref{fig:Inicio de sesion} y parte necesaria de \cref{fig:Opciones de perfil usuario}
 	\item Implementar función de consulta en el backend
@@ -696,10 +715,10 @@ SCRUM-4 Buscar rutina en la lista del usuario
     \label{fig:listaRutinas}
 \end{figure}
 
-Esta funcionalidad se abarcó aprovechando lo implementado en la iteración anterior del SCRUM-26. Se realizaron las mismas pruebas pero relacionadas con las rutinas. Como la funcionalidad previamente mencionada se diseñó para poder usar código a modo de plantilla y pasó todas las pruebas, esta como era de esperar las pasó también.
+Esta funcionalidad se abarcó aprovechando lo implementado en la iteración anterior del SCRUM-23. Se realizaron las mismas pruebas pero relacionadas con las rutinas. Como la funcionalidad previamente mencionada se diseñó para poder usar código a modo de plantilla y pasó todas las pruebas, esta como era de esperar las pasó también.
 
 \HU{
-SCRUM-6 Insertar/Borrar/Modificar rutina
+SCRUM-5 Insertar/Borrar/Modificar rutina
 }{
 	\item Implementar las insercciones en para la BD local
 	\item Implementar los borrados para la BD local
@@ -786,12 +805,12 @@ Esta iteración se centró en desarrollar la funcionalidad para compartir rutina
 
 \begin{itemize}
   \item SCRUM-2 Establecer peso objetivo
-  \item SCRUM-31 Copiar rutina
-  \item SCRUM-10 Enseñar datos de una rutina a descargar
-  \item SCRUM-11 Compartir mi rutina
-  \item SCRUM-30 Buscar rutinas para descargar
-  \item SCRUM-9 Revisar datos para ver si el descanso es necesario
-  \item SCRUM-22 Resumir datos
+  \item SCRUM-29 Copiar rutina
+  \item SCRUM-8 Enseñar datos de una rutina a descargar
+  \item SCRUM-9 Compartir mi rutina
+  \item SCRUM-27 Buscar rutinas para descargar
+  \item SCRUM-7 Revisar datos para ver si el descanso es necesario
+  \item SCRUM-19 Resumir datos
 \end{itemize}
 \HU{
 SCRUM-2 Establecer peso objetivo
@@ -814,7 +833,7 @@ SCRUM-2 Establecer peso objetivo
 Para guardar el peso, en esta iteración como no se crearan las tablas para guardas los pesajes del usuario se guardará usando secure storage, es una solución temporal. En para esta funcionalidad se hicieron pruebas para comprobar la correcta insercción del formato del peso, que no se añadan letras. que se admitan comas y puntos, que solo se use un decimal. Pasó todas las pruebas.
 
 \HU{
-SCRUM-11 Compartir mi rutina
+SCRUM-9 Compartir mi rutina
 }{
 	\item Implementar la BD en el backend
 	\item Implementar funciones de inserción en la API
@@ -850,7 +869,7 @@ Para solucionar algunos de estos problemas se hizo lo siguiente, en el backend e
 \end{figure}
 
 \HU{
-SCRUM-30 Buscar rutinas para descargar
+SCRUM-27 Buscar rutinas para descargar
 }{
 	\item Implementar funciones de consultas en la API
 	\item Implementar IU de busqueda de rutinas por usuario creador y por nombre de rutina
@@ -889,7 +908,7 @@ Una vez implementadas estas soluciones, ya se pasaron exitosamente las pruebas.
 \end{figure}
 
 \HU{
-SCRUM-10 Enseñar datos de una rutina a descargar
+SCRUM-8 Enseñar datos de una rutina a descargar
 }{
 	\item Implementar el IU pop up
 	\item Implementar las funciones de consulta en la API
@@ -909,7 +928,7 @@ Es la misma pantalla para ver nuestras rutinas subidas, reciclamos código, la �
 \end{figure}
 
 \HU{
-SCRUM-31 Copiar rutina
+SCRUM-29 Copiar rutina
 }{
 	\item Añadir al boceto IU de datos rutina \cref{fig:Datos rutina modificable} esta funcionalidad
 	\item Implementar la IU resultante de la tarea anterior
@@ -921,11 +940,11 @@ SCRUM-31 Copiar rutina
 
 \subsubsection{Funcionalidad descartada}
 
-Durante la realización de estas tareas de usuario, se dió notoriedad a que las historias restantes de este sprint (SCRUM-9 Revisar datos para ver si el descanso es necesario y SCRUM-22 Resumir datos) no pueden ser implementadas en este punto del desarrollo. Se pospondrán para su futura implementación.
+Durante la realización de estas tareas de usuario, se dió notoriedad a que las historias restantes de este sprint (SCRUM-7 Revisar datos para ver si el descanso es necesario y SCRUM-19 Resumir datos) no pueden ser implementadas en este punto del desarrollo. Se pospondrán para su futura implementación.
 
-Se ha decidido dar menos prioridad y que por tanto no se abordará en este TFG por limitaciones de tiempo en concreto el SCRUM-9 (Revisar datos para ver si el descanso es necesario), porque necesitaría los datos de un smartwatch y ha sido una funcionalidad previamente descartada.
+Se ha decidido dar menos prioridad y que por tanto no se abordará en este TFG por limitaciones de tiempo en concreto el SCRUM-7 (Revisar datos para ver si el descanso es necesario), porque necesitaría los datos de un smartwatch y ha sido una funcionalidad previamente descartada.
 
-También se ha reducido la prioridad de SCRUM-31 (Copiar rutina), dado que aporta poco valor a la app.
+También se ha reducido la prioridad de SCRUM-29 (Copiar rutina), dado que aporta poco valor a la app.
 
 Se decidió adelantar otras, pero debido a los problemas encontrados durante esta iteración no se pudieron realizar.
 
@@ -974,14 +993,14 @@ En esta iteración se tenía pensado implementar la funcionalidad de resumir los
 En esta iteración se tiene pensado implementar la funcionalidad del calendario, donde el usuario podrá ver su planificación y acceder a sus marcas. Por otro lado, también se implementarán las funcionalidades nuevas del sprint anterior y las nuevas pantallas.
 
 \begin{itemize}
-	  \item SCRUM-29 Detectar metas cumplidas en los ejercicios despues del entrenamiento
-	  \item SCRUM-1 Registrar peso por día
-	  \item SCRUM-19 Realizar el flujo del entrenamiento
-	  \item SCRUM-31: Implementar calendario
+	  \item SCRUM-26: Detectar metas cumplidas en los ejercicios despues del entrenamiento
+	  \item SCRUM-1: Registrar peso por día
+	  \item SCRUM-16: Realizar el flujo del entrenamiento
+	  \item SCRUM-28: Implementar calendario
 \end{itemize}
 
 \HU{
-SCRUM-31: Implementar calendario
+SCRUM-28: Implementar calendario
 }{
 	\item Implementar la IU e insertarla en el menu principal \cref{fig:Menu principal}
 	\item Implementar en la BD local
@@ -1030,7 +1049,7 @@ El calendario es donde el usuario podrá organizar sus entrenamientos, acceder a
 Se realizaron pruebas comprobando si se actualizaban los entrenamientos/pesajes añadidos se veían reflejados correctamente. Todos los datos se guardan correctamente así que pasó las pruebas, el único fallo es que a veces no actualiza la IU correctamente, por lo que se dijo previamente de que no se puede actualizar un widget dentro de otro, pero solo es visual.
 
 \HU{
-SCRUM-19 Realizar el flujo del entrenamiento
+SCRUM-16 Realizar el flujo del entrenamiento
 }{
 	\item Implementar IU de las pantallas de entrenamientos(de la \cref{fig:Lista ejercicios del entrenamiento actual}  a la \cref{fig:Fin entrenamiento})
 	\item Implementar una clase que controle el cambio entre distintas pantallas y el guardado de marcas
@@ -1040,7 +1059,7 @@ SCRUM-19 Realizar el flujo del entrenamiento
 	\item si es la primera serie de un ejercicio, no se permite terminar el ejercicio
 	\item si no es la primera serie de un ejercicio, se permite terminar el ejercicio
 	\item si acaba una serie, no se permitirá acabar el ejercicio o continuar con este hasta que termine el tiempo de descanso que se muestra en pantalla
-	\item si finaliza el último ejercicio de la lista, fin del entrenamiento, se devuelve al usuario al menú principal
+	\item si finaliza el último ejercicio de la lista, fin del entrenamiento, se devuelve al usuario al menú principal y guardan las marcas obtenidas
 }
 
 \begin{figure}[H]
@@ -1087,7 +1106,7 @@ Aquí un diagrama de actividades que explica la tarea de esta clase:
 Se hicieron pruebas simulando el flujo varias veces de distintas formas, comprobando su correcta ejecución y que se guardaban correctamente los datos. Pasó todas las pruebas.
 
 \HU{
-SCRUM-29 Detectar metas cumplidas en los ejercicios despues del entrenamiento
+SCRUM-26 Detectar metas cumplidas en los ejercicios despues del entrenamiento
 }{
 	\item Implementar bocetos de IU \cref{fig:Metas cumplidas}
 	\item Implementar lógica para comparar marcas y metas despues de acabar el entrenamiento en la clase que controla el flujo del entrenamiento
@@ -1127,7 +1146,7 @@ SCRUM-1 Registrar peso por día
 
 Para implementar esta funcionalidad se añadió un acceso en la parte de abajo de la pantalla para cada día del calendario, dando igual si existe algún evento o no, siempre se puede guardar/modificar el peso del usuario siempre que no sea de un día pasado. Se realizaron pruebas comprobando los correctos formatos al introducir el peso y los procentajes, también se comprobo que se hacía un correcto display de estos datos al acceder a ellos desde el calendario. Pasó todas las pruebas.
 
-En esta iteración hay pocas funcionalidades comparadas con otras, porque el flujo del entrenamiento es una funcionalidad muy grande. A parte se añade esta funcionalidad que también se va a realizar en esta iteración, SCRUM-31 Implementar calendario.
+En esta iteración hay pocas funcionalidades comparadas con otras, porque el flujo del entrenamiento es una funcionalidad muy grande. A parte se añade esta funcionalidad que también se va a realizar en esta iteración, SCRUM-28 Implementar calendario.
 
 \subsubsection{Cambios en el backend}
 
@@ -1171,12 +1190,12 @@ En esta review se ha propuesto que despues de los entrenamientos se les enseñe 
 Al principio de la iteración se dio a notar que faltaba la IU y algunas funciones para visualizar las marcas obtenidas por el usuario, se añadirá a esta iteración. Teniendo en cuenta el tiempo que se posee la IA no se podrá implementar se dará prioridad a la funcionalidad de hacer gráficas usando las marcas obtenidas por el usuario, no se añadió desde un principio porque era necesario poder añadir marcas.
 
 \begin{itemize}
-	\item SCRUM-36: Enseñar las marcas obtenidas en un día
-	\item SCRUM-37: Hacer gráfica en base a las marcas obtenidas
+	\item SCRUM-34: Enseñar las marcas obtenidas en un día
+	\item SCRUM-6: Hacer gráfica en base a las marcas obtenidas
 \end{itemize}
 
 \HU{
-SCRUM-36: Enseñar las marcas obtenidas en un día
+SCRUM-34: Enseñar las marcas obtenidas en un día
 }{
 \item Implementar las consultas en la BD local
 \item Implementar la IU
@@ -1188,7 +1207,7 @@ SCRUM-36: Enseñar las marcas obtenidas en un día
 Se añadió una nueva pantalla MarcasEntrenamientos, en la cual se muestran los resultados del entrenamiento de un usuario en sus distintas series. Pasó todas las pruebas.
 
 \HU{
-SCRUM-37: Hacer gráfica en base a las marcas obtenidas
+SCRUM-6: Hacer gráfica en base a las marcas obtenidas
 }{
 \item Implementar las consultas necesarias
 \item Implementar la IU
