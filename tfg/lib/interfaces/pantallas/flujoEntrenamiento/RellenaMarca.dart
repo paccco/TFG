@@ -117,6 +117,7 @@ class _RellenaMarcaState extends State<RellenaMarca>{
     return PopScope(
         canPop: false,
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Colores.grisClaro,
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(Tamanios.appBarH),

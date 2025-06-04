@@ -262,6 +262,7 @@ class BDLocal{
     Map<String,dynamic> aux = datos;
     aux[camposMarca[2]]=aux[camposMarca[2]]==null ? null : aux[camposMarca[2]]*100;
     aux[camposMarca[3]]=aux[camposMarca[3]]==null ? null : aux[camposMarca[3]]*100;
+    aux[camposMarca[4]]=aux[camposMarca[4]]==null ? null : "00:${aux[camposMarca[4]]}";
     aux[camposMarca[5]]=aux[camposMarca[5]]==null ? null : aux[camposMarca[5]]*100;
 
     await db.insert(marca, aux, conflictAlgorithm: ConflictAlgorithm.fail);
@@ -299,7 +300,7 @@ class BDLocal{
       AVG(${camposMarca[3]}) AS peso,
       AVG(${camposMarca[5]}) AS distancia,
       AVG(
-        (strftime('%M', ${camposMarca[4]}) * 60) + COALESCE(strftime('%S', ${camposMarca[4]}), 0)
+        (strftime('%M', ${camposMarca[4]}) * 60) + strftime('%S', ${camposMarca[4]})
       ) AS tiempo
     FROM $marca
     WHERE ${camposMarca[7]} = ?

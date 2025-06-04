@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'EligeParametro.dart';
 import 'ModificarDescrEjercicio.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloSalidaBorrar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../ConexionBDLocal.dart';
 import '../../../constantes.dart';
 import 'NuevaMetaEjercicio.dart';
-import '../plantillas/Grafica.dart';
 
 class DatosEjercicios extends StatelessWidget{
 
@@ -16,9 +16,17 @@ class DatosEjercicios extends StatelessWidget{
 
   Future<Widget> _fetchInfo(context) async{
     final datosEjercicio = await BDLocal.instance.getEjercicio(titulo);
+    final camposMarca=BDLocal.camposMarca;
 
     int tipoInt = datosEjercicio['tipo'];
     String tipo = tipoInt.toRadixString(2).padLeft(8,'0');
+    List<String> parametros=[];
+    tipo[0] == '1' ? parametros.add(camposMarca[2]) : null;
+    tipo[1] == '1' ? parametros.add(camposMarca[3]) : null;
+    tipo[2] == '1' ? parametros.add(camposMarca[4]) : null;
+    tipo[3] == '1' ? parametros.add(camposMarca[5]) : null;
+
+
     TextEditingController controller=TextEditingController();
     controller.text=datosEjercicio['descripcion'];
     
@@ -45,7 +53,7 @@ class DatosEjercicios extends StatelessWidget{
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _hacerBoton("Hacer grafica", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Grafica(ejercicio: titulo, fetchContenido: BDLocal.instance.getMediaMarca)))),
+          _hacerBoton("Hacer grafica", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>EligeParametro(ejercicio: titulo,parametros: parametros)))),
           Spacer(),
           _hacerBoton("Descripcion", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ModificarDescrEjercicio(titulo: titulo)))),
           Spacer(),
