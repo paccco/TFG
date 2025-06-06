@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tfg/constantes.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloConSalida.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -21,6 +22,12 @@ class Grafica extends StatefulWidget{
 class _GraficaState extends State<Grafica>{
 
   Future<Widget> _fetchContenido() async{
+
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+
     final datos = await widget.fetchContenido(widget.ejercicio);
 
     final fechas = datos.keys.map((s) => DateTime.parse(s.trim())).toList();
@@ -40,8 +47,6 @@ class _GraficaState extends State<Grafica>{
 
       final medida = widget.medida;
 
-      print(datos);
-
       return LineChart(
         LineChartData(
           minX: 0,
@@ -53,10 +58,10 @@ class _GraficaState extends State<Grafica>{
               .reduce((a, b) => a > b ? a : b) * 1.1,
           titlesData: FlTitlesData(
             rightTitles: AxisTitles(
-              sideTitles: SideTitles(showTitles: false)
+                sideTitles: SideTitles(showTitles: false)
             ),
             topTitles: AxisTitles(
-              sideTitles: SideTitles(showTitles: false)
+                sideTitles: SideTitles(showTitles: false)
             ),
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
@@ -101,13 +106,13 @@ class _GraficaState extends State<Grafica>{
           )
       ),
       body: SizedBox(
-        height: 40.h,
+        height: 80.w,
         child: FutureBuilder(
             future: _fetchContenido(),
             builder: (builder, snapshot){
               if(snapshot.hasData){
                 return Container(
-                  margin: EdgeInsets.all(2.h),
+                  margin: EdgeInsets.all(5.h),
                   child: snapshot.data!,
                 );
               }else if(snapshot.hasError){
@@ -118,5 +123,15 @@ class _GraficaState extends State<Grafica>{
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
+    super.dispose();
   }
 }

@@ -132,6 +132,7 @@ class _MarcasEntrenamientoState extends State<MarcasEntrenamiento>{
             actualizarVisible();
           },
           child: Container(
+            margin: EdgeInsets.all(2.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,

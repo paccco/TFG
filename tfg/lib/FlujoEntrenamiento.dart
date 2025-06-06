@@ -130,9 +130,7 @@ class FlujoEntrenamiento{
       Map<String,double> resultadoEjercicio={};
       for(var marca in marcas[ejercicio]!){
         await BDLocal.instance.insertMarca(marca);
-        print(meta);
         Map<String,double> res = _comprobarMeta(meta, marca);
-        print(res);
         res.removeWhere((key,value)=>value==0);
         resultadoEjercicio.addAll(res);
       }

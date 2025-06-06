@@ -271,6 +271,7 @@ class BDLocal{
   Future<Map<String,dynamic>> getMetaActual(String ejercicio) async{
     final db = await instance.database;
     final out = await db.query(marca,where: '${camposMarca[0]} = ? AND ${camposMarca[7]} = ?', whereArgs: ['0000-00-00',ejercicio], columns: camposMarca.sublist(2,6));
+
     return out.first;
   }
 
@@ -278,12 +279,22 @@ class BDLocal{
     final db = await instance.database;
     final out = await db.query(marca,where: '${camposMarca[7]} = ? AND ${camposMarca[0]} != ?', whereArgs: [ejercicio,'0000-00-00'], orderBy: '${camposMarca[1]} DESC', columns: camposMarca.sublist(2,6));
 
-    return out.isNotEmpty ? out.first : {
-      camposMarca[2] : 0,
-      camposMarca[3] : 0,
-      camposMarca[4] : '00:00',
-      camposMarca[5] : 0
-    };
+    if(out.isNotEmpty){
+      Map<String,dynamic> aux=Map.from(out.first);
+      List<String> separados=[];
+
+      separados=aux[camposMarca[4]]?.split(':');
+      aux[camposMarca[4]]="${separados[1]}:${separados[2]}";
+
+      return aux;
+    }else{
+      return {
+        camposMarca[2] : 0,
+        camposMarca[3] : 0,
+        camposMarca[4] : '00:00',
+        camposMarca[5] : 0
+      };
+    }
   }
 
   Future<List<Map<String,dynamic>>> getMarcasfecha(DateTime fecha) async{
