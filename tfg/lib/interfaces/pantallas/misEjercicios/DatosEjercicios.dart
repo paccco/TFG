@@ -42,10 +42,10 @@ class DatosEjercicios extends StatelessWidget{
         dataRowMinHeight: 10.h,
         dataRowMaxHeight: 15.h,
         columns: [
-          DataColumn(label: Text(''), columnWidth: FixedColumnWidth(28.w)),
+          DataColumn(label: SizedBox.shrink(), columnWidth: FixedColumnWidth(26.w)),
           DataColumn(label: Text('Marca \n actual')),
           DataColumn(label: Text('Meta')),
-          DataColumn(label: Text('')),
+          DataColumn(label: SizedBox.shrink()),
         ],
         rows: _construyeTabla(tipo,datosMeta,datosMarca),
       ),
@@ -94,7 +94,7 @@ class DatosEjercicios extends StatelessWidget{
 
     if(tipo[0]=='1'){
       out.add(
-        DataRow(cells: _construyeFila('REPETICIONES',marca[repeticiones], meta[repeticiones])),
+        DataRow(cells: _construyeFila('REPETICIONES',marca[repeticiones]*100, meta[repeticiones]+100)),
       );
     }
     if(tipo[1]=='1'){

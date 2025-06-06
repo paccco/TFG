@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tfg/constantes.dart';
 import 'package:tfg/funcionesAux.dart';
+import 'package:tfg/interfaces/pantallas/plantillas/PantallasEntrenamiento.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/BarraTexto.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloConSalida.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -23,6 +24,7 @@ class _ModificarPesoState extends State<ModificarPeso>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colores.grisClaro,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(Tamanios.appBarH),
@@ -46,20 +48,34 @@ class _ModificarPesoState extends State<ModificarPeso>{
                   final peso = gestorDeComas(pesoStr);
 
                   final pesoObj=await BDLocal.instance.getPesoObjetivo();
-                  final felicitacion="Felicidades alcanzaste tu meta";
                   if(pesoObj!=0){
+                    String felicitacion="";
                     if(pesoObj>0){
                       //Cuando el peso objetivo es mayor que cero, el usuario quiere subir peso
-                      if(pesoObj<peso){
+                      if(pesoObj.abs()<=peso){
                         await BDLocal.instance.insertMetaPeso('0',0);
-                        mensaje(context, felicitacion);
+                        felicitacion="Tu meta era de subir a ${pesoObj.abs()/100}kg";
                       }
                     } else{
                       //Sino quiere bajar de peso
-                      if(pesoObj>peso){
+                      if(pesoObj.abs()>=peso){
                         await BDLocal.instance.insertMetaPeso('0',0);
-                        mensaje(context, felicitacion);
+                        felicitacion="Tu meta era de bajar a ${pesoObj.abs()/100}kg";
                       }
+                    }
+
+                    if(felicitacion.isNotEmpty){
+                      await Navigator.push(context, MaterialPageRoute(builder: (builder)=>PantallasEntrenamiento(
+                          titulo: "",
+                          hijos: [
+                            Text("¡Enhorabuena!", style: TextStyle(fontSize: 30.sp)),
+                            Text("Has cumplido tu meta de peso", style: TextStyle(fontSize: 20.sp)),
+                            Text(felicitacion, style: TextStyle(fontSize: 20.sp)),
+                            Icon(Icons.check_circle, size: 50.sp, color: Colores.verde)
+                          ],
+                        boton: true,
+                        textoBoton: "Salir",
+                      )));
                     }
                   }
 

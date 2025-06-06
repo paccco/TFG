@@ -160,6 +160,7 @@ class _NuevaMetaEjercicioState extends State<NuevaMetaEjercicio>{
     }));
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colores.grisClaro,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(Tamanios.appBarH), 

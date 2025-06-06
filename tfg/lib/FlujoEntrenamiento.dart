@@ -42,21 +42,21 @@ class FlujoEntrenamiento{
     return FlujoEntrenamiento._privateConstructor(rutina, listaEjercicios, ejerciciosTipo, descanso);
   }
 
-  Map<String,bool> _comprobarMeta(Map<String,dynamic> meta, Map<String,dynamic> marca){
+  Map<String,double> _comprobarMeta(Map<String,dynamic> meta, Map<String,dynamic> marca){
 
     final camposMarca=BDLocal.camposMarca;
-    Map<String,bool> resultado={};
+    Map<String,double> resultado={};
 
     for (var campo in meta.keys) {
       if(meta[campo] != null && marca[campo] != null){
-        resultado[campo]=false;
+        resultado[campo]=0;
         //Repetciones
         if(campo==camposMarca[2] && marca[campo]>=meta[campo]){
-          resultado[campo]=true;
+          resultado[campo]=meta[campo]*1.0;
         }
         //Peso
-        if(campo==camposMarca[3] && marca[campo]>=meta[campo]){
-          resultado[campo]=true;
+        if(campo==camposMarca[3] && marca[campo]*100>=meta[campo]){
+          resultado[campo]=meta[campo]*1.0;
         }
         //Tiempo
         if(campo==camposMarca[4]){
@@ -70,12 +70,12 @@ class FlujoEntrenamiento{
           Duration tiempoMarcaDuracion=Duration(minutes: tiempoMarcaList[0], seconds: tiempoMarcaList[1]);
 
           if(tiempoMarcaDuracion>=tiempoMetaDuracion){
-            resultado[campo]=true;
+            resultado[campo]=tiempoMetaDuracion.inSeconds.toDouble();
           }
         }
         //Distancia
-        if(campo==camposMarca[5] && marca[campo]>=meta[campo]){
-          resultado[campo]=true;
+        if(campo==camposMarca[5] && marca[campo]*100>=meta[campo]){
+          resultado[campo]=meta[campo]*1.0;
         }
       }
     }
@@ -122,18 +122,21 @@ class FlujoEntrenamiento{
 
     Navigator.push(context, MaterialPageRoute(builder: (builder)=>FinEntrenamiento()));
 
-    Map<String,Map<String,bool>> metasSuperadas={};
+    Map<String,Map<String,double>> metasSuperadas={};
 
     //Por cada ejercicio miramos las marcas
     for(var ejercicio in marcas.keys){
       final meta = await BDLocal.instance.getMetaActual(ejercicio);
-      Map<String,bool> resultadoEjercicio={};
+      Map<String,double> resultadoEjercicio={};
       for(var marca in marcas[ejercicio]!){
         await BDLocal.instance.insertMarca(marca);
-        Map<String,bool> res = _comprobarMeta(meta, marca);
-        res.removeWhere((key,value)=>value==false);
+        print(meta);
+        Map<String,double> res = _comprobarMeta(meta, marca);
+        print(res);
+        res.removeWhere((key,value)=>value==0);
         resultadoEjercicio.addAll(res);
       }
+
       metasSuperadas[ejercicio]=resultadoEjercicio;
     }
 
@@ -144,8 +147,18 @@ class FlujoEntrenamiento{
           Text("Has superado metas", style: TextStyle(fontSize: 19.sp)),
           Icon(Icons.access_alarms, size: 40.sp, color: Colores.verde)
         ];
-        metasSuperadas[ejercicio]!.keys.forEach((value){
-          aux.add(Text("$value superada", style: TextStyle(fontSize: 20.sp,color: Colores.negro)));
+        metasSuperadas[ejercicio]!.forEach((key,value){
+          final auxValor=value/100;
+          final estiloTexto=TextStyle(fontSize: 18.sp,color: Colores.negro);
+
+          if(key=='tiempo'){
+            final minutos=value~/60, segundos=(value%60).toInt();
+            aux.add(Text("$key superada, tu meta era $minutos min y $segundos seg", style: estiloTexto));
+          }else if(key=='repeticiones'){
+            aux.add(Text("$key superada, tu meta era $value", style: estiloTexto));
+          }else{
+            aux.add(Text("$key superada, tu meta era $auxValor", style: estiloTexto));
+          }
         });
         final pantalla=PantallasEntrenamiento(
             titulo: "Meta superada",

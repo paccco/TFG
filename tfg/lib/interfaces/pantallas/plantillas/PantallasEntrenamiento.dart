@@ -43,7 +43,7 @@ class _PantallasEntrenamientoState extends State<PantallasEntrenamiento>{
                 alignment: Alignment.center,
                 color: Colores.azul,
                 padding: EdgeInsets.all(2.h),
-                height: 15.h,
+                height: 13.h,
                 child: Text(widget.textoBoton, style: TextStyle(fontSize: 30.sp, color: Colores.blanco)),
               ),
             ),

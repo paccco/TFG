@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:tfg/constantes.dart';
 import 'package:tfg/interfaces/widgetsPersonalizados/TituloConSalida.dart';
@@ -38,20 +40,37 @@ class _GraficaState extends State<Grafica>{
 
       final medida = widget.medida;
 
+      print(datos);
+
       return LineChart(
         LineChartData(
           minX: 0,
           maxX: datos.length.toDouble(),
           minY: 0,
+          //Ponemo en el eje Y el maximo valor de la medida mas un 10% para que estéticamente quede mejor la grafica
           maxY: datos.values
               .map((e) => e[medida] ?? 0)
               .reduce((a, b) => a > b ? a : b) * 1.1,
           titlesData: FlTitlesData(
-            bottomTitles: AxisTitles(
-              sideTitles: SideTitles(showTitles: true),
+            rightTitles: AxisTitles(
+              sideTitles: SideTitles(showTitles: false)
             ),
-            leftTitles: AxisTitles(
-              sideTitles: SideTitles(showTitles: true),
+            topTitles: AxisTitles(
+              sideTitles: SideTitles(showTitles: false)
+            ),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                interval: 1,
+                showTitles: true,
+                getTitlesWidget: (value, meta) {
+                  final date = fechaMin.add(Duration(days: value.toInt()));
+                  final formattedDate = "${date.day}-${date.month}-${date.year}";
+                  return SideTitleWidget(
+                      meta: meta,
+                      child: Text(formattedDate)
+                  );
+                },
+              ),
             ),
           ),
           lineBarsData: [
@@ -87,7 +106,10 @@ class _GraficaState extends State<Grafica>{
             future: _fetchContenido(),
             builder: (builder, snapshot){
               if(snapshot.hasData){
-                return snapshot.data!;
+                return Container(
+                  margin: EdgeInsets.all(2.h),
+                  child: snapshot.data!,
+                );
               }else if(snapshot.hasError){
                 return Text("Error, ${snapshot.error}");
               }

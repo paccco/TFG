@@ -32,6 +32,7 @@ Future<Widget> _tablaDatos(BuildContext context) async{
   int pesoObj=await BDLocal.instance.getPesoObjetivo();
   final TextEditingController pesoObjC=TextEditingController();
 
+
   return Container(
     margin: EdgeInsets.all(2.h),
     child: Column(

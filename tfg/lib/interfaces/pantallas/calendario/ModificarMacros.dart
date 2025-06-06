@@ -29,6 +29,7 @@ class _ModificarMacrosState extends State<ModificarMacros>{
     final estiloTitulo=TextStyle(fontSize: 25.sp, color: Colores.negro);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colores.grisClaro,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(Tamanios.appBarH),

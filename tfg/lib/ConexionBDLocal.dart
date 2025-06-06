@@ -276,8 +276,14 @@ class BDLocal{
 
   Future<Map<String,dynamic>> getMarcaActual(String ejercicio) async{
     final db = await instance.database;
-    final out = await db.query(marca,where: '${camposMarca[7]} = ?', whereArgs: [ejercicio], orderBy: '${camposMarca[1]} DESC', columns: camposMarca.sublist(2,6));
-    return out.first;
+    final out = await db.query(marca,where: '${camposMarca[7]} = ? AND ${camposMarca[0]} != ?', whereArgs: [ejercicio,'0000-00-00'], orderBy: '${camposMarca[1]} DESC', columns: camposMarca.sublist(2,6));
+
+    return out.isNotEmpty ? out.first : {
+      camposMarca[2] : 0,
+      camposMarca[3] : 0,
+      camposMarca[4] : '00:00',
+      camposMarca[5] : 0
+    };
   }
 
   Future<List<Map<String,dynamic>>> getMarcasfecha(DateTime fecha) async{
@@ -359,6 +365,9 @@ class BDLocal{
         whereArgs:[ejercicio,'0000-00-00'] ,
         datos
     );
+
+    final debug = await db.query(marca,where: '${camposMarca[7]} = ?', whereArgs: [ejercicio]);
+    print(debug);
   }
 
   Future<String> insertRutina(String nombre, String descripcion, String descansos) async{
@@ -590,7 +599,7 @@ class BDLocal{
       limit: 1
     );
 
-    final out = res.first[camposPesajes[1]] as int;
+    final out = res.isEmpty ? 0 : res.first[camposPesajes[1]] as int;
 
     return out;
   }
