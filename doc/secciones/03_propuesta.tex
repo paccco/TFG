@@ -670,7 +670,7 @@ SCRUM-25 Implementar menú principal
     \label{fig:MenuPrincipalSemi}
 \end{figure}
 
-Las funcionalidades que no esten disponibles al ser pulsadas no hacen nada.
+Pasó todas las pruebas.
 
 \HU{
 SCRUM-18 Crear/Borrar mi usuario
@@ -707,7 +707,9 @@ SCRUM-18 Crear/Borrar mi usuario
     \label{fig:SingIn2}
 \end{figure}
 
-Las pruebas se realizaron en el backend, la correcta inserción y borrado de usuarios. Cuando se crea correctamente un usuario se redirige a la pantalla inicial. Si se intenta crear un usuario ya existente, se lanza un aviso. Pasó todas las pruebas.
+Cabe decir que siempre que se crea un usuario se crea un archivo para almacenar su BD con el nombre del propio usuario. De esta forma separamos el almacenamiento local de los usuarios.
+
+Pasó todas las pruebas.
 
 \HU{
 SCRUM-20 Iniciar/Cerrar sesión
@@ -809,11 +811,13 @@ SCRUM-5 Insertar/Borrar/Modificar rutina
     \label{fig:listaAddEjerRut}
 \end{figure}
 
-Como se puede observar se rescato mucho código de la primera iteración, solo hubo que hacer unas pequeñas modificaciones en la clase plantilla usada para crear las pantallas \cref{fig:listaEjerRutina} y \cref{fig:listaAddEjerRut}, en concreto a la pantalla de la lista de ejercicios preteneciente a la rutina se le realizaron pruebas para ver la correcta actualización de los contenidos.
+Como se puede observar se rescató mucho código de la primera iteración, solo hubo que hacer unas pequeñas modificaciones en la clase plantilla usada para crear las pantallas \cref{fig:listaEjerRutina} y \cref{fig:listaAddEjerRut}, en concreto a la pantalla de la lista de ejercicios preteneciente a la rutina se le realizaron pruebas para ver la correcta actualización de los contenidos.
 
 En la pantalla \cref{fig:modRutina} la unica prueba realizada fue comprobar la correcta modifición en la BD local y su correcta visualización en la misma.
 
 La funcionalidad de compartir todavía no está implementada.
+
+Se pasaron todas las pruebas.
 
 \subsubsection{Sprint Review 2}
 Se sugirieron mejoras menores como el ajuste de tamaños e iconos en los botones de la sección de creación de rutinas.
@@ -890,6 +894,8 @@ Esta funcionalidad dió muchos quebraderos de cabeza ya que varios usuarios podr
 Haciendo pruebas de esta funcionalidad sobre integridad usando distintos casos se hizo conocer lo mencionado previamente.
 
 Para solucionar algunos de estos problemas se hizo lo siguiente, en el backend en la BD los ejercicios y rutinas serán guardados usando como clave primaria un id que sera un int autoincrementado, evitando problemas integridad. Tambíén cuando sean referenciados en la BD se hará usando su id.
+
+Se cumplieron todas las pruebas.
 
 \begin{figure}[H]
    \centering
@@ -1259,4 +1265,8 @@ SCRUM-6: Hacer gráfica en base a las marcas obtenidas
 \item hacer un display correcto de los distintos datos
 }
 
-Esta funcionalidad dado al poco tiempo que se posee no se implementará
+La grafica se implementó usando la librería fl\_chart de flutter, la cual permite usar componentes gráficos para hacer distintos tipos de gráficas. Para el parámetro tiempo se representa el número total de segundos en el eje Y, para el resto de parámetros se usa su valor numérico. El eje X es la fecha de cuando se alcanzó la marca.
+
+Cabe decir que la marca obtenida es la media del último entrenamiento realizado, dicha media la realiza la BD mediante una consulta.
+
+Para esta funcionalidad es necesario hacer más pruebas, no se realizan más por falta de tiempo.
