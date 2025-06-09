@@ -58,20 +58,6 @@ class _NuevaMetaEjercicioState extends State<NuevaMetaEjercicio>{
     );
   }
 
-  String _detectarMetaTiempo(String marca, String meta){
-    List<int> digitosMarca=marca.split(':').map((e) => int.parse(e)).toList(),
-              digitosMeta=meta.split(':').map((e) => int.parse(e)).toList();
-
-    Duration marcaDur=Duration(minutes: digitosMarca[0], seconds: digitosMarca[1]),
-            metaDur=Duration(minutes: digitosMeta[0], seconds: digitosMeta[1]);
-
-    if(marcaDur<=metaDur){
-      return meta;
-    }else{
-      return "-$meta";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
 
@@ -111,22 +97,22 @@ class _NuevaMetaEjercicioState extends State<NuevaMetaEjercicio>{
 
     miColumn.add(_hacerBoton("Guardar", () async {
       Map<String,dynamic> aux={};
+      bool error=false;
       final campos=BDLocal.camposMarca;
-      final marcaActual=await BDLocal.instance.getMarcaActual(widget.titulo);
 
       if(widget.repeticiones && rpc.value.text.isNotEmpty){
         try{
           final repeticiones=campos[2];
           aux[repeticiones]=int.parse(rpc.value.text);
         }catch(exception){
+          error=true;
           mensaje(context, "Repeticiones: Usa un numero positivo sin comas",error: true);
         }
       }
       if(widget.tiempo && tc.value.text.isNotEmpty){
-        final tiempo=campos[4];
         final horaVal = tc.value.text;
         if(validarFormatoHora(horaVal)) {
-          aux[campos[4]] = _detectarMetaTiempo(marcaActual[tiempo],horaVal);
+          aux[campos[4]] = horaVal;
         }else{
           aux[campos[4]] = false;
         }
@@ -134,27 +120,32 @@ class _NuevaMetaEjercicioState extends State<NuevaMetaEjercicio>{
       if(widget.peso && psc.value.text.isNotEmpty){
         try{
           final peso=campos[3];
-          aux[peso]=int.parse(rpc.value.text);
+          aux[peso]=double.parse(psc.value.text.replaceAll(',', '.'));
         }catch(exception){
+          error=true;
+          print(exception);
           mensaje(context, "Peso: Usa un numero con un decimal", error: true);
         }
       }
       if(widget.distancia && dtc.value.text.isNotEmpty){
         try{
           final distancia=campos[5];
-          aux[distancia]=double.parse(rpc.value.text);
+          aux[distancia]=double.parse(dtc.value.text.replaceAll(',', '.'));
+          print(distancia);
         }catch(execption){
+          error=true;
           mensaje(context, "Distancia: Usa un numero con un decimal", error: true);
         }
       }
 
       if(aux.values.contains(false)){
         mensaje(context, "Formato de hora erróneo: mm:ss", error: true);
-      } else if(aux.isNotEmpty){
+      }else if(aux.isNotEmpty && !error){
         await BDLocal.instance.modMeta(widget.titulo,aux);
         Navigator.pop(context);
         Navigator.pop(context);
       }else{
+        print(aux);
         mensaje(context, "Rellena los campos", error: true);
       }
     }));

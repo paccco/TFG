@@ -91,10 +91,9 @@ class DatosEjercicios extends StatelessWidget{
           distancia=camposMarca[5];
     List<DataRow> out=List.empty(growable: true);
 
-
     if(tipo[0]=='1'){
       out.add(
-        DataRow(cells: _construyeFila('REPETICIONES',marca[repeticiones]*100, meta[repeticiones]+100)),
+        DataRow(cells: _construyeFila('REPETICIONES',marca[repeticiones]*100, meta[repeticiones]*100)),
       );
     }
     if(tipo[1]=='1'){
@@ -141,8 +140,6 @@ class DatosEjercicios extends StatelessWidget{
   List<DataCell> _construyeFila(String nombre, int marca, int meta,{String esTiempo = '', String unidades=''}){
     List<DataCell> out=List.empty(growable: true);
 
-
-
     if(esTiempo.isNotEmpty){
       List<String> aux=esTiempo.split('|');
 
@@ -154,7 +151,7 @@ class DatosEjercicios extends StatelessWidget{
     } else{
       final auxMarca=marca/100,
           auxMeta=meta/100;
-      
+
       if(unidades.isNotEmpty){
         out.addAll([
           DataCell(Text(nombre)),
@@ -173,6 +170,9 @@ class DatosEjercicios extends StatelessWidget{
     double tamIconos=7.w;
 
     if((marca>=meta) ){
+      if(esTiempo.isNotEmpty){
+        print("$marca $meta");
+      }
       out.add(DataCell(Image.asset('assets/images/check.png',width: tamIconos,height: tamIconos)));
     } else {
       out.add(DataCell(Image.asset('assets/images/forbidden.png',width: tamIconos,height: tamIconos)));

@@ -45,7 +45,7 @@ class _ModificarPesoState extends State<ModificarPeso>{
 
                 if(regexPeso.hasMatch(pesoStr)){
                   await BDLocal.instance.insertPesaje(widget.fecha, pesoStr);
-                  final peso = gestorDeComas(pesoStr);
+                  final peso = (double.parse(pesoStr)+100).toInt();
 
                   final pesoObj=await BDLocal.instance.getPesoObjetivo();
                   if(pesoObj!=0){

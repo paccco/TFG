@@ -260,7 +260,7 @@ class BDLocal{
   Future<void> insertMarca(Map<String,dynamic> datos) async{
     final db = await instance.database;
     Map<String,dynamic> aux = datos;
-    aux[camposMarca[2]]=aux[camposMarca[2]]==null ? null : aux[camposMarca[2]]*100;
+    aux[camposMarca[2]]=aux[camposMarca[2]]==null ? null : aux[camposMarca[2]];
     aux[camposMarca[3]]=aux[camposMarca[3]]==null ? null : aux[camposMarca[3]]*100;
     aux[camposMarca[4]]=aux[camposMarca[4]]==null ? null : "00:${aux[camposMarca[4]]}";
     aux[camposMarca[5]]=aux[camposMarca[5]]==null ? null : aux[camposMarca[5]]*100;
@@ -376,9 +376,6 @@ class BDLocal{
         whereArgs:[ejercicio,'0000-00-00'] ,
         datos
     );
-
-    final debug = await db.query(marca,where: '${camposMarca[7]} = ?', whereArgs: [ejercicio]);
-    print(debug);
   }
 
   Future<String> insertRutina(String nombre, String descripcion, String descansos) async{
@@ -533,8 +530,7 @@ class BDLocal{
   Future<bool> insertPesaje(DateTime fecha, String peso) async {
     final db = await instance.database;
 
-    String aux="${peso}00";
-    final res = await db.insert(pesajes, {camposPesajes[0] : stringDate(fecha),camposPesajes[1] : aux},conflictAlgorithm: ConflictAlgorithm.replace);
+    final res = await db.insert(pesajes, {camposPesajes[0] : stringDate(fecha),camposPesajes[1] : peso},conflictAlgorithm: ConflictAlgorithm.replace);
 
     return res!=0;
   }
@@ -542,9 +538,9 @@ class BDLocal{
   Future<void> insertMetaPeso(String nuevoPeso, int pesoActual) async {
     final db = await instance.database;
 
-    print(nuevoPeso);
+    String pesoFormateado=nuevoPeso.replaceAll(',', '.');
 
-    int pesoObj=gestorDeComas(nuevoPeso);
+    int pesoObj=(double.parse(pesoFormateado)*100).toInt();
 
     if(pesoActual>pesoObj){
       //El peso actual es mayor que el objetivo, quiere adelgazar, peso negativo

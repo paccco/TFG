@@ -68,7 +68,6 @@ En esta primera iteración me centré en realizar los diseños de la app, consid
 
 A pesar de trabajar con SCRUM se realizarán todos los diseños de interfaces de usuario en este primer sprint para concretar con la tutora los requisitos principales de la aplicación a desarrollar en este TFG. En nuestro caso los diseños de las interfaces se usarán como herramientas de captura y especificación de requisitos. En cada iteración se podrán revisar si hay cambios. 
 
-
 La lista inicial de historias de usuario es la siguiente, y algunas incluyen tareas secundarias:
 
 \begin{description}
@@ -434,8 +433,47 @@ El backlog quedaría de la siguiente manera:
 \end{figure}
 \end{landscape}
 
-%Muy importante: aquí falta una tabla con todas las historias, priorizadas y organizadas por iteraciones.
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=1.2\textwidth]{tablas/iter1.png}
+    \caption{Iteracion 1}
+    \label{fig:iter1}
+\end{figure}
 
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=1.1\textwidth]{tablas/iter2.png}
+    \caption{Iteracion 2}
+    \label{fig:iter2}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=1.2\textwidth]{tablas/iter3.png}
+    \caption{Iteracion 3}
+    \label{fig:iter3}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=1.25\textwidth]{tablas/iter4.png}
+    \caption{Iteracion 4}
+    \label{fig:iter4}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=1.25\textwidth]{tablas/iter5.png}
+    \caption{Iteracion 5}
+    \label{fig:iter5}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=1.25\textwidth]{tablas/iter6.png}
+    \caption{Iteracion 6}
+    \label{fig:iter6}
+\end{figure}
 
 \subsection{Iteración 1}
 La lista de historias de la primera iteracion queda de la siguiente manera:
@@ -467,11 +505,13 @@ SCRUM-23: Buscar ejercicio en lista de ejercicios
     \label{fig:ListaEjer}
 \end{figure}
 
-Una de las dificultades de esta funcionalidad fue que esta pantalla debería funcionar como una plantilla, es decir, se han de pasar las funciones de consultas y la clase construiría una lista pasase lo que se pasase, de esta forma se recilclaría mucho código ahorrando tiempo. Lo que se hizo fue una ingeniería inversa, se desarrollo la pantalla forma específica para los ejericios y cuando funcionaba correctamente, se fue abstrayendo el código hasta obtener la clase ListaBusquedaAniadir.
+Una de las dificultades de esta funcionalidad fue que esta pantalla debería funcionar como una plantilla, es decir, la lista de elementos como una lista de Strings y las función para el acceso a cada elemento, de esta forma se recilclaría mucho código ahorrando tiempo. Lo que se hizo fue una ingeniería inversa, se desarrollo la pantalla forma específica para los ejericios y cuando funcionaba correctamente, se fue abstrayendo el código hasta obtener la clase ListaBusquedaAniadir, la cual tiene elo comportamiento deseado de una plantilla.
 
 Otro problema encontrado durante las pruebas fue la actualización de la lista, se tuvieron muchos problemas dado que en flutter si se tiene una instancia de un widget llamemoslo A, que forma parte de otro llamado B, si yo llamo a una actualización de la IU desde B porque ha cambiado el contenido se genera una excepción. Como solución, se optó por solo usar la función setState (Usada para actualizar el contenido) dentro del código de la plantilla y cada vez que fuera necesario hacer una actualización desde B recargar otra vez la pantalla entera.
 
-Las pruebas realizadas fueron de caja negra, ir añadiendo elementos para que se hagan visibles en la IU e ir comprobando navegabilidad del menu, el algorítmo de búsqueda y que se actualizaba correctamente al añadir algún objeto. Pasó todas las pruebas.
+El algorítmo de búsqueda funciona de la siguiente manera, digamos que se busca el ejercicio "flexiones" en la lista, entonces se pasa a minúscula todos los elementos de la lista, se pasa la cadena "flexiones" a minúscula y se obtiene como resultado los elementos de la lista que contengan la cadena "flexiones".
+
+Esta funcionalidad pasó todas las pruebas.
 
 \HU{
 SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
@@ -502,7 +542,7 @@ SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
     \label{fig:ModDescpEjer}
 \end{figure}
 
-Las pruebas realizadas para la SCRUM-3, fueron de caja negra, ir haciendo inserciones y borrados en la BD local para despues hacer consultas y comprobar si los resultados eran correctos. También se comprobó su correcto funcionamiento con el SCRUM-3, corroborando la correcta actualización de los contenidos. Pasó todas las pruebas.
+Pasó todas las pruebas.
 
 \HU{
 SCRUM-30: Añadir meta por parámetro
@@ -511,6 +551,8 @@ SCRUM-30: Añadir meta por parámetro
 	\item Implementar las funciones para modificar metas
 }{
 	\item si existe una meta determinada para ese ejercicio y se quiere insertar una, sustituir la actual
+	\item si se insertan los valores en formato incorrecto, informar de errores
+	\item si se insertan los valores en formato correcto, guardar
 }
 
 \begin{figure}[H]
@@ -520,9 +562,11 @@ SCRUM-30: Añadir meta por parámetro
     \label{fig:NuevaMeta}
 \end{figure}
 
-El problema de esta iteración fue el como distinguir internamente, si un usuario quiere superar con un valor mayor o menor su meta, es decir, si un usuario quiere aumentar el peso con el que hace un ejercicio o disminuirlo. Al final optó por que solo se pueda aumentar.
+El problema de esta funcionalidad está en interpretar si un usuario quiere superar su meta u obtener una marca menor. Al final se optó por solo interpretar que se pueda superar la marca.
 
-Las pruebas realizadas se basaron en añadir valores nuevos de metas tanto erroneos como válidos, para ver como se comportaban las soluciones implementadas a las erratas que pueda introducir el usuario. Pasó todas las pruebas.
+Cabe aclarar una cosa respeto a los formatos de los datos guardados en las metas y las marcas, se guardan 4 tipos de datos repeticiones (entero), peso (decimal), tiempo (tiempo) y distancia (decimal). Para ahorrar espacio en el almacenamiento local, ya que habra mucho volument ocupado en memoria si el usuario sigue usando la app, los datos en formato decimal se suben como un entero, se hace la conversion numeroEntero=(numeroDecimal*100).toInt() se guarda en ese formato y luego al sacarlo de memoria se le hace la conversión inversa.
+
+Pasó todas las pruebas.
 
 \HU{
 	SCRUM-24: Pop up de confirmación  
