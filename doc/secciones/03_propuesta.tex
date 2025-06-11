@@ -2,44 +2,34 @@
 
 \section{Descripcion detallada}
 
-La app presentada daría la mayoría de funcionalidades de pago de una manera gratuita y aporta su funcionalidad de medir de forma personalizada el rendimiento del deportista. También se añade una IA, una funcionalidad que no vista en muchas aplicaciones del sector y si existen, son de pago. La función de la inteligencia artificial sería la de aconsejar al usuario cuando este lo necesite, sobre su rendimiento y/o parámetros medidos durante su entrenamiento.
-Para clarificar las diferencias con el resto de apps del mercado:
-
-\begin{landscape}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=1.65\textwidth]{tablas/tabla.png}
-    \caption{Tabla comparativa}
-    \label{fig:Tabla comparativa}
-\end{figure} 
-\end{landscape}
+La app a desarrollar daría la mayoría de funcionalidades ofertadas por las aplicaciones de pago de una manera gratuita y aporta su funcionalidad de medir de forma personalizada el rendimiento del deportista. También se aporta la funcionalidad de planificar los entrenamientos de tu próximo mes y ver el rendimiento de los entrenamientos previamente realizados, todo esto interactuando con un calendario en el menú primcipal. Otra funcionalidad que se aporta es la de compartir rutinas entre usuarios. Si fuese necesario ver más a fondo el rendimiento en un ejercicio concreto se puede hacer una gráfica con las marcas obtenidas en los entrenamientos. Las rutinas se trataran como grupos de ejercicios que pueden ser asignadas a días concretos en el calendario. Durante el entrenamiento para llevar el control del ejercicio se pedirá al usuariio sobre las marcas obtenidas y de paso no se permitirá seguir hasta completar el descanso estipulado en la rutina por el usuario, esto para que se entrenede manera adecuada y prevenir lesiones. El sistema para detectar cumplir metas se usa justo al terminar el entrenamiento, revisa todos los datos obtenidos de mientras se van guardando en memoria y le lanza un display al usuario avisando de las metas cumplidas en cada ejercicio. En la app la inmensa mayoría de los datos se guardan de manera local y los únicos datos que pueden salir del dispositivo son las rutinas que se suben en la nube bajo petición expresa del usuario. La memoria local estará separada entre usuarios permitiendo la existencia de varios en un mismo dispositivo.
 
 \section{Elección de tecnologías}
 
 \section{Backend}
 
 Se usará Express.js(Node.js), la principal razón que se tiene para optar por esta tecnología, es la gran familiaridad que se tiene con el entorno de JavaScript, se conocen las tecnologías y la forma de implementación, su gran flexibilidad para implementar muchas funcionalidades diversas también fué una buena baza para escoger esta herramienta.
-Django fué la primera descartada, porque como bien dice en la tabla de la sección anterior(\cref{fig:Tabla backend}) está más enfocado a proyectos de gran envergadura.
-Ruby on Rails fue la que más dudas planteó, como se dijo anteriormente es muy buena opción para las metodologías ágiles y como se dirá más adelante, se optará por una metodología ágil para el desarrollo. Pero al final se descartó por el desconocimiento de la herramienta.
+Django fué la primera descartada, porque como bien dice en la tabla de la sección anterior(\cref{fig:Tabla backend}) está más enfocada a proyectos de gran envergadura.
+Ruby on Rails fue la que más dudas planteó, como se dijo anteriormente es muy buena opción para las metodologías ágiles y como se dirá más adelante, se optará por una metodología ágil para el desarrollo. Pero al final se descartó por el desconocimiento de la herramienta y la falta de tiempo para aprender bien una nueva tecnología de forma que se pueda usar con efectividad.
 
 \section{Frontend}
 
-Se ha decidido usar Flutter, dado que Xamarin es buena herramienta, pero está más enfocada a un desarrollo en un ambiente Microsoft.
+Se ha decidido usar Flutter, dado que Xamarin es buena herramienta, pero está más enfocada a un desarrollo en un ambiente en el cuál solo se usan herramientas de Microsoft, siendo complicada la conectividad y soporte entre herramientas de distintas empresas, esto nos cierra el abanico de posibilidades.
 React Native también es una buena herramienta, fue principalmente la que más dudas sembró, ya que como se dijo previamente se usará un backend basado en Express.js, esto entonces permitiría unificar entornos lo cual favorecería al desarrollo. pero se descartó por lo personalizable que son las IUs desarrolladas en Flutter respecto a esta tecnología.
 
 \section{Base de datos}
 
 Para las bases de datos, tanto para el backend como para la local de la app se usará una SQL, dado a la familiaridad que se dispone con esta tecnología y la necesidad de unificar el tipo de tecnología del servidor y de la app. Esto anterior se debe a que como bien se ha dicho se usará Flutter como entorno frontend y la herramienta que se facilita para el almacenamiento local en este es SQlite, basada en un modelo relacional.
 
-Los modelos NoSQL, se descartaron principalmente porque las relaciones entre elementos suelen ser más complejas y en este proyecto pueden enrevesarse facilmente.
+Los modelos NoSQL, se descartaron principalmente porque las relaciones entre elementos suelen ser más complejas y en este proyecto es necesario que los datos se traten con una estructura determinada y simple.
 
 \section{Diagrama de arquitectura}
 
 \begin{figure}[H]
    \centering
     \includegraphics[width=\textwidth]{tablas/Arq.png}
-    \caption{Tabla comparativa}
-    \label{fig:Tabla comparativa}
+    \caption{Diagrama de arquitectura}
+    \label{fig:Arquitectura}
 \end{figure} 
 
 \section{Metodología utilizada}
@@ -61,10 +51,23 @@ La iteración 0 se dedicará al diseño de pantallas y al repaso de las funciona
   \item Smartwatch y tratamiento de datos
 \end{enumerate}
 
-\section{Seguimiento del desarrollo}
+Al final no se pudo cumplir con la temporización porque se dieron una serie de problemas durante el desarrollo, tanto con algunas tecnologías que en la versión final no se implementaron como intentando aprender sobre ellas.
+
+\section{Desarrollo}
+
+Para cada iteración se inicia una fase de diseño y aprendizaje sobre las herramientas que se vayan a usar. Al final de cada iteración se añade la contenido a la documentación especificando lo desarrollado. Después del sprint review se añade su consecuente parte especificando lo corregido y discutido en dicha reunión. Aquí se aporta un breve resumen:
+
+\begin{itemize}
+	\item Iteracion 0: diseños de las principales pantallas para explicar que se pretende desarrollar a la tutora y especificar las HU
+	\item Iteracion 1: desarrollo de la lista de ejercicios
+	\item Iteracion 2: desarrollo de la lista de rutinas y sistema de sesiones de usuario
+	\item Iteracion 3: desarrollo de la funcionalidad de compartir rutinas en la nube
+	\item Iteracion 4: desarrollo del calendario y medición del entrenamiento del usuario
+	\item Iteracion 5: desarrollo de la creación de gráficas y display del rendimiento del usuario.
+\end{itemize}
 
 \subsection{Iteración 0}
-En esta primera iteración me centré en realizar los diseños de la app, considerando su accesibilidad. También concreté el \textit{product backlog}, compuesto por 41 historias de usuario. En las historias no menciono ningún actor puesto que solo existe el usuario que realiza los ejercicios y el es protagonista en todas ellas, no hay ningún moderador.
+En esta primera iteración nos centramos en realizar los diseños de la app, considerando su accesibilidad. También concreté el \textit{product backlog}, compuesto por 41 historias de usuario. En las historias no menciono ningún actor puesto que solo existe el usuario que realiza los ejercicios y el es protagonista en todas ellas, no hay ningún moderador.
 
 A pesar de trabajar con SCRUM se realizarán todos los diseños de interfaces de usuario en este primer sprint para concretar con la tutora los requisitos principales de la aplicación a desarrollar en este TFG. En nuestro caso los diseños de las interfaces se usarán como herramientas de captura y especificación de requisitos. En cada iteración se podrán revisar si hay cambios. 
 
@@ -101,35 +104,47 @@ La lista inicial de historias de usuario es la siguiente, y algunas incluyen tar
   \item[\textbf{SCRUM-28}] Implementar calendario
 \end{description}
 
+A continuación se muestran los diseños creados en esta iteración con la herramienta web figma:
 
-A continuación se muestran los diseños creados en esta iteración:
+\newpage
 
 \textbf{Inicio de sesion y crear usuario}
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 22.png}
-    \caption{Pagina inicial}
-    \label{fig:Pagina inicial}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{fotos/Frame 22.png}
+      \caption{Pagina inicial}
+      \label{fig:Pagina inicial}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{fotos/Frame 22-1.png}
+      \caption{Inicio de sesion}
+      \label{fig:Inicio de sesion}
+   \end{minipage}
 \end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 22-1.png}
-    \caption{Inicio de sesion}
-    \label{fig:Inicio de sesion}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 24.png}
+      \caption{Crear cuenta 1}
+      \label{fig:Crear cuenta 1}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 25.png}
+      \caption{Crear cuenta 2}
+      \label{fig:Crear cuenta 2}
+   \end{minipage}
 \end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 24.png}
-    \caption{Crear cuenta 1}
-    \label{fig:Crear cuenta 1}
-\end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 25.png}
-    \caption{Crear cuenta 2}
-    \label{fig:Crear cuenta 2}
-\end{figure}
+
+\newpage
 
 \textbf{Menu principal}
 
@@ -140,170 +155,241 @@ A continuación se muestran los diseños creados en esta iteración:
     \label{fig:Menu principal}
 \end{figure}
 
+\newpage
+
 \textbf{Lista ejercicios del usuario}
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 40.png}
-    \caption{Lista ejercicios}
-    \label{fig:Lista ejercicios}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 40.png}
+      \caption{Lista ejercicios}
+      \label{fig:Lista ejercicios}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 41.png}
+      \caption{Lista ejercicios filtrada}
+      \label{fig:Lista ejercicios filtrada}
+   \end{minipage}
 \end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 41.png}
-    \caption{Lista ejercicios filtrada}
-    \label{fig:Lista ejercicios filtrada}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 42.png}
+      \caption{Datos ejercicio}
+      \label{fig:Datos ejercicio}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 43.png}
+      \caption{Pop up graficar segun tiempo}
+      \label{fig:Pop up graficar segun tiempo}
+   \end{minipage}
 \end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 42.png}
-    \caption{Datos ejercicio}
-    \label{fig:Datos ejercicio}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 45.png}
+      \caption{Pop up establecer meta}
+      \label{fig:Pop up establecer meta}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 64.png}
+      \caption{Pop up crear ejercicio}
+      \label{fig:Pop up crear ejercicio}
+   \end{minipage}
 \end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 43.png}
-    \caption{Pop up graficar segun tiempo}
-    \label{fig:Pop up graficar segun tiempo}
-\end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 45.png}
-    \caption{Pop up establecer meta}
-    \label{fig:Pop up establecer meta}
-\end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 64.png}
-    \caption{Pop up crear ejercicio}
-    \label{fig:Pop up crear ejercicio}
-\end{figure}
+
+\newpage
 
 \textbf{Lista rutinas}
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 46.png}
-    \caption{Lista rutinas}
-    \label{fig:Lista rutinas}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 46.png}
+      \caption{Lista rutinas}
+      \label{fig:Lista rutinas}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 47.png}
+      \caption{Lista rutinas filtradas}
+      \label{fig:Lista rutinas filtradas}
+   \end{minipage}
 \end{figure}
-\begin{figure}[H]
-   \centering Pop up datos de un ejercicio en entrenamiento
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 47.png}
-    \caption{Lista rutinas filtradas}
-    \label{fig:Lista rutinas filtradas}
-\end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 48.png}
-    \caption{Datos rutina modificable}
-    \label{fig:Datos rutina modificable}
-\end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 49.png}
-    \caption{Datos rutina no modificable}
-    \label{fig:Datos rutina no modificable}
-\end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 50.png}
-    \caption{Modificar ejericios rutina}
-    \label{fig:Modificar ejericios rutina}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 48.png}
+      \caption{Datos rutina modificable}
+      \label{fig:Datos rutina modificable}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 49.png}
+      \caption{Datos rutina no modificable}
+      \label{fig:Datos rutina no modificable}
+   \end{minipage}
 \end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 51.png}
-    \caption{Cambiar orden ejercicios rutina}
-    \label{fig:Cambiar orden ejercicios rutina}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 50.png}
+      \caption{Modificar ejercicios rutina}
+      \label{fig:Modificar ejericios rutina}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 51.png}
+      \caption{Cambiar orden ejercicios rutina}
+      \label{fig:Cambiar orden ejercicios rutina}
+   \end{minipage}
 \end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 52.png}
-    \caption{Ejercicios rutina descargada}
-    \label{fig:Ejercicios rutina descargada}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 52.png}
+      \caption{Ejercicios rutina descargada}
+      \label{fig:Ejercicios rutina descargada}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 65.png}
+      \caption{Pop up crear rutinas}
+      \label{fig:Pop up crear rutinas}
+   \end{minipage}
 \end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 65.png}
-    \caption{Pop up crear rutinas}
-    \label{fig:Pop up crear rutinas}
-\end{figure}
+
+\newpage
 
 \textbf{Mi perfil}
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 36.png}
-    \caption{Opciones de perfil usuario}
-    \label{fig:Opciones de perfil usuario}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 36.png}
+      \caption{Opciones de perfil usuario}
+      \label{fig:Opciones de perfil usuario}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 38.png}
+      \caption{Pop up de confirmacion}
+      \label{fig:Pop up de confirmacion}
+   \end{minipage}
 \end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.75\textwidth]{fotos/Frame 38.png}
-    \caption{Pop up de confirmacion}
-    \label{fig:Pop up de confirmacion}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 39.png}
+      \caption{Pop up de confirmacion resumir datos}
+      \label{fig:Pop up de confirmacion resumir datos}
+   \end{minipage}
 \end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.75\textwidth]{fotos/Frame 39.png}
-    \caption{Pop up de confirmacion resumir datos}
-    \label{fig:Pop up de confirmacion resumir datos}
-\end{figure}
+
+\newpage
 
 \textbf{Buscar rutina para descargar}
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 53.png}
-    \caption{Buscar usuario}
-    \label{fig:Buscar usuario}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 53.png}
+      \caption{Buscar usuario}
+      \label{fig:Buscar usuario}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 54.png}
+      \caption{Buscar usuario filtrado}
+      \label{fig:Buscar usuario filtrado}
+   \end{minipage}
 \end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 54.png}
-    \caption{Buscar usuario filtrado}
-    \label{fig:Buscar usuario filtrado}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 56.png}
+      \caption{Rutinas de un usuario}
+      \label{fig:Rutinas de un usuario}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 57.png}
+      \caption{Widget descargar rutina}
+      \label{fig:Widget descargar rutina}
+   \end{minipage}
 \end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 56.png}
-    \caption{Rutinas de un usuario}
-    \label{fig:Rutinas de un usuario}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 58.png}
+      \caption{Widget rutina descargada}
+      \label{fig:Widget rutina descargada}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 59.png}
+      \caption{Buscar rutinas por su nombre filtrada}
+      \label{fig:Buscar rutinas por su nombre filtrada}
+   \end{minipage}
 \end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 57.png}
-    \caption{Widget descargar rutina}
-    \label{fig:Widget descargar rutina}
-\end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 58.png}
-    \caption{Widget rutina descargada}
-    \label{fig:Widget rutina descargada}
-\end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 59.png}
-    \caption{Buscar rutinas por su nombre filtrada}
-    \label{fig:Buscar rutinas por su nombre filtrada}
-\end{figure}
+
+\newpage
 
 \textbf{Entrenamiento (Una vez seleccionada una fecha en el calendario del menu principal saldría la siguiente ventana)}
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 26.png}
-    \caption{Entrenamiento de un día determinado}
-    \label{fig:Entrenamiento de un día determinado}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 26.png}
+      \caption{Entrenamiento de un día determinado}
+      \label{fig:Entrenamiento de un día determinado}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 27.png}
+      \caption{Descanso en un día determinado}
+      \label{fig:Descanso en un día determinado}
+   \end{minipage}
 \end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 27.png}
-    \caption{Descanso en un día determinado}
-    \label{fig:Descanso en un día determinado}
-\end{figure}
+
+\newpage
 
 Si seleccionamos datos de una fecha saldría esto
 \begin{figure}[H]
@@ -313,67 +399,95 @@ Si seleccionamos datos de una fecha saldría esto
     \label{fig:Frame_29}
 \end{figure}
 
+\newpage
+
 La siguiente pantalla sale al comenzar el entrenamiento
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 1.png}
-    \caption{Lista ejercicios del entrenamiento actual}
-    \label{fig:Lista ejercicios del entrenamiento actual}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 1.png}
+      \caption{Lista ejercicios del entrenamiento actual}
+      \label{fig:Lista ejercicios del entrenamiento actual}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 2.png}
+      \caption{Primera serie flexiones}
+      \label{fig:Primera serie flexiones}
+   \end{minipage}
 \end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 2.png}
-    \caption{Primera serie flexiones}
-    \label{fig:Primera serie flexiones}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 3.png}
+      \caption{Realizando flexiones}
+      \label{fig:Realizando flexiones}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 4.png}
+      \caption{Fin de la serie(Descanso no completado)}
+      \label{fig:Fin de la serie(Descanso no completado)}
+   \end{minipage}
 \end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 3.png}
-    \caption{Realizando flexiones}
-    \label{fig:Realizando flexiones}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 5.png}
+      \caption{Fin de la serie(Descanso completado)}
+      \label{fig:Fin de la serie(Descanso completado)}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 62.png}
+      \caption{Acabar ejercicio o añadir serie}
+      \label{fig:Acabar ejercicio o añadir serie}
+   \end{minipage}
 \end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 4.png}
-    \caption{Fin de la serie(Descanso no completado)}
-    \label{fig:Fin de la serie(Descanso no completado)}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 60.png}
+      \caption{Realizando ejercicio midiendo tiempo}
+      \label{fig:Realizando ejercicio midiendo tiempo}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 20.png}
+      \caption{Fin entrenamiento}
+      \label{fig:Fin entrenamiento}
+   \end{minipage}
 \end{figure}
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 5.png}
-    \caption{Fin de la serie(Descanso completado)}
-    \label{fig:Fin de la serie(Descanso completado)}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 37.png}
+      \caption{Metas cumplidas}
+      \label{fig:Metas cumplidas}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 31.png}
+      \caption{Datos entrenamiento terminado}
+      \label{fig:Datos entrenamiento terminado}
+   \end{minipage}
 \end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 62.png}
-    \caption{Acabar ejercicio o añadir serie}
-    \label{fig:Acabar ejercicio o añadir serie}
-\end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 60.png}
-    \caption{Realizando ejercicio midiendo tiempo}
-    \label{fig:Realizando ejercicio midiendo tiempo}
-\end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 20.png}
-    \caption{Fin entrenamiento}
-    \label{fig:Fin entrenamiento}
-\end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 37.png}
-    \caption{Metas cumplidas}
-    \label{fig:Metas cumplidas}
-\end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 31.png}
-    \caption{Datos entrenamiento terminado}
-    \label{fig:Datos entrenamiento terminado}
-\end{figure}
+
+\newpage
 
 El chat de la IA se abre cuando se le da a la opcion necesito consejo de un entrenamiento realizado
 \begin{figure}[H]
@@ -383,20 +497,28 @@ El chat de la IA se abre cuando se le da a la opcion necesito consejo de un entr
     \label{fig:Chat con IA}
 \end{figure}
 
-Si le das a datos de un entrenamiento terminado
+\newpage
+
+Si se selecciona a datos de un entrenamiento terminado
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 33.png}
-    \caption{Datos detallados entrenamiento terminado}
-    \label{fig:Datos detallados entrenamiento terminado}
-\end{figure}
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 35.png}
-    \caption{Pop up datos de un ejercicio en entrenamiento}
-    \label{fig:Pop up datos de un ejercicio en entrenamiento}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 33.png}
+      \caption{Datos detallados entrenamiento terminado}
+      \label{fig:Datos detallados entrenamiento terminado}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fotos/Frame 35.png}
+      \caption{Pop up datos de un ejercicio en entrenamiento}
+      \label{fig:Pop up datos de un ejercicio en entrenamiento}
+   \end{minipage}
 \end{figure}
 
+
+Como puede observarse, para cubrir las guias de accesibilidad, el tamaño de la letra es grande (pon tamaño medio en puntos) para facilitar la lectura por personas con problemas de visión. El tamaño de los botones y elementos seleccionables también es grande, mayor de 9 milímetros que es lo estipulado, con suficiente espacio entre ellos (más de 2 milímetros). El contraste de color entre el texto, imágenes y fondo es aceptable, tal y como también recomiendan las guías.i
 
 Estos diseños pueden cambiar y sufrir alteraciones debido a los sprints reviews y correcciones de accesibilidad. De todas formas, cada cambio será informado con su motivo.
 
@@ -456,21 +578,21 @@ El backlog quedaría de la siguiente manera:
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=1.25\textwidth]{tablas/iter4.png}
+    \includegraphics[width=1.1\textwidth]{tablas/iter4.png}
     \caption{Iteracion 4}
     \label{fig:iter4}
 \end{figure}
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=1.25\textwidth]{tablas/iter5.png}
+    \includegraphics[width=1.1\textwidth]{tablas/iter5.png}
     \caption{Iteracion 5}
     \label{fig:iter5}
 \end{figure}
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=1.25\textwidth]{tablas/iter6.png}
+    \includegraphics[width=1.1\textwidth]{tablas/iter6.png}
     \caption{Iteracion 6}
     \label{fig:iter6}
 \end{figure}
@@ -495,54 +617,67 @@ SCRUM-23: Buscar ejercicio en lista de ejercicios
    	\item Implementar boceto de IU \cref{fig:Lista ejercicios}
 }{
 	\item si no existe ejercicio buscado, no sale nada en pantalla
-   	\item si existe ejercicio buscado, sale un acceso en pantalla
+   	\item si existe ejercicio buscado, se muestra el ejercicio buscado
 }
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/listaEjercicios.png}
-    \caption{Lista ejercicios}
+    \includegraphics[width=0.5\textwidth]{pantallas/listaEjercicios.png}
+    \caption{Resultado de la implementacion de la lista de ejercicios}
     \label{fig:ListaEjer}
 \end{figure}
 
-Una de las dificultades de esta funcionalidad fue que esta pantalla debería funcionar como una plantilla, es decir, la lista de elementos como una lista de Strings y las función para el acceso a cada elemento, de esta forma se recilclaría mucho código ahorrando tiempo. Lo que se hizo fue una ingeniería inversa, se desarrollo la pantalla forma específica para los ejericios y cuando funcionaba correctamente, se fue abstrayendo el código hasta obtener la clase ListaBusquedaAniadir, la cual tiene elo comportamiento deseado de una plantilla.
+El algorítmo de búsqueda funciona de la siguiente manera, digamos que se busca el ejercicio 'flexiones' en la lista, entonces se pasan a minúscula todas las cadenas de caracteres de la lista, se pasa la cadena 'flexiones' a minúscula y se obtiene como resultado los elementos de la lista que contengan la cadena 'flexiones'.
 
-Otro problema encontrado durante las pruebas fue la actualización de la lista, se tuvieron muchos problemas dado que en flutter si se tiene una instancia de un widget llamemoslo A, que forma parte de otro llamado B, si yo llamo a una actualización de la IU desde B porque ha cambiado el contenido se genera una excepción. Como solución, se optó por solo usar la función setState (Usada para actualizar el contenido) dentro del código de la plantilla y cada vez que fuera necesario hacer una actualización desde B recargar otra vez la pantalla entera.
+Una de las dificultades de esta funcionalidad fue que esta pantalla debería funcionar como una plantilla, es decir, la lista de elementos como una lista de Strings y la forma de acceder a cada elemento, de esta forma se recilclaría mucho código ahorrando tiempo. Lo que se hizo fue una ingeniería inversa, se desarrollo la pantalla forma específica para los ejercicios y cuando funcionaba correctamente, se fue abstrayendo el código hasta obtener la clase ListaBusquedaAniadir, la cual tiene elo comportamiento deseado de una plantilla.
 
-El algorítmo de búsqueda funciona de la siguiente manera, digamos que se busca el ejercicio "flexiones" en la lista, entonces se pasa a minúscula todos los elementos de la lista, se pasa la cadena "flexiones" a minúscula y se obtiene como resultado los elementos de la lista que contengan la cadena "flexiones".
+Otro problema encontrado durante las pruebas fue la actualización de la lista, dado que en flutter si se tiene una instancia de un widget llamemoslo A, que forma parte de otro llamado B, si se llama a una actualización de la IU desde B porque ha cambiado el contenido se genera una excepción. Como solución, se optó por solo usar la función setState (Usada para actualizar el contenido) dentro del código de la plantilla y cada vez que fuera necesario hacer una actualización desde B recargar otra vez la pantalla entera.
 
-Esta funcionalidad pasó todas las pruebas.
+Esta funcionalidad pasó todas las pruebas de aceptación planificadas.
 
 \HU{
 SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios
 }{
 	\item Implementar la BD local
-	\item Implementar las funciones para las consultas
+	\item Implementar las funciones para las consultas en la BD
+	\item Implementar las funciones para la insercción en la BD
 	\item Implementar las funciones para las modificaciones
 	\item Implementar las funciones para el borrado
 	\item Implementar boceto de la IU \cref{fig:Datos ejercicio}, para borrar/modificar desde ahí
 }{
-	\item si se borra un ejercicio, no sale en la lista
-	\item si se modifica, sale con los datos modificados
-	\item si se inserta, sale en la lista el ejercicio
-	\item se enseñan los datos del ejercicio de forma correcta
+	\item si se borra un ejercicio se elimina de la lista
+	\item si se modifica se actualiza el ejercicio con los nuevos datos
+	\item si se crea un ejercicio se inserta en la lista de ejercicios
+	\item se enseñan los datos del ejercicio de forma correcta una vez creado el ejercicio
 }
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/CrearEjercicio.png}
-    \caption{Crear ejercicios}
-    \label{fig:CrearEjers}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/CrearEjercicio.png}
+      \caption{Crear ejercicios}
+      \label{fig:CrearEjers}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/ModDescpEjer.png}
+      \caption{Modificar descripcion ejercicios}
+      \label{fig:ModDescpEjer}
+   \end{minipage}
 \end{figure}
+
+Cuando se crea un ejercicio para seleccionar los parámetros a medir se pulsan a los botones de la sección parámetros. Los parámetros de color naranja no se miden. Mínimo un ejercicio tiene que medir un paránetro.
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/ModDescpEjer.png}
-    \caption{Modificar descripcion ejercicios}
-    \label{fig:ModDescpEjer}
+    \includegraphics[width=0.5\textwidth]{pantallas/datosEjercicio.png}
+    \caption{Pantalla donde se muestran los datos del ejercicio al acceder desde la lista}
+    \label{fig:datosEjer}
 \end{figure}
 
-Pasó todas las pruebas.
+Pasó todas las pruebas de aceptación planificadas.
 
 \HU{
 SCRUM-30: Añadir meta por parámetro
@@ -557,16 +692,22 @@ SCRUM-30: Añadir meta por parámetro
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/NuevaMeta.png}
+    \includegraphics[width=0.5\textwidth]{pantallas/NuevaMeta.png}
     \caption{Nueva meta}
     \label{fig:NuevaMeta}
 \end{figure}
 
+Podemos establecer metas para cualquier parámetro y no es obligatorio ponerlas. A esta pantalla se llega seleccionando el botón nueva meta de la pantalla anterior. Cuando asigna una meta se hará visible en la pantalla de la HU anterior.
+
 El problema de esta funcionalidad está en interpretar si un usuario quiere superar su meta u obtener una marca menor. Al final se optó por solo interpretar que se pueda superar la marca.
 
-Cabe aclarar una cosa respeto a los formatos de los datos guardados en las metas y las marcas, se guardan 4 tipos de datos repeticiones (entero), peso (decimal), tiempo (tiempo) y distancia (decimal). Para ahorrar espacio en el almacenamiento local, ya que habra mucho volument ocupado en memoria si el usuario sigue usando la app, los datos en formato decimal se suben como un entero, se hace la conversion numeroEntero=(numeroDecimal*100).toInt() se guarda en ese formato y luego al sacarlo de memoria se le hace la conversión inversa.
+Cabe aclarar una cosa respeto a los formatos de los datos guardados en las metas y las marcas, se guardan 4 tipos de datos repeticiones (entero), peso (decimal), tiempo (tiempo) y distancia (decimal). Para ahorrar espacio en el almacenamiento local, ya que habra mucho volumen ocupado en memoria si el usuario sigue usando la app, los datos en formato decimal se suben como un entero, se hace la conversion numeroEntero=(numeroDecimal*100).toInt() se guarda en ese formato y luego al sacarlo de memoria se le hace la conversión inversa.
 
-Pasó todas las pruebas.
+Pasó todas las pruebas de aceptación planificadas.
+
+
+\vspace{1cm}
+
 
 \HU{
 	SCRUM-24: Pop up de confirmación  
@@ -584,11 +725,11 @@ Pasó todas las pruebas.
     \label{fig:PopUpConfirmacion}
 \end{figure}
 
-Es un pop up que se usará siempre que se requiera una confirmación ,se implementó para que pueda ser usado en cualquier contexto de la app, pasó las pruebas.
+Es un pop up que se usará siempre que se requiera una confirmación ,se implementó para que pueda ser usado en cualquier contexto de la app, pasó las pruebas de aceptación planificadas.
 
 \subsubsection{Estado de la BD local}
 
-Cabe aclarar que la BD local es la memoria persistente de la app que solo existe en el dispositivo que esta instalada la app, se le llama BD local porque tiene una estrucura tipo SQL.
+Cabe aclarar que la BD local es la memoria persistente de la app que solo existe en el dispositivo en el que esta instalada la app, y tiene una estrucura tipo SQL.
 
 Al finalizar esta iteración, el estado de la BD queda tal y como se muestra en la figura \cref{fig:BD local iteracion 1}
 \begin{figure}[H]
@@ -601,11 +742,11 @@ Al finalizar esta iteración, el estado de la BD queda tal y como se muestra en 
 \subsubsection{Sprint Review 1}
 Las primeras iteraciones tienden a ser más lentas debido a la fase inicial del desarrollo. No se completó la totalidad del sprint; quedó pendiente la subtarea de modificar ejercicio en la base de datos(SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios). Aun así, las expectativas son positivas, ya que se espera un aumento en la velocidad de desarrollo.
 
-La pantalla en la que se enseñan los datos de un ejercicio se modificó para facilitar su lectura y entendimiento, dado que su anterior diseño era confuso.
+La pantalla en la que se enseñan los datos de un ejercicio se modificó para facilitar su lectura y entendimiento, dado que su anterior diseño era confuso (ver figuras \cref{fig:pantalla_nueva} y \cref{fig:pantalla_vieja}).
 
 Otra parte a modificar es la del pop up de confirmación, ya que debido a la poca accesibilidad de los pop ups se sustituirá por una pantalla independiente.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \begin{minipage}[b]{0.45\textwidth}
     \centering
@@ -620,11 +761,9 @@ Otra parte a modificar es la del pop up de confirmación, ya que debido a la poc
     \caption{Pantalla antigua}
     \label{fig:pantalla_vieja}
   \end{minipage}
-  \caption{Comparación entre la pantalla nueva y la anterior}
-  \label{fig:comparacion_pantallas}
 \end{figure}
 
-También se cambiaron todos los pop ups y se sustituyeron por pantallas completas:
+También se cambiaron todos los pop ups y se sustituyeron por pantallas completas, se hizo esto para cumplir con las guías de accesibilidad dado que según la guía pueden llegar a confundir al usuario en la navegación. Estos son los pop ups sustituidos :
 
 \begin{itemize}
 	\item Los pop ups de confirmacion
@@ -653,6 +792,8 @@ Esta iteración se centró en el desarrollo del sistema de sesiones, la API de l
 
 También se terminará la historia no finalizada de la iteración anterior(SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios).
 
+\newpage
+
 \HU{
 SCRUM-25 Implementar menú principal
 }{
@@ -660,17 +801,17 @@ SCRUM-25 Implementar menú principal
 	\item Añadir accesos a las funcionalidades actuales
 }{
 	\item si la funcionalidad seleccionada no está implementada, no hacer nada
-	\item si la funcionalidad seleccionada está implementada, desplegar ventana de dicha funcionañidad
+	\item si la funcionalidad seleccionada está implementada, dar acceso a dicha funcionalidad
 }
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/MenuPrincipalSemi.png}
+    \includegraphics[width=0.5\textwidth]{pantallas/MenuPrincipalSemi.png}
     \caption{Menu Principal semifuncional}
     \label{fig:MenuPrincipalSemi}
 \end{figure}
 
-Pasó todas las pruebas.
+Pasó todas las pruebas de aceptación planificadas.
 
 \HU{
 SCRUM-18 Crear/Borrar mi usuario
@@ -688,28 +829,31 @@ SCRUM-18 Crear/Borrar mi usuario
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/LogSingIn.png}
-    \caption{Log In / Sing In}
-    \label{fig:LogSingIn}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/LogSingIn.png}
+      \caption{Log In / Sing In}
+      \label{fig:LogSingIn}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/SingIn1.png}
+      \caption{Sing In pantalla 1}
+      \label{fig:SingIn1}
+   \end{minipage}
 \end{figure}
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/SingIn1.png}
-    \caption{Sing In pantalla 1}
-    \label{fig:SingIn1}
-\end{figure}
-
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/SingIn2.png}
+    \includegraphics[width=0.5\textwidth]{pantallas/SingIn2.png}
     \caption{Sing In pantalla 2}
     \label{fig:SingIn2}
 \end{figure}
 
-Cabe decir que siempre que se crea un usuario se crea un archivo para almacenar su BD con el nombre del propio usuario. De esta forma separamos el almacenamiento local de los usuarios.
+Cabe decir que siempre que se crea un usuario se crea un archivo en su dispositvo para almacenar su BD con el nombre del propio usuario. De esta forma se separa el almacenamiento local de los usuarios, por si el usuario quisiera compartir dispositivo con otros usuarios.
 
-Pasó todas las pruebas.
+Pasó todas las pruebas de aceptación planificadas.
 
 \HU{
 SCRUM-20 Iniciar/Cerrar sesión
@@ -724,16 +868,19 @@ SCRUM-20 Iniciar/Cerrar sesión
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/LogIn.png}
-    \caption{Log In}
-    \label{fig:LogIn}
-\end{figure}
-
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/OpcUser.png}
-    \caption{Opciones Usuario}
-    \label{fig:Opciones Usuario}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/LogSingIn.png}
+      \caption{Log In / Sing In}
+      \label{fig:LogSingIn}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/SingIn1.png}
+      \caption{Sing In pantalla 1}
+      \label{fig:SingIn1}
+   \end{minipage}
 \end{figure}
 
 Al hacer el login correctamente se otorga un token que no hay que renovar hasta el día siguiente, al cerrar sesión se borra automaticamente. Las pruebas realizadas se basaron en comprobar el correcto alamacenaje y borrado del token, usando la librería de secure storage de flutter, que nos permite guardar variables de forma permanente y encriptada con un facil acceso, como si fuera un map.
@@ -756,12 +903,12 @@ SCRUM-4 Buscar rutina en la lista del usuario
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/listaRutinas.png}
+    \includegraphics[width=0.5\textwidth]{pantallas/listaRutinas.png}
     \caption{Lista Rutinas}
     \label{fig:listaRutinas}
 \end{figure}
 
-Esta funcionalidad se abarcó aprovechando lo implementado en la iteración anterior del SCRUM-23. Se realizaron las mismas pruebas pero relacionadas con las rutinas. Como la funcionalidad previamente mencionada se diseñó para poder usar código a modo de plantilla y pasó todas las pruebas, esta como era de esperar las pasó también.
+En esta funcionalidad se aprovechó lo implementado en la iteración anterior del SCRUM-23. Se realizaron las mismas pruebas pero relacionadas con las rutinas. Como la funcionalidad previamente mencionada se diseñó para poder usar código a modo de plantilla y pasó todas las pruebas, esta como era de esperar las pasó también.
 
 \HU{
 SCRUM-5 Insertar/Borrar/Modificar rutina
@@ -778,46 +925,53 @@ SCRUM-5 Insertar/Borrar/Modificar rutina
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/DatosRutina.png}
-    \caption{Datos Rutina}
-    \label{fig:DatosRutina}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/DatosRutina.png}
+      \caption{Datos Rutina}
+      \label{fig:DatosRutina}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/crearRutina.png}
+      \caption{Crear Rutina}
+      \label{fig:crearRutina}
+   \end{minipage}
 \end{figure}
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/crearRutina.png}
-    \caption{Crear Rutina}
-    \label{fig:crearRutina}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/listaEjerRutina.png}
+      \caption{Lista Ejercicios Rutina}
+      \label{fig:listaEjerRutina}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/modRutina.png}
+      \caption{Modificar Rutina}
+      \label{fig:modRutina}
+   \end{minipage}
 \end{figure}
+
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/listaEjerRutina.png}
-    \caption{Lista Ejercicios Rutina}
-    \label{fig:listaEjerRutina}
-\end{figure}
-
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/modRutina.png}
-    \caption{Modificar Rutina}
-    \label{fig:modRutina}
-\end{figure}
-
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/listaAddEjerRut.png}
+    \includegraphics[width=0.4\textwidth]{pantallas/listaAddEjerRut.png}
     \caption{Lista añadir ejercicio a rutina}
     \label{fig:listaAddEjerRut}
 \end{figure}
 
-Como se puede observar se rescató mucho código de la primera iteración, solo hubo que hacer unas pequeñas modificaciones en la clase plantilla usada para crear las pantallas \cref{fig:listaEjerRutina} y \cref{fig:listaAddEjerRut}, en concreto a la pantalla de la lista de ejercicios preteneciente a la rutina se le realizaron pruebas para ver la correcta actualización de los contenidos.
+Gracias a que el código de la primera iteración se hizo muy reutilizable, solo hubo que hacer unas pequeñas modificaciones en la clase plantilla usada para crear las pantallas \cref{fig:listaEjerRutina} y \cref{fig:listaAddEjerRut}, en concreto a la pantalla de la lista de ejercicios preteneciente a la rutina se le realizaron pruebas para ver la correcta actualización de los contenidos.
 
 En la pantalla \cref{fig:modRutina} la unica prueba realizada fue comprobar la correcta modifición en la BD local y su correcta visualización en la misma.
 
 La funcionalidad de compartir todavía no está implementada.
 
-Se pasaron todas las pruebas.
+Se pasaron todas las pruebas de aceptación planificadas.
 
 \subsubsection{Sprint Review 2}
 Se sugirieron mejoras menores como el ajuste de tamaños e iconos en los botones de la sección de creación de rutinas.
@@ -835,16 +989,18 @@ Se cumplieron todas las funcionalidades en este sprint.
     \label{fig:BD local iteracion 2}
 \end{figure}
 
+En la tabla rutinas la fila ejercicios es una cadena en la que se guardan los ejercicios que se van a realizar. No se usa una tabla índice porque se pueden repetir ejercicios en un orden determinado.
+
 Se añadieron las tablas de ejercicios y marcas, una o varias marcas siempre están relacionadas con un ejercicio, de esta forma, se saben todas las marcas de un ejercicio y si se elimina un ejercicio sus marcas también desaparecen.
 
-\subsubsection{Estado de la BD backend} 
+\subsubsection{Estado de la BD del servidor} 
 
-Antes de seguir, la BD del backend es donde se guardan los usuarios registrados y sus rutinas compartidas. Para diferenciarlo de la BD local, que es el almacenamiento interno del dispositivo.
+En esta iteración se comienza a desarrollar la BD del servidor que es donde se guardan los usuarios registrados y sus rutinas compartidas. De esta forma la diferenciamos de la BD local, que es el almacenamiento interno del dispositivo.
 
 \begin{figure}[H]
    \centering
     \includegraphics[width=0.7\textwidth]{fotos/BD be iteracion 2.png}
-    \caption{BD backend iteracion 2}
+    \caption{BD servidor iteracion 2}
     \label{fig:BD backend iteracion 2}
 \end{figure}
 
@@ -873,12 +1029,12 @@ SCRUM-2 Establecer peso objetivo
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/pesoObj.png}
+    \includegraphics[width=0.5\textwidth]{pantallas/pesoObj.png}
     \caption{Peso Objetivo}
     \label{fig:pesoObj}
 \end{figure}
 
-Para guardar el peso, en esta iteración como no se crearan las tablas para guardas los pesajes del usuario se guardará usando secure storage, es una solución temporal. En para esta funcionalidad se hicieron pruebas para comprobar la correcta insercción del formato del peso, que no se añadan letras. que se admitan comas y puntos, que solo se use un decimal. Pasó todas las pruebas.
+Para guardar el peso, en esta iteración como no se han creado aún las tablas para guardar los pesajes del usuario se guardará usando secure storage, es una solución temporal. Para esta funcionalidad se hicieron pruebas para comprobar la correcta insercción del formato del peso, que no se añadan letras. que se admitan comas y puntos, que solo se use un decimal. Pasó todas las pruebas.
 
 \HU{
 SCRUM-9 Compartir mi rutina
@@ -890,30 +1046,33 @@ SCRUM-9 Compartir mi rutina
 	\item si la rutina contiene ejercicios, permitir la subida al servidor
 }
 
-Esta funcionalidad dió muchos quebraderos de cabeza ya que varios usuarios podrían tener una rutina con el mismo nombre y al mismo tiempo al descargar una rutina, un usuario podría tener un ejercicio llamado igual o varios usuario podrían tener en la nube varios ejercicios subidos con el mismo nombre. Esto son solo uno de los pocos problemas encontrados en esta funcionalidad.
-Haciendo pruebas de esta funcionalidad sobre integridad usando distintos casos se hizo conocer lo mencionado previamente.
+Esta funcionalidad sirve para subir la rutina a la BD del servidor para que este disponible para su descarga.
 
-Para solucionar algunos de estos problemas se hizo lo siguiente, en el backend en la BD los ejercicios y rutinas serán guardados usando como clave primaria un id que sera un int autoincrementado, evitando problemas integridad. Tambíén cuando sean referenciados en la BD se hará usando su id.
+Dió muchos quebraderos de cabeza ya que varios usuarios podrían tener una rutina con el mismo nombre y al mismo tiempo al descargar una rutina, un usuario podría tener un ejercicio llamado igual o varios usuarios podrían tener en la nube varios ejercicios subidos con el mismo nombre. Estos problemas se detectaron realizando pruebas y para solucionarlos se optó por no usar el nombre de rutina o ejercio como claves primarias, por lo que se hizo lo siguiente: en la BD del servidor, los ejercicios y rutinas serán referenciadas usando un entero autoincrementado como id.
 
-Se cumplieron todas las pruebas.
+El resto de pruebas se realizaron de forma stisfactoria.
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/rutinaMiaOComp.png}
-    \caption{Elegir lista compartida por el usuario o locales}
-    \label{fig:rutinaMiaOComp}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/rutinaMiaOComp.png}
+      \caption{Elegir lista compartida por el usuario o locales}
+      \label{fig:rutinaMiaOComp}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/rutinasCompUsuario.png}
+      \caption{Rutinas compartidas por el usuario}
+      \label{fig:rutinasCompUsuario}
+   \end{minipage}
 \end{figure}
 
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/rutinasCompUsuario.png}
-    \caption{Rutinas compartidas por el usuario}
-    \label{fig:rutinasCompUsuario}
-\end{figure}
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/DatosMiRutinaComp.png}
+    \includegraphics[width=0.5\textwidth]{pantallas/DatosMiRutinaComp.png}
     \caption{Datos rutinas compartidas por el usuario}
     \label{fig:DatosMiRutinaComp}
 \end{figure}
@@ -932,27 +1091,31 @@ SCRUM-27 Buscar rutinas para descargar
 
 Se puede buscar tanto un usuario y ver las rutinas que ha subido o directamente buscar por nombre de la rutina. Se recicló la pantalla de lista de rutinas \cref{fig:Lista rutinas}, y se implementó la pantalla de DatosRutinaComp, que se usa para ver datos de pantallas compartidas. También para hacer más fácil la distinción entre rutinas del propio usuario y las que ha compartido se añadió otra pantalla exclusivamente de pantallas compartidas, en la cual se nos permite eliminar de la nube las rutinas elegidas.
 
-Haciendo pruebas descargando varias veces la misma rutina y casos distintos fue fácil detectar el motivo de los problemas. Para solucionar los problemas de integridad generados en el dispositivo del usuario, al descargar una rutina se le añadirá a su nombre y al de los ejercicios que contiene el nombre del creador, y si aún así hay problemas de integridad, se añade al nombre de la rutina y/o ejercicio el número de copia que es dentro del dispositivo. Desarrollando lo anterior, al descargar una rutina llamada "Flexiones" del usuario "Paco", en el dispositivo que realiza la descarga se llamará "Flexiones-Paco", si en el dispisitivo en el que se realiza la descarga ya existe otra rutina llamada "Flexiones-Paco", la descargada se llamará en el dispositivo "Flexiones-Paco(1)".La integridad de los ejercicios se trata igual.
+Haciendo pruebas descargando varias veces la misma rutina y casos distintos fue fácil detectar algunos problemas de integridad debido a la repetición de nombres. Al descargar una rutina se le añadirá a su nombre y al de los ejercicios que contiene el nombre del creador, y si aún así hay problemas de integridad, se añade al nombre de la rutina y/o ejercicio el número de copia que es dentro del dispositivo. Desarrollando lo anterior, al descargar una rutina llamada 'Flexiones' del usuario 'Paco', en el dispositivo que realiza la descarga se llamará 'Flexiones-Paco', si en el dispositivo en el que se realiza la descarga ya existe otra rutina llamada 'Flexiones-Paco', la descargada se llamará en el dispositivo 'Flexiones-Paco(1)'.La integridad de los ejercicios se trata igual.
 
 Una vez implementadas estas soluciones, ya se pasaron exitosamente las pruebas.
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/buscarRutinasNomOUser.png}
-    \caption{Buscar rutinas o usuario}
-    \label{fig:buscarRutinasNomOUser}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/buscarRutinasNomOUser.png}
+      \caption{Buscar rutinas o usuario}
+      \label{fig:buscarRutinasNomOUser}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.45\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/buscarRutina.png}
+      \caption{Buscar rutinas por su nombre}
+      \label{fig:buscarRutina}
+   \end{minipage}
 \end{figure}
+
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/buscarRutina.png}
-    \caption{Buscar rutinas por su nombre}
-    \label{fig:buscarRutina}
-\end{figure}
-
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/buscarUser.png}
+    \includegraphics[width=0.5\textwidth]{pantallas/buscarUser.png}
     \caption{Buscar usuarios}
     \label{fig:buscarUser}
 \end{figure}
@@ -960,7 +1123,7 @@ Una vez implementadas estas soluciones, ya se pasaron exitosamente las pruebas.
 \HU{
 SCRUM-8 Enseñar datos de una rutina a descargar
 }{
-	\item Implementar el IU pop up
+	\item Implementar la IU
 	\item Implementar las funciones de consulta en la API
 	\item Implementar las funciones de inserción en la BD local
 }{
@@ -968,11 +1131,11 @@ SCRUM-8 Enseñar datos de una rutina a descargar
 	\item si se va a descargar la rutina y el usuario no tiene en el dispositivo otra con el mismo nombre, descargar normalmente
 }
 
-Es la misma pantalla para ver nuestras rutinas subidas, reciclamos código, la única diferencia es que no podedmos elminarla de la nube, solo podemos descargarla. Se hicieron pruebas comprobando que solo podía borrar la rutina el usuario creador y que los datos enseñados al descargar la rutina eran correctos.
+Se recicló una de las pantallas de SCRUM-9 (\cref{fig:DatosMiRutinaComp}), solo cambió el botón que se usa para descargar. Se hicieron pruebas comprobando que solo podía borrar la rutina el usuario creador y que los datos enseñados al descargar la rutina eran correctos.
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/datosRutinasDesc.png}
+    \includegraphics[width=0.6\textwidth]{pantallas/datosRutinasDesc.png}
     \caption{Datos rutinas para descargar}
     \label{fig:datosRutinasDesc}
 \end{figure}
@@ -996,18 +1159,16 @@ Se ha decidido dar menos prioridad y que por tanto no se abordará en este TFG p
 
 También se ha reducido la prioridad de SCRUM-29 (Copiar rutina), dado que aporta poco valor a la app.
 
-Se decidió adelantar otras, pero debido a los problemas encontrados durante esta iteración no se pudieron realizar.
-
 \subsubsection{Estado BD local}
 
 No ha habido cambios respecto a la iteración anterior
 
-\subsubsection{Estado BD backend}
+\subsubsection{Estado BD del servidor}
 
 \begin{figure}[H]
    \centering
     \includegraphics[width=\textwidth]{fotos/BD be iteracion 3.png}
-    \caption{BD backend iteracion 3}
+    \caption{BD del servidor iteracion 3}
     \label{fig:BD be iteracion 3}
 \end{figure}
 
@@ -1019,9 +1180,9 @@ Se identificaron dos errores principales de planificación:
   \item[Error 1:] Se planificó implementar la funcionalidad de resumir datos sin haber completado la obtención de datos. \\ \textbf{Solución:} Replanificar los sprints.
 \end{description}
 
-Los imprevistos y problemas surgidos durante el desarrollo han permitido detectar \textit{bugs}, errores de dise\~no y carencias funcionales que de otro modo podrían haber pasado desapercibidos. Gracias a ello, se han podido proponer nuevas funcionalidades y mejorar las ya existentes, lo cual contribuye significativamente a aumentar la calidad global de la aplicación.
+Los imprevistos y problemas surgidos durante el desarrollo han permitido detectar \textit{bugs}, errores de diseño y carencias funcionales que de otro modo podrían haber pasado desapercibidos. Gracias a ello, se han podido proponer nuevas funcionalidades y mejorar las ya existentes, lo cual contribuye significativamente a majorar la calidad global de la aplicación.
 
-Algunas funcionalidades propuestas como mejora son:
+Algunas funcionalidades propuestas como mejora para la siguiente iteración son:
 
 \begin{itemize}
   \item Verificar el token del usuario antes de permitir la subida de rutinas, para evitar suplantación.
@@ -1036,7 +1197,7 @@ Estas funcionalidades están pensadas para aportar mayor \textbf{seguridad}, \te
 
 En esta review se estuvo debatiendo si quitar las funcionalidades relacionadas con el smartwatch, por cuestiones de tiempo, ya que con las funcionalidades añadidas en el capitulo anterior se va ajustando el plazo.
 
-En esta iteración se tenía pensado implementar la funcionalidad de resumir los datos, no obstante, al no tener implementada la parte en la que guardo las marcas de los entrenamientos, no puedo trabajar en esa funcionalidad. Por lo tanto, se ha pospuesto para la próxima iteración. También se le dió el visto bueno a la implementación de las funcionalidades previamente expuestas durante el desarrollo.
+En esta iteración se tenía pensado implementar la funcionalidad de resumir los datos, no obstante, al no tener implementada la parte en la que se guardan las marcas de los entrenamientos, no es posible trabajar en esa funcionalidad. Por lo tanto, se ha pospuesto para la próxima iteración. También se le dió el visto bueno a la implementación de las funcionalidades previamente expuestas durante el desarrollo.
 
 \subsection{Iteración 4}
 
@@ -1048,6 +1209,8 @@ En esta iteración se tiene pensado implementar la funcionalidad del calendario,
 	  \item SCRUM-16: Realizar el flujo del entrenamiento
 	  \item SCRUM-28: Implementar calendario
 \end{itemize}
+
+\vspace{1cm}
 
 \HU{
 SCRUM-28: Implementar calendario
@@ -1064,39 +1227,45 @@ SCRUM-28: Implementar calendario
 	\item si un día tiene una rutina asignada, no hay marcas registradas pero es hoy, se enseñará un acceso para empezar el entrenamiento, se considera que el usuario todavía no ha entrenado
 	\item si un día tiene una rutina asignada, pero es futuro, no se enseñará un acceso para empezar el entrenamiento
 	\item si un día tiene una rutina asignada y hay marcas registradas sea el día actual o pasado, se mostrará información de las marcas, sin acceso a entrenamiento
+	\item si se cambia la rutina a entrenar, se inserta en la BD del dispositivo y se hace visible en el calendario
+	\item si se cambia la rutina asignada en un día por un descanso, se borra de la BD y se hace visible en el calendario
 }
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/Calendario.png}
-    \caption{Calendario}
-    \label{fig:Calendario}
+   \begin{minipage}{0.4\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/Calendario.png}
+      \caption{Calendario}
+      \label{fig:Calendario}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.4\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/CalendarioEventos.png}
+      \caption{Calendario con eventos}
+      \label{fig:CalendarioEventos}
+   \end{minipage}
+   \hspace{0.5cm}
+   \begin{minipage}{0.4\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/descanso.png}
+      \caption{Descanso}
+      \label{fig:Descanso}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.4\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/entrenar.png}
+      \caption{Entrenar}
+      \label{fig:Entrenar}
+   \end{minipage}
 \end{figure}
 
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/CalendarioEventos.png}
-    \caption{Calendario con eventos}
-    \label{fig:CalendarioEventos}
-\end{figure}
 
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/descanso.png}
-    \caption{Descanso}
-    \label{fig:Descanso}
-\end{figure}
+El calendario es donde el usuario podrá organizar sus entrenamientos, acceder a sus marcas y datos sobre su peso guardados por días. El calendario está implementado usando la librería de tableCalendar, que permite trabajar con calendarios con una alta personalización de la estética y trabajar comodamente con los datos reflejados en el mismo usando el tipo DateTime de flutter. Para guardar eventos se almacenan en una tabla en la BD local llamada entrenamientos. Cada entrenamiento se guarda usando la fecha de cuando se realizó/realizará como primary key junto con la ruitna que se hizo o planea hacerse. Como no se permite modificar las rutinas una vez ya se haya entrenado o pasado el día, el único problema de integridad es cuando se añade un evento a un día ya asignado, lo cuálresolvemos sustituyendo el nuevo por el antiguo. Las marcas funcionan de manera similar, primary key es un int auto incrementado, pero además cada marca tiene asociada una fecha. Importante, cada marca se asocia a los resultados de una serie.
 
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/entrenar.png}
-    \caption{Entrenar}
-    \label{fig:Entrenar}
-\end{figure}
-
-El calendario es donde el usuario podrá organizar sus entrenamientos, acceder a sus marcas y datos sobre su peso guardados por días. El calendario está implementado usando la librería de tableCalendar, que permite trabajar con calendarios con una alta personalización de la estética y trabajar comodamente con los datos reflejados en el mismo usando el tipo DateTime de flutter. Para guardar eventos los almaceno en una tabla en la BD local llamada entrenamientos. Cada entrenamiento se guarda usando la fecha de cuando se realizó/realizará como primary key junto con la ruitna que se hizo o planea hacerse. Como no dejo modificar las rutinas una vez ya se haya entrenado o pasado el día, el único problema de integridad es cuando añado un evento a un día ya asignado, lo resuelvo sustituyendo el nuevo por el antiguo. Las marcas funcionan de manera similar, primary key es un int auto incrementado, pero tiene asociado cada marca una fecha. Importante, cada marca se asocia a los resultados de una serie.
-
-Se realizaron pruebas comprobando si se actualizaban los entrenamientos/pesajes añadidos se veían reflejados correctamente. Todos los datos se guardan correctamente así que pasó las pruebas, el único fallo es que a veces no actualiza la IU correctamente, por lo que se dijo previamente de que no se puede actualizar un widget dentro de otro, pero solo es visual.
+Se realizaron pruebas comprobando si se actualizaban los entrenamientos y pesajes añadidos y se veían reflejados correctamente en el calendario. Todos los datos se guardan correctamente así que pasó las pruebas de aceptación.
 
 \HU{
 SCRUM-16 Realizar el flujo del entrenamiento
@@ -1114,46 +1283,52 @@ SCRUM-16 Realizar el flujo del entrenamiento
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/listaIni.png}
-    \caption{Lista inicial de ejercicios}
-    \label{fig:listaIni}
+   \begin{minipage}{0.4\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/listaIni.png}
+      \caption{Lista inicial de ejercicios}
+      \label{fig:listaIni}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.4\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/entrenando.png}
+      \caption{Realizando serie}
+      \label{fig:entrenando}
+   \end{minipage}
+   \hspace{0.5cm}
+   \begin{minipage}{0.4\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/guardarMarc.png}
+      \caption{Guardando marcas}
+      \label{fig:guardarMarc}
+   \end{minipage}%
+   \hspace{0.5cm}
+   \begin{minipage}{0.4\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{pantallas/entreSerie.png}
+      \caption{Pantalla enter series}
+      \label{fig:entreSerie}
+   \end{minipage}
 \end{figure}
 
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/entrenando.png}
-    \caption{Realizando serie}
-    \label{fig:entrenando}
-\end{figure}
 
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/guardarMarc.png}
-    \caption{Guardando marcas}
-    \label{fig:guardarMarc}
-\end{figure}
+Para abordar esta funcionalidad, se ha implementado una clase aparte encargada del desarrollo de esta parte de la app. Se ha decidido así ya que es una lógica más compleja y es conveniente tenerla separada de la IU.
 
-\begin{figure}[H]
-   \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/entreSerie.png}
-    \caption{Pantalla enter series}
-    \label{fig:entreSerie}
-\end{figure}
-
-Para acaparar esta funcionalidad, se ha implementado una clase aparte encargada del desarrollo de esta parte de la app. Se ha decidido así ya que es una lógica más compleja y es conveniente tenerla separada de la IU.
-
-Esta clase, solo se puede crear de forma util llamando a un método estático de la propia clase (se hace así ya que necesita hacer operaciones asíncronas para obtener los datos necesarios), este método estático me devuelve la instancia con la que voy a trabajar. Se llama al método ejecutar de la instancia creada y sola se encarga de mostrar las pantallas al usuario, guardar los datos y de comparar las metas que se propuso el usuario.
+Esta clase solo se puede crear de forma util llamando a un método estático de la propia clase (se hace así ya que necesita hacer operaciones asíncronas para obtener los datos necesarios), este método estático devuelve la instancia con la que vamos a trabajar. Se llama al método ejecutar de la instancia creada y sola se encarga de mostrar las pantallas al usuario, guardar los datos y de comparar las metas que se propuso el usuario.
 
 Aquí un diagrama de actividades que explica la tarea de esta clase:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{tablas/FlujoEntrenamiento.png}
+    \includegraphics[width=0.7\textwidth]{tablas/FlujoEntrenamiento.png}
     \caption{Flujo entrenamiento}
     \label{fig:Flujo entrenamiento}
 \end{figure}
 
 Se hicieron pruebas simulando el flujo varias veces de distintas formas, comprobando su correcta ejecución y que se guardaban correctamente los datos. Pasó todas las pruebas.
+
+\hspace{0.5cm}
 
 \HU{
 SCRUM-26 Detectar metas cumplidas en los ejercicios despues del entrenamiento
@@ -1167,7 +1342,7 @@ SCRUM-26 Detectar metas cumplidas en los ejercicios despues del entrenamiento
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/metaSup.png}
+    \includegraphics[width=0.4\textwidth]{pantallas/metaSup.png}
     \caption{Meta superada}
     \label{fig:metaSup}
 \end{figure}
@@ -1189,14 +1364,14 @@ SCRUM-1 Registrar peso por día
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.8\textwidth]{pantallas/RegistrarPeso.png}
+    \includegraphics[width=0.4\textwidth]{pantallas/RegistrarPeso.png}
     \caption{Registrar peso por día}
     \label{fig:RegistrarPeso}
 \end{figure}
 
-Para implementar esta funcionalidad se añadió un acceso en la parte de abajo de la pantalla para cada día del calendario, dando igual si existe algún evento o no, siempre se puede guardar/modificar el peso del usuario siempre que no sea de un día pasado. Se realizaron pruebas comprobando los correctos formatos al introducir el peso y los procentajes, también se comprobo que se hacía un correcto display de estos datos al acceder a ellos desde el calendario. Pasó todas las pruebas.
+Para implementar esta funcionalidad se añadió un acceso en la parte de abajo de la pantalla para cada día del calendario, dando igual si existe algún evento o no, siempre se puede guardar/modificar el peso del usuario siempre que no sea de un día pasado. Se realizaron pruebas comprobando los correctos formatos al introducir el peso y los porcentajes, también se comprobo que se hacía un correcto display de estos datos al acceder a ellos desde el calendario. Pasó todas las pruebas.
 
-En esta iteración hay pocas funcionalidades comparadas con otras, porque el flujo del entrenamiento es una funcionalidad muy grande. A parte se añade esta funcionalidad que también se va a realizar en esta iteración, SCRUM-28 Implementar calendario.
+En esta iteración hay pocas funcionalidades comparadas con otras, porque el flujo del entrenamiento es una funcionalidad que requirió más esfuerzo. Aparte se añade otra funcionalidad realizada en esta iteración que es la de la HU SCRUM-28.
 
 \subsubsection{Cambios en el backend}
 
@@ -1211,7 +1386,7 @@ Cambio 1: la solución implementada es la siguiente, a todas las funciones que p
 
 Cambio 2: de primeras se pensó en usar una flag, pero finalmente para evitar perdida de rendimiento al momento de que el usuario realize un entrenamiento(que es cuando en un principio se tenía pensado borrar el ejercicio), se optó por modificar la lista de ejercicios de la rutina al momento de borrar el ejercicio. El número de consultas iba a ser el mismo, pero se ahorra memoria, ya que no añadimos una columna más a la tabla de ejercicios
 
-Otro cambio en el backend que no tiene que ver con lo propuesto con la iteración anterior, la adición de 2 campos a la tabla usuarios del backend, se añadió el campo int descargas, siendo este el número total de descargas que posee en sus rutinas el usuario en cuestión, y el campo fechaCreacion que es la fecha en la que se creo la cuenta en cuestión. El número total de descargas se usa para que cuando se busquen usuarios para descargar rutinas salgan los que más descargas poseen primero y la fecha de creación para que cuando la app se inicie cree un calendario que vaya desde la fecha de creación hasta 1 mes en adelante de la fecha actual, porque no tiene sentido añadir fechas de antes de crear la cuenta.
+Otro cambio en el backend que no tiene que ver con lo propuesto con la iteración anterior,es la adición de 2 campos a la tabla usuarios de la BD del servidor. Se añadió el campo int descargas, siendo este el número total de descargas que posee en sus rutinas el usuario en cuestión, y el campo fechaCreacion que es la fecha en la que se creo la cuenta en cuestión. El número total de descargas se usa para que cuando se busquen usuarios para descargar rutinas salgan los que más descargas poseen primero y la fecha de creación para que cuando la app se inicie cree un calendario que vaya desde la fecha de creación hasta 1 mes en adelante de la fecha actual, porque no tiene sentido añadir fechas de antes de crear la cuenta.
 
 \subsubsection{Estado de la BD local}
 
@@ -1222,22 +1397,22 @@ Otro cambio en el backend que no tiene que ver con lo propuesto con la iteració
     \label{fig:BDL iteracion 4}
 \end{figure}
 
-\subsubsection{Estado BD backend}
+\subsubsection{Estado BD del servidor}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{fotos/BD be iteracion 4.png}
-    \caption{BD backend iteración 4}
+    \caption{BD del servidor iteración 4}
     \label{fig:BD be iteracion 4}
 \end{figure}
 
 \subsubsection{Sprint review 4}
 
-En esta review se ha propuesto que despues de los entrenamientos se les enseñe a los usuarios las metas que tenían establecidas siempre, aunque no la hayan superado, evitando siempre el feedback negativo al usuario. Se tendrá en cuenta para la próxima iteración.
+En esta review se ha propuesto que despues de los entrenamientos se les enseñen a los usuarios las metas que tenían establecidas siempre, aunque no las hayan superado, evitando siempre el feedback negativo al usuario. Se tendrá en cuenta para la próxima iteración.
 
 \subsection{Iteración 5}
 
-Al principio de la iteración se dio a notar que faltaba la IU y algunas funciones para visualizar las marcas obtenidas por el usuario, se añadirá a esta iteración. Teniendo en cuenta el tiempo que se posee la IA no se podrá implementar se dará prioridad a la funcionalidad de hacer gráficas usando las marcas obtenidas por el usuario, no se añadió desde un principio porque era necesario poder añadir marcas.
+Al principio de la iteración se dio a notar que faltaba por implementar la IU y algunas funciones para visualizar las marcas obtenidas por el usuario, lo cuál se añadirá a esta iteración. Teniendo en cuenta el tiempo que queda, la funcionalidad de la IA no se podrá implementar. Si se dará prioridad a la funcionalidad de hacer gráficas usando las marcas obtenidas por el usuario, lo cual no se añadió desde un principio porque era necesario poder añadir marcas.
 
 \begin{itemize}
 	\item SCRUM-34: Enseñar las marcas obtenidas en un día
@@ -1254,7 +1429,11 @@ SCRUM-34: Enseñar las marcas obtenidas en un día
 \item pulsar en la pantalla para ir pasando series del mismo ejercicio
 }
 
+\hspace{0.5cm}
+
 Se añadió una nueva pantalla MarcasEntrenamientos, en la cual se muestran los resultados del entrenamiento de un usuario en sus distintas series. Pasó todas las pruebas.
+
+\hspace{0.5cm}
 
 \HU{
 SCRUM-6: Hacer gráfica en base a las marcas obtenidas
@@ -1264,6 +1443,8 @@ SCRUM-6: Hacer gráfica en base a las marcas obtenidas
 }{
 \item hacer un display correcto de los distintos datos
 }
+
+\hspace{0.5cm}
 
 La grafica se implementó usando la librería fl\_chart de flutter, la cual permite usar componentes gráficos para hacer distintos tipos de gráficas. Para el parámetro tiempo se representa el número total de segundos en el eje Y, para el resto de parámetros se usa su valor numérico. El eje X es la fecha de cuando se alcanzó la marca.
 

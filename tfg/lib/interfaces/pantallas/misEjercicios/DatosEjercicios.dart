@@ -132,7 +132,7 @@ class DatosEjercicios extends StatelessWidget{
     int res=0;
 
     res+=int.parse(aux[0])*60;
-    res+=int.parse(aux[1])*60;
+    res+=int.parse(aux[1]);
 
     return res;
   }
@@ -169,10 +169,10 @@ class DatosEjercicios extends StatelessWidget{
 
     double tamIconos=7.w;
 
+    if(esTiempo.isNotEmpty){
+      print("$marca $meta");
+    }
     if((marca>=meta) ){
-      if(esTiempo.isNotEmpty){
-        print("$marca $meta");
-      }
       out.add(DataCell(Image.asset('assets/images/check.png',width: tamIconos,height: tamIconos)));
     } else {
       out.add(DataCell(Image.asset('assets/images/forbidden.png',width: tamIconos,height: tamIconos)));

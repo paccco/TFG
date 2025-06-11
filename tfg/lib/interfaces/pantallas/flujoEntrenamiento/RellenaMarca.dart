@@ -142,6 +142,7 @@ class _RellenaMarcaState extends State<RellenaMarca>{
           ),
           bottomNavigationBar: InkWell(
             onTap: () async {
+              bool error=false;
               Map<String,dynamic> aux={};
               final camposMarca=BDLocal.camposMarca;
 
@@ -149,6 +150,7 @@ class _RellenaMarcaState extends State<RellenaMarca>{
                 try{
                   aux[camposMarca[2]]=int.parse(_repeC!.value.text);
                 }catch(exception){
+                  error=true;
                   mensaje(context, "Repeticiones: Usa un numero positivo sin comas",error: true);
                 }
               }
@@ -162,20 +164,22 @@ class _RellenaMarcaState extends State<RellenaMarca>{
               }
               if(_pesoC!=null && _pesoC!.value.text.isNotEmpty){
                 try{
-                  aux[camposMarca[3]]=double.parse(_pesoC!.value.text);
+                  aux[camposMarca[3]]=double.parse(_pesoC!.value.text.replaceAll(',', '.'));
                 }catch(exception){
+                  error=true;
                   mensaje(context, "Peso: Usa un numero con punto", error: true);
                 }
               }
               if(_distC!=null && _distC!.value.text.isNotEmpty){
                 try{
-                  aux[camposMarca[5]]=double.parse(_distC!.value.text);
+                  aux[camposMarca[5]]=double.parse(_distC!.value.text.replaceAll(',','.'));
                 }catch(execption){
+                  error=true;
                   mensaje(context, "Distancia: Usa un numero con punto", error: true);
                 }
               }
 
-              if(aux.values.contains(false)){
+              if(aux.values.contains(false) || error){
                 mensaje(context, "Formato de hora erróneo: mm:ss", error: true);
               } else if(aux.isNotEmpty){
                 if(_finDescanso){
