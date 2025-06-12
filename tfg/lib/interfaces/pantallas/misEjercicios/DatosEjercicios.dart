@@ -169,9 +169,6 @@ class DatosEjercicios extends StatelessWidget{
 
     double tamIconos=7.w;
 
-    if(esTiempo.isNotEmpty){
-      print("$marca $meta");
-    }
     if((marca>=meta) ){
       out.add(DataCell(Image.asset('assets/images/check.png',width: tamIconos,height: tamIconos)));
     } else {

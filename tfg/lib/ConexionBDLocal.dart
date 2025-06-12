@@ -304,11 +304,8 @@ class BDLocal{
     return out;
   }
 
-  Future<Map<String,Map<String,dynamic>>> getMediaMarca(String ejercicio, {DateTime? desde, DateTime? hasta}) async {
+  Future<Map<String,Map<String,dynamic>>> getMediaMarca(String ejercicio) async {
     final db = await instance.database;
-
-    desde??=DateTime(1);
-    hasta??=DateTime.now();
 
     final aux = await db.rawQuery('''
     SELECT
@@ -321,10 +318,10 @@ class BDLocal{
       ) AS tiempo
     FROM $marca
     WHERE ${camposMarca[7]} = ?
-      AND ${camposMarca[0]} BETWEEN ? AND ?
+      AND ${camposMarca[0]} != '0000-00-00'
     GROUP BY ${camposMarca[0]}
     ORDER BY ${camposMarca[0]} ASC
-  ''', [ejercicio,stringDate(desde),stringDate(hasta)]);
+  ''', [ejercicio]);
 
     final Map<String,Map<String,dynamic>> out={};
 

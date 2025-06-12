@@ -30,7 +30,7 @@ Los modelos NoSQL, se descartaron principalmente porque las relaciones entre ele
     \includegraphics[width=\textwidth]{tablas/Arq.png}
     \caption{Diagrama de arquitectura}
     \label{fig:Arquitectura}
-\end{figure} 
+\end{figure}
 
 \section{Metodología utilizada}
 Para el desarrollo de esta app, se usará una metodología \textit{ágil} tipo \textbf{SCRUM}. Se decidió usar esta porque permite corregir fallos en la velocidad de diseño y/o planificación de forma eficiente y sin dañar el producto final. Esta metodología permite también entregar desarrollos funcionales a la tutora e ir validando las funcionalidades poco a poco mediante reuniones.
@@ -50,6 +50,13 @@ La iteración 0 se dedicará al diseño de pantallas y al repaso de las funciona
   \item Inteligencia Artificial (IA)
   \item Smartwatch y tratamiento de datos
 \end{enumerate}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[width=0.5\textwidth]{tablas/gant.png}
+    \caption{Diagrama de Gant}
+    \label{fig:Gant}
+\end{figure}
 
 Al final no se pudo cumplir con la temporización porque se dieron una serie de problemas durante el desarrollo, tanto con algunas tecnologías que en la versión final no se implementaron como intentando aprender sobre ellas.
 
@@ -175,6 +182,8 @@ A continuación se muestran los diseños creados en esta iteración con la herra
       \label{fig:Lista ejercicios filtrada}
    \end{minipage}
 \end{figure}
+
+\newpage
 
 \begin{figure}[H]
    \centering
@@ -334,6 +343,8 @@ A continuación se muestran los diseños creados en esta iteración con la herra
    \end{minipage}
 \end{figure}
 
+\newpage
+
 \begin{figure}[H]
    \centering
    \begin{minipage}{0.45\textwidth}
@@ -394,14 +405,15 @@ A continuación se muestran los diseños creados en esta iteración con la herra
 Si seleccionamos datos de una fecha saldría esto
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{fotos/Frame 29.png}
-    \caption{Frame 29.png}
+    \includegraphics[width=0.5\textwidth]{fotos/Frame 29.png}
+    \caption{Macros}
     \label{fig:Frame_29}
 \end{figure}
 
+La siguiente pantalla sale al comenzar el entrenamiento
+
 \newpage
 
-La siguiente pantalla sale al comenzar el entrenamiento
 \begin{figure}[H]
    \centering
    \begin{minipage}{0.45\textwidth}
@@ -410,7 +422,7 @@ La siguiente pantalla sale al comenzar el entrenamiento
       \caption{Lista ejercicios del entrenamiento actual}
       \label{fig:Lista ejercicios del entrenamiento actual}
    \end{minipage}%
-   \hspace{0.5cm}
+   \hspace{0.25cm}
    \begin{minipage}{0.45\textwidth}
       \centering
       \includegraphics[width=0.9\textwidth]{fotos/Frame 2.png}
@@ -427,7 +439,7 @@ La siguiente pantalla sale al comenzar el entrenamiento
       \caption{Realizando flexiones}
       \label{fig:Realizando flexiones}
    \end{minipage}%
-   \hspace{0.5cm}
+   \hspace{0.25cm}
    \begin{minipage}{0.45\textwidth}
       \centering
       \includegraphics[width=0.9\textwidth]{fotos/Frame 4.png}
@@ -440,7 +452,7 @@ La siguiente pantalla sale al comenzar el entrenamiento
    \centering
    \begin{minipage}{0.45\textwidth}
       \centering
-      \includegraphics[width=0.9\textwidth]{fotos/Frame 5.png}
+      \includegraphics[width=0.8\textwidth]{fotos/Frame 5.png}
       \caption{Fin de la serie(Descanso completado)}
       \label{fig:Fin de la serie(Descanso completado)}
    \end{minipage}%
@@ -458,7 +470,7 @@ La siguiente pantalla sale al comenzar el entrenamiento
    \begin{minipage}{0.45\textwidth}
       \centering
       \includegraphics[width=0.9\textwidth]{fotos/Frame 60.png}
-      \caption{Realizando ejercicio midiendo tiempo}
+      \caption[font=small]{Realizando ejercicio midiendo tiempo}
       \label{fig:Realizando ejercicio midiendo tiempo}
    \end{minipage}%
    \hspace{0.5cm}
@@ -782,6 +794,8 @@ Por consecuencia las futuras funcionalidades en la que se mencionan los pop ups,
 \subsection{Iteración 2}
 Esta iteración se centró en el desarrollo del sistema de sesiones, la API de la aplicación, el backend básico del servidor y la sección de rutinas. Las historias que incluye son las siguientes:
 
+\hspace{0.25cm}
+
 \begin{itemize}
   \item SCRUM-18 Crear/Borrar mi usuario
   \item SCRUM-20 Iniciar/Cerrar sesión
@@ -790,9 +804,11 @@ Esta iteración se centró en el desarrollo del sistema de sesiones, la API de l
   \item SCRUM-25 Implementar menú principal
 \end{itemize}
 
+\hspace{0.25cm}
+
 También se terminará la historia no finalizada de la iteración anterior(SCRUM-3: Insertar/Borrar/Modificar ejercicio de la lista de ejercicios).
 
-\newpage
+\hspace{0.25cm}
 
 \HU{
 SCRUM-25 Implementar menú principal
@@ -804,9 +820,10 @@ SCRUM-25 Implementar menú principal
 	\item si la funcionalidad seleccionada está implementada, dar acceso a dicha funcionalidad
 }
 
+
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.5\textwidth]{pantallas/MenuPrincipalSemi.png}
+    \includegraphics[width=0.3\textwidth]{pantallas/MenuPrincipalSemi.png}
     \caption{Menu Principal semifuncional}
     \label{fig:MenuPrincipalSemi}
 \end{figure}
@@ -883,6 +900,8 @@ SCRUM-20 Iniciar/Cerrar sesión
    \end{minipage}
 \end{figure}
 
+\newpage
+
 Al hacer el login correctamente se otorga un token que no hay que renovar hasta el día siguiente, al cerrar sesión se borra automaticamente. Las pruebas realizadas se basaron en comprobar el correcto alamacenaje y borrado del token, usando la librería de secure storage de flutter, que nos permite guardar variables de forma permanente y encriptada con un facil acceso, como si fuera un map.
 
 Para comprobar la veracidad de los credenciales se implementó la parte básica del backend, un server con una BD(mySQL) que guardará los usuarios con sus contraseñas y la parte implementada usando Express.js(Node.js) para escuchar peticiones, el server también será el encargado de proporcionar y verificar los tokens. La comunicación entre servidor y cliente (el dispositivo en el que esta instalada la app) se usan peticiones HTTP, en futuro se puede migrar a HTTPS si es necesaria mas seguridad.
@@ -903,7 +922,7 @@ SCRUM-4 Buscar rutina en la lista del usuario
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.5\textwidth]{pantallas/listaRutinas.png}
+    \includegraphics[width=0.4\textwidth]{pantallas/listaRutinas.png}
     \caption{Lista Rutinas}
     \label{fig:listaRutinas}
 \end{figure}
@@ -925,14 +944,14 @@ SCRUM-5 Insertar/Borrar/Modificar rutina
 
 \begin{figure}[H]
    \centering
-   \begin{minipage}{0.45\textwidth}
+   \begin{minipage}{0.35\textwidth}
       \centering
       \includegraphics[width=0.9\textwidth]{pantallas/DatosRutina.png}
       \caption{Datos Rutina}
       \label{fig:DatosRutina}
    \end{minipage}%
    \hspace{0.5cm}
-   \begin{minipage}{0.45\textwidth}
+   \begin{minipage}{0.35\textwidth}
       \centering
       \includegraphics[width=0.9\textwidth]{pantallas/crearRutina.png}
       \caption{Crear Rutina}
@@ -942,14 +961,14 @@ SCRUM-5 Insertar/Borrar/Modificar rutina
 
 \begin{figure}[H]
    \centering
-   \begin{minipage}{0.45\textwidth}
+   \begin{minipage}{0.35\textwidth}
       \centering
       \includegraphics[width=0.9\textwidth]{pantallas/listaEjerRutina.png}
       \caption{Lista Ejercicios Rutina}
       \label{fig:listaEjerRutina}
    \end{minipage}%
    \hspace{0.5cm}
-   \begin{minipage}{0.45\textwidth}
+   \begin{minipage}{0.35\textwidth}
       \centering
       \includegraphics[width=0.9\textwidth]{pantallas/modRutina.png}
       \caption{Modificar Rutina}
@@ -1029,12 +1048,14 @@ SCRUM-2 Establecer peso objetivo
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.5\textwidth]{pantallas/pesoObj.png}
+    \includegraphics[width=0.4\textwidth]{pantallas/pesoObj.png}
     \caption{Peso Objetivo}
     \label{fig:pesoObj}
 \end{figure}
 
 Para guardar el peso, en esta iteración como no se han creado aún las tablas para guardar los pesajes del usuario se guardará usando secure storage, es una solución temporal. Para esta funcionalidad se hicieron pruebas para comprobar la correcta insercción del formato del peso, que no se añadan letras. que se admitan comas y puntos, que solo se use un decimal. Pasó todas las pruebas.
+
+\hspace{0.5cm}
 
 \HU{
 SCRUM-9 Compartir mi rutina
@@ -1045,6 +1066,8 @@ SCRUM-9 Compartir mi rutina
 	\item si la rutina no contiene ejercicios, no permitir su subida al servidor
 	\item si la rutina contiene ejercicios, permitir la subida al servidor
 }
+
+\hspace{0.5cm}
 
 Esta funcionalidad sirve para subir la rutina a la BD del servidor para que este disponible para su descarga.
 
@@ -1093,18 +1116,16 @@ Se puede buscar tanto un usuario y ver las rutinas que ha subido o directamente 
 
 Haciendo pruebas descargando varias veces la misma rutina y casos distintos fue fácil detectar algunos problemas de integridad debido a la repetición de nombres. Al descargar una rutina se le añadirá a su nombre y al de los ejercicios que contiene el nombre del creador, y si aún así hay problemas de integridad, se añade al nombre de la rutina y/o ejercicio el número de copia que es dentro del dispositivo. Desarrollando lo anterior, al descargar una rutina llamada 'Flexiones' del usuario 'Paco', en el dispositivo que realiza la descarga se llamará 'Flexiones-Paco', si en el dispositivo en el que se realiza la descarga ya existe otra rutina llamada 'Flexiones-Paco', la descargada se llamará en el dispositivo 'Flexiones-Paco(1)'.La integridad de los ejercicios se trata igual.
 
-Una vez implementadas estas soluciones, ya se pasaron exitosamente las pruebas.
-
 \begin{figure}[H]
    \centering
-   \begin{minipage}{0.45\textwidth}
+   \begin{minipage}{0.4\textwidth}
       \centering
       \includegraphics[width=0.9\textwidth]{pantallas/buscarRutinasNomOUser.png}
       \caption{Buscar rutinas o usuario}
       \label{fig:buscarRutinasNomOUser}
    \end{minipage}%
    \hspace{0.5cm}
-   \begin{minipage}{0.45\textwidth}
+   \begin{minipage}{0.4\textwidth}
       \centering
       \includegraphics[width=0.9\textwidth]{pantallas/buscarRutina.png}
       \caption{Buscar rutinas por su nombre}
@@ -1112,13 +1133,14 @@ Una vez implementadas estas soluciones, ya se pasaron exitosamente las pruebas.
    \end{minipage}
 \end{figure}
 
-
 \begin{figure}[H]
    \centering
     \includegraphics[width=0.5\textwidth]{pantallas/buscarUser.png}
     \caption{Buscar usuarios}
     \label{fig:buscarUser}
 \end{figure}
+
+Una vez implementadas estas soluciones, ya se pasaron exitosamente las pruebas.
 
 \HU{
 SCRUM-8 Enseñar datos de una rutina a descargar
@@ -1135,7 +1157,7 @@ Se recicló una de las pantallas de SCRUM-9 (\cref{fig:DatosMiRutinaComp}), solo
 
 \begin{figure}[H]
    \centering
-    \includegraphics[width=0.6\textwidth]{pantallas/datosRutinasDesc.png}
+    \includegraphics[width=0.4\textwidth]{pantallas/datosRutinasDesc.png}
     \caption{Datos rutinas para descargar}
     \label{fig:datosRutinasDesc}
 \end{figure}
@@ -1419,6 +1441,8 @@ Al principio de la iteración se dio a notar que faltaba por implementar la IU y
 	\item SCRUM-6: Hacer gráfica en base a las marcas obtenidas
 \end{itemize}
 
+\hspace{0.5cm}
+
 \HU{
 SCRUM-34: Enseñar las marcas obtenidas en un día
 }{
@@ -1428,6 +1452,13 @@ SCRUM-34: Enseñar las marcas obtenidas en un día
 \item si existen varios ejercicios separarlos en distintas pantallas
 \item pulsar en la pantalla para ir pasando series del mismo ejercicio
 }
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{pantallas/MarcasEntrenamiento.png}
+    \caption{Marcas obtenidas en un entrenamiento}
+    \label{fig:MarcasEntrenamiento}
+\end{figure}
 
 \hspace{0.5cm}
 
@@ -1445,6 +1476,13 @@ SCRUM-6: Hacer gráfica en base a las marcas obtenidas
 }
 
 \hspace{0.5cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{pantallas/Grafica.png}
+    \caption{Gráfica de las marcas de un ejercicio}
+    \label{fig:Grafica}
+\end{figure}
 
 La grafica se implementó usando la librería fl\_chart de flutter, la cual permite usar componentes gráficos para hacer distintos tipos de gráficas. Para el parámetro tiempo se representa el número total de segundos en el eje Y, para el resto de parámetros se usa su valor numérico. El eje X es la fecha de cuando se alcanzó la marca.
 
