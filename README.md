@@ -1,7 +1,4 @@
-# Trabajo de Fin de Grado: *Título*
-
-**Este sería el README de tu proyecto. Consulta las [instrucciones de
-instalación](INSTALL.md)
+# Trabajo de Fin de Grado: *App para diario de ejercicio físico*
 
 ### Autor(a): Francisco de Asís Carrasco Conde
 ### Tutor(a)(es): María José Rodríguez Fórtiz
